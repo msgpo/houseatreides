@@ -1,0 +1,6146 @@
+{
+    "boxsets_main": [
+        {
+            "title": "Action",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "actionBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Adventure",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "adventureBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Animation",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "animationBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Comedy",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "comedyBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Crime",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "crimeBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Drama",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "dramaBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Family",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "familyBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Fantasy",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "fantasyBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Horror",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "horrorBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Mystery",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "mysteryBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Romance",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "romanceBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Sci-Fi",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "scifiBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Thriller",
+            "icon": "boxsets.png",
+            "fanart": "",
+            "action": "thrillerBoxNavigator",
+            "url": "",
+            "list": ""
+        },
+        {
+            "title": "Search",
+            "icon": "search.png",
+            "fanart": "",
+            "action": "movieSearch",
+            "url": "",
+            "list": ""
+        }
+    ],
+    "boxsets_collection": {
+        "boxsets_action": [
+            {
+                "title": "12 Rounds",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13120"
+            },
+            {
+                "title": "3 Ninjas",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13130"
+            },
+            {
+                "title": "300",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13132"
+            },
+            {
+                "title": "Agent Cody Banks",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16496"
+            },
+            {
+                "title": "American Ninja",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13168"
+            },
+            {
+                "title": "Avengers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13196"
+            },
+            {
+                "title": "AVP",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13199"
+            },
+            {
+                "title": "Bad Ass",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13205"
+            },
+            {
+                "title": "Bad Boys",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13208"
+            },
+            {
+                "title": "Batman",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13223"
+            },
+            {
+                "title": "Best Of The Best",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13269"
+            },
+            {
+                "title": "Beverly Hills Cop",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13272"
+            },
+            {
+                "title": "Big Mommas House",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13274"
+            },
+            {
+                "title": "Bloodsport",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13281"
+            },
+            {
+                "title": "Blues Brother",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13284"
+            },
+            {
+                "title": "Boondock Saints",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13287"
+            },
+            {
+                "title": "Bourne",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13288"
+            },
+            {
+                "title": "Bruce Lee",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13295"
+            },
+            {
+                "title": "Captain America",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13224"
+            },
+            {
+                "title": "Cats & Dogs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16501"
+            },
+            {
+                "title": "Crank",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13273"
+            },
+            {
+                "title": "The Crow",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13294"
+            },
+            {
+                "title": "Die Hard",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13302"
+            },
+            {
+                "title": "Dirty Harry",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13307"
+            },
+            {
+                "title": "Fast and Furious",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13062"
+            },
+            {
+                "title": "G.I. Joe",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13293"
+            },
+            {
+                "title": "Ghost Rider",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13290"
+            },
+            {
+                "title": "Ghostbusters",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13286"
+            },
+            {
+                "title": "Highlander",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13256"
+            },
+            {
+                "title": "Hollow Man",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13251"
+            },
+            {
+                "title": "Hoodwinked!",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16523"
+            },
+            {
+                "title": "Hot Shots",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13242"
+            },
+            {
+                "title": "How To Train Your Dragon",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13239"
+            },
+            {
+                "title": "The Huntsman",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13235"
+            },
+            {
+                "title": "Independence Day",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13232"
+            },
+            {
+                "title": "Indiana Jones",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13231"
+            },
+            {
+                "title": "Inspector Gadget",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16492"
+            },
+            {
+                "title": "Ip Man",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13227"
+            },
+            {
+                "title": "Iron Fists",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13226"
+            },
+            {
+                "title": "Jackass",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13222"
+            },
+            {
+                "title": "James Bond",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13221"
+            },
+            {
+                "title": "Johnny English",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13218"
+            },
+            {
+                "title": "Journey",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13216"
+            },
+            {
+                "title": "Judge Dredd",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13215"
+            },
+            {
+                "title": "Jump Street",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13213"
+            },
+            {
+                "title": "Justice League",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16491"
+            },
+            {
+                "title": "The Karate Kid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13209"
+            },
+            {
+                "title": "Kick-Ass",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13207"
+            },
+            {
+                "title": "Kickboxer",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13206"
+            },
+            {
+                "title": "Kill Bill",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13203"
+            },
+            {
+                "title": "Kung Fu Panda",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13202"
+            },
+            {
+                "title": "Lethal Weapon",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13195"
+            },
+            {
+                "title": "Machete",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13189"
+            },
+            {
+                "title": "Mad Max",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13188"
+            },
+            {
+                "title": "The Matrix",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13183"
+            },
+            {
+                "title": "Maze Runner",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13182"
+            },
+            {
+                "title": "The Mechanic",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13181"
+            },
+            {
+                "title": "Mission Impossible",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13175"
+            },
+            {
+                "title": "The Mummy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13171"
+            },
+            {
+                "title": "National Treasure",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13167"
+            },
+            {
+                "title": "Never Back Down",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13166"
+            },
+            {
+                "title": "Ninja",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13160"
+            },
+            {
+                "title": "Olympus Has Fallen",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13154"
+            },
+            {
+                "title": "Ong Bak",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13151"
+            },
+            {
+                "title": "Pirates of The Caribbean",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13146"
+            },
+            {
+                "title": "Power Rangers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16493"
+            },
+            {
+                "title": "Predator",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13136"
+            },
+            {
+                "title": "The Protector",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13134"
+            },
+            {
+                "title": "The Punisher",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13131"
+            },
+            {
+                "title": "The Raid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13127"
+            },
+            {
+                "title": "Rambo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13125"
+            },
+            {
+                "title": "R.E.D.",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13124"
+            },
+            {
+                "title": "Red Cliff",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13123"
+            },
+            {
+                "title": "Resident Evil",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13122"
+            },
+            {
+                "title": "Riddick",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13121"
+            },
+            {
+                "title": "Ride Along",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13119"
+            },
+            {
+                "title": "Robocop",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13115"
+            },
+            {
+                "title": "Romancing The Stone",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13112"
+            },
+            {
+                "title": "Rush Hour",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13111"
+            },
+            {
+                "title": "Sherlock Holmes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13105"
+            },
+            {
+                "title": "Smokey and The Bandit",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13101"
+            },
+            {
+                "title": "Spy Kids",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13099"
+            },
+            {
+                "title": "Star Trek",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13098"
+            },
+            {
+                "title": "Star Wars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "12741"
+            },
+            {
+                "title": "Starship Troopers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13097"
+            },
+            {
+                "title": "Taken",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13095"
+            },
+            {
+                "title": "Teenage Mutant Ninja Turtles",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13092"
+            },
+            {
+                "title": "Terminator",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13090"
+            },
+            {
+                "title": "Titans",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13085"
+            },
+            {
+                "title": "Transformers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13083"
+            },
+            {
+                "title": "Transporter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13082"
+            },
+            {
+                "title": "Tron",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13080"
+            },
+            {
+                "title": "Under Siege",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13078"
+            },
+            {
+                "title": "Underworld",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13077"
+            },
+            {
+                "title": "Undisputed",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13076"
+            },
+            {
+                "title": "Universal Soldier",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13075"
+            },
+            {
+                "title": "xXx",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13068"
+            },
+            {
+                "title": "Young Guns",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13067"
+            },
+            {
+                "title": "Zorro",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13065"
+            }
+        ],
+        "boxsets_adventure": [
+            {
+                "title": "101 Dalmations",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13113"
+            },
+            {
+                "title": "Agent Cody Banks",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16496"
+            },
+            {
+                "title": "Aladdin",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13155"
+            },
+            {
+                "title": "Alice In Wonderland",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13158"
+            },
+            {
+                "title": "American Ninja",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13168"
+            },
+            {
+                "title": "Austin Powers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13193"
+            },
+            {
+                "title": "Back To The Future",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13204"
+            },
+            {
+                "title": "Balto",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13214"
+            },
+            {
+                "title": "Batman",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13223"
+            },
+            {
+                "title": "Bean",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13225"
+            },
+            {
+                "title": "Brother Bear",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13292"
+            },
+            {
+                "title": "Captain America",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13224"
+            },
+            {
+                "title": "The Chronicles of Narnia",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13283"
+            },
+            {
+                "title": "Cloudy With A Chance of Meatballs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13259"
+            },
+            {
+                "title": "Conan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13262"
+            },
+            {
+                "title": "Crocodile Dundee",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13278"
+            },
+            {
+                "title": "Curious George",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16497"
+            },
+            {
+                "title": "Despicable Me",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13299"
+            },
+            {
+                "title": "Divergent",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13311"
+            },
+            {
+                "title": "FernGully",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16522"
+            },
+            {
+                "title": "Finding Nemo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16499"
+            },
+            {
+                "title": "Fox and The Hound",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13301"
+            },
+            {
+                "title": "Free Willy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13298"
+            },
+            {
+                "title": "G.I. Joe",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13293"
+            },
+            {
+                "title": "Ghostbusters",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13286"
+            },
+            {
+                "title": "A Goofy Movie",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16489"
+            },
+            {
+                "title": "Harold and Kumar",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13264"
+            },
+            {
+                "title": "Harry Potter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13261"
+            },
+            {
+                "title": "Herbie",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16524"
+            },
+            {
+                "title": "Highlander",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13256"
+            },
+            {
+                "title": "The Hobbit",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13252"
+            },
+            {
+                "title": "Homeward Bound",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13248"
+            },
+            {
+                "title": "Honey I Shrunk The Kids",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16471"
+            },
+            {
+                "title": "How To Train Your Dragon",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13239"
+            },
+            {
+                "title": "Hunger Games",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13236"
+            },
+            {
+                "title": "The Huntsman",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13235"
+            },
+            {
+                "title": "Ice Age",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13234"
+            },
+            {
+                "title": "Independence Day",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13232"
+            },
+            {
+                "title": "Indiana Jones",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13231"
+            },
+            {
+                "title": "Inspector Gadget",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16492"
+            },
+            {
+                "title": "James Bond",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13221"
+            },
+            {
+                "title": "Jaws",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13219"
+            },
+            {
+                "title": "Johnny English",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13218"
+            },
+            {
+                "title": "Journey",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13216"
+            },
+            {
+                "title": "The Jungle Book",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13212"
+            },
+            {
+                "title": "Jurassic Park",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13211"
+            },
+            {
+                "title": "Justice League",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16491"
+            },
+            {
+                "title": "Kung Fu Panda",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13202"
+            },
+            {
+                "title": "Lady and The Tramp",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13200"
+            },
+            {
+                "title": "The Land Before Time",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16485"
+            },
+            {
+                "title": "Lilo & Stitch",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16500"
+            },
+            {
+                "title": "The Lion King",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13194"
+            },
+            {
+                "title": "Lord of The Rings",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13190"
+            },
+            {
+                "title": "Mad Max",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13188"
+            },
+            {
+                "title": "Madagascar",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13187"
+            },
+            {
+                "title": "Men in Black",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13178"
+            },
+            {
+                "title": "Mission Impossible",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13175"
+            },
+            {
+                "title": "Monsters INC",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13174"
+            },
+            {
+                "title": "Monty Python",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13173"
+            },
+            {
+                "title": "Mulan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13172"
+            },
+            {
+                "title": "The Mummy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13171"
+            },
+            {
+                "title": "The Muppets",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16494"
+            },
+            {
+                "title": "National Treasure",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13167"
+            },
+            {
+                "title": "The Never Ending Story",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13165"
+            },
+            {
+                "title": "New Groove",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13164"
+            },
+            {
+                "title": "Night At The Museum",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16483"
+            },
+            {
+                "title": "Nims Island",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13162"
+            },
+            {
+                "title": "Open Season",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13150"
+            },
+            {
+                "title": "Percy Jackson",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13147"
+            },
+            {
+                "title": "Peter Pan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16498"
+            },
+            {
+                "title": "The Pink Panther",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13320"
+            },
+            {
+                "title": "Pirates of The Caribbean",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13146"
+            },
+            {
+                "title": "Planes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13142"
+            },
+            {
+                "title": "Planet of The Apes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13141"
+            },
+            {
+                "title": "Pocahontas",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13140"
+            },
+            {
+                "title": "Power Rangers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16493"
+            },
+            {
+                "title": "Rambo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13125"
+            },
+            {
+                "title": "Red Cliff",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13123"
+            },
+            {
+                "title": "Riddick",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13121"
+            },
+            {
+                "title": "Rio",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13117"
+            },
+            {
+                "title": "Romancing The Stone",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13112"
+            },
+            {
+                "title": "Sammys Adventures",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13110"
+            },
+            {
+                "title": "Sherlock Holmes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13105"
+            },
+            {
+                "title": "Shrek",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16470"
+            },
+            {
+                "title": "The Smurfs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13100"
+            },
+            {
+                "title": "Space Chimps",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16495"
+            },
+            {
+                "title": "SpongBob Squarepants",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16508"
+            },
+            {
+                "title": "Spy Kids",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13099"
+            },
+            {
+                "title": "Star Trek",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13098"
+            },
+            {
+                "title": "Star Wars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "12741"
+            },
+            {
+                "title": "Starship Troopers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13097"
+            },
+            {
+                "title": "Stuart Little",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16488"
+            },
+            {
+                "title": "Tarzan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13094"
+            },
+            {
+                "title": "Teenage Mutant Ninja Turtles",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13092"
+            },
+            {
+                "title": "Tinker Bell",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13086"
+            },
+            {
+                "title": "Titans",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13085"
+            },
+            {
+                "title": "Transformers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13083"
+            },
+            {
+                "title": "Tron",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13080"
+            },
+            {
+                "title": "Weekend at Bernies",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13072"
+            },
+            {
+                "title": "xXx",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13068"
+            },
+            {
+                "title": "Zorro",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13065"
+            }
+        ],
+        "boxsets_animation": [
+            {
+                "title": "101 Dalmations",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13113"
+            },
+            {
+                "title": "Aladdin",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13155"
+            },
+            {
+                "title": "Alice In Wonderland",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13158"
+            },
+            {
+                "title": "All Dogs Go to Heaven",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16473"
+            },
+            {
+                "title": "Balto",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13214"
+            },
+            {
+                "title": "Bambi",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13217"
+            },
+            {
+                "title": "Beauty and The Beast",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13229"
+            },
+            {
+                "title": "Brother Bear",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13292"
+            },
+            {
+                "title": "Cars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13244"
+            },
+            {
+                "title": "Charlottes Web",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16506"
+            },
+            {
+                "title": "Cloudy With A Chance of Meatballs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13259"
+            },
+            {
+                "title": "Curious George",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16497"
+            },
+            {
+                "title": "Despicable Me",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13299"
+            },
+            {
+                "title": "Fantasia",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16521"
+            },
+            {
+                "title": "FernGully",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16522"
+            },
+            {
+                "title": "Finding Nemo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16499"
+            },
+            {
+                "title": "Fox and The Hound",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13301"
+            },
+            {
+                "title": "Garfield",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16520"
+            },
+            {
+                "title": "A Goofy Movie",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16489"
+            },
+            {
+                "title": "Happy Feet",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13265"
+            },
+            {
+                "title": "Hoodwinked!",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16523"
+            },
+            {
+                "title": "Hotel Transylvania",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13240"
+            },
+            {
+                "title": "How To Train Your Dragon",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13239"
+            },
+            {
+                "title": "Hunchback of Notre Dame",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13237"
+            },
+            {
+                "title": "Ice Age",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13234"
+            },
+            {
+                "title": "Justice League",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16491"
+            },
+            {
+                "title": "Kung Fu Panda",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13202"
+            },
+            {
+                "title": "Lady and The Tramp",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13200"
+            },
+            {
+                "title": "The Land Before Time",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16485"
+            },
+            {
+                "title": "Lego Star Wars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16482"
+            },
+            {
+                "title": "Lilo & Stitch",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16500"
+            },
+            {
+                "title": "The Lion King",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13194"
+            },
+            {
+                "title": "The Little Mermaid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13192"
+            },
+            {
+                "title": "Madagascar",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13187"
+            },
+            {
+                "title": "Monsters INC",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13174"
+            },
+            {
+                "title": "Mulan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13172"
+            },
+            {
+                "title": "New Groove",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13164"
+            },
+            {
+                "title": "Open Season",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13150"
+            },
+            {
+                "title": "Planes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13142"
+            },
+            {
+                "title": "Pocahontas",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13140"
+            },
+            {
+                "title": "The Reef",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16490"
+            },
+            {
+                "title": "Rio",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13117"
+            },
+            {
+                "title": "Sammys Adventures",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13110"
+            },
+            {
+                "title": "Shrek",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16470"
+            },
+            {
+                "title": "The Smurfs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13100"
+            },
+            {
+                "title": "Space Chimps",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16495"
+            },
+            {
+                "title": "SpongBob Squarepants",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16508"
+            },
+            {
+                "title": "Tarzan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13094"
+            },
+            {
+                "title": "Thomas & Friends",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16503"
+            },
+            {
+                "title": "Tinker Bell",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13086"
+            },
+            {
+                "title": "Wallace & Gromit",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16504"
+            }
+        ],
+        "boxsets_comedy": [
+            {
+                "title": "101 Dalmations",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13113"
+            },
+            {
+                "title": "3 Ninjas",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13130"
+            },
+            {
+                "title": "A Haunted House",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13137"
+            },
+            {
+                "title": "Ace Ventura",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13145"
+            },
+            {
+                "title": "Adams Family",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13148"
+            },
+            {
+                "title": "Agent Cody Banks",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16496"
+            },
+            {
+                "title": "Aladdin",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13155"
+            },
+            {
+                "title": "All Dogs Go to Heaven",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16473"
+            },
+            {
+                "title": "American Pie",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13176"
+            },
+            {
+                "title": "Anchorman",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13180"
+            },
+            {
+                "title": "Austin Powers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13193"
+            },
+            {
+                "title": "Babe",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13201"
+            },
+            {
+                "title": "Back To The Future",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13204"
+            },
+            {
+                "title": "Bad Ass",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13205"
+            },
+            {
+                "title": "Bad Boys",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13208"
+            },
+            {
+                "title": "Bad Neighbors",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13210"
+            },
+            {
+                "title": "Barbershop",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13220"
+            },
+            {
+                "title": "Bean",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13225"
+            },
+            {
+                "title": "The Best Exotic Marigold Hotel",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13268"
+            },
+            {
+                "title": "Beverly Hills Cop",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13272"
+            },
+            {
+                "title": "Big Mommas House",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13274"
+            },
+            {
+                "title": "Blues Brother",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13284"
+            },
+            {
+                "title": "Bridget Jones",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13289"
+            },
+            {
+                "title": "Brother Bear",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13292"
+            },
+            {
+                "title": "Cars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13244"
+            },
+            {
+                "title": "Casper",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16469"
+            },
+            {
+                "title": "Cats & Dogs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16501"
+            },
+            {
+                "title": "City Slickers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13253"
+            },
+            {
+                "title": "Clerks",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13255"
+            },
+            {
+                "title": "Cloudy With A Chance of Meatballs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13259"
+            },
+            {
+                "title": "Crocodile Dundee",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13278"
+            },
+            {
+                "title": "Curious George",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16497"
+            },
+            {
+                "title": "Daddy Daycare",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16487"
+            },
+            {
+                "title": "Despicable Me",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13299"
+            },
+            {
+                "title": "Diary of A Wimpy Kid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13300"
+            },
+            {
+                "title": "Doctor Dolittle",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16505"
+            },
+            {
+                "title": "Dumb and Dumber",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13314"
+            },
+            {
+                "title": "Finding Nemo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16499"
+            },
+            {
+                "title": "Friday",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13315"
+            },
+            {
+                "title": "Garfield",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16520"
+            },
+            {
+                "title": "Ghostbusters",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13286"
+            },
+            {
+                "title": "A Goofy Movie",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16489"
+            },
+            {
+                "title": "Gremlins",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13280"
+            },
+            {
+                "title": "Grown Ups",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13279"
+            },
+            {
+                "title": "Grumpy Old Men",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13275"
+            },
+            {
+                "title": "The Hangover",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13271"
+            },
+            {
+                "title": "Happy Feet",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13265"
+            },
+            {
+                "title": "Harold and Kumar",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13264"
+            },
+            {
+                "title": "Herbie",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16524"
+            },
+            {
+                "title": "Home Alone",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13250"
+            },
+            {
+                "title": "Homeward Bound",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13248"
+            },
+            {
+                "title": "Honey I Shrunk The Kids",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13247"
+            },
+            {
+                "title": "Hoodwinked!",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16523"
+            },
+            {
+                "title": "Horrible Bosses",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13245"
+            },
+            {
+                "title": "Hot Shots",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13242"
+            },
+            {
+                "title": "Hot Tub Time Machine",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13241"
+            },
+            {
+                "title": "Hotel Transylvania",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13240"
+            },
+            {
+                "title": "Ice Age",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13234"
+            },
+            {
+                "title": "The Inbetweeners",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13233"
+            },
+            {
+                "title": "Inspector Gadget",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16492"
+            },
+            {
+                "title": "Jackass",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13222"
+            },
+            {
+                "title": "Johnny English",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13218"
+            },
+            {
+                "title": "Jump Street",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13213"
+            },
+            {
+                "title": "Kick-Ass",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13207"
+            },
+            {
+                "title": "Legally Blonde",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13197"
+            },
+            {
+                "title": "Like Mike",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16486"
+            },
+            {
+                "title": "Lilo & Stitch",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16500"
+            },
+            {
+                "title": "Madagascar",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13187"
+            },
+            {
+                "title": "Major League",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13185"
+            },
+            {
+                "title": "Meet The Parents",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13179"
+            },
+            {
+                "title": "Men in Black",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13178"
+            },
+            {
+                "title": "The Mighty Ducks",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13177"
+            },
+            {
+                "title": "Monsters INC",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13174"
+            },
+            {
+                "title": "Monty Python",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13173"
+            },
+            {
+                "title": "The Muppets",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16494"
+            },
+            {
+                "title": "My Big Fat Greek Wedding",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13170"
+            },
+            {
+                "title": "The Naked Gun",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13169"
+            },
+            {
+                "title": "New Groove",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13164"
+            },
+            {
+                "title": "Night At The Museum",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16483"
+            },
+            {
+                "title": "Nims Island",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13162"
+            },
+            {
+                "title": "Open Season",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13150"
+            },
+            {
+                "title": "The Pink Panther",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13320"
+            },
+            {
+                "title": "Pitch Perfect",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13144"
+            },
+            {
+                "title": "Planes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13142"
+            },
+            {
+                "title": "Police Academy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13139"
+            },
+            {
+                "title": "Problem Child",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13135"
+            },
+            {
+                "title": "R.E.D.",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13124"
+            },
+            {
+                "title": "Ride Along",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13119"
+            },
+            {
+                "title": "Rio",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13117"
+            },
+            {
+                "title": "Romancing The Stone",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13112"
+            },
+            {
+                "title": "Rush Hour",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13111"
+            },
+            {
+                "title": "The Sandlot",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16502"
+            },
+            {
+                "title": "Scary Movie",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13108"
+            },
+            {
+                "title": "Shrek",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16470"
+            },
+            {
+                "title": "Short Circuit",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13104"
+            },
+            {
+                "title": "Smokey and The Bandit",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13101"
+            },
+            {
+                "title": "The Smurfs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13100"
+            },
+            {
+                "title": "Space Chimps",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16495"
+            },
+            {
+                "title": "SpongBob Squarepants",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16508"
+            },
+            {
+                "title": "Spy Kids",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13099"
+            },
+            {
+                "title": "Stuart Little",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16488"
+            },
+            {
+                "title": "Ted",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13093"
+            },
+            {
+                "title": "Teenage Mutant Ninja Turtles",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13092"
+            },
+            {
+                "title": "Teen Wolf",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13091"
+            },
+            {
+                "title": "The Tooth Fairy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13084"
+            },
+            {
+                "title": "Tremors",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13081"
+            },
+            {
+                "title": "Waynes World",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13073"
+            },
+            {
+                "title": "Weekend at Bernies",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13072"
+            },
+            {
+                "title": "The Whole Nine Yards",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13071"
+            },
+            {
+                "title": "Zoolander",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13066"
+            },
+            {
+                "title": "Zorro",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13065"
+            }
+        ],
+        "boxsets_crime": [
+            {
+                "title": "12 Rounds",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13120"
+            },
+            {
+                "title": "Bad Ass",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13205"
+            },
+            {
+                "title": "Bad Boys",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13208"
+            },
+            {
+                "title": "Beverly Hills Cop",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13272"
+            },
+            {
+                "title": "Big Mommas House",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13274"
+            },
+            {
+                "title": "Blues Brother",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13284"
+            },
+            {
+                "title": "Boondock Saints",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13287"
+            },
+            {
+                "title": "Crank",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13273"
+            },
+            {
+                "title": "Dirty Harry",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13307"
+            },
+            {
+                "title": "Dragon Tattoo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13313"
+            },
+            {
+                "title": "Fast and Furious",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13062"
+            },
+            {
+                "title": "The Godfather",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13285"
+            },
+            {
+                "title": "Green Street Hooligans",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13282"
+            },
+            {
+                "title": "Hannibal Lecter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13270"
+            },
+            {
+                "title": "Horrible Bosses",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13245"
+            },
+            {
+                "title": "Infernal Affairs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13230"
+            },
+            {
+                "title": "Judge Dredd",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13215"
+            },
+            {
+                "title": "Jump Street",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13213"
+            },
+            {
+                "title": "Kill Bill",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13203"
+            },
+            {
+                "title": "Lethal Weapon",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13195"
+            },
+            {
+                "title": "Machete",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13189"
+            },
+            {
+                "title": "The Mechanic",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13181"
+            },
+            {
+                "title": "The Naked Gun",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13169"
+            },
+            {
+                "title": "Ninja",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13160"
+            },
+            {
+                "title": "Now You See Me",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13159"
+            },
+            {
+                "title": "Oceans",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13156"
+            },
+            {
+                "title": "Once Were Warriors",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13152"
+            },
+            {
+                "title": "Ong Bak",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13151"
+            },
+            {
+                "title": "The Pink Panther",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13320"
+            },
+            {
+                "title": "The Protector",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13134"
+            },
+            {
+                "title": "The Punisher",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13131"
+            },
+            {
+                "title": "The Raid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13127"
+            },
+            {
+                "title": "R.E.D.",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13124"
+            },
+            {
+                "title": "Ride Along",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13119"
+            },
+            {
+                "title": "Rise of the Footsoldier",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13116"
+            },
+            {
+                "title": "Robocop",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13115"
+            },
+            {
+                "title": "Rush Hour",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13111"
+            },
+            {
+                "title": "Sherlock Holmes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13105"
+            },
+            {
+                "title": "Sin City",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13103"
+            },
+            {
+                "title": "Step Up",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13096"
+            },
+            {
+                "title": "Transporter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13082"
+            },
+            {
+                "title": "Undisputed",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13076"
+            },
+            {
+                "title": "Weekend at Bernies",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13072"
+            },
+            {
+                "title": "The Whole Nine Yards",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13071"
+            },
+            {
+                "title": "Young Guns",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13067"
+            }
+        ],
+        "boxsets_drama": [
+            {
+                "title": "28 Days Later",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13126"
+            },
+            {
+                "title": "All Dogs Go to Heaven",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16473"
+            },
+            {
+                "title": "Babe",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13201"
+            },
+            {
+                "title": "Balto",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13214"
+            },
+            {
+                "title": "Bambi",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13217"
+            },
+            {
+                "title": "Barbershop",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13220"
+            },
+            {
+                "title": "The Before",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13267"
+            },
+            {
+                "title": "The Best Exotic Marigold Hotel",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13268"
+            },
+            {
+                "title": "Best Of The Best",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13269"
+            },
+            {
+                "title": "Bloodsport",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13281"
+            },
+            {
+                "title": "Bruce Lee",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13295"
+            },
+            {
+                "title": "Cinderella",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13249"
+            },
+            {
+                "title": "The Crow",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13294"
+            },
+            {
+                "title": "Cube",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13304"
+            },
+            {
+                "title": "Dirty Dancing",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13305"
+            },
+            {
+                "title": "Dolphin Tale",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13312"
+            },
+            {
+                "title": "Dragon Tattoo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13313"
+            },
+            {
+                "title": "The Fly",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13303"
+            },
+            {
+                "title": "Fox and The Hound",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13301"
+            },
+            {
+                "title": "Free Willy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13298"
+            },
+            {
+                "title": "Friday",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13315"
+            },
+            {
+                "title": "The Godfather",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13285"
+            },
+            {
+                "title": "Green Street Hooligans",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13282"
+            },
+            {
+                "title": "Grumpy Old Men",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13275"
+            },
+            {
+                "title": "Hannibal Lecter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13270"
+            },
+            {
+                "title": "Homeward Bound",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13248"
+            },
+            {
+                "title": "Hunchback of Notre Dame",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13237"
+            },
+            {
+                "title": "The Huntsman",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13235"
+            },
+            {
+                "title": "Infernal Affairs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13230"
+            },
+            {
+                "title": "Ip Man",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13227"
+            },
+            {
+                "title": "Jaws",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13219"
+            },
+            {
+                "title": "The Jungle Book",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13212"
+            },
+            {
+                "title": "The Karate Kid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13209"
+            },
+            {
+                "title": "The Land Before Time",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16485"
+            },
+            {
+                "title": "The Lion King",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13194"
+            },
+            {
+                "title": "Lord of The Rings",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13190"
+            },
+            {
+                "title": "The Mighty Ducks",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13177"
+            },
+            {
+                "title": "My Big Fat Greek Wedding",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13170"
+            },
+            {
+                "title": "Never Back Down",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13166"
+            },
+            {
+                "title": "The Never Ending Story",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13165"
+            },
+            {
+                "title": "Ninja",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13160"
+            },
+            {
+                "title": "Nymphomaniac",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13157"
+            },
+            {
+                "title": "Once Were Warriors",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13152"
+            },
+            {
+                "title": "Pocahontas",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13140"
+            },
+            {
+                "title": "The Punisher",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13131"
+            },
+            {
+                "title": "Red Cliff",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13123"
+            },
+            {
+                "title": "Rise of the Footsoldier",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13116"
+            },
+            {
+                "title": "Rocky",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13114"
+            },
+            {
+                "title": "The Sandlot",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16502"
+            },
+            {
+                "title": "Shanghai",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13106"
+            },
+            {
+                "title": "Step Up",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13096"
+            },
+            {
+                "title": "Three Colors",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13087"
+            },
+            {
+                "title": "Twilight",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13079"
+            },
+            {
+                "title": "Undisputed",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13076"
+            },
+            {
+                "title": "The Woman in Black",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13070"
+            },
+            {
+                "title": "Young Guns",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13067"
+            }
+        ],
+        "boxsets_family": [
+            {
+                "title": "3 Ninjas",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13130"
+            },
+            {
+                "title": "Alice In Wonderland",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13158"
+            },
+            {
+                "title": "Babe",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13201"
+            },
+            {
+                "title": "Bambi",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13217"
+            },
+            {
+                "title": "Bean",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13225"
+            },
+            {
+                "title": "Beauty and The Beast",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13229"
+            },
+            {
+                "title": "Cars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13244"
+            },
+            {
+                "title": "Casper",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16469"
+            },
+            {
+                "title": "Cats & Dogs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16501"
+            },
+            {
+                "title": "Charlottes Web",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16506"
+            },
+            {
+                "title": "The Chronicles of Narnia",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13283"
+            },
+            {
+                "title": "Cinderella",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13249"
+            },
+            {
+                "title": "Daddy Daycare",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16487"
+            },
+            {
+                "title": "Diary of A Wimpy Kid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13300"
+            },
+            {
+                "title": "Doctor Dolittle",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16505"
+            },
+            {
+                "title": "Dolphin Tale",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13312"
+            },
+            {
+                "title": "Fantasia",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16521"
+            },
+            {
+                "title": "FernGully",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16522"
+            },
+            {
+                "title": "The Flintstones",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16474"
+            },
+            {
+                "title": "Free Willy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13298"
+            },
+            {
+                "title": "Garfield",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16520"
+            },
+            {
+                "title": "Happy Feet",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13265"
+            },
+            {
+                "title": "Harry Potter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13261"
+            },
+            {
+                "title": "Herbie",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16524"
+            },
+            {
+                "title": "Home Alone",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13250"
+            },
+            {
+                "title": "Honey I Shrunk The Kids",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13247"
+            },
+            {
+                "title": "Hotel Transylvania",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13240"
+            },
+            {
+                "title": "Hunchback of Notre Dame",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13237"
+            },
+            {
+                "title": "Journey",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13216"
+            },
+            {
+                "title": "The Jungle Book",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13212"
+            },
+            {
+                "title": "The Karate Kid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13209"
+            },
+            {
+                "title": "Lego Star Wars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16482"
+            },
+            {
+                "title": "Like Mike",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16486"
+            },
+            {
+                "title": "The Little Mermaid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13192"
+            },
+            {
+                "title": "Men in Black",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13178"
+            },
+            {
+                "title": "The Mighty Ducks",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13177"
+            },
+            {
+                "title": "Mulan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13172"
+            },
+            {
+                "title": "The Muppets",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16494"
+            },
+            {
+                "title": "National Treasure",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13167"
+            },
+            {
+                "title": "The Never Ending Story",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13165"
+            },
+            {
+                "title": "Night At The Museum",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16483"
+            },
+            {
+                "title": "Nims Island",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13162"
+            },
+            {
+                "title": "Percy Jackson",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13147"
+            },
+            {
+                "title": "Peter Pan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16498"
+            },
+            {
+                "title": "Power Rangers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16493"
+            },
+            {
+                "title": "Problem Child",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13135"
+            },
+            {
+                "title": "The Reef",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16490"
+            },
+            {
+                "title": "Sammys Adventures",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13110"
+            },
+            {
+                "title": "The Sandlot",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16502"
+            },
+            {
+                "title": "Short Circuit",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13104"
+            },
+            {
+                "title": "Stuart Little",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16488"
+            },
+            {
+                "title": "Tarzan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13094"
+            },
+            {
+                "title": "Thomas & Friends",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16503"
+            },
+            {
+                "title": "Tinker Bell",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13086"
+            },
+            {
+                "title": "The Tooth Fairy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13084"
+            }
+        ],
+        "boxsets_fantasy": [
+            {
+                "title": "300",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13132"
+            },
+            {
+                "title": "A Haunted House",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13137"
+            },
+            {
+                "title": "Adams Family",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13148"
+            },
+            {
+                "title": "Beauty and The Beast",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13229"
+            },
+            {
+                "title": "Casper",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16469"
+            },
+            {
+                "title": "The Chronicles of Narnia",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13283"
+            },
+            {
+                "title": "Cinderella",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13249"
+            },
+            {
+                "title": "Conan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13262"
+            },
+            {
+                "title": "The Crow",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13294"
+            },
+            {
+                "title": "Doctor Dolittle",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16505"
+            },
+            {
+                "title": "Fantasia",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16521"
+            },
+            {
+                "title": "The Flintstones",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16474"
+            },
+            {
+                "title": "Ghost Rider",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13290"
+            },
+            {
+                "title": "Gremlins",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13280"
+            },
+            {
+                "title": "Harry Potter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13261"
+            },
+            {
+                "title": "Highlander",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13256"
+            },
+            {
+                "title": "The Hobbit",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13252"
+            },
+            {
+                "title": "Indiana Jones",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13231"
+            },
+            {
+                "title": "Lego Star Wars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16482"
+            },
+            {
+                "title": "Like Mike",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16486"
+            },
+            {
+                "title": "The Little Mermaid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13192"
+            },
+            {
+                "title": "Lord of The Rings",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13190"
+            },
+            {
+                "title": "Monty Python",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13173"
+            },
+            {
+                "title": "The Mummy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13171"
+            },
+            {
+                "title": "Percy Jackson",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13147"
+            },
+            {
+                "title": "Peter Pan",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "16498"
+            },
+            {
+                "title": "Pirates of The Caribbean",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13146"
+            },
+            {
+                "title": "Poltergeist",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13138"
+            },
+            {
+                "title": "Star Wars",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "12741"
+            },
+            {
+                "title": "Ted",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13093"
+            },
+            {
+                "title": "Teen Wolf",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13091"
+            },
+            {
+                "title": "Titans",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13085"
+            },
+            {
+                "title": "The Tooth Fairy",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13084"
+            },
+            {
+                "title": "Twilight",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13079"
+            },
+            {
+                "title": "Underworld",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13077"
+            },
+            {
+                "title": "The Woman in Black",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13070"
+            }
+        ],
+        "boxsets_horror": [
+            {
+                "title": "28 Days Later",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13126"
+            },
+            {
+                "title": "A Nightmare on Elm Street",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13163"
+            },
+            {
+                "title": "Alien",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13161"
+            },
+            {
+                "title": "AVP",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13199"
+            },
+            {
+                "title": "Childs Play",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13246"
+            },
+            {
+                "title": "The Conjuring",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13266"
+            },
+            {
+                "title": "Evil Dead",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13308"
+            },
+            {
+                "title": "Exorcist",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13309"
+            },
+            {
+                "title": "Final Destination",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13306"
+            },
+            {
+                "title": "The Fly",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13303"
+            },
+            {
+                "title": "Friday The 13th",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13296"
+            },
+            {
+                "title": "Gremlins",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13280"
+            },
+            {
+                "title": "The Grudge",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13277"
+            },
+            {
+                "title": "Halloween",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13316"
+            },
+            {
+                "title": "Hellraiser",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13257"
+            },
+            {
+                "title": "The Hills Have Eyes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13254"
+            },
+            {
+                "title": "Hollow Man",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13251"
+            },
+            {
+                "title": "Hostel",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13243"
+            },
+            {
+                "title": "The Human Centipede",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13238"
+            },
+            {
+                "title": "Insidious",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13228"
+            },
+            {
+                "title": "Last Summer",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13198"
+            },
+            {
+                "title": "The Omen",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13153"
+            },
+            {
+                "title": "Paranormal Activity",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13149"
+            },
+            {
+                "title": "Poltergeist",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13138"
+            },
+            {
+                "title": "Psycho",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13133"
+            },
+            {
+                "title": "The Purge",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13129"
+            },
+            {
+                "title": "Quarantine",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13128"
+            },
+            {
+                "title": "Resident Evil",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13122"
+            },
+            {
+                "title": "The Ring",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13118"
+            },
+            {
+                "title": "Saw",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13109"
+            },
+            {
+                "title": "Scream",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13107"
+            },
+            {
+                "title": "Texas Chainsaw Massacre",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13089"
+            },
+            {
+                "title": "Tremors",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13081"
+            },
+            {
+                "title": "VHS",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13074"
+            },
+            {
+                "title": "The Woman in Black",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13070"
+            },
+            {
+                "title": "Wrong Turn",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13069"
+            }
+        ],
+        "boxsets_mystery": [
+            {
+                "title": "The Conjuring",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13266"
+            },
+            {
+                "title": "Cube",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13304"
+            },
+            {
+                "title": "Divergent",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13311"
+            },
+            {
+                "title": "Dragon Tattoo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13313"
+            },
+            {
+                "title": "Friday The 13th",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13296"
+            },
+            {
+                "title": "The Grudge",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13277"
+            },
+            {
+                "title": "Infernal Affairs",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13230"
+            },
+            {
+                "title": "Insidious",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13228"
+            },
+            {
+                "title": "Last Summer",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13198"
+            },
+            {
+                "title": "Now You See Me",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13159"
+            },
+            {
+                "title": "Paranormal Activity",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13149"
+            },
+            {
+                "title": "Psycho",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13133"
+            },
+            {
+                "title": "The Ring",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13118"
+            },
+            {
+                "title": "Saw",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13109"
+            },
+            {
+                "title": "Scream",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13107"
+            },
+            {
+                "title": "Shanghai",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13106"
+            },
+            {
+                "title": "Three Colors",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13087"
+            }
+        ],
+        "boxsets_romance": [
+            {
+                "title": "American Ninja",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13168"
+            },
+            {
+                "title": "The Before",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13267"
+            },
+            {
+                "title": "Bridget Jones",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13289"
+            },
+            {
+                "title": "Dirty Dancing",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13305"
+            },
+            {
+                "title": "Grumpy Old Men",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13275"
+            },
+            {
+                "title": "Legally Blonde",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13197"
+            },
+            {
+                "title": "Meet The Parents",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13179"
+            },
+            {
+                "title": "My Big Fat Greek Wedding",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13170"
+            },
+            {
+                "title": "Shanghai",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13106"
+            },
+            {
+                "title": "Think Like a Man",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13088"
+            },
+            {
+                "title": "Three Colors",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13087"
+            },
+            {
+                "title": "Twilight",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13079"
+            }
+        ],
+        "boxsets_scifi": [
+            {
+                "title": "28 Days Later",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13126"
+            },
+            {
+                "title": "Alien",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13161"
+            },
+            {
+                "title": "Avengers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13196"
+            },
+            {
+                "title": "AVP",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13199"
+            },
+            {
+                "title": "Back To The Future",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13204"
+            },
+            {
+                "title": "The Butterfly Effect",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13297"
+            },
+            {
+                "title": "Captain America",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13224"
+            },
+            {
+                "title": "Cocoon",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13260"
+            },
+            {
+                "title": "Cube",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13304"
+            },
+            {
+                "title": "Divergent",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13311"
+            },
+            {
+                "title": "The Fly",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13303"
+            },
+            {
+                "title": "G.I. Joe",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13293"
+            },
+            {
+                "title": "Hollow Man",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13251"
+            },
+            {
+                "title": "Hot Tub Time Machine",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13241"
+            },
+            {
+                "title": "Hunger Games",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13236"
+            },
+            {
+                "title": "Independence Day",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13232"
+            },
+            {
+                "title": "Judge Dredd",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13215"
+            },
+            {
+                "title": "Jurassic Park",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13211"
+            },
+            {
+                "title": "Mad Max",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13188"
+            },
+            {
+                "title": "The Matrix",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13183"
+            },
+            {
+                "title": "Maze Runner",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13182"
+            },
+            {
+                "title": "Planet of The Apes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13141"
+            },
+            {
+                "title": "Predator",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13136"
+            },
+            {
+                "title": "The Purge",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13129"
+            },
+            {
+                "title": "Quarantine",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13128"
+            },
+            {
+                "title": "Resident Evil",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13122"
+            },
+            {
+                "title": "Riddick",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13121"
+            },
+            {
+                "title": "Robocop",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13115"
+            },
+            {
+                "title": "Short Circuit",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13104"
+            },
+            {
+                "title": "Star Trek",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13098"
+            },
+            {
+                "title": "Starship Troopers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13097"
+            },
+            {
+                "title": "Terminator",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13090"
+            },
+            {
+                "title": "Transformers",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13083"
+            },
+            {
+                "title": "Tron",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13080"
+            },
+            {
+                "title": "Universal Soldier",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13075"
+            }
+        ],
+        "boxsets_thriller": [
+            {
+                "title": "12 Rounds",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13120"
+            },
+            {
+                "title": "Boondock Saints",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13287"
+            },
+            {
+                "title": "Bourne",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13288"
+            },
+            {
+                "title": "The Butterfly Effect",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13297"
+            },
+            {
+                "title": "Childs Play",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13246"
+            },
+            {
+                "title": "The Conjuring",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13266"
+            },
+            {
+                "title": "Crank",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13273"
+            },
+            {
+                "title": "Die Hard",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13302"
+            },
+            {
+                "title": "Dirty Harry",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13307"
+            },
+            {
+                "title": "Fast and Furious",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13062"
+            },
+            {
+                "title": "Friday The 13th",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13296"
+            },
+            {
+                "title": "Ghost Rider",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13290"
+            },
+            {
+                "title": "The Grudge",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13277"
+            },
+            {
+                "title": "Halloween",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13316"
+            },
+            {
+                "title": "Hannibal Lecter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13270"
+            },
+            {
+                "title": "Hellraiser",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13257"
+            },
+            {
+                "title": "The Hills Have Eyes",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13254"
+            },
+            {
+                "title": "Hunger Games",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13236"
+            },
+            {
+                "title": "Insidious",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13228"
+            },
+            {
+                "title": "James Bond",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13221"
+            },
+            {
+                "title": "Jaws",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13219"
+            },
+            {
+                "title": "Jurassic Park",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13211"
+            },
+            {
+                "title": "Kickboxer",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13206"
+            },
+            {
+                "title": "Kill Bill",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13203"
+            },
+            {
+                "title": "Last Summer",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13198"
+            },
+            {
+                "title": "Lethal Weapon",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13195"
+            },
+            {
+                "title": "Machete",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13189"
+            },
+            {
+                "title": "Maze Runner",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13182"
+            },
+            {
+                "title": "The Mechanic",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13181"
+            },
+            {
+                "title": "Mission Impossible",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13175"
+            },
+            {
+                "title": "Now You See Me",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13159"
+            },
+            {
+                "title": "Oceans",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13156"
+            },
+            {
+                "title": "Olympus Has Fallen",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13154"
+            },
+            {
+                "title": "Ong Bak",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13151"
+            },
+            {
+                "title": "Paranormal Activity",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13149"
+            },
+            {
+                "title": "Poltergeist",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13138"
+            },
+            {
+                "title": "Predator",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13136"
+            },
+            {
+                "title": "The Protector",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13134"
+            },
+            {
+                "title": "Psycho",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13133"
+            },
+            {
+                "title": "The Purge",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13129"
+            },
+            {
+                "title": "Quarantine",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13128"
+            },
+            {
+                "title": "The Raid",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13127"
+            },
+            {
+                "title": "Rambo",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13125"
+            },
+            {
+                "title": "Saw",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13109"
+            },
+            {
+                "title": "Sin City",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13103"
+            },
+            {
+                "title": "Taken",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13095"
+            },
+            {
+                "title": "Transporter",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13082"
+            },
+            {
+                "title": "Under Siege",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13078"
+            },
+            {
+                "title": "Underworld",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13077"
+            },
+            {
+                "title": "Universal Soldier",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13075"
+            },
+            {
+                "title": "VHS",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13074"
+            },
+            {
+                "title": "xXx",
+                "icon": "boxsets.png",
+                "fanart": "",
+                "action": "boxsetList",
+                "url": "tmdbbox",
+                "list": "13068"
+            }
+        ]
+    },
+    "boxsets_kids": [
+        {
+            "title": "101 Dalmatians Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13113"
+        },
+        {
+            "title": "Aladdin Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13155"
+        },
+        {
+            "title": "All dogs Go To Heaven Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "16473"
+        },
+        {
+            "title": "Alpha and Omega Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96010"
+        },
+        {
+            "title": "Balto Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13214"
+        },
+        {
+            "title": "Bambi Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13217"
+        },
+        {
+            "title": "Barbie A Mermaid Tale Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96012"
+        },
+        {
+            "title": "Barbie Fairytopia Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96013"
+        },
+        {
+            "title": "Barbie Mariposa Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96014"
+        },
+        {
+            "title": "Beauty and the Beast Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13229"
+        },
+        {
+            "title": "Brother Bear Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96015"
+        },
+        {
+            "title": "Cars Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13244"
+        },
+        {
+            "title": "Cinderella Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "1324"
+        },
+        {
+            "title": "Cloudy With A Chance Of Meatballs Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13259"
+        },
+        {
+            "title": "Despicable Me Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13299"
+        },
+        {
+            "title": "Finding Nemo Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "16499"
+        },
+        {
+            "title": "Frozen Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96016"
+        },
+        {
+            "title": "Happy Feet Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13265"
+        },
+        {
+            "title": "Hotel Transylvania Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13240"
+        },
+        {
+            "title": "How To Train Your Dragon Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13239"
+        },
+        {
+            "title": "Hunchback Of Notre Dame Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13237"
+        },
+        {
+            "title": "Ice Age Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13234"
+        },
+        {
+            "title": "Jungle Book Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13212"
+        },
+        {
+            "title": "Kung Fu Panda Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13202"
+        },
+        {
+            "title": "Lady And The Tramp Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13200"
+        },
+        {
+            "title": "Lion King Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13194"
+        },
+        {
+            "title": "Madagascar Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13187"
+        },
+        {
+            "title": "Monsters Inc Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13174"
+        },
+        {
+            "title": "Mulan Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13172"
+        },
+        {
+            "title": "Open Season Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13150"
+        },
+        {
+            "title": "Peter Pan Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "16498"
+        },
+        {
+            "title": "Planes Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13142"
+        },
+        {
+            "title": "Pocahontas Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13140"
+        },
+        {
+            "title": "Rio Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13117"
+        },
+        {
+            "title": "Shrek Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "16470"
+        },
+        {
+            "title": "Tangled Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96017"
+        },
+        {
+            "title": "Tarzan Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13094"
+        },
+        {
+            "title": "The Croods Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96018"
+        },
+        {
+            "title": "The Emperors New Groove Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96019"
+        },
+        {
+            "title": "The Fox And The Hound Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13301"
+        },
+        {
+            "title": "The Land Before Time Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "16485"
+        },
+        {
+            "title": "The Little Mermaid Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "13192"
+        },
+        {
+            "title": "Tinkerbell Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96020"
+        },
+        {
+            "title": "Toy Story Collection",
+            "icon": "kidsboxsets.png",
+            "fanart": "",
+            "action": "boxsetList",
+            "url": "tmdbbox",
+            "list": "96021"
+        }
+    ]
+}

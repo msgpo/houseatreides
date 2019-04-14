@@ -1,0 +1,161 @@
+[COLOR limegreen]Atredies Script Module v1.2.5[/COLOR]
+    - TV Tap API Fixed
+        - Stream Decryption by RACC
+    - Report Updates
+    - TVDB Updates
+    - Crypto Updates
+
+[COLOR limegreen]Atredies Script Module v1.2.4[/COLOR]
+    - Swift Streamz API Updated
+        - Stream Decryption by RACC
+
+[COLOR limegreen]Atredies Script Module v1.2.3a[/COLOR]
+    - Additional work on Resume with Kodi 18
+        - Thx to host505
+
+[COLOR limegreen]Atredies Video Addon v1.1.6a[/COLOR]
+    - Switched inputstream to default as off
+[COLOR limegreen]Atredies Script Module v1.2.3[/COLOR]
+    - Kodi 18 Search, Control, TV and Movie updates
+        - All credit goes to The Oath
+    - Scraper updates
+    - Import updates
+
+[COLOR limegreen]Atredies Video Addon v1.1.6[/COLOR]
+    - Added updates for Documentary Section
+[COLOR limegreen]Atredies Script Module v1.2.2[/COLOR]
+    - Documentary section now contains 2 sub-sections
+        - Top Documentary Films
+        - Documentary Heaven
+    - Documentary base now supports a lot more sources
+    - Kodi 18 Fix for Documentary video crash
+    - Kodi 18 Fix for News Window crash
+
+[COLOR limegreen]Atredies Script Module v1.2.1[/COLOR]
+    - CFScrape Changed over to Port from Universal Scrapers
+    - Latest fix by pavlodvornikov @ aiocfscrape
+
+[COLOR limegreen]Atredies Video Addon v1.1.5[/COLOR]
+    - Added Live TV section in Settings. See there for
+      all the providers, options, and filters available
+[COLOR limegreen]Atredies Script Module v1.2.0[/COLOR]
+    - CFScrape Fix from Anorov
+    - Live TV Added (Channels on Main Menu)
+    - Player Updates
+    - Scraper auto import update
+    * More Live TV Providers will come I hope. Takes
+      time to port them over to this module and libs
+
+[COLOR limegreen]Atredies Script Module v1.1.9c[/COLOR]
+    - TVDB Fix (I didn't pay attention on the update)
+
+[COLOR limegreen]Atredies Video Addon v1.1.4b[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.9b[/COLOR]
+    - TVDB Updates
+    - Pairing Navigation Update
+    - Scraper Updates
+
+[COLOR limegreen]Atredies Video Addon v1.1.4a[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.9a[/COLOR]
+    - Pairing Tools Updated
+
+[COLOR limegreen]Atredies Video Addon v1.1.4[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.9[/COLOR]
+    - Pairing Tools Added
+    - Scraper Updates
+
+[COLOR limegreen]Atredies Video Addon v1.1.3[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.8[/COLOR]
+    - Scraper Detection Update
+    - Scraper Updates
+
+[COLOR limegreen]Atredies Video Addon v1.1.2a[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.7[/COLOR]
+    - Scraper updates
+    - Live Radio section added
+    - Bug Report system added to News and Updates
+    - A few small bug fixes
+
+[COLOR limegreen]Atredies Video Addon v1.1.2[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.7[/COLOR]
+    - Scraper updates
+    - Live Radio section added
+    - A few small bug fixes
+
+[COLOR limegreen]Atredies Video Addon v1.1.1[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.6[/COLOR]
+    - New Scraper System and filter options
+    - Settings reorganized
+    - Added Watch Trailer in context menu for TV Shows,
+        Movies, and Box Sets. Can be disabled
+    - News and Cache Dialog totally skinned and written from
+        scratch with custom menu in the Window
+    - Some Kodi 18 fixes
+
+[COLOR limegreen]Atredies Video Addon v1.1.0[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.5[/COLOR]
+    - News Window code rewrite.
+    - Scraper work
+    - Sources adjustments - Torrents will not show up
+        if you do not have the Premium/RD set to Cached
+        Only. A popup is given to let you know.
+
+[COLOR limegreen]Atredies Script Module v1.1.4a[/COLOR]
+    - Derka Derka Typo
+
+[COLOR limegreen]Atredies Video Addon v1.0.9[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.4[/COLOR]
+    - Added ability to sort Premium Links (Torrent first)
+    - Removed dead/slow scrapers
+    - Fixed an issue with Torrents not counted in results
+
+[COLOR limegreen]Atredies Video Addon v1.0.8[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.3[/COLOR]
+    - Torrent Scraper Support Started (See Playback Settings)
+    [COLOR yellow]* Torrent Support is through Real Debrid, so it
+        requires an RD account.[/COLOR]
+    [COLOR pink]* RD Torrents can be downloaded like others.[/COLOR]
+    [COLOR yellow]* Reset ResolveURL auth for RD then reauth is
+        required[/COLOR]
+
+[COLOR limegreen]Atredies Video Addon v1.0.7[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.2[/COLOR]
+    - Scraper Updates
+
+[COLOR limegreen]Atredies Script Module v1.1.1[/COLOR]
+    - Scraper Updates
+
+[COLOR limegreen]Atredies Video Addon v1.0.6[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.1.0[/COLOR]
+    - Scraper Updates
+    - Service Update
+
+[COLOR limegreen]Atredies Script Module v1.0.9[/COLOR]
+    - Kids Corner turned into section
+    - YouTube kids section expanded and moved into Kids Corner
+    - Kids Boxsets expanded and moved into Kids Corner
+    - B98 Section added to Kids Corner
+
+[COLOR limegreen]Atredies Script Module v1.0.8[/COLOR]
+    - Code Cleanup and Formatting Changes
+
+[COLOR limegreen]Atredies Video Addon v1.0.4[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.0.7[/COLOR]
+    - Search Fix for Kodi v18 (Still stores via DB)
+    - In Theater Fix
+
+[COLOR limegreen]Atredies Video Addon v1.0.3a[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.0.6a[/COLOR]
+    - Menu Cleanup
+    - News and Updates Code Updated
+
+[COLOR limegreen]Atredies Video Addon v1.0.3[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.0.6[/COLOR]
+    - Navigation Updates and Code Cleanup
+    - Boxset Code Added
+    - TMDB List Code Updated
+    - Artwork Updates
+    - Scraper Updates
+
+[COLOR limegreen]v1.0.0[/COLOR]
+    - Initial Release
