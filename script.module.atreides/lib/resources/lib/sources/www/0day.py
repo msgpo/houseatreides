@@ -12,13 +12,16 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/4/16: Updated to use CFScrape - Still using single request
+'''
 
 import re
 import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, debrid, log_utils, source_utils
+from resources.lib.modules import cfscrape, cleantitle, client, debrid, log_utils, source_utils
 
 
 class source:
@@ -28,6 +31,7 @@ class source:
         self.domains = ['0dayreleases.com', '0dayreleases.biz']
         self.base_link = 'https://0dayreleases.com/'
         self.search_link = '/search/%s/feed/rss2/'
+        self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -89,7 +93,7 @@ class source:
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
 
-            html = client.request(url)
+            html = self.scraper.get(url).content
             posts = client.parseDOM(html, 'item')
 
             hostDict = hostprDict + hostDict

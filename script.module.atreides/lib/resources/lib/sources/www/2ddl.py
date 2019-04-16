@@ -12,6 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/4/15: Domain name change/update
+'''
+
 import re
 import traceback
 import urllib
@@ -25,8 +29,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['www']
-        self.domains = ['twoddl.net']
-        self.base_link = 'https://twoddl.net/'
+        self.domains = ['2ddl.ws']
+        self.base_link = 'https://2ddl.ws/'
         self.search_link = '/search/%s/feed/rss2/'
 
     def movie(self, imdb, title, localtitle, aliases, year):

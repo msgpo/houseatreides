@@ -12,6 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/4/16: Updated to use CFScrape - Still using single request
+'''
+
 import re
 import traceback
 
@@ -24,7 +28,8 @@ class source:
         self.source = ['www']
         self.domains = ['hackimdb.com']
         self.base_link = 'https://hackimdb.com'
-        self.search_link = '/title/&%s'
+        # this still works too '/title/&%s'
+        self.search_link = '/title/%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -38,8 +43,8 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            scraper = cfscrape.create_scraper()
-            r = scraper.get(url).content
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            r = client.request(url, headers=headers)
             try:
                 match = re.compile('<iframe src="(.+?)"').findall(r)
                 for url in match:

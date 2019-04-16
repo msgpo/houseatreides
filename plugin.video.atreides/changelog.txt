@@ -1,3 +1,6 @@
+[COLOR limegreen]Atredies Script Module v1.2.5[/COLOR]
+    - Scraper updates
+
 [COLOR limegreen]Atredies Repository v0.0.5[/COLOR]
     - Path Updates
 [COLOR limegreen]Atredies Script Module v1.2.5[/COLOR]

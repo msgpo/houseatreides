@@ -12,6 +12,9 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/4/16: Updated per SC, thx mate
+'''
 
 import re
 import traceback
@@ -75,22 +78,15 @@ class source:
                 return sources
 
             data = urlparse.parse_qs(url)
-
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
-
-            title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
 
             hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
 
             query = '%s S%02dE%02d' % (data['tvshowtitle'], int(data['season']), int(data['episode'])) if\
                 'tvshowtitle' in data else '%s %s' % (data['title'], data['year'])
-            query_alt = '%s %s S%02dE%02d' % (data['tvshowtitle'], data['year'], int(data['season']), int(data['episode'])) if\
-                'tvshowtitle' in data else '%s %s' % (data['title'], data['year'])
 
             url = self.search_link % urllib.quote_plus(query).lower()
             url = urlparse.urljoin(self.base_link, url)
-            url_alt = self.search_link % urllib.quote_plus(query_alt).lower()
-            url_alt = urlparse.urljoin(self.base_link, url_alt)
 
             headers = {
                 'Referer': 'www.ddlvalley.me/?s=',
@@ -101,15 +97,6 @@ class source:
             r = self.scraper.get(url, headers=headers).content
 
             items = dom_parser2.parse_dom(r, 'h2')
-            if items is None and 'tvshowtitle' in data:
-                r = self.scraper.get(url, headers=headers).content
-                items = dom_parser2.parse_dom(r, 'h2')
-                if items is None:
-                    return sources
-
-            log_utils.log('DDL - Passed')
-            log_utils.log('DDL - items' + str(items))
-
             items = [dom_parser2.parse_dom(i.content, 'a', req=['href', 'rel', 'data-wpel-link']) for i in items]
             items = [(i[0].content, i[0].attrs['href']) for i in items]
 
@@ -200,6 +187,8 @@ class source:
 
             return sources
         except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('DDLValley - Exception: \n' + str(failure))
             return
 
     def resolve(self, url):

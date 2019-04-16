@@ -12,6 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/4/16: Updated to use CFScrape - Still using single request
+'''
+
 import re
 import traceback
 import urllib
@@ -27,11 +31,36 @@ class source:
         self.source = ['www']
         self.domains = ['myvideolinks.net', 'iwantmyshow.tk']
         self.base_link = 'http://myvideolinks.net'
-        self.search_link = '/dl/?s=%s'
+        self.search_link = '/vv/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
+            url = urllib.urlencode(url)
+            return url
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('MyVideoLink - Exception: \n' + str(failure))
+            return
+
+    def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        try:
+            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
+            url = urllib.urlencode(url)
+            return url
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('MyVideoLink - Exception: \n' + str(failure))
+            return
+
+    def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        try:
+            if url is None:
+                return
+
+            url = urlparse.parse_qs(url)
+            url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
+            url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
             url = urllib.urlencode(url)
             return url
         except Exception:
@@ -65,13 +94,13 @@ class source:
             url = url % urllib.quote_plus(query)
             r = client.request(url)
 
-            r = client.parseDOM(r, 'h2', attrs={'class': 'post-title entry-title'})
-            r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='title'))
+            r = client.parseDOM(r, 'h2')
+            z = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='title'))
             r = [
                 (i[0],
                  i[1],
                  re.sub('(\.|\(|\[|\s)(\d{4}|3D)(\.|\)|\]|\s|)(.+|)', '', i[1]),
-                 re.findall('[\.|\(|\[|\s](\d{4}|)([\.|\)|\]|\s|].+)', i[1])) for i in r]
+                 re.findall('[\.|\(|\[|\s](\d{4}|)([\.|\)|\]|\s|].+)', i[1])) for i in z]
             r = [(i[0], i[1], i[2], i[3][0][0], i[3][0][1]) for i in r if i[3]]
             r = [(i[0], i[1], i[2], i[3], re.split('\.|\(|\)|\[|\]|\s|\-', i[4])) for i in r]
             r = [i for i in r if cleantitle.get(title) == cleantitle.get(i[2]) and data['year'] == i[3]]
@@ -79,7 +108,10 @@ class source:
                                          for x in ['HDCAM', 'CAM', 'DVDR', 'DVDRip', 'DVDSCR', 'HDTS', 'TS', '3D'])]
             r = [i for i in r if '1080p' in i[4]][:1] + [i for i in r if '720p' in i[4]][:1]
 
-            posts = [(i[1], i[0]) for i in r]
+            if 'tvshowtitle' in data:
+                posts = [(i[1], i[0]) for i in z]
+            else:
+                posts = [(i[1], i[0]) for i in z]
 
             hostDict = hostprDict + hostDict
 
