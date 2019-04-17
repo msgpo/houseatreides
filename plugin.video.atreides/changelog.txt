@@ -1,4 +1,9 @@
-[COLOR limegreen]Atredies Script Module v1.2.5[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.2.6[/COLOR]
+    - Swift Streamz switched to full Python AES
+        - Means works on 17 AND 18, all OS
+        - TV Tap still needs to be converted
+
+[COLOR limegreen]Atredies Script Module v1.2.5a[/COLOR]
     - Scraper updates
 
 [COLOR limegreen]Atredies Repository v0.0.5[/COLOR]

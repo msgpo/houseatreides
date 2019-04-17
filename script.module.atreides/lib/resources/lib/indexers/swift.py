@@ -18,6 +18,7 @@
 '''
 2019/4/8 - Updated API code for new URLs and JSON format
 2019/4/12 - Updated Auth Code per RACC's changes
+2019/4/17 - Fuck PyCrypto. Rewrote Encryption to use PyAES myself to support Kodi 17 and 18 without trickery
 '''
 import json
 import os
@@ -27,7 +28,7 @@ import time
 import traceback
 import urllib
 
-from Cryptodome.Cipher import AES
+# from Cryptodome.Cipher import AES
 from hashlib import md5
 from binascii import b2a_hex
 
@@ -35,7 +36,7 @@ import xbmc
 import xbmcgui
 import xbmcplugin
 
-from resources.lib.modules import client, control, log_utils
+from resources.lib.modules import client, control, log_utils, pyaes
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -269,9 +270,11 @@ class swift:
 def get_post_data():
     _key = b"cLt3Gp39O3yvW7Gw"
     _iv = b"bRRhl2H2j7yXmuk4"
-    cipher = AES.new(_key, AES.MODE_CBC, iv=_iv)
+    cipher = pyaes.Encrypter(pyaes.AESModeOfOperationCBC(_key, _iv))
+    ciphertext = ''
     _time = str(int(time.time()))
     _hash = md5("{0}e31Vga4MXIYss1I0jhtdKlkxxwv5N0CYSnCpQcRijIdSJYg".format(_time).encode("utf-8")).hexdigest()
     _plain = "{0}&{1}".format(_time, _hash).ljust(48).encode("utf-8")
-    cry = cipher.encrypt(_plain)
-    return b2a_hex(cry).decode("utf-8")
+    ciphertext += cipher.feed(_plain)
+    ciphertext += cipher.feed()
+    return b2a_hex(ciphertext[:-16]).decode("utf-8")
