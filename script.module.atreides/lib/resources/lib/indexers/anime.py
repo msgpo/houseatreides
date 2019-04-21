@@ -15,12 +15,14 @@
 import os
 import re
 import sys
+import traceback
 import urllib
 import urlparse
 
 import xbmc
+import xbmcplugin
 
-from resources.lib.modules import cleantitle, client, control
+from resources.lib.modules import client, control, log_utils, utils
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -35,13 +37,14 @@ class b98tv:
         self.studio_link = '/videos_categories/studios'
 
     def root(self):
-        self.addDirectoryItem('Cartoon Series', 'b98RabbitNav&url=%s' % (self.series_link), 'b98.png', 'DefaultTvShows.png')
-        self.addDirectoryItem('Browse by Studio', 'b98RabbitNav&url=%s' % (self.studio_link), 'b98.png', 'DefaultTvShows.png')
+        self.addDirectoryItem('Cartoon Series - Currently Down', 'b98RabbitNav&url=%s' % (self.series_link), 'b98.png', 'DefaultTvShows.png')
+        self.addDirectoryItem('Browse by Studio - Currently Down', 'b98RabbitNav&url=%s' % (self.studio_link), 'b98.png', 'DefaultTvShows.png')
 
         self.endDirectory()
 
     def scrape(self, url):
         url = urlparse.urljoin(self.base_main_link, url)
+        items = []
 
         try:
             html = client.request(url, timeout=10)
@@ -50,29 +53,45 @@ class b98tv:
                 link = re.compile('href="(.+?)"', re.DOTALL).findall(content)[0]
                 icon, title = re.compile('img src="(.+?)" alt="(.+?)"', re.DOTALL).findall(content)[0]
                 try:
+                    loglink = link.decode('utf-8')
                     link = link.replace(self.base_main_link, '')
-                    title = cleantitle.normalize(title)
+                    title = utils.convert(title).encode('utf-8')
+
+                    item = control.item(label=title)
+                    item.setArt({"thumb": icon, "icon": icon})
+
                     if 'videos_categories' in link:
-                        # Let's add another menu item to go down the rabbit hole
-                        self.addDirectoryItem(title, 'b98RabbitNav&url=%s' % (link), icon, icon)
+                        # Still navigating categories
+                        link = '%s?action=b98RabbitNav&url=%s' % (sysaddon, link)
+                        items.append((link, item, True))
                     else:
-                        # Otherwise, display the carrot link
-                        self.addDirectoryItem(title, 'b98CarrotLink&url=%s' % (link), icon, icon)
+                        # This is where the goodies are
+                        item.setInfo(type="video", infoLabels={"Title": title, "mediatype": "video"})
+                        item.setProperty("IsPlayable", "true")
+                        link = '%s?action=b98CarrotLink&url=%s&title=%s&image=%s' % (sysaddon, link, title, icon)
+                        log_utils.log(title + ' | ' + loglink)
+                        items.append((link, item, False))
                 except Exception:
+                    failure = traceback.format_exc()
+                    log_utils.log('B98 - Failed to Build: \n' + str(failure))
                     continue
 
             # Try doing a next hole, if available
             try:
                 navi_link = re.compile('a class="next page-numbers" href="(.+?)"', re.DOTALL).findall(html)[0]
-                self.addDirectoryItem(control.lang(32053).encode('utf-8'), 'b98RabbitNav&url=%s' % (navi_link), control.addonNext(), 'DefaultTvShows.png')
+                navi_link = navi_link.replace(self.base_main_link, '')
+                next_url = '%s?action=b98RabbitNav&url=%s' % (sysaddon, navi_link)
+                item = control.item(label=control.lang(32053).encode('utf-8'))
+                item.setArt({"thumb": control.addonNext(), "icon": control.addonNext()})
+                items.append((next_url, item, True))
             except Exception:
                 pass
         except Exception:
             pass
-
+        control.addItems(syshandle, items)
         self.endDirectory()
 
-    def play(self, url):
+    def play(self, url, title, icon):
         url = urlparse.urljoin(self.base_main_link, url)
 
         try:
@@ -80,12 +99,18 @@ class b98tv:
             vid_url = re.compile('file: "(.*?)"', re.DOTALL).findall(html)[0]
             if 'http:' in vid_url:
                 vid_url = vid_url.replace('http:', 'https:')
-            vid_url = vid_url + '|User-Agent=' + client.randomagent()
-            xbmc.executebuiltin("PlayMedia(%s)" % (vid_url))
-            quit()
-            return
+            vid_url = '%s|User-Agent=%s' % (vid_url, client.randomagent())
+
+            li = control.item(title, path=vid_url)
+            li.setArt({"thumb": icon, "icon": icon})
+            li.setInfo(type="video", infoLabels={"Title": title})
+            li.setProperty('IsPlayable', 'true')
+
+            control.resolve(handle=int(sys.argv[1]), succeeded=True, listitem=li)
         except Exception:
-            pass
+            failure = traceback.format_exc()
+            log_utils.log('B98 - Failed to Play: \n' + str(failure))
+            return
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
         try:
@@ -110,8 +135,9 @@ class b98tv:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self):
-        control.content(syshandle, 'addons')
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+        control.content(syshandle, contentType)
+        control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
     def addDirectory(self, items, queue=False, isFolder=True):

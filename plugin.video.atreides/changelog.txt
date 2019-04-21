@@ -1,3 +1,10 @@
+[COLOR limegreen]Atredies Video Addon v1.1.7[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.2.7[/COLOR]
+    - Scraper updates
+    - Categories cached now in Documentary sections
+    - TV Tap switched to full Python RSA and DES
+        - Kodi 17 compatible
+
 [COLOR limegreen]Atredies Script Module v1.2.6[/COLOR]
     - Swift Streamz switched to full Python AES
         - Means works on 17 AND 18, all OS

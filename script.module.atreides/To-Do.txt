@@ -7,7 +7,5 @@
     tools menu
 7. Look at potentially re-organizing main menu. Maybe.
 8. Add Archive.org check to Top Documentary Films
-9. Add Cache support to Top Docu Films
-10. Add Cache support to Docu Storm
 11. Add Cache support to B98 in Anime
 12. Add Documentary Storm to Docu section

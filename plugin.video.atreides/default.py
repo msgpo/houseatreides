@@ -417,7 +417,7 @@ elif action == 'b98RabbitNav':
 
 elif action == 'b98CarrotLink':
     from resources.lib.indexers import anime
-    anime.b98tv().play(url)
+    anime.b98tv().play(url, title, image)
 
 elif action == 'fitness':
     from resources.lib.indexers import youtube
@@ -530,20 +530,20 @@ elif action == 'docuNavigator':
 elif action == 'docuTDNavigator':
     from resources.lib.indexers import docu
     if docu_category is not None:
-        docu.topdocs().docu_list(docu_category)
+        docu.topdocs().get(docu_category)
     elif docu_watch is not None:
         docu.topdocs().docu_play(docu_watch)
     else:
-        docu.topdocs().root()
+        docu.topdocs().get()
 
 elif action == 'docuDHNavigator':
     from resources.lib.indexers import docu
     if docu_category is not None:
-        docu.docuheaven().docu_list(docu_category)
+        docu.docuheaven().get(docu_category)
     elif docu_watch is not None:
         docu.docuheaven().docu_play(docu_watch)
     else:
-        docu.docuheaven().root()
+        docu.docuheaven().get()
 
 elif action == 'docuDSNavigator':
     from resources.lib.indexers import docu

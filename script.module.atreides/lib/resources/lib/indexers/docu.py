@@ -25,7 +25,7 @@ import xbmc
 import xbmcplugin
 
 from random import randint
-from resources.lib.modules import client, control, log_utils, sources, source_utils, utils, youtube
+from resources.lib.modules import cache, client, control, log_utils, sources, source_utils, utils, youtube
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -97,10 +97,24 @@ class topdocs:
     def __init__(self):
         self.base_link = 'https://topdocumentaryfilms.com/'
         self.cat_link = '%swatch-online/' % (self.base_link)
+        self.items = []
+
+    def get(self, url=None):
+        if url is None:
+            self.items = cache.get(self.root, 24)
+            self.addDirectory(self.items)
+        else:
+            '''
+            Due to Objects, etc. Cannot be cached "easily", so not caching these as of yet.
+            Maybe design a different cache system using json? Sounds better than sql to me anyday for addons
+            '''
+            self.items = self.docu_list(url)
+            control.addItems(syshandle, self.items)
+            self.endDirectory('videos')
 
     def root(self):
         try:
-            root_items = []
+            self.items = []
 
             html = client.request(self.cat_link)
             cat_list = client.parseDOM(html, 'div', attrs={'class': 'sitemap-wraper clear'})
@@ -115,18 +129,17 @@ class topdocs:
                 except Exception:
                     cat_icon = re.findall('img\s.+?src="(.+?)"', content)[randint(0, 3)]
                 cat_action = 'docuTDNavigator&docuCat=%s' % cat_url
-                root_items.append({'name': cat_title, 'url': cat_url, 'image': cat_icon, 'action': cat_action})
+                self.items.append({'name': cat_title, 'url': cat_url, 'image': cat_icon, 'action': cat_action})
         except Exception as e:
             log_utils.log('documentary root : Exception - ' + str(e))
             pass
 
-        root_items = root_items[::-1]
-        self.addDirectory(root_items)
-        return
+        self.items = self.items[::-1]
+        return self.items
 
     def docu_list(self, url):
+        self.items = []
         try:
-            items = []
 
             html = client.request(url)
             cat_list = client.parseDOM(html, 'article', attrs={'class': 'module'})
@@ -156,7 +169,7 @@ class topdocs:
                 except AttributeError:
                     pass
                 url = '%s?action=docuTDNavigator&docuPlay=%s' % (sysaddon, docu_url)
-                items.append((url, item, False))
+                self.items.append((url, item, False))
             try:
                 navi_content = client.parseDOM(html, 'div', attrs={'class': 'pagination module'})[0]
                 links = client.parseDOM(navi_content, 'a', ret='href')
@@ -165,7 +178,7 @@ class topdocs:
 
                 item = control.item(label=control.lang(32053).encode('utf-8'))
                 item.setArt({"thumb": control.addonNext(), "icon": control.addonNext()})
-                items.append((next_url, item, True))
+                self.items.append((next_url, item, True))
             except Exception:
                 failure = traceback.format_exc()
                 log_utils.log('Top Docs: Docu_List: Exception in Nav - ' + str(failure))
@@ -174,9 +187,7 @@ class topdocs:
             failure = traceback.format_exc()
             log_utils.log('Top Docs: Docu_List: Exception in List - ' + str(failure))
             pass
-
-        control.addItems(syshandle, items)
-        self.endDirectory('videos')
+        return self.items
 
     def docu_play(self, url):
         try:
@@ -359,10 +370,24 @@ class docuheaven:
     def __init__(self):
         self.base_link = 'https://documentaryheaven.com/'
         self.cat_link = '%swatch-online/' % (self.base_link)
+        self.items = []
+
+    def get(self, url=None):
+        if url is None:
+            self.items = cache.get(self.root, 24)
+            self.addDirectory(self.items)
+        else:
+            '''
+            Due to Objects, etc. Cannot be cached "easily", so not caching these as of yet.
+            Maybe design a different cache system using json? Sounds better than sql to me anyday for addons
+            '''
+            self.items = self.docu_list(url)
+            control.addItems(syshandle, self.items)
+            self.endDirectory('videos')
 
     def root(self):
         try:
-            root_items = []
+            self.items = []
 
             html = client.request(self.cat_link)
             cat_list = client.parseDOM(html, 'div', attrs={'class': 'page-wrap'})[0]
@@ -384,7 +409,7 @@ class docuheaven:
                     except Exception:
                         cat_icon = re.findall('src="(.+?)"', beefy_stuff[x])[randint(0, 3)]
                     cat_action = 'docuDHNavigator&docuCat=%s' % cat_url
-                    root_items.append({'name': cat_title, 'url': cat_url, 'image': cat_icon, 'action': cat_action})
+                    self.items.append({'name': cat_title, 'url': cat_url, 'image': cat_icon, 'action': cat_action})
                 except Exception:
                     failure = traceback.format_exc()
                     log_utils.log('Documentary Heaven: Docu_List: Exception in Loop - ' + str(failure))
@@ -393,12 +418,11 @@ class docuheaven:
             log_utils.log('Documentary Heaven: Exception - ' + str(failure))
             pass
 
-        self.addDirectory(root_items)
-        return
+        return self.items
 
     def docu_list(self, url):
         try:
-            items = []
+            self.items = []
 
             url = urlparse.urljoin(self.base_link, url)
 
@@ -434,7 +458,7 @@ class docuheaven:
                     except AttributeError:
                         pass
                     url = '%s?action=docuDHNavigator&docuPlay=%s' % (sysaddon, docu_url)
-                    items.append((url, item, False))
+                    self.items.append((url, item, False))
                 except Exception:
                     failure = traceback.format_exc()
                     log_utils.log('Documentary Heaven: Exception in Loop - ' + str(failure))
@@ -447,7 +471,7 @@ class docuheaven:
 
                     item = control.item(label=control.lang(32053).encode('utf-8'))
                     item.setArt({"thumb": control.addonNext(), "icon": control.addonNext()})
-                    items.append((next_url, item, True))
+                    self.items.append((next_url, item, True))
             except Exception:
                 failure = traceback.format_exc()
                 log_utils.log('Documentary Heaven: Exception in Nav - ' + str(failure))
@@ -457,8 +481,7 @@ class docuheaven:
             log_utils.log('Documentary Heaven: Exception in List - ' + str(failure))
             pass
 
-        control.addItems(syshandle, items)
-        self.endDirectory('videos')
+        return self.items
 
     def docu_play(self, url):
         try:

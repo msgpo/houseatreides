@@ -17,6 +17,7 @@
 
 '''
 2019/4/13: Upgraded for new API by myself. Decryption done by RACC for new Auth
+2019/4/21: Upgraded for pure python decryption by myself. Kodi 17 compatibility
 '''
 
 import json
@@ -32,11 +33,7 @@ import xbmcplugin
 from base64 import b64encode, b64decode
 from binascii import a2b_hex
 
-from Cryptodome.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
-from Cryptodome.Cipher import DES
-from Cryptodome.PublicKey import RSA
-from Cryptodome.Util.Padding import unpad
-from resources.lib.modules import client, control, log_utils, pydes
+from resources.lib.modules import client, control, log_utils, pyaes, pydes, pyrsa
 
 try:
     from urllib.parse import quote_from_bytes as orig_quote
@@ -174,8 +171,11 @@ class tvtap:
                         if "stream" in stream or "chrome_cast" in stream:
                             _crypt_link = response["msg"]["channel"][0][stream]
                         if _crypt_link:
-                            d = DES.new(b"98221122", DES.MODE_ECB)
-                            link = unpad(d.decrypt(b64decode(_crypt_link)), 8).decode("utf-8")
+                            d = pydes.des(b"98221122")
+                            # d = DES.new(b"98221122", DES.MODE_ECB)
+                            link = d.decrypt(b64decode(_crypt_link))
+                            link = unpad(link, 8).decode("utf-8")
+                            # link = unpad(d.decrypt(b64decode(_crypt_link)), 8).decode("utf-8")
                             if not link == "dummytext" and link not in links:
                                 links.append(link)
 
@@ -311,8 +311,7 @@ class tvtap:
 
 
 def payload():
-    _pubkey = RSA.importKey(
-        a2b_hex(
+    _pub_x = a2b_hex(
             "30819f300d06092a864886f70d010101050003818d003081890281"
             "8100bfa5514aa0550688ffde568fd95ac9130fcdd8825bdecc46f1"
             "8f6c6b440c3685cc52ca03111509e262dba482d80e977a938493ae"
@@ -320,10 +319,56 @@ def payload():
             "4093e20afc589685c08f2d2ae70310b92c04f9b4c27d79c8b5dbb9"
             "bd8f2003ab6a251d25f40df08b1c1588a4380a1ce8030203010001"
         )
-    )
+
+    _pubkey = pyrsa.PublicKey.load_pkcs1_openssl_der(_pub_x)
     _msg = a2b_hex(
         "7b224d4435223a22695757786f45684237686167747948392b58563052513d3d5c6e222c22534"
         "84131223a2242577761737941713841327678435c2f5450594a74434a4a544a66593d5c6e227d"
     )
-    cipher = Cipher_PKCS1_v1_5.new(_pubkey)
-    return b64encode(cipher.encrypt(_msg))
+    cipher = pyrsa.encrypt(_msg, _pubkey)
+    return b64encode(cipher)
+
+
+def unpad(padded_data, block_size, style='pkcs7'):
+    """Remove standard padding.
+
+    :Parameters:
+      padded_data : byte string
+        A piece of data with padding that needs to be stripped.
+      block_size : integer
+        The block boundary to use for padding. The input length
+        must be a multiple of ``block_size``.
+      style : string
+        Padding algorithm. It can be *'pkcs7'* (default), *'iso7816'* or *'x923'*.
+    :Return:
+        Data without padding.
+    :Raises ValueError:
+        if the padding is incorrect.
+    """
+
+    '''
+    FIXIT: Py3 should use bord() and bchr()
+    '''
+
+    pdata_len = len(padded_data)
+    if pdata_len % block_size:
+        raise ValueError("Input data is not padded")
+    if style in ('pkcs7', 'x923'):
+        padding_len = ord(padded_data[-1])
+        if padding_len < 1 or padding_len > min(block_size, pdata_len):
+            raise ValueError("Padding is incorrect.")
+        if style == 'pkcs7':
+            if padded_data[-padding_len:] != chr(padding_len)*padding_len:
+                raise ValueError("PKCS#7 padding is incorrect.")
+        else:
+            if padded_data[-padding_len:-1] != chr(0)*(padding_len-1):
+                raise ValueError("ANSI X.923 padding is incorrect.")
+    elif style == 'iso7816':
+        padding_len = pdata_len - padded_data.rfind(chr(128))
+        if padding_len < 1 or padding_len > min(block_size, pdata_len):
+            raise ValueError("Padding is incorrect.")
+        if padding_len > 1 and padded_data[1-padding_len:] != chr(0)*(padding_len-1):
+            raise ValueError("ISO 7816-4 padding is incorrect.")
+    else:
+        raise ValueError("Unknown padding style")
+    return padded_data[:-padding_len]

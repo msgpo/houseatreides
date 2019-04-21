@@ -12,10 +12,14 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/4/17: Readded this one, fix by SC
+'''
+
 import re
 import traceback
 
-from resources.lib.modules import client, log_utils
+from resources.lib.modules import cfscrape, client, log_utils
 
 
 class source:
@@ -25,6 +29,7 @@ class source:
         self.domains = ['putlockers.movie', 'putlockerr.is']
         self.base_link = 'https://putlockerr.is'
         self.search_link = '/embed/%s/'
+        self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -58,7 +63,7 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            r = client.request(url)
+            r = self.scraper.get(url).content
             try:
                 match = re.compile('<iframe src="(.+?)://(.+?)/(.+?)"').findall(r)
                 for http, host, url in match:
