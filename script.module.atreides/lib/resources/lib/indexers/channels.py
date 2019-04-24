@@ -13,14 +13,10 @@
 # Addon Provider: House Atreides
 
 import os
-import re
 import sys
 import urllib
-import urlparse
 
-import xbmc
-
-from resources.lib.modules import cleantitle, client, control
+from resources.lib.modules import control
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -35,6 +31,7 @@ class channels:
     def root(self):
         self.addDirectoryItem(32669, 'swiftNavigator', 'channels.png', 'DefaultTvShows.png')
         self.addDirectoryItem(32670, 'tvtapNavigator', 'channels.png', 'DefaultTvShows.png')
+        self.addDirectoryItem('My Saved Channels', 'bmNavigator&url=channels', 'channels.png', 'DefaultTvShows.png')
 
         self.endDirectory()
 

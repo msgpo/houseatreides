@@ -27,7 +27,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.atreides" version="1.1.7" name="Atreides" provider-name="Paul Atreides">
+<addon id="plugin.video.atreides" version="1.1.7a" name="Atreides" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.atreides" />
@@ -137,7 +137,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.atreides" name="Atreides Module" version="1.2.7" provider-name="Paul Atreides">
+<addon id="script.module.atreides" name="Atreides Module" version="1.2.7a" provider-name="Paul Atreides">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.pyxbmct" version="1.1.4" />

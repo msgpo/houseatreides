@@ -33,7 +33,7 @@ import xbmcplugin
 from base64 import b64encode, b64decode
 from binascii import a2b_hex
 
-from resources.lib.modules import client, control, log_utils, pyaes, pydes, pyrsa
+from resources.lib.modules import client, control, jsonbm, log_utils, pyaes, pydes, pyrsa
 
 try:
     from urllib.parse import quote_from_bytes as orig_quote
@@ -131,6 +131,18 @@ class tvtap:
                                         item.setProperty("IsPlayable", "true")
                                         item.setArt({"thumb": icon, "icon": icon})
                                         item.setInfo(type="video", infoLabels={"Title": name, "mediatype": "video"})
+
+                                        '''
+                                        Let's build out this context menu bitches
+                                        '''
+                                        try:
+                                            cm = jsonbm.jsonBookmarks().build_cm('Channels', name=name, id=chan_id, action='tvtapPlay', icon=icon, url=chan_id)
+                                            if len(cm) > 0:
+                                                item.addContextMenuItems(cm)
+                                        except Exception:
+                                            failure = traceback.format_exc()
+                                            log_utils.log('TV Tap - BM Exception: \n' + str(failure))
+
                                         try:
                                             item.setContentLookup(False)
                                         except AttributeError:

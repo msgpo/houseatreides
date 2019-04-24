@@ -146,6 +146,19 @@ elif action == 'tvtapPlay':
     from resources.lib.indexers import tvtap
     tvtap.tvtap().tvtapPlay(url)
 
+elif action == 'bmNavigator':
+    from resources.lib.modules import jsonbm
+    if url == 'channels':
+        jsonbm.jsonBookmarks().show_channels()
+
+elif action == 'add_channel':
+    from resources.lib.modules import jsonbm
+    jsonbm.jsonBookmarks().add_channel(url)
+
+elif action == 'remove_channel':
+    from resources.lib.modules import jsonbm
+    jsonbm.jsonBookmarks().rem_channel(url)
+
 elif action == 'libraryNavigator':
     from resources.lib.indexers import navigator
     navigator.navigator().library()

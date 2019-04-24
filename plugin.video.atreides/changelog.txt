@@ -1,3 +1,11 @@
+[COLOR limegreen]Atredies Video Addon v1.1.7a[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.2.7a[/COLOR]
+    - Live TV Bookmarks added to Channels section
+        - Add/Remove Bookmark in Context for channels
+        - My Saved Channels menu item added to Channels
+        - This is BETA, so please test and give some
+            feedback through the Bug Reports please
+
 [COLOR limegreen]Atredies Video Addon v1.1.7[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.2.7[/COLOR]
     - Scraper updates

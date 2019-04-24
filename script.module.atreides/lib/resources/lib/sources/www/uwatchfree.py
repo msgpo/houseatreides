@@ -63,6 +63,8 @@ class source:
             request = self.scraper.get(url).content
 
             regex = re.compile('<h2\s+\w{5}="\w{5}-\w{5}"><\w\shref="(.+?)"\stitle="(.+?)"', re.DOTALL).findall(request)
+            if len(regex == 0):
+                regex = re.compile('<h2\s+\w{5}="\w{5}-\w{5}"><\w\shref=(.+?)\stitle="(.+?)"', re.DOTALL).findall(request)
             for Aurora, Atreides in regex:
                 if title.lower() in Atreides.lower():
                     if year in str(Atreides):
