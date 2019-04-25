@@ -28,6 +28,8 @@ docu_watch = params.get('docuPlay')
 
 podcast_show = params.get('podcastshow')
 
+page = params.get('page')
+
 podcast_cat = params.get('podcastlist')
 
 podcast_cats = params.get('podcastcategories')
@@ -466,7 +468,7 @@ elif action == 'podcastNavigator':
 elif action == 'podcastOne':
     from resources.lib.indexers import podcast
     if podcast_show is not None:
-        podcast.podcast().pco_show(podcast_show)
+        podcast.podcast().pco_show(podcast_show, page)
     elif podcast_cat is not None:
         podcast.podcast().pco_cat(podcast_cat)
     elif podcast_cats is not None:

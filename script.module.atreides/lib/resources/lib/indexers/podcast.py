@@ -15,6 +15,7 @@
 import os
 import re
 import sys
+import traceback
 import urllib
 import urlparse
 
@@ -33,6 +34,7 @@ class podcast:
         self.list = []
 
         self.pco_link = 'https://www.podcastone.com'
+        self.pco_page_link = 'https://www.podcastone.com/pg/jsp/program/pasteps_cms.jsp?size=15&amountToDisplay=15&page=%s&infiniteScroll=true&progID=%s&showTwitter=true&pmProtect=false&displayPremiumEpisodes=false&startAt=0'
         self.pco_play_link = 'https://www.podcastone.com/downloadsecurity?url=%s'
         self.pcocats_link = 'https://www.podcastone.com/%s'
         self.pb_link = 'http://podbay.fm/'
@@ -136,7 +138,7 @@ class podcast:
                 re.DOTALL).findall(html)
             for show_title, content in div_list:
                 show_url = re.compile('href="(.+?)"', re.DOTALL).findall(content)[0]
-                show_url = show_url.replace('/', '')
+                show_url = show_url.replace('/', '', 1)
                 if 'viewProgram' in show_url:
                     url = self.pcocats_link % show_url
                     html = client.request(url)
@@ -144,7 +146,7 @@ class podcast:
                     show_url = re.compile(
                         'href="(.+?)"', re.DOTALL).findall(more_ep_block)[0].replace('/', '').replace('?showAllEpisodes=true', '')
                 icon = urlparse.urljoin(self.pco_link, re.compile('<img src="(.+?)"', re.DOTALL).findall(content)[0])
-                show_action = 'podcastOne&podcastshow=%s' % show_url
+                show_action = 'podcastOne&podcastshow=%s&page=1' % show_url
                 self.list.append({'name': show_title, 'url': self.pcocats_link % show_url,
                                   'image': icon, 'action': show_action})
         except Exception:
@@ -158,12 +160,12 @@ class podcast:
             url = self.pbcats_link % category
             html = client.request(url)
 
-            page_list = client.parseDOM(html, 'ul', attrs={'class': 'thumbnails'})[0]
-            show_list = client.parseDOM(page_list, 'li', attrs={'class': 'span3'})
+            page_list = re.compile('<ul class="thumbnails">(.+?)</ul>', re.DOTALL).findall(html)[0]
+            show_list = re.compile('<li class="span3">(.+?)</li>', re.DOTALL).findall(page_list)
             for entry in show_list:
-                show_url = client.parseDOM(entry, 'a', ret='href')[0]
-                show_icon = client.parseDOM(entry, 'img', ret='src')[0]
-                show_title = client.parseDOM(entry, 'h4')[0].encode('utf-8', 'ignore').decode('utf-8')
+                show_url = re.compile('href="(.+?)"', re.DOTALL).findall(entry)[0]
+                show_icon = re.compile('src="(.+?)"', re.DOTALL).findall(entry)[0]
+                show_title = re.compile('<h4>(.+?)</h4>', re.DOTALL).findall(entry)[0].encode('utf-8', 'ignore').decode('utf-8')
                 show_action = 'podbay&podcastshow=%s' % show_url
                 self.list.append({'name': show_title, 'url': self.pbcats_link % show_url,
                                   'image': show_icon, 'action': show_action})
@@ -173,33 +175,68 @@ class podcast:
         self.addDirectory(self.list)
         return self.list
 
-    def pco_show(self, show):
+    def pco_show(self, show, page):
         try:
             url = self.pcocats_link % show
             url = url + '?showAllEpisodes=true'
             html = client.request(url)
+            progID = re.compile('categoryID2=(.+?)"', re.DOTALL).findall(html)[0]
 
-            icon_item = client.parseDOM(html, 'div', attrs={'class': 'col-sm-3 col-xs-12 current-episode-img'})[0]
-            icon = client.parseDOM(icon_item, 'img', ret='src')[0]
+            first = None
+            items = []
+            if page == '1':
+                icon_item = client.parseDOM(html, 'div', attrs={'class': 'col-sm-3 col-xs-12 current-episode-img'})[0]
+                icon = client.parseDOM(icon_item, 'img', ret='src')[0]
 
-            latest_content = re.compile('<div class="letestEpiDes">(.+?)</div>', re.DOTALL).findall(html)[0]
-            ep_title = re.compile('href=".+?" style="color:inherit;">(.+?)</a>', re.DOTALL).findall(latest_content)[0]
-            ep_page = urlparse.urljoin(self.pco_link, re.compile('href="(.+?)"', re.DOTALL).findall(latest_content)[0])
-            episode_action = 'podcastOne&podcastepisode=%s' % ep_page
-            self.list.append({'name': ep_title, 'url': ep_page, 'image': icon, 'action': episode_action})
+                latest_content = re.compile('<div class="letestEpiDes">(.+?)</div>', re.DOTALL).findall(html)[0]
+                ep_title = re.compile('href=".+?" style="color:inherit;">(.+?)</a>', re.DOTALL).findall(latest_content)[0]
+                first = ep_title
+                ep_page = urlparse.urljoin(self.pco_link, re.compile('href="(.+?)"', re.DOTALL).findall(latest_content)[0])
+                episode_action = 'podcastOne&podcastepisode=%s' % ep_page
 
-            past_episodes = client.parseDOM(html, 'div', attrs={'class': 'col-xs-12 col-sm-12 col-md-12 col-lg-12'})[0]
-            episode_list = client.parseDOM(past_episodes, 'h3', attrs={'class': 'dateTime'})
+                item = control.item(label=ep_title)
+                item.setArt({"thumb": icon, "icon": icon})
+                item.setInfo(type="music", infoLabels={"Title": ep_title, "mediatype": "music"})
+                item.setProperty("IsPlayable", "true")
+                link = '%s?action=%s' % (sysaddon, episode_action)
+                items.append((link, item, False))
+
+            url = self.pco_page_link % (page, progID)
+            html = client.request(url)
+
+            episode_list = client.parseDOM(html, 'div', attrs={'class': 'flex space-between align-center no-wrap'})
             for content in episode_list:
+                icon = re.compile('src="(.+?)"', re.DOTALL).findall(content)[0]
                 ep_title = re.compile('href=".+?" style="color:inherit;">(.+?)</a>', re.DOTALL).findall(content)[0]
+                if ep_title == first:
+                    continue
                 ep_page = urlparse.urljoin(self.pco_link, re.compile('href="(.+?)"', re.DOTALL).findall(content)[0])
                 episode_action = 'podcastOne&podcastepisode=%s' % ep_page
-                self.list.append({'name': ep_title, 'url': ep_page, 'image': icon, 'action': episode_action})
-        except Exception:
-            pass
 
-        self.addDirectory(self.list, False, False)
-        return self.list
+                item = control.item(label=ep_title)
+                item.setArt({"thumb": icon, "icon": icon})
+                item.setInfo(type="music", infoLabels={"Title": ep_title, "mediatype": "music"})
+                item.setProperty("IsPlayable", "true")
+                link = '%s?action=%s' % (sysaddon, episode_action)
+                items.append((link, item, False))
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('PodCastOne Show - Exception: \n' + str(failure))
+
+        try:
+            if len(items) > 13:
+                next_url = '%s?action=podcastOne&podcastshow=%s&page=%s' % (sysaddon, show, int(page)+1)
+                item = control.item(label=control.lang(32053).encode('utf-8'))
+                item.setArt({"thumb": control.addonNext(), "icon": control.addonNext()})
+                items.append((next_url, item, True))
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('PodCastOne Show - Exception: \n' + str(failure))
+
+        control.addItems(syshandle, items)
+        self.endDirectory()
+
+        return
 
     def pb_show(self, show):
         try:
@@ -210,11 +247,14 @@ class podcast:
             table_content = client.parseDOM(html, 'div', attrs={'class': 'span8 well'})[0]
             table_rows = client.parseDOM(table_content, 'tr')
             for row in table_rows:
+                if '<th' in row:
+                    continue
+                row = ''.join(row.splitlines())
                 if 'href' in row:
-                    ep_page = client.parseDOM(row, 'a', ret='href')[0].replace('?autostart=1', '')
+                    ep_page = re.compile('href="(.+?)"').findall(row)[0].replace('?autostart=1', '')
                 else:
                     continue
-                ep_title = client.parseDOM(row, 'a')[0].encode('utf-8', 'ignore').decode('utf-8')
+                ep_title = re.compile('<a\s.*?>(.+?)</a>').findall(row)[0].encode('utf-8', 'ignore').decode('utf-8')
                 episode_action = 'podbay&podcastepisode=%s' % ep_page
                 self.list.append({'name': ep_title, 'url': ep_page, 'image': show_icon, 'action': episode_action})
             self.addDirectory(self.list, False, False)
