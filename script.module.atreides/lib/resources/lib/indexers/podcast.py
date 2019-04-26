@@ -21,7 +21,7 @@ import urlparse
 
 import xbmcgui
 import xbmcplugin
-from resources.lib.modules import client, control, log_utils
+from resources.lib.modules import client, control, jsonbm, log_utils
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -44,6 +44,7 @@ class podcast:
         try:
             self.addDirectoryItem(32629, 'podbay', 'podcast.png', 'DefaultVideoPlaylists.png')
             self.addDirectoryItem(32624, 'podcastOne', 'podcast.png', 'DefaultVideoPlaylists.png')
+            self.addDirectoryItem('My Saved Podcasts', 'bmNavigator&url=podcasts', 'podcast.png', 'DefaultVideoPlaylists.png')
 
             self.endDirectory()
         except Exception:
@@ -130,6 +131,7 @@ class podcast:
 
     def pco_cat(self, category):
         try:
+            items = []
             url = self.pcocats_link % category
             html = client.request(url)
 
@@ -147,16 +149,34 @@ class podcast:
                         'href="(.+?)"', re.DOTALL).findall(more_ep_block)[0].replace('/', '').replace('?showAllEpisodes=true', '')
                 icon = urlparse.urljoin(self.pco_link, re.compile('<img src="(.+?)"', re.DOTALL).findall(content)[0])
                 show_action = 'podcastOne&podcastshow=%s&page=1' % show_url
-                self.list.append({'name': show_title, 'url': self.pcocats_link % show_url,
-                                  'image': icon, 'action': show_action})
+
+                item = control.item(label=show_title)
+                item.setArt({"thumb": icon, "icon": icon})
+                item.setProperty("IsPlayable", "false")
+                link = '%s?action=%s' % (sysaddon, show_action)
+
+                '''
+                Let's build out this context menu bitches
+                '''
+                try:
+                    cm = jsonbm.jsonBookmarks().build_cm('Podcasts', name=show_title, id=show_url, action='podcastOne', icon=icon, url=show_url+'&page=1')
+                    if len(cm) > 0:
+                        item.addContextMenuItems(cm)
+                except Exception:
+                    failure = traceback.format_exc()
+                    log_utils.log('PodcastOne - BM Exception: \n' + str(failure))
+
+                items.append((link, item, True))
         except Exception:
             pass
 
-        self.addDirectory(self.list)
-        return self.list
+        control.addItems(syshandle, items)
+        self.endDirectory()
+        return
 
     def pb_cat(self, category):
         try:
+            items = []
             url = self.pbcats_link % category
             html = client.request(url)
 
@@ -164,16 +184,33 @@ class podcast:
             show_list = re.compile('<li class="span3">(.+?)</li>', re.DOTALL).findall(page_list)
             for entry in show_list:
                 show_url = re.compile('href="(.+?)"', re.DOTALL).findall(entry)[0]
-                show_icon = re.compile('src="(.+?)"', re.DOTALL).findall(entry)[0]
+                icon = re.compile('src="(.+?)"', re.DOTALL).findall(entry)[0]
                 show_title = re.compile('<h4>(.+?)</h4>', re.DOTALL).findall(entry)[0].encode('utf-8', 'ignore').decode('utf-8')
                 show_action = 'podbay&podcastshow=%s' % show_url
-                self.list.append({'name': show_title, 'url': self.pbcats_link % show_url,
-                                  'image': show_icon, 'action': show_action})
+                link = '%s?action=%s' % (sysaddon, show_action)
+
+                item = control.item(label=show_title)
+                item.setArt({"thumb": icon, "icon": icon})
+                item.setProperty("IsPlayable", "false")
+
+                '''
+                Let's build out this context menu bitches
+                '''
+                try:
+                    cm = jsonbm.jsonBookmarks().build_cm('Podcasts', name=show_title, id=show_url, action='podbay', icon=icon, url=show_url)
+                    if len(cm) > 0:
+                        item.addContextMenuItems(cm)
+                except Exception:
+                    failure = traceback.format_exc()
+                    log_utils.log('Podbay - BM Exception: \n' + str(failure))
+
+                items.append((link, item, True))
         except Exception:
             pass
 
-        self.addDirectory(self.list)
-        return self.list
+        control.addItems(syshandle, items)
+        self.endDirectory()
+        return
 
     def pco_show(self, show, page):
         try:
@@ -235,7 +272,6 @@ class podcast:
 
         control.addItems(syshandle, items)
         self.endDirectory()
-
         return
 
     def pb_show(self, show):
@@ -282,8 +318,8 @@ class podcast:
                     ret='content')[0].encode(
                     'utf-8', 'ignore').decode('utf-8')
                 url = client.parseDOM(ep_page, 'a', attrs={'class': 'btn btn-mini btn-primary'}, ret='href')[0]
-            item = xbmcgui.ListItem(label=ep_title, path=url, iconImage=ep_icon, thumbnailImage=ep_icon)
-            item.setInfo(type="Video", infoLabels={"Title": ep_title})
+            item = control.item(label=ep_title, path=url, iconImage=ep_icon, thumbnailImage=ep_icon)
+            item.setInfo(type="audio", infoLabels={"title": ep_title})
             xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
         except Exception as e:
             log_utils.log('podcast_play:Exception - ' + str(e))

@@ -1,3 +1,8 @@
+[COLOR limegreen]Atredies Video Addon v1.1.7c[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.2.7c[/COLOR]
+    - Bookmarks added to Podcasts section
+    - Bookmarks added to Radio section
+
 [COLOR limegreen]Atredies Video Addon v1.1.7b[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.2.7b[/COLOR]
     - Podcast Code Updates

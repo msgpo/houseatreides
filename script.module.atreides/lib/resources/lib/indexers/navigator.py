@@ -296,6 +296,7 @@ class navigator:
             self.addDirectoryItem(32659, 'radioCat&url=country', 'radio.png', 'DefaultVideoPlaylists.png')
             self.addDirectoryItem(32660, 'radioCat&url=city', 'radio.png', 'DefaultVideoPlaylists.png')
             self.addDirectoryItem(32661, 'radioCat&url=language', 'radio.png', 'DefaultVideoPlaylists.png')
+            self.addDirectoryItem('My Saved Stations', 'bmNavigator&url=radio', 'radio.png', 'DefaultVideoPlaylists.png')
 
             self.endDirectory()
         except Exception:

@@ -152,6 +152,10 @@ elif action == 'bmNavigator':
     from resources.lib.modules import jsonbm
     if url == 'channels':
         jsonbm.jsonBookmarks().show_channels()
+    elif url == 'podcasts':
+        jsonbm.jsonBookmarks().show_podcasts()
+    elif url == 'radio':
+        jsonbm.jsonBookmarks().show_radio()
 
 elif action == 'add_channel':
     from resources.lib.modules import jsonbm
@@ -160,6 +164,22 @@ elif action == 'add_channel':
 elif action == 'remove_channel':
     from resources.lib.modules import jsonbm
     jsonbm.jsonBookmarks().rem_channel(url)
+
+elif action == 'add_podcast':
+    from resources.lib.modules import jsonbm
+    jsonbm.jsonBookmarks().add_podcast(url)
+
+elif action == 'remove_podcast':
+    from resources.lib.modules import jsonbm
+    jsonbm.jsonBookmarks().rem_podcast(url)
+
+elif action == 'add_radio':
+    from resources.lib.modules import jsonbm
+    jsonbm.jsonBookmarks().add_radio(url)
+
+elif action == 'remove_radio':
+    from resources.lib.modules import jsonbm
+    jsonbm.jsonBookmarks().rem_radio(url)
 
 elif action == 'libraryNavigator':
     from resources.lib.indexers import navigator

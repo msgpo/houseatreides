@@ -28,7 +28,7 @@ import urlparse
 import xbmcgui
 import xbmcplugin
 
-from resources.lib.modules import control, log_utils
+from resources.lib.modules import control, jsonbm, log_utils
 from urllib2 import urlopen, Request
 
 sysaddon = sys.argv[0]
@@ -262,11 +262,7 @@ class radionet:
         )
         thumb = station['pictureBaseURL'] + thumbnail
 
-        cm = []
-        if context is not None:
-            cm.append((control.lang(context[0]).encode('utf-8'), 'RunPlugin(%s?action=%s)' % (sysaddon, context[1])))
         item = control.item(label=name)
-        item.addContextMenuItems(cm)
         item.setProperty('IsPlayable', 'true')
         item.setArt({'icon': thumb, 'thumb': thumb})
         if addonFanart is not None:
@@ -279,6 +275,14 @@ class radionet:
                  'comment': station.get('current_track', '')}
         item.setInfo('Music', iInfo)
 
+        try:
+            cm = jsonbm.jsonBookmarks().build_cm('Radio', name=name, id=str(station['id']), action='radioPlayStation', icon=thumb, url=str(station['id']))
+            if len(cm) > 0:
+                item.addContextMenuItems(cm)
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('Radio - BM Exception: \n' + str(failure))
+
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
@@ -288,14 +292,12 @@ class radionet:
             pass
         url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
         thumb = os.path.join(artPath, thumb) if artPath is not None else icon
-        cm = []
-        if context is not None:
-            cm.append((control.lang(context[0]).encode('utf-8'), 'RunPlugin(%s?action=%s)' % (sysaddon, context[1])))
+
         item = control.item(label=name)
-        item.addContextMenuItems(cm)
         item.setArt({'icon': thumb, 'thumb': thumb})
         if addonFanart is not None:
             item.setProperty('Fanart_Image', addonFanart)
+
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
     def endDirectory(self):
