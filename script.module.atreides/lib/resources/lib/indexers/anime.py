@@ -12,6 +12,11 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/5/2 - Added PBSKids using json pulled from website. Will expand later since they give more details but lazy atm
+'''
+
+import json
 import os
 import re
 import sys
@@ -69,7 +74,6 @@ class b98tv:
                         item.setInfo(type="video", infoLabels={"Title": title, "mediatype": "video"})
                         item.setProperty("IsPlayable", "true")
                         link = '%s?action=b98CarrotLink&url=%s&title=%s&image=%s' % (sysaddon, link, title, icon)
-                        log_utils.log(title + ' | ' + loglink)
                         items.append((link, item, False))
                 except Exception:
                     failure = traceback.format_exc()
@@ -190,3 +194,165 @@ class b98tv:
 
         control.content(syshandle, 'addons')
         control.directory(syshandle, cacheToDisc=True)
+
+
+class pbskids:
+    def __init__(self):
+        self.base_main_link = 'http://pbskids.org/video/'
+        self.series_link = 'https://cms-tc.pbskids.org/pbskidsvideoplaylists/%s.json'
+
+    def root(self):
+        items = []
+        html = client.request(self.base_main_link, timeout=10)
+        result = re.compile('<dd class="category-list-button.+?data-slug="(.+?)">(.+?)<.+?src="(.+?)".+?</dd', re.DOTALL).findall(html)
+
+        for subid, title, icon in result:
+            title = utils.convert(title).encode('utf-8')
+
+            item = control.item(label=title)
+            item.setArt({"thumb": icon, "icon": icon})
+            link = '%s?action=pbsKids&subid=%s' % (sysaddon, subid)
+            items.append((link, item, True))
+
+        control.addItems(syshandle, items)
+        self.endDirectory()
+
+    def scrape(self, url):
+        url = self.series_link % (url)
+        items = []
+
+        try:
+            html = client.request(url, timeout=10)
+            results = json.loads(html)
+            jresults = results['collections']['episodes']['content']
+
+            for entry in jresults:
+                try:
+                    url = entry['mp4']
+                except Exception:
+                    continue
+
+                try:
+                    title = entry['title']
+                except Exception:
+                    title = 'No Show Title'
+
+                try:
+                    icon = entry['images']['mezzanine']
+                    fanart = icon
+                except Exception:
+                    icon = control.addonIcon
+                    fanart = control.addonFanart
+
+                try:
+                    capCheck = entry['closedCaptions']
+                except Exception:
+                    capCheck = None
+                if capCheck is not None:
+                    for caption in capCheck:
+                        if caption['format'] == 'SRT':
+                            url = url + '|' + caption['URI']
+                            break
+
+                item = control.item(label=title)
+                item.setArt({"thumb": icon, "icon": icon})
+                item.setProperty("IsPlayable", "true")
+                item.setInfo(type="video", infoLabels={"Title": title, "mediatype": "video"})
+                link = '%s?action=pbsKids&playBasic=1&url=%s' % (sysaddon, url.encode('base64'))
+                items.append((link, item, False))
+        except Exception:
+            pass
+        control.addItems(syshandle, items)
+        self.endDirectory('videos')
+
+    def play(self, url):
+        url, captions = url.decode('base64').split('|', 1)
+        html = client.request('%s?format=json' % url)
+        jrequest = json.loads(html)
+        url = jrequest['url']
+        if url is not None:
+                li = control.item(path=url)
+                if len(captions) > 0:
+                    li.setSubtitles([captions])
+                li.setProperty("IsPlayable", "true")
+                control.resolve(handle=int(sys.argv[1]), succeeded=True, listitem=li)
+
+    def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
+        try:
+            name = control.lang(name).encode('utf-8')
+        except Exception:
+            pass
+        url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
+        if 'http' not in thumb:
+            thumb = os.path.join(artPath, thumb) if artPath is not None else icon
+        cm = []
+
+        queueMenu = control.lang(32065).encode('utf-8')
+
+        if queue is True:
+            cm.append((queueMenu, 'RunPlugin(%s?action=queueItem)' % sysaddon))
+        if context is not None:
+            cm.append((control.lang(context[0]).encode('utf-8'), 'RunPlugin(%s?action=%s)' % (sysaddon, context[1])))
+        item = control.item(label=name)
+        item.addContextMenuItems(cm)
+        item.setArt({'icon': thumb, 'thumb': thumb})
+        if addonFanart is not None:
+            item.setProperty('Fanart_Image', addonFanart)
+        control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
+
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+        control.content(syshandle, contentType)
+        control.sortMethod(syshandle, sortMethod)
+        control.directory(syshandle, cacheToDisc=True)
+
+    def addDirectory(self, items, queue=False, isFolder=True):
+        if items is None or len(items) is 0:
+            control.idle()
+            sys.exit()
+
+        sysaddon = sys.argv[0]
+        syshandle = int(sys.argv[1])
+
+        addonFanart, addonThumb, artPath = control.addonFanart(), control.addonThumb(), control.artPath()
+
+        for i in items:
+            try:
+                name = i['name']
+
+                if i['image'].startswith('http'):
+                    thumb = i['image']
+                elif artPath is not None:
+                    thumb = os.path.join(artPath, i['image'])
+                else:
+                    thumb = addonThumb
+
+                item = control.item(label=name)
+
+                if isFolder:
+                    url = '%s?action=%s' % (sysaddon, i['action'])
+                    try:
+                        url += '&url=%s' % urllib.quote_plus(i['url'])
+                    except Exception:
+                        pass
+                    item.setProperty('IsPlayable', 'false')
+                else:
+                    url = '%s?action=%s' % (sysaddon, i['action'])
+                    try:
+                        url += '&url=%s' % i['url']
+                    except Exception:
+                        pass
+                    item.setProperty('IsPlayable', 'true')
+                    item.setInfo("mediatype", "video")
+                    item.setInfo("audio", '')
+
+                item.setArt({'icon': thumb, 'thumb': thumb})
+                if addonFanart is not None:
+                    item.setProperty('Fanart_Image', addonFanart)
+
+                control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
+            except Exception:
+                pass
+
+        control.content(syshandle, 'addons')
+        control.directory(syshandle, cacheToDisc=True)
+

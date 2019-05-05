@@ -1,3 +1,12 @@
+[COLOR limegreen]Atredies Video Addon v1.1.8[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.2.8[/COLOR]
+    - Scraper updates
+    - KidsTube Updates (more to come)
+    - PBSKids website scraper added to Kids Corner
+    - First step in support for 3rd Party Artwork
+        Module support (Works, just I need to code
+        more in for Builders)
+
 [COLOR limegreen]Atredies Video Addon v1.1.7c[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.2.7c[/COLOR]
     - Bookmarks added to Podcasts section

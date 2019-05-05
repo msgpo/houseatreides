@@ -12,6 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/5/1: Fixed videoid issue (was setting video links to folder items, BOOOOO)
+'''
+
 import re
 import sys
 import urllib2
@@ -86,4 +90,4 @@ class youtube_menu(object):
         liz.setArt({'thumb': icon, 'banner': 'DefaultVideo.png', 'fanart': fanart})
 #        liz.setPath(work_url)
         liz.setProperty('IsPlayable', 'true')
-        control.addItem(handle=syshandle, url=work_url, listitem=liz, isFolder=True)
+        control.addItem(handle=syshandle, url=work_url, listitem=liz, isFolder=False)

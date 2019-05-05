@@ -272,9 +272,10 @@ class navigator:
         self.endDirectory()
 
     def kidscorner(self, lite=False):
-        self.addDirectoryItem('B98.TV', 'b98Navigator', 'b98.png', 'DefaultTVShows.png')
+        self.addDirectoryItem('B98.TV - Currently Down', 'b98Navigator', 'b98.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32633, 'kidsBoxsetNavigator', 'kidsboxsets.png', 'DefaultBoxSets.png')
         self.addDirectoryItem('Kids Tube', 'kidstube', 'kidstube.png', 'DefaultTVShows.png')
+        self.addDirectoryItem('PBS Kids', 'pbsKids', 'pbskids.png', 'DefaultBoxSets.png')
 
         '''
         if lite is False:
@@ -313,6 +314,7 @@ class navigator:
         self.addDirectoryItem(32047, 'openSettings&query=4.0', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32556, 'libraryNavigator', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32048, 'openSettings&query=8.0', 'tools.png', 'DefaultAddonProgram.png')
+        self.addDirectoryItem(32683, 'openArtwork', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32049, 'viewsNavigator', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32052, 'clearCache', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32668, 'pairTools', 'tools.png', 'DefaultAddonProgram.png')

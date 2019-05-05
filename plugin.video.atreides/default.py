@@ -22,6 +22,8 @@ action = params.get('action')
 
 subid = params.get('subid')
 
+playbasic = params.get('playBasic')
+
 docu_category = params.get('docuCat')
 
 docu_watch = params.get('docuPlay')
@@ -371,9 +373,17 @@ elif action == 'openSettings':
     from resources.lib.modules import control
     control.openSettings(query)
 
+elif action == 'openArtwork':
+    from resources.lib.modules import control
+    control.openSettings(query, 'script.atreides.artwork')
+
 elif action == 'artwork':
     from resources.lib.modules import control
     control.artwork()
+
+elif action == 'customartwork':
+    from resources.lib.modules import control
+    control.chooseArtwork()
 
 elif action == 'addView':
     from resources.lib.modules import views
@@ -453,6 +463,15 @@ elif action == 'b98RabbitNav':
 elif action == 'b98CarrotLink':
     from resources.lib.indexers import anime
     anime.b98tv().play(url, title, image)
+
+elif action == 'pbsKids':
+    from resources.lib.indexers import anime
+    if playbasic is not None:
+        anime.pbskids().play(url)
+    elif subid is not None:
+        anime.pbskids().scrape(subid)
+    else:
+        anime.pbskids().root()
 
 elif action == 'fitness':
     from resources.lib.indexers import youtube

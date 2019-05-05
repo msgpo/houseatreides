@@ -1242,3 +1242,7 @@ msgstr ""
 msgctxt "#32682"
 msgid "Documentary Storm"
 msgstr ""
+
+msgctxt "#32683"
+msgid "[B]SETTINGS[/B] : Artwork Module"
+msgstr ""

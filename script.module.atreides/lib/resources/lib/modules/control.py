@@ -211,8 +211,9 @@ def artPath():
     if theme in ['-', '']:
         return
     elif condVisibility('System.HasAddon(script.atreides.artwork)'):
+        aModule = xbmcaddon.Addon('script.atreides.artwork').getSetting('artwork_module')
         return os.path.join(
-            xbmcaddon.Addon('script.atreides.artwork').getAddonInfo('path'),
+            xbmcaddon.Addon(aModule).getAddonInfo('path'),
             'resources', 'media', theme)
 
 
@@ -224,6 +225,11 @@ def appearance():
 
 def artwork():
     execute('RunPlugin(plugin://script.atreides.artwork)')
+
+
+def chooseArtwork():
+    from resources.lib.dialogs import artwork
+    artwork.load()
 
 
 def infoDialog(message, heading=addonInfo('name'), icon='', time=3000, sound=False):

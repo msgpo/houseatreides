@@ -24,6 +24,7 @@ _addon = xbmcaddon.Addon(id='plugin.video.atreides')
 addonname = _addon.getAddonInfo('name')
 
 bg_news = os.path.join(artPath, 'newsbg.png')
+bg_mid = os.path.join(artPath, 'bg_mid.png')
 bg_ok = os.path.join(artPath, 'okbg.png')
 bg_mdialog = os.path.join(artPath, 'mdialogbg.png')
 btn_focus = os.path.join(artPath, 'onfocus.png')
