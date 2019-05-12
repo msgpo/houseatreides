@@ -64,6 +64,7 @@
     </category>
     <category label="32330">
         <setting id="hosts.mode" type="enum" label="32331" lvalues="32332|32333|32334" default="1" />
+        <setting id="remove.dups" type="bool" label="Remove Duplicate Hosts" default="true" />
         <setting id="progress.dialog" type="enum" label="32335" lvalues="32336|32337" default="0" />
         <setting type="lsep" label="32343" />
         <setting id="bookmarks" type="bool" label="32344" default="true" />

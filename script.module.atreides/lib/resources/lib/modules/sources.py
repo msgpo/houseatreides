@@ -12,6 +12,9 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/5/12: Duplicate Host removal added, thanks to doko
+'''
 
 import datetime
 import json
@@ -19,6 +22,7 @@ import random
 import re
 import sys
 import time
+import traceback
 import urllib
 import urlparse
 
@@ -920,6 +924,19 @@ class sources:
         except Exception:
             pass
 
+    def uniqueSourcesGen(self, sources):
+        uniqueURLs = set()
+        for source in sources:
+            url = source['url']
+            if isinstance(url, basestring):
+                if url not in uniqueURLs:
+                    uniqueURLs.add(url)
+                    yield source
+                else:
+                    pass
+            else:
+                yield source
+
     def sourcesFilter(self):
         provider = control.setting('hosts.sort.provider')
         if provider == '':
@@ -956,10 +973,15 @@ class sources:
             i.update({'language': self._getPrimaryLang() or 'en'})
         self.sources = [i for i in self.sources if i not in local]
 
-        filter = []
-        filter += [i for i in self.sources if i['direct'] is True]
-        filter += [i for i in self.sources if i['direct'] is False]
-        self.sources = filter
+        try:
+            if control.setting('remove.dups') == 'true':
+                self.sources = list(self.uniqueSourcesGen(self.sources))
+            else:
+                self.sources
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('DUP - Exception: ' + str(failure))
+            self.sources
 
         filter = []
         for d in debrid.debrid_resolvers:
