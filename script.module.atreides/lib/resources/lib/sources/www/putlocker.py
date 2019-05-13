@@ -14,12 +14,13 @@
 
 '''
 2019/4/17: Readded this one, fix by SC
+2019/5/13: Removed cfscrape, not needed atm. Using a client req seems consistent after testing
 '''
 
 import re
 import traceback
 
-from resources.lib.modules import cfscrape, client, log_utils
+from resources.lib.modules import client, log_utils
 
 
 class source:
@@ -29,7 +30,7 @@ class source:
         self.domains = ['putlockers.movie', 'putlockerr.is']
         self.base_link = 'https://putlockerr.is'
         self.search_link = '/embed/%s/'
-        self.scraper = cfscrape.create_scraper()
+        # self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -63,7 +64,8 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            r = self.scraper.get(url).content
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            r = client.request(url, headers=headers)
             try:
                 match = re.compile('<iframe src="(.+?)://(.+?)/(.+?)"').findall(r)
                 for http, host, url in match:
