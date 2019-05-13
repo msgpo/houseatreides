@@ -349,8 +349,8 @@ class movies:
         certificates = ['G', 'PG', 'PG-13', 'R', 'NC-17']
 
         for i in certificates:
-            self.list.append({'name': str(i), 'url': self.certification_link % str(i).replace(
-                '-', '_').lower(), 'image': 'certificates.png', 'action': 'movies'})
+            self.list.append({'name': str(i), 'url': self.certification_link % str(i),
+                'image': 'certificates.png', 'action': 'movies'})
         self.addDirectory(self.list)
         return self.list
 
