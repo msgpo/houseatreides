@@ -14,6 +14,7 @@
 
 '''
 2019/4/16: Updated to use CFScrape - Still using single request
+2019/5/12: Fixed search
 '''
 
 import re
@@ -31,7 +32,7 @@ class source:
         self.source = ['www']
         self.domains = ['myvideolinks.net', 'iwantmyshow.tk']
         self.base_link = 'http://myvideolinks.net'
-        self.search_link = '/vv/?s=%s'
+        self.search_link = '/dl/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:

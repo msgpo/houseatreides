@@ -48,6 +48,7 @@ class source:
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
+            title = data['title'].replace(':', '').lower()
             year = data['year']
 
             query = '%s %s' % (data['title'], data['year'])
@@ -68,70 +69,51 @@ class source:
 
             for item in r:
                 try:
-                    name = item[1]
-                    y = re.findall('\((\d{4})\)', name)[0]
-                    if not y == year:
-                        raise Exception()
-
+                    name = item[0]
                     s = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GB|GiB|Gb|MB|MiB|Mb))', name)
                     s = s[0] if s else '0'
                     data = client.request(item[0])
                     data = dom_parser2.parse_dom(data, 'div', attrs={'id': 'r-content'})
-                    data = re.findall('\s*<b><a href=.+?>(.+?)</b>.+?<u><b><a href="(.+?)".+?</a></b></u>',
-                                      data[0].content, re.DOTALL)
-                    u = [(i[0], i[1], s) for i in data if i]
-
-                    for name, url, size in u:
+                    data = re.findall('\s*<b><a href="(.+?)".+?</a></b>', data[0].content, re.DOTALL)
+                    for url in data:
                         try:
-                            if '4K' in name:
-                                quality = '4K'
-                            elif '1080p' in name:
-                                quality = '1080p'
-                            elif '720p' in name:
-                                quality = '720p'
-                            elif any(i in ['dvdscr', 'r5', 'r6'] for i in name):
-                                quality = 'SCR'
-                            elif any(i in ['camrip', 'tsrip', 'hdcam', 'hdts', 'dvdcam', 'dvdts', 'cam', 'telesync', 'ts']
-                                     for i in name):
-                                quality = 'CAM'
-                            else:
-                                quality = '720p'
+                            qual = client.request(url)
+                            quals = re.findall('span class="file-title" id="file-title">(.+?)</span', qual)
+                            for quals in quals:
+                                if '4K' in quals:
+                                    quality = '4K'
+                                elif '2160p' in quals:
+                                    quality = '4K'
+                                elif '1080p' in quals:
+                                    quality = '1080p'
+                                elif '720p' in quals:
+                                    quality = '720p'
+                                elif any(i in ['dvdscr', 'r5', 'r6'] for i in quals):
+                                    quality = 'SCR'
+                                elif any(i in ['camrip', 'tsrip', 'hdcam', 'hdts', 'dvdcam', 'dvdts', 'cam', 'telesync', 'ts']
+                                         for i in quals):
+                                    quality = 'CAM'
+                                else:
+                                    quality = '720p'
 
                             info = []
-                            if '3D' in name or '.3D.' in url:
+                            if '3D' in name or '.3D.' in quals:
                                 info.append('3D')
                                 quality = '1080p'
-                            if any(i in ['hevc', 'h265', 'x265'] for i in name):
+                            if any(i in ['hevc', 'h265', 'x265'] for i in quals):
                                 info.append('HEVC')
-                            try:
-                                size = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GB|GiB|Gb|MB|MiB|Mb))', size)[-1]
-                                div = 1 if size.endswith(('Gb', 'GiB', 'GB')) else 1024
-                                size = float(re.sub('[^0-9|/.|/,]', '', size)) / div
-                                size = '%.2f GB' % size
-                                info.append(size)
-                            except Exception:
-                                pass
 
                             info = ' | '.join(info)
 
                             url = client.replaceHTMLCodes(url)
                             url = url.encode('utf-8')
-                            if any(x in url for x in ['.rar', '.zip', '.iso', 'turk']):
+                            if any(x in url for x in ['.rar', '.zip', '.iso']):
+                                raise Exception()
+                            if 'turbobit' not in url:
                                 continue
+                            sources.append({'source': 'turbobit', 'quality': quality, 'language': 'en',
+                                            'url': url, 'info': info, 'direct': True, 'debridonly': debrid.status()})
 
-                            if 'ftp' in url:
-                                host = 'COV'
-                                direct = True
-                            else:
-                                direct = False
-                                host = 'turbobit.net'
-                            # if not host in hostDict: continue
-
-                            host = client.replaceHTMLCodes(host)
-                            host = host.encode('utf-8')
-
-                            sources.append({'source': host, 'quality': quality, 'language': 'en',
-                                            'url': url, 'info': info, 'direct': direct, 'debridonly': debrid.status()})
                         except Exception:
                             pass
                 except Exception:

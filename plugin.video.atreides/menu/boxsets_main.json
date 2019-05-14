@@ -1,4 +1,12 @@
 {
+    "menu_file": [
+        {
+            "title": "Boxsets Menu File",
+            "desc": "Menu File containing all menus around BoxSets",
+            "checked": "1",
+            "version": "1"
+        }
+    ],
     "boxsets_main": [
         {
             "title": "Action",

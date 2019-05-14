@@ -72,8 +72,9 @@ class source:
                             continue
                         r = client.request(Aurora, headers=headers)
 
-                        links = re.compile(
-                            '<h2\s+c\w{4}\W"d\w{7}-l\w{4}"><a\s\w{4}="(.+?)"\s[a-z]{6}\W', re.DOTALL).findall(r)
+                        links = re.compile('<h2\s+c\w{4}\W"d\w{7}-l\w{4}"><a\s\w{4}="(.+?)"\s[a-z]{6}\W', re.DOTALL).findall(r)
+                        if len(regex == 0):
+                            links = re.compile('<h2\s+c\w{4}\W"d\w{7}-l\w{4}"><a\s\w{4}=(.+?)\s[a-z]{6}\W', re.DOTALL).findall(r)
 
                         for link in links:
                             sources.append({'source': 'Direct', 'quality': '720p', 'language': 'en',

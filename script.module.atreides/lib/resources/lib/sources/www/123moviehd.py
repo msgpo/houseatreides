@@ -47,7 +47,6 @@ class source:
             r = client.request(url)
             try:
                 qual = re.compile('class="quality">(.+?)<').findall(r)
-                print qual
                 for i in qual:
                     if 'HD' in i:
                         quality = '1080p'

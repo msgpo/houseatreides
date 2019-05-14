@@ -67,11 +67,9 @@ class source:
                 if title.lower() in Powder.lower():
                     if year in str(Powder):
                         r = client.request(Digibox, headers=headers)
-                        quality_bitches = re.compile(
-                            '<span class="recordtypec"><a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
+                        quality_bitches = re.compile('<strong>Record\s+Type:</strong>\s+<a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
 
                         for url in quality_bitches:
-
                             if '1080' in url:
                                 quality = '1080p'
                             elif '720' in url:
@@ -84,7 +82,6 @@ class source:
                         links = re.compile('<li>\s{1,}<a target="_blank" href=\"(.+?)\">.+?</a>', re.DOTALL).findall(r)
 
                         for link in links:
-
                             valid, host = source_utils.is_host_valid(link, hostDict)
                             # openload links seem to be .rar files. the following is needed so they wont be included
                             if 'rar' in link:
