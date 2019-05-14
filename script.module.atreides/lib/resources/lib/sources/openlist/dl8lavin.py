@@ -13,10 +13,9 @@
 # Addon Provider: House Atreides
 
 import re
-import traceback
-import requests
 import urllib
 import urlparse
+import traceback
 
 from resources.lib.modules import client, log_utils, source_utils
 
@@ -25,9 +24,9 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['openlist']
-        self.domains = ['dl4.lavinmovie.net']
-        self.base_link = 'http://dl4.lavinmovie.net/'
-        self.search_link = '/movie/%s/'
+        self.domains = ['dl8.lavinmovie.net']
+        self.base_link = 'http://dl8.lavinmovie.net/'
+        self.search_link = 'Movies/%s/'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -38,8 +37,8 @@ class source:
             return url
         except Exception:
             failure = traceback.format_exc()
-            log_utils.log('DL4.LAVINMOVIE - Exception: \n' + str(failure))
-            return
+            log_utils.log('DL8LAVIN - Exception: \n' + str(failure))
+            return None
 
     def sources(self, url, hostDict, hostprDict):
         try:
@@ -52,7 +51,7 @@ class source:
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             title = data['title']
             year = data['year']
-            url = self.base_link + self.search_link % (year)
+            url = self.base_link + self.search_link % year
 
             html = client.request(url)
             if html is None:
@@ -74,8 +73,8 @@ class source:
             return sources
         except Exception:
             failure = traceback.format_exc()
-            log_utils.log('DL4.LAVINMOVIE - Exception: \n' + str(failure))
-            return
+            log_utils.log('DL8LAVIN - Exception: \n' + str(failure))
+            return sources
 
     def resolve(self, url):
         return url

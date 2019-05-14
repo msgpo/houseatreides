@@ -20,8 +20,9 @@ import re
 import traceback
 import urllib
 import urlparse
+import requests
 
-from resources.lib.modules import client, log_utils, source_utils
+from resources.lib.modules import log_utils, source_utils
 
 
 class source:
@@ -31,6 +32,7 @@ class source:
         self.domains = ['ganol.si', 'ganool123.com']
         self.base_link = 'https://ganool.ws'
         self.search_link = '/search/?q=%s'
+        self.download_links = '/loadmoviedownloadsection.php'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -58,7 +60,7 @@ class source:
 
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'}
-            Digital = client.request(url, headers=headers)
+            Digital = requests.get(url, headers=headers).content
 
             BlackFlag = re.compile(
                 'data-movie-id="" class="ml-item".+?href="(.+?)" class="ml-mask jt".+?<div class="moviename">(.+?)</div>',
@@ -66,8 +68,9 @@ class source:
             for Digibox, Powder in BlackFlag:
                 if title.lower() in Powder.lower():
                     if year in str(Powder):
-                        r = client.request(Digibox, headers=headers)
-                        quality_bitches = re.compile('<strong>Record\s+Type:</strong>\s+<a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
+                        r = requests.get(Digibox, headers=headers).content
+                        quality_bitches = re.compile(
+                            '<strong>Record\s+Type:</strong>\s+<a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
 
                         for url in quality_bitches:
                             if '1080' in url:
@@ -79,7 +82,16 @@ class source:
                             else:
                                 quality = 'SD'
 
-                        links = re.compile('<li>\s{1,}<a target="_blank" href=\"(.+?)\">.+?</a>', re.DOTALL).findall(r)
+                        key = re.compile("var randomKeyNo = '(.+?)'", re.DOTALL).findall(r)
+                        post_link = urlparse.urljoin(self.base_link, self.download_links)
+                        payload = {'key': key}
+                        suck_it = requests.post(post_link, headers=headers, data=payload)
+                        response = suck_it.content
+
+                        grab = re.compile('<a rel="\w+" href="(.+?)">\w{5}\s\w+\s\w+\s\w+\s\w{5}<\/a>', re.DOTALL).findall(response)
+                        for links in grab:
+                            r = requests.get(links, headers=headers).content
+                            links = re.compile('<a rel="\w+" href="(.+?)" target="\w+">', re.DOTALL).findall(r)
 
                         for link in links:
                             valid, host = source_utils.is_host_valid(link, hostDict)

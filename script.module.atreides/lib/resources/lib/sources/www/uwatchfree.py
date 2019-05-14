@@ -62,9 +62,7 @@ class source:
                 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'}
             request = self.scraper.get(url).content
 
-            regex = re.compile('<h2\s+\w{5}="\w{5}-\w{5}"><\w\shref="(.+?)"\stitle="(.+?)"', re.DOTALL).findall(request)
-            if len(regex == 0):
-                regex = re.compile('<h2\s+\w{5}="\w{5}-\w{5}"><\w\shref=(.+?)\stitle="(.+?)"', re.DOTALL).findall(request)
+            regex = re.compile('<h2\s+\w{5}="\w{5}-\w{5}"><\w\shref=(.+?)\stitle="(.+?)"', re.DOTALL).findall(request)
             for Aurora, Atreides in regex:
                 if title.lower() in Atreides.lower():
                     if year in str(Atreides):
@@ -72,9 +70,8 @@ class source:
                             continue
                         r = client.request(Aurora, headers=headers)
 
-                        links = re.compile('<h2\s+c\w{4}\W"d\w{7}-l\w{4}"><a\s\w{4}="(.+?)"\s[a-z]{6}\W', re.DOTALL).findall(r)
-                        if len(regex == 0):
-                            links = re.compile('<h2\s+c\w{4}\W"d\w{7}-l\w{4}"><a\s\w{4}=(.+?)\s[a-z]{6}\W', re.DOTALL).findall(r)
+                        links = re.compile(
+                            '<h2\s+c\w{4}\W"d\w{7}-l\w{4}"><a\s\w{4}=(.+?)\s[a-z]{6}\W', re.DOTALL).findall(r)
 
                         for link in links:
                             sources.append({'source': 'Direct', 'quality': '720p', 'language': 'en',
