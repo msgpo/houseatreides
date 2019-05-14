@@ -73,7 +73,6 @@ class source:
                             '<strong>Record\s+Type:</strong>\s+<a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
 
                         for url in quality_bitches:
-
                             if '1080' in url:
                                 quality = '1080p'
                             elif '720' in url:
@@ -95,7 +94,6 @@ class source:
                             links = re.compile('<a rel="\w+" href="(.+?)" target="\w+">', re.DOTALL).findall(r)
 
                         for link in links:
-
                             valid, host = source_utils.is_host_valid(link, hostDict)
                             # openload links seem to be .rar files. the following is needed so they wont be included
                             if 'rar' in link:

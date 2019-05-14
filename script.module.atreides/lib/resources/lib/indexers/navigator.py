@@ -12,10 +12,12 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/5/12: Moved news control timer to news dialog
+'''
+
 import os
 import sys
-import time
-import urllib2
 
 import xbmc
 import xbmcaddon
@@ -85,15 +87,6 @@ class navigator:
 
         self.endDirectory()
 
-        newsUpdate = control.setting('NewsUpdate')
-        if newsUpdate == '':
-            newsUpdate = 1
-        else:
-            newsUpdate = int(float(newsUpdate))
-        if time.time() < newsUpdate:
-            return
-        newsUpdate = time.time() + (60*60*24*7)
-        control.setSetting('NewsUpdate', str(newsUpdate))
         from resources.lib.dialogs import news
         news.load()
 

@@ -19,7 +19,7 @@ import re
 import sys
 import urllib
 
-from resources.lib.modules import cleangenre, client, control, metacache, playcount, trakt, views, workers
+from resources.lib.modules import cleangenre, client, control, jsonmenu, metacache, playcount, trakt, views, workers
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -47,19 +47,11 @@ class boxsets:
         self.imdbinfo = 'http://www.omdbapi.com/?i=%s&plot=short&r=json'
 
     def root(self):
-        self.addDirectoryItem('Action', 'actionBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Adventure', 'adventureBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Animation', 'animationBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Comedy', 'comedyBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Crime', 'crimeBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Drama', 'dramaBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Family', 'familyBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Fantasy', 'fantasyBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Horror', 'horrorBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Mystery', 'mysteryBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Romance', 'romanceBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Sci-Fi', 'scifiBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Thriller', 'thrillerBoxNavigator', 'boxsets.png', 'DefaultBoxSets.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('boxsets_main')
+
+        for item in rootMenu.menu['boxsets_main']:
+            self.addDirectoryItem(item['title'], item['action'], item['icon'], item['icon'])
         self.addDirectoryItem(32010, 'movieSearch', 'search.png', 'search.png')
 
         self.endDirectory()

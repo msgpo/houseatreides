@@ -14,6 +14,7 @@
 
 '''
 2019/4/16: Updated to use CFScrape - Still using single request
+2019/5/12: Fixed search
 '''
 
 import re
