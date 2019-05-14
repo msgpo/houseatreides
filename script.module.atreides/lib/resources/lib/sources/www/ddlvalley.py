@@ -89,11 +89,11 @@ class source:
             url = urlparse.urljoin(self.base_link, url)
 
             headers = {
-                'Referer': 'www.ddlvalley.me/?s=',
+                'Referer': 'http://www.ddlvalley.me/?s=',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
                 'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9',
                 'User-Agent':
-                'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
+                'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0'}
             r = self.scraper.get(url, headers=headers).content
 
             items = dom_parser2.parse_dom(r, 'h2')
@@ -111,12 +111,12 @@ class source:
                         continue
                     url = item[1]
                     headers = {
-                        'Referer': 'www.ddlvalley.me/search/',
+                        'Referer': 'http://www.ddlvalley.me/search/',
                         'Accept':
                         'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
                         'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9',
                         'User-Agent':
-                        'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
+                        'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0'}
                     r = self.scraper.get(url, headers=headers).content
                     links = dom_parser2.parse_dom(r, 'a', req=['href', 'rel', 'data-wpel-link'])
                     links = [i.attrs['href'] for i in links]
