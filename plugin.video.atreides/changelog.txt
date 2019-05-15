@@ -1,5 +1,11 @@
 [COLOR limegreen]Atredies Video Addon v1.1.9[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.2.9[/COLOR]
+    - Scraper Updates
+    - Certificates section fixed in TV/Movies
+    - Code updates for upcoming new menu back end
+
+[COLOR limegreen]Atredies Video Addon v1.1.9[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.2.9[/COLOR]
     - CFScraper Update
     - Quality updates
     - Duplicate Host Removal during scrape

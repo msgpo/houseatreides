@@ -38,6 +38,10 @@ podcast_cats = params.get('podcastcategories')
 
 podcast_episode = params.get('podcastepisode')
 
+menu_file = params.get('menu_file')
+
+menu_section = params.get('menu_section')
+
 boxset_list = params.get('list')
 
 name = params.get('name')
@@ -443,7 +447,7 @@ elif action == 'kidscorner':
 
 elif action == 'kidsBoxsetNavigator':
     from resources.lib.indexers import boxsets
-    boxsets.boxsets().kidsboxsets()
+    boxsets.boxsets().get(menu_file, menu_section)
 
 elif action == 'kidstube':
     from resources.lib.indexers import youtube
@@ -519,59 +523,7 @@ elif action == 'podcastOne':
 
 elif action == 'boxsetNavigator':
     from resources.lib.indexers import boxsets
-    boxsets.boxsets().root()
-
-elif action == 'actionBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().action()
-
-elif action == 'adventureBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().adventure()
-
-elif action == 'animationBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().animation()
-
-elif action == 'comedyBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().comedy()
-
-elif action == 'crimeBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().crime()
-
-elif action == 'dramaBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().drama()
-
-elif action == 'familyBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().family()
-
-elif action == 'fantasyBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().fantasy()
-
-elif action == 'horrorBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().horror()
-
-elif action == 'mysteryBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().mystery()
-
-elif action == 'romanceBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().romance()
-
-elif action == 'scifiBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().scifi()
-
-elif action == 'thrillerBoxNavigator':
-    from resources.lib.indexers import boxsets
-    boxsets.boxsets().thriller()
+    boxsets.boxsets().get(menu_file, menu_section)
 
 elif action == 'boxsetList':
     from resources.lib.indexers import boxsets

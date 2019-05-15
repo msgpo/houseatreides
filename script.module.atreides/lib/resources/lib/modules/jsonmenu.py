@@ -46,7 +46,6 @@ class jsonMenu(object):
                 lastCheck = self.menu["menu_file"]["checked"]
             except Exception:
                 lastCheck = '1'
-            log_utils.log('Last Check: ' + str(lastCheck))
             lastCheck = int(float(lastCheck))
             if time.time() < lastCheck:
                 return
@@ -60,13 +59,12 @@ class jsonMenu(object):
                 version = '0'
             version = int(float(version))
 
-            log_utils.log('Version: ' + str(version))
-
             try:
                 header = {'User-Agent': self.agent}
                 url = urlparse.urljoin(self.remote_root, menu_file)
                 response = client.request(url, headers=header)
                 remote_menu = json.loads(response)
+
                 try:
                     remote_version = remote_menu["menu_file"][0]["version"]
                 except Exception:

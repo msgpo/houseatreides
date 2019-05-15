@@ -62,7 +62,7 @@ class navigator:
         if self.getMenuEnabled('navi.channels') is True:
             self.addDirectoryItem(32007, 'channelNavigator', 'channels.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.boxsets') is True:
-            self.addDirectoryItem(32632, 'boxsetNavigator', 'boxsets.png', 'DefaultMovies.png')
+            self.addDirectoryItem(32632, 'boxsetNavigator&menu_file=boxsets_main&menu_section=boxsets_main', 'boxsets.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.docu') is True:
             self.addDirectoryItem(32631, 'docuNavigator', 'movies.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.kidscorner') is True:
@@ -266,7 +266,7 @@ class navigator:
 
     def kidscorner(self, lite=False):
         self.addDirectoryItem('B98.TV - Currently Down', 'b98Navigator', 'b98.png', 'DefaultTVShows.png')
-        self.addDirectoryItem(32633, 'kidsBoxsetNavigator', 'kidsboxsets.png', 'DefaultBoxSets.png')
+        self.addDirectoryItem(32633, 'kidsBoxsetNavigator&menu_file=boxsets_main&menu_section=boxsets_kids', 'kidsboxsets.png', 'DefaultBoxSets.png')
         self.addDirectoryItem('Kids Tube', 'kidstube', 'kidstube.png', 'DefaultTVShows.png')
         self.addDirectoryItem('PBS Kids', 'pbsKids', 'pbskids.png', 'DefaultBoxSets.png')
 
