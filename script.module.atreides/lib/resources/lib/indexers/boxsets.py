@@ -54,7 +54,8 @@ class boxsets:
 
         for item in rootMenu.menu[mSection]:
             if mSection == 'boxsets_main':
-                self.addDirectoryItem(item['title'], item['action'], item['icon'], item['icon'])
+                url = item['action'] + '&menu_file=' + item['url'] + '&menu_section=' + item['list']
+                self.addDirectoryItem(item['title'], url, item['icon'], item['icon'])
             else:
                 url = item['action'] + '&url=' + item['url'] + '&list=' + item['list']
                 self.addDirectoryItem(item['title'], url, item['icon'], item['icon'])
