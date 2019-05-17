@@ -27,7 +27,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.atreides" version="1.1.9" name="Atreides" provider-name="Paul Atreides">
+<addon id="plugin.video.atreides" version="1.2.0" name="Atreides" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.atreides" />
@@ -153,7 +153,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.atreides" name="Atreides Module" version="1.2.9" provider-name="Paul Atreides">
+<addon id="script.module.atreides" name="Atreides Module" version="1.3.0" provider-name="Paul Atreides">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.pyxbmct" version="1.1.4" />
@@ -168,5 +168,38 @@ This is a Non-profit resource, organized solely for educational purposes which i
         <license>Beerware rev. 42</license>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
+</addon>
+
+<addon id="skin.estuary.four" version="0.0.1" name="Estuary Four Mod" provider-name="Team CircumSkin">
+	<requires>
+		<import addon="xbmc.gui" version="5.12.0"/>
+	</requires>
+	<extension point="xbmc.gui.skin" debugging="false">
+		<res width="1920" height="1440" aspect="4:3" default="false" folder="xml" />
+		<res width="1920" height="1280" aspect="3:2" default="false" folder="xml" />
+		<res width="1920" height="1200" aspect="16:10" default="false" folder="xml" />
+		<res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
+		<res width="2560" height="1080" aspect="21:9" default="false" folder="xml" />
+	</extension>
+	<extension point="xbmc.addon.metadata">
+
+		<summary lang="en_US">Mod of the Estuary Skin. Original by phil65 and Piers. (Kodi's default skin)</summary>
+		<description lang="en_US">Easy Peesy Lemon Squeezy. Until version 1.0.0 this is in design and development phases. Not for every day use.</description>
+		<disclaimer lang="en_US">May cause tantrums</disclaimer>
+		<platform>all</platform>
+		<license>CC BY-SA 4.0, GNU GENERAL PUBLIC LICENSE Version 2.0</license>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<fanart>resources/fanart.jpg</fanart>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+			<screenshot>resources/screenshot-04.jpg</screenshot>
+			<screenshot>resources/screenshot-05.jpg</screenshot>
+			<screenshot>resources/screenshot-06.jpg</screenshot>
+			<screenshot>resources/screenshot-07.jpg</screenshot>
+			<screenshot>resources/screenshot-08.jpg</screenshot>
+		</assets>
+	</extension>
 </addon>
 </addons>
