@@ -70,7 +70,7 @@ class source:
                     if year in str(Powder):
                         r = requests.get(Digibox, headers=headers).content
                         quality_bitches = re.compile(
-                            '<strong>Record\s+Type:</strong>\s+<a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
+                            '<strong>Quality:</strong>\s+<a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
 
                         for url in quality_bitches:
                             if '1080' in url:
