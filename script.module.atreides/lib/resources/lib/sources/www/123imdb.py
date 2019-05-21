@@ -47,15 +47,22 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
+            if url is None:
+                return sources
+            hostDict = hostprDict + hostDict
             '''
             Sometimes this source url will have extra characters after /movie/%s-%s/.
             Site will automatically forward us to the correct page for the movie. So
             using title-year in the url string works everytime.
             '''
-            hostDict = hostprDict + hostDict
-            url = urlparse.urljoin(url, 'watching/?ep=1')
-
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            '''
+            However we will need to capture that redirect before joining the end of
+            the url.
+            '''
+            r = requests.get(url, headers=headers).url
+            url = urlparse.urljoin(r, 'watching/?ep=1')
+
             r = requests.get(url, headers=headers).content
 
             quality_scrape = re.compile('<span class="quality"><a href=.+?rel="tag">(.+?)</a>', re.DOTALL).findall(r)
