@@ -212,7 +212,7 @@ class movies:
 
         dbcon = database.connect(control.searchFile)
         dbcur = dbcon.cursor()
-        dbcur.execute("DELETE FROM movies WHERE term = '%s'" % q)
+        dbcur.execute("DELETE FROM movies WHERE term = ?", (q,))
         dbcur.execute("INSERT INTO movies VALUES (?,?)", (None, q))
         dbcon.commit()
         dbcur.close()
@@ -234,7 +234,7 @@ class movies:
 
         dbcon = database.connect(control.searchFile)
         dbcur = dbcon.cursor()
-        dbcur.execute("DELETE FROM movies WHERE term = '%s'" % q)
+        dbcur.execute("DELETE FROM movies WHERE term = ?", (q,))
         dbcur.execute("INSERT INTO movies VALUES (?,?)", (None, q))
         dbcon.commit()
         dbcur.close()
@@ -349,8 +349,7 @@ class movies:
         certificates = ['G', 'PG', 'PG-13', 'R', 'NC-17']
 
         for i in certificates:
-            self.list.append({'name': str(i), 'url': self.certification_link % str(i),
-                'image': 'certificates.png', 'action': 'movies'})
+            self.list.append({'name': str(i), 'url': self.certification_link % str(i), 'image': 'certificates.png', 'action': 'movies'})
         self.addDirectory(self.list)
         return self.list
 

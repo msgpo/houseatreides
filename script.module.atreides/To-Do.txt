@@ -9,3 +9,4 @@
 8. Create List Indexer for JSONMenu code
 9. Add Documentary Storm to Docu section
 10. In sources.py - Update the Premium and Captcha Host Dicts
+11. Add Trakt Sync stuff to Service and all, per The Oath as example/source for credit
