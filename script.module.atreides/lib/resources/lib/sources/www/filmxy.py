@@ -12,35 +12,35 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/5/24: Removed filter function, as its not needed anymore. Updated/tweaked regex
+to pull both iframes. Added some quality checking from source_utils.
+'''
+
 import re
+import urlparse
 import traceback
 
-from resources.lib.modules import cleantitle, client, log_utils
+from resources.lib.modules import cleantitle, client, log_utils, source_utils
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.source = ['www']
-        self.domains = ['filmxy.me']
-        self.base_link = 'https://www.filmxy.one/'
+        self.domains = ['filmxy.me', 'filmxy.one']
+        self.base_link = 'https://www.filmxy.ws'
         self.search_link = '/%s-%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             title = cleantitle.geturl(title)
-            url = self.base_link + self.search_link % (title, year)
+            url = urlparse.urljoin(self.base_link, (self.search_link % (title, year)))
             return url
         except Exception:
             failure = traceback.format_exc()
             log_utils.log('FilmXY - Exception: \n' + str(failure))
             return
-
-    def filter_host(self, host):
-        if host not in ['openload.co', 'yourupload.com', 'streamango.com', 'rapidvideo.com', 'uptobox.com',
-                        'streamcherry.com', 'vidoza.net', 'vcstream.to', 'uptostream.com', 'vidcloud.co']:
-            return False
-        return True
 
     def sources(self, url, hostDict, hostprDict):
         try:
@@ -48,18 +48,22 @@ class source:
 
             if url is None:
                 return sources
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'}
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
             result = client.request(url, headers=headers)
-            streams = re.compile('data-player="&lt;iframe src=&quot;(.+?)&quot;', re.DOTALL).findall(result)
+            streams = re.compile('data-player="&lt;[A-Za-z]{6}\s[A-Za-z]{3}=&quot;(.+?)&quot;', re.DOTALL).findall(result)
 
             for link in streams:
+                quality = source_utils.check_sd_url(link)
                 host = link.split('//')[1].replace('www.', '')
                 host = host.split('/')[0].lower()
-                if not self.filter_host(host):
-                    continue
-                sources.append({'source': host, 'quality': '720p', 'language': 'en',
-                                'url': link, 'direct': False, 'debridonly': False})
+                '''
+                Now source_utils can't strip quality on some of these links. It will drop them
+                down to SD. So i say we try this as most if not all links are HD
+                '''
+                if quality == 'SD':
+                    sources.append({'source': host, 'quality': '720p', 'language': 'en', 'url': link, 'direct': False, 'debridonly': False})
+                else:
+                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': link, 'direct': False, 'debridonly': False})
 
             return sources
         except Exception:
