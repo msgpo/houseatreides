@@ -58,7 +58,7 @@ class source:
                 return sources
 
             # this method guarantees only results matching our formatted title get pulled out of the html
-            regex_string = r'<tr><td><a href="{0}(.+?)"'.format(title)
+            regex_string = r'<tr><td class="link"><a href="{0}(.+?)"'.format(title)
             results = re.compile(regex_string).findall(html)
             for link in results:
                 if 'Trailer' in link:
