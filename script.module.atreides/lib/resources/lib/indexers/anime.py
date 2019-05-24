@@ -13,7 +13,8 @@
 # Addon Provider: House Atreides
 
 '''
-2019/5/2 - Added PBSKids using json pulled from website. Will expand later since they give more details but lazy atm
+2019/5/2:  Added PBSKids using json pulled from website. Will expand later since they give more details but lazy atm
+2019/5/23: Updated root to use JSON menu system. All data scraping and working again
 '''
 
 import json
@@ -222,7 +223,7 @@ class pbskids:
                 log_utils.log('PBSKids - Failed to Build: \n' + str(failure))
 
         control.addItems(syshandle, items)
-        self.endDirectory()
+        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL)
 
     def scrape(self, url):
         url = self.series_link % (url)
@@ -270,7 +271,7 @@ class pbskids:
         except Exception:
             pass
         control.addItems(syshandle, items)
-        self.endDirectory('videos')
+        self.endDirectory('episodes')
 
     def play(self, url):
         url, captions = url.decode('base64').split('|', 1)
