@@ -1,6 +1,9 @@
+[COLOR limegreen]Atredies Video Addon v1.2.1[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.1[/COLOR]
     - Scraper Updates
     - Search updates
+    - PBS Kids updated to use JSON Menu
+    - PBS Kids Scraping fixed
 
 [COLOR limegreen]Atredies Video Addon v1.2.0[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.0[/COLOR]
