@@ -200,7 +200,7 @@ class b98tv:
 class pbskids:
     def __init__(self):
         self.base_main_link = 'https://pbskids.org/video/'
-        self.series_link = 'https://cms-tc.pbskids.org/pbskidsvideoplaylists/%s.json'
+        self.series_link = 'https://content.services.pbskids.org/v2/kidspbsorg/programs/%s'
 
     def root(self):
         rootMenu = jsonmenu.jsonMenu()
@@ -227,23 +227,38 @@ class pbskids:
 
     def scrape(self, url):
         url = self.series_link % (url)
-        items = []
+        self.showItems = []
 
         try:
             html = client.request(url, timeout=10)
             results = json.loads(html)
-            jresults = results['collections']['episodes']['content']
+            '''
+            Promoted Content left out, cuz that is related, or unrelated content to the show. AKA, Promoted could be a different show
+            so we ignore it and go on.
+            '''
+            # promoted = results['collections']['promoted_content']['content']
+            # self.buildShows(promoted, 'Promoted')
+            episodes = results['collections']['episodes']['content']
+            self.buildShows(episodes, 'Episode')
+            clips = results['collections']['clips']['content']
+            self.buildShows(clips, 'Clip')
+        except Exception:
+            pass
+        control.addItems(syshandle, self.showItems)
+        self.endDirectory('episodes')
 
-            for entry in jresults:
+    def buildShows(self, content, content_type):
+        try:
+            for entry in content:
                 try:
                     url = entry['mp4']
                 except Exception:
                     continue
 
                 try:
-                    title = entry['title']
+                    title = content_type + ': ' + entry['title']
                 except Exception:
-                    title = 'No Show Title'
+                    title = content_type + ': No Show Title'
 
                 try:
                     icon = entry['images']['mezzanine']
@@ -251,6 +266,16 @@ class pbskids:
                 except Exception:
                     icon = control.addonIcon
                     fanart = control.addonFanart
+
+                try:
+                    duration = entry['duration']
+                except Exception:
+                    duration = '0'
+
+                try:
+                    plot = entry['description']
+                except Exception:
+                    plot = entry['title']
 
                 try:
                     capCheck = entry['closedCaptions']
@@ -265,16 +290,21 @@ class pbskids:
                 item = control.item(label=title)
                 item.setArt({"thumb": icon, "icon": icon})
                 item.setProperty("IsPlayable", "true")
-                item.setInfo(type="video", infoLabels={"Title": title, "mediatype": "video"})
+                item.setInfo(type="video", infoLabels={"Title": title, "mediatype": "video", 'plot': plot, 'duration': duration})
                 link = '%s?action=pbsKids&playBasic=1&url=%s' % (sysaddon, url.encode('base64'))
-                items.append((link, item, False))
+                self.showItems.append((link, item, False))
         except Exception:
-            pass
-        control.addItems(syshandle, items)
-        self.endDirectory('episodes')
+            failure = traceback.format_exc()
+            log_utils.log('PBSKids - Failed to Build: \n' + str(failure))
+        return
 
     def play(self, url):
-        url, captions = url.decode('base64').split('|', 1)
+        try:
+            url, captions = url.decode('base64').split('|', 1)
+        except Exception:
+            url = url.decode('base64')
+            captions = ''
+
         html = client.request('%s?format=json' % url)
         jrequest = json.loads(html)
         url = jrequest['url']
