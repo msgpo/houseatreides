@@ -27,7 +27,7 @@ import urlparse
 import xbmc
 import xbmcplugin
 
-from resources.lib.modules import client, control, log_utils, utils
+from resources.lib.modules import client, control, jsonmenu, log_utils, utils
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -198,21 +198,28 @@ class b98tv:
 
 class pbskids:
     def __init__(self):
-        self.base_main_link = 'http://pbskids.org/video/'
+        self.base_main_link = 'https://pbskids.org/video/'
         self.series_link = 'https://cms-tc.pbskids.org/pbskidsvideoplaylists/%s.json'
 
     def root(self):
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('pbskids')
+
         items = []
-        html = client.request(self.base_main_link, timeout=10)
-        result = re.compile('<dd class="category-list-button.+?data-slug="(.+?)">(.+?)<.+?src="(.+?)".+?</dd', re.DOTALL).findall(html)
 
-        for subid, title, icon in result:
-            title = utils.convert(title).encode('utf-8')
+        for item in rootMenu.menu['pbskids']:
+            try:
+                title = utils.convert(item['title']).encode('utf-8')
+                icon = item['thumbnail']
+                subid = item['subid']
 
-            item = control.item(label=title)
-            item.setArt({"thumb": icon, "icon": icon})
-            link = '%s?action=pbsKids&subid=%s' % (sysaddon, subid)
-            items.append((link, item, True))
+                item = control.item(label=title)
+                item.setArt({"thumb": icon, "icon": icon})
+                link = '%s?action=pbsKids&subid=%s' % (sysaddon, subid)
+                items.append((link, item, True))
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('PBSKids - Failed to Build: \n' + str(failure))
 
         control.addItems(syshandle, items)
         self.endDirectory()

@@ -12,7 +12,8 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
-# 3/28/2019: Kodi 18 Updates from The Oath - https://github.com/host505/plugin.video.theoath
+# 2019/3/28: Kodi 18 Updates from The Oath - https://github.com/host505/plugin.video.theoath
+# 2019/5/22: Fixed issue where search breaks when a ' is in the search string
 
 import datetime
 import json

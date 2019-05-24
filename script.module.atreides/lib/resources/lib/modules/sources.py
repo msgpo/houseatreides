@@ -992,10 +992,10 @@ class sources:
                 import xbmcgui
                 xbmcgui.Dialog().ok('Torrent Support', 'Torrent links will not be shown, as only Cached are currently supported. Please go to ResolveURL and enable Cached Only for your Premium Resolver.')
             if sortabitch == 'true':
-                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if str(i['url']).startswith('magnet:') and dcheck == 'true']
-                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if i['source'] in valid_hoster and 'magnet:' not in str(i['url'])]
+                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if 'magnet:' in i['url'] and dcheck == 'true']
+                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if i['source'] in valid_hoster and 'magnet:' not in i['url']]
             else:
-                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if i['source'] in valid_hoster or (str(i['url']).startswith('magnet:') and dcheck == 'true')]
+                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if i['source'] in valid_hoster or ('magnet:' in i['url'] and dcheck == 'true')]
         filter += [i for i in self.sources if not i['source'].lower() in self.hostprDict and i['debridonly'] is False]
 
         self.sources = filter
@@ -1173,7 +1173,7 @@ class sources:
             provider = item['provider']
             call = [i[1] for i in self.sourceDict if i[0] == provider][0]
             u = url = call.resolve(url)
-            if url is None or ('://' not in str(url) and not local and 'magnet:' not in str(url)):
+            if url is None or ('://' not in str(url) and not local and 'magnet:' not in url):
                 raise Exception()
 
             if not local:

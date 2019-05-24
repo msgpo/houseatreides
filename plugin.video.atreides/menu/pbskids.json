@@ -1,0 +1,162 @@
+{
+    "menu_file": [
+        {
+            "title": "PBS Kids Menu File",
+            "version": "1",
+            "checked": "1",
+            "desc": "Menu File containing root menu for shows on PBS Kids site"
+        }
+    ],
+    "pbskids": [
+        {
+            "title": "Wild Kratts",
+            "subid": "wild-kratts",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_wildkratts.png.resize.88x88.png"
+        },
+        {
+            "title": "Curious George",
+            "subid": "curious-george",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_curiousgeorge.png.resize.88x88.png"
+        },
+        {
+            "title": "Odd Squad",
+            "subid": "odd-squad",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_oddsquad.png.resize.88x88.png"
+        },
+        {
+            "title": "Pinkalicious and Peterrific",
+            "subid": "pinkalicious-and-peterrific",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_pinkalicious_circle_v2.png.resize.88x88.png"
+        },
+        {
+            "title": "Let's Go Luna!",
+            "subid": "lets-go-luna",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_show_luna_circle.png.resize.88x88.png"
+        },
+        {
+            "title": "Nature Cat",
+            "subid": "nature-cat",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_naturecat.png.resize.88x88.png"
+        },
+        {
+            "title": "Splash and Bubbles",
+            "subid": "splash-and-bubbles",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_splash_and_bubbles_transparent.png.resize.88x88.png"
+        },
+        {
+            "title": "Ready Jet Go",
+            "subid": "ready-jet-go",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_ReadyJetGo_circle_2.png.resize.88x88.png"
+        },
+        {
+            "title": "Arthur",
+            "subid": "arthur",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_arthur_circle.png.resize.88x88.png"
+        },
+        {
+            "title": "Dinosaur Train",
+            "subid": "dinosaur-train",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_dinotrain.png.resize.88x88.png"
+        },
+        {
+            "title": "Dot's Spot",
+            "subid": "dots-spot",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_DotsSpots2.png.resize.88x88.png"
+        },
+        {
+            "title": "Mister Rogers' Neighborhood",
+            "subid": "mister-rogers",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_RogersFINALv2.png.resize.88x88.png"
+        },
+        {
+            "title": "SUPER WHY!",
+            "subid": "super-why",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_superwhy.png.resize.88x88.png"
+        },
+        {
+            "title": "Sesame Street",
+            "subid": "sesame-street",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_sesame.png.resize.88x88.png"
+        },
+        {
+            "title": "The Cat in the Hat",
+            "subid": "cat-in-the-hat",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_catinthehat.png.resize.88x88.png"
+        },
+        {
+            "title": "WordGirl",
+            "subid": "wordgirl",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_wordgirl.png.resize.88x88.png"
+        },
+        {
+            "title": "Cyberchase",
+            "subid": "cyberchase",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_cyberchase.png.resize.88x88.png"
+        },
+        {
+            "title": "Peg + Cat",
+            "subid": "peg",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200-Peg.png.resize.88x88.png"
+        },
+        {
+            "title": "The Ruff Ruffman Show",
+            "subid": "ruff-ruffman-show",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_RuffRuffmanShow.png.resize.88x88.png"
+        },
+        {
+            "title": "Sid the Science Kid",
+            "subid": "sid-science-kid",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_sid.png.resize.88x88.png"
+        },
+        {
+            "title": "Plum Landing",
+            "subid": "plum-landing",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/plum-landing-circle.png.resize.88x88.png"
+        },
+        {
+            "title": "Design Squad",
+            "subid": "design-squad-nation",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_designsquad.png.resize.88x88.png"
+        },
+        {
+            "title": "Fizzy's Lunch Lab",
+            "subid": "fizzys-lunch-lab",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/fizzys-lunch-lab-circle.png.resize.88x88.png"
+        },
+        {
+            "title": "Martha Speaks",
+            "subid": "martha-speaks",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_martha.png.resize.88x88.png"
+        },
+        {
+            "title": "Oh Noah!",
+            "subid": "oh-noah",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_noah.png.resize.88x88.png"
+        },
+        {
+            "title": "Caillou",
+            "subid": "caillou",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_caillou.png.resize.88x88.png"
+        },
+        {
+            "title": "SciGirls",
+            "subid": "scigirls",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/scigirls-circle.png.resize.88x88.png"
+        },
+        {
+            "title": "Word World",
+            "subid": "word-world",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_wordworld.png.resize.88x88.png"
+        },
+        {
+            "title": "Clifford the Big Red Dog",
+            "subid": "clifford-big-red-dog",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_clifford.png.resize.88x88.png"
+        },
+        {
+            "title": "Maya &amp; Miguel",
+            "subid": "maya-miguel",
+            "thumbnail": "https://image.pbs.org/tortuga/global/show-icons/circle-transparent/200x200_miaMiguel.png.resize.88x88.png"
+        }
+    }
+]
