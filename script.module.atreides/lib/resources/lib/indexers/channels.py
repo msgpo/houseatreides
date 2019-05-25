@@ -35,28 +35,20 @@ class channels:
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('channels')
 
-        items = []
-
         for item in rootMenu.menu['channels_root']:
             try:
                 title = utils.convert(item['title']).encode('utf-8')
-                icon = item['thumbnail']
-                action = item['action']
-
                 try:
                     url = item['url']
                 except Exception:
                     url = None
 
-                item = control.item(label=title)
-                item.setArt({"thumb": icon, "icon": icon})
-                link = '%s?action=%s&url=%s' % (sysaddon, action, url) if url is not None else '%s?action=%s' % (sysaddon, action, url)
-                items.append((link, item, True))
+                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
             except Exception:
                 failure = traceback.format_exc()
                 log_utils.log('Channels - Failed to Build: \n' + str(failure))
 
-        control.addItems(syshandle, items)
         self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_NONE)
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
