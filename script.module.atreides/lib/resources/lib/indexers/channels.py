@@ -14,9 +14,12 @@
 
 import os
 import sys
+import traceback
 import urllib
 
-from resources.lib.modules import control
+from resources.lib.modules import control, jsonmenu, log_utils, utils
+
+import xbmcplugin
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -29,11 +32,32 @@ class channels:
         pass
 
     def root(self):
-        self.addDirectoryItem(32669, 'swiftNavigator', 'channels.png', 'DefaultTvShows.png')
-        self.addDirectoryItem(32670, 'tvtapNavigator', 'channels.png', 'DefaultTvShows.png')
-        self.addDirectoryItem('My Saved Channels', 'bmNavigator&url=channels', 'channels.png', 'DefaultTvShows.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('channels')
 
-        self.endDirectory()
+        items = []
+
+        for item in rootMenu.menu['channels_root']:
+            try:
+                title = utils.convert(item['title']).encode('utf-8')
+                icon = item['thumbnail']
+                action = item['action']
+
+                try:
+                    url = item['url']
+                except Exception:
+                    url = None
+
+                item = control.item(label=title)
+                item.setArt({"thumb": icon, "icon": icon})
+                link = '%s?action=%s&url=%s' % (sysaddon, action, url) if url is not None else '%s?action=%s' % (sysaddon, action, url)
+                items.append((link, item, True))
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Channels - Failed to Build: \n' + str(failure))
+
+        control.addItems(syshandle, items)
+        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_NONE)
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
         try:
@@ -58,8 +82,9 @@ class channels:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self):
-        control.content(syshandle, 'addons')
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+        control.content(syshandle, contentType)
+        control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
     def addDirectory(self, items, queue=False, isFolder=True):

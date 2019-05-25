@@ -1,0 +1,31 @@
+{
+    "menu_file": [
+        {
+            "title": "Channels Menu File",
+            "version": "1",
+            "checked": "1",
+            "desc": "Menu File containing base menu system for Channels section"
+        }
+    ],
+    "channels_root": [
+        {
+            "title": "Swift Streamz",
+            "fanart": "",
+            "action": "swiftNavigator",
+            "thumbnail": "channels.png"
+        },
+        {
+            "title": "TV Tap",
+            "fanart": "",
+            "action": "tvtapNavigator",
+            "thumbnail": "channels.png"
+        },
+        {
+            "title": "My Saved Channels",
+            "fanart": "",
+            "action": "bmNavigator",
+            "url": "channels",
+            "thumbnail": "channels.png"
+        }
+    ]
+}
