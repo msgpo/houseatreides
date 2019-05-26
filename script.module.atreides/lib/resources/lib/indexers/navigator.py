@@ -316,6 +316,14 @@ class navigator:
 
         for item in rootMenu.menu['tools_menu']:
             try:
+                '''
+                Language file support can be done this way
+                '''
+                title = item['title']
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
                 try:
                     url = item['url']
                 except Exception:
@@ -327,7 +335,7 @@ class navigator:
 
                 link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
                 link = '%s&query=%s' % (link, query) if query is not None else link
-                self.addDirectoryItem(item['title'], link, item['thumbnail'], item['thumbnail'])
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
             except Exception:
                 failure = traceback.format_exc()
                 log_utils.log('Channels - Failed to Build: \n' + str(failure))
