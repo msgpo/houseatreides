@@ -33,7 +33,7 @@ import xbmcplugin
 from base64 import b64encode, b64decode
 from binascii import a2b_hex
 
-from resources.lib.modules import client, control, jsonbm, log_utils, pyaes, pydes, pyrsa
+from resources.lib.modules import client, control, jsonbm, jsonmenu, log_utils, pydes, pyrsa
 
 try:
     from urllib.parse import quote_from_bytes as orig_quote
@@ -61,42 +61,22 @@ class tvtap:
         self.icon_url = 'https://taptube.net/tv/%s|User-Agent=%s' % ('%s', self.User_Agent)
 
     def root(self):
-        headers = {"app-token": "37a6259cc0c1dae299a7866489dff0bd"}
-        data = {"payload": payload(), "username": "603803577"}
-        try:
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('channels')
+
+        for item in rootMenu.menu['tvtap_categories']:
             try:
-                response = client.request(self.list_url, post=data, headers=headers)
-                if 'could not connect' in str(response).lower() or 'some error occurred' in str(response).lower():
-                    self.addDirectoryItem('[B]System down for maintenance[/B]',
-                                          'sectionItem', 'tools.png', 'DefaultTvShows.png')
-                else:
-                    response = json.loads(response)
-                    if response["success"] == 1:
-                        category_list = []
-                        for a in response['msg']['channels']:
-                            try:
-                                name = a['cat_name']
-                                if name not in category_list:
-                                    category_list.append(name)
-                                    id = a['cat_id']
-                                    try:
-                                        icon = self.icon_url % (a['img'])
-                                    except Exception:
-                                        icon = addonIcon
-                                    self.addDirectoryItem(name, 'tvtapCat&url=%s' % (id), icon, 'DefaultTvShows.png')
-                            except Exception:
-                                pass
-                    else:
-                        self.addDirectoryItem('[B]System down for maintenance[/B]', 'sectionItem', 'tools.png', 'DefaultTvShows.png')
-                        self.endDirectory()
-                        return
+                name = item['title']
+                id = item['cid']
+                try:
+                    icon = self.icon_url % (item['thumbnail'])
+                except Exception:
+                    icon = addonIcon
+                link = 'tvtapCat&url=%s' % (id)
+                self.addDirectoryItem(name, link, icon, icon)
             except Exception:
-                self.addDirectoryItem('[B]Issue connecting to server. Try again later.[/B]',
-                                      'sectionItem', 'tools.png', 'DefaultTvShows.png')
-                self.endDirectory()
-                return
-        except Exception:
-            pass
+                pass
+
         self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL)
 
     def tvtapCategory(self, id):

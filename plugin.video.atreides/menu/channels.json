@@ -257,5 +257,52 @@
             "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/30333_PAKISTANIMOVIES.jpg",
             "cid": "41"
         }
+    ],
+    "tvtap_categories": [
+        {
+            "title": "Entertainment",
+            "thumbnail": "images/channel_imgs/2501180415323sat.png",
+            "cid": "1"
+        },
+        {
+            "title": "News",
+            "thumbnail": "images/channel_imgs/201217100630abcnew.png",
+            "cid": "4"
+        },
+        {
+            "title": "Movies",
+            "thumbnail": "images/channel_imgs/160116113647amc.png",
+            "cid": "2"
+        },
+        {
+            "title": "Documentary",
+            "thumbnail": "images/channel_imgs/160116113807animal.PNG",
+            "cid": "6"
+        },
+        {
+            "title": "Sports",
+            "thumbnail": "images/channel_imgs/170218032043ar1.jpg",
+            "cid": "5"
+        },
+        {
+            "title": "Kids",
+            "thumbnail": "images/channel_imgs/111018013256baby.jpg",
+            "cid": "7"
+        },
+        {
+            "title": "Food",
+            "thumbnail": "images/channel_imgs/190116044823food.jpg",
+            "cid": "8"
+        },
+        {
+            "title": "Music",
+            "thumbnail": "images/channel_imgs/250118040832kerrang.png",
+            "cid": "3"
+        },
+        {
+            "title": "USA Ch.",
+            "thumbnail": "images/channel_imgs/160116115720cn.png",
+            "cid": "10"
+        }
     ]
 }
