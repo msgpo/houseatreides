@@ -16,9 +16,10 @@
 # As such, based off the modules written by RACC and all initial credit goes to that developer
 
 '''
-2019/4/8 - Updated API code for new URLs and JSON format
-2019/4/12 - Updated Auth Code per RACC's changes
-2019/4/17 - Fuck PyCrypto. Rewrote Encryption to use PyAES myself to support Kodi 17 and 18 without trickery
+2019/4/8:  Updated API code for new URLs and JSON format
+2019/4/12: Updated Auth Code per RACC's changes
+2019/4/17: Fuck PyCrypto. Rewrote Encryption to use PyAES myself to support Kodi 17 and 18 without trickery
+2019/5/25: Converting root category menu to use Atreides json menus
 '''
 import json
 import os
@@ -36,7 +37,7 @@ import xbmc
 import xbmcgui
 import xbmcplugin
 
-from resources.lib.modules import client, control, jsonbm, log_utils, pyaes
+from resources.lib.modules import client, control, jsonbm, jsonmenu, log_utils, pyaes, utils
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -59,27 +60,27 @@ class swift:
         self.filter_tvl = control.setting('tv.swift.filtertv')
 
     def root(self):
-        headers = {'Authorization': 'Basic U3dpZnRTdHJlYW16OkBTd2lmdFN0cmVhbXpA', 'User-Agent': self.User_Agent}
-        response = client.request(self.base_api_url, headers=headers)
-        if 'Erreur 503' in str(response):
-            self.addDirectoryItem('[B]System down for maintenance[/B]',
-                                  'sectionItem', 'tools.png', 'DefaultTvShows.png')
-        else:
-            response = json.loads(response)
-            for a in response['LIVETV']:
-                try:
-                    name = a['category_name']
-                    if self.filter_mov == 'true' and ' mov' in name.lower():
-                        continue
-                    if self.filter_spo == 'true' and 'sports' in name.lower():
-                        continue
-                    if self.filter_tvl == 'true' and ' tv' in name.lower():
-                        continue
-                    id = a['cid']
-                    icon = a['category_image']
-                    self.addDirectoryItem(name, 'swiftCat&url=%s' % (id), icon, 'DefaultTvShows.png')
-                except Exception:
-                    pass
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('channels')
+
+        for item in rootMenu.menu['swift_categories']:
+            try:
+                title = utils.convert(item['title']).encode('utf-8')
+                if self.filter_mov == 'true' and 'vod' in item['cattype']:
+                    continue
+                if self.filter_spo == 'true' and 'sports' in title.lower():
+                    continue
+                if self.filter_tvl == 'true' and 'live' in item['cattype']:
+                    continue
+                id = item['cid']
+
+                icon = item['thumbnail']
+                link = 'swiftCat&url=%s' % (id)
+                self.addDirectoryItem(title, link, icon, icon)
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Channels - Failed to Build: \n' + str(failure))
+
         self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL)
 
     def swiftCategory(self, id):

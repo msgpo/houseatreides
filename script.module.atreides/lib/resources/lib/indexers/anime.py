@@ -15,6 +15,7 @@
 '''
 2019/5/2:  Added PBSKids using json pulled from website. Will expand later since they give more details but lazy atm
 2019/5/23: Updated root to use JSON menu system. All data scraping and working again
+2019/5/25: Fixed subtitle issue and added Clips along with Clip/Episode tagging in title. Added Plot and Duration for all videos
 '''
 
 import json

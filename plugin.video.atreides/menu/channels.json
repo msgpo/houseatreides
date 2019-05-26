@@ -27,5 +27,235 @@
             "url": "channels",
             "thumbnail": "channels.png"
         }
+    ],
+    "swift_categories": [
+        {
+            "cattype": "live",
+            "title": "PAKISTAN TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/89388_pakistan.png",
+            "cid": "1"
+        },
+        {
+            "cattype": "live",
+            "title": "INDIA TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/32640_india.png",
+            "cid": "2"
+        },
+        {
+            "cattype": "live",
+            "title": "BANGLADESH TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/68820_bangladesh.png",
+            "cid": "3"
+        },
+        {
+            "cattype": "live",
+            "title": "UK TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/92954_uk.png",
+            "cid": "4"
+        },
+        {
+            "cattype": "live",
+            "title": "USA TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/69168_usa.png",
+            "cid": "5"
+        },
+        {
+            "cattype": "vod",
+            "title": "INDIAN MOVIES 2019",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/34143_HINDIMOVIES.jpg",
+            "cid": "6"
+        },
+        {
+            "cattype": "live",
+            "title": "SPORTS TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/53021_sports.jpg",
+            "cid": "8"
+        },
+        {
+            "cattype": "live",
+            "title": "AFGHANISTAN TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/68851_afg.png",
+            "cid": "9"
+        },
+        {
+            "cattype": "live",
+            "title": "ARABIAN TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/40280_arabian.png",
+            "cid": "10"
+        },
+        {
+            "cattype": "live",
+            "title": "PUNJABI TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/95316_punjabitv.jpg",
+            "cid": "11"
+        },
+        {
+            "cattype": "live",
+            "title": "SOUTH INDIAN",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/46126_southindian.jpg",
+            "cid": "13"
+        },
+        {
+            "cattype": "live",
+            "title": "RELIGIOUS TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/57578_religious.jpg",
+            "cid": "14"
+        },
+        {
+            "cattype": "live",
+            "title": "KIDS TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/83929_kids.jpg",
+            "cid": "15"
+        },
+        {
+            "cattype": "live",
+            "title": "WILDLIFE & SCIENCE TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/64926_wildscience.jpg",
+            "cid": "16"
+        },
+        {
+            "cattype": "live",
+            "title": "CANADA TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/42332_canada.png",
+            "cid": "17"
+        },
+        {
+            "cattype": "live",
+            "title": "PHILIPPINES TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/32206_philippinestv.png",
+            "cid": "18"
+        },
+        {
+            "cattype": "live",
+            "title": "NEPAL TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/46663_nepaltv.png",
+            "cid": "19"
+        },
+        {
+            "cattype": "live",
+            "title": "FRANCE TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/39502_francetv.jpg",
+            "cid": "20"
+        },
+        {
+            "cattype": "live",
+            "title": "INDONESIA TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/49300_indonesia.png",
+            "cid": "21"
+        },
+        {
+            "cattype": "live",
+            "title": "MAURITIUS TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/38127_mauritius.png",
+            "cid": "22"
+        },
+        {
+            "cattype": "live",
+            "title": "SRILANKA TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/69750_srilanka.jpg",
+            "cid": "23"
+        },
+        {
+            "cattype": "live",
+            "title": "AUSTRALIA TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/51001_download.png",
+            "cid": "24"
+        },
+        {
+            "cattype": "live",
+            "title": "PORTUGAL TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/78882_download.png",
+            "cid": "25"
+        },
+        {
+            "cattype": "live",
+            "title": "GERMANY TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/77155_germany.jpg",
+            "cid": "26"
+        },
+        {
+            "cattype": "live",
+            "title": "ITALY TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/30705_italy.jpg",
+            "cid": "27"
+        },
+        {
+            "cattype": "live",
+            "title": "TURKISH TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/19162_turkish.jpg",
+            "cid": "28"
+        },
+        {
+            "cattype": "live",
+            "title": "NETHERLAND TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/33210_netherland.jpg",
+            "cid": "29"
+        },
+        {
+            "cattype": "live",
+            "title": "POLAND TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/49687_poland-flag-with-eagle.jpg",
+            "cid": "30"
+        },
+        {
+            "cattype": "live",
+            "title": "BELGIUM TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/91889_download.png",
+            "cid": "31"
+        },
+        {
+            "cattype": "live",
+            "title": "SPAIN TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/7866_download.png",
+            "cid": "32"
+        },
+        {
+            "cattype": "live",
+            "title": "KURDISH TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/29459_download.png",
+            "cid": "33"
+        },
+        {
+            "cattype": "live",
+            "title": "ALBANIA TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/79014_albania.png",
+            "cid": "34"
+        },
+        {
+            "cattype": "live",
+            "title": "ROMANIA TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/22287_romania.png",
+            "cid": "35"
+        },
+        {
+            "cattype": "live",
+            "title": "GREECE TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/98845_greece.jpg",
+            "cid": "36"
+        },
+        {
+            "cattype": "live",
+            "title": "THAILAND TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/70570_thailand.png",
+            "cid": "37"
+        },
+        {
+            "cattype": "live",
+            "title": "OSN TV",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/43125_osn.jpg",
+            "cid": "38"
+        },
+        {
+            "cattype": "vod",
+            "title": "PUBNJABI MOVIES",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/74409_PUNJABIMOVIES.jpg",
+            "cid": "40"
+        },
+        {
+            "cattype": "vod",
+            "title": "PAKISTANI MOVIES",
+            "thumbnail": "http://swiftstreamz.com/SwiftPanel/images/thumbs/30333_PAKISTANIMOVIES.jpg",
+            "cid": "41"
+        }
     ]
 }

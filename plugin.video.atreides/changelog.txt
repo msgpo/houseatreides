@@ -1,6 +1,8 @@
 [COLOR limegreen]Atredies Script Module v1.3.2[/COLOR]
     - PBS Kids - Expanded support
     - PBS Kids subtitle bug fix
+    - Channels, Swift root, and TV Tap root now
+      using json menus
 
 [COLOR limegreen]Atredies Video Addon v1.2.1[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.1[/COLOR]

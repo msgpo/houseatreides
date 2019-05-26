@@ -12,6 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/5/25: Switched over to the json menu for the back end
+'''
+
 import os
 import sys
 import traceback
