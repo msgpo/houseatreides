@@ -19,11 +19,14 @@
 import os
 import sys
 import time
+import traceback
 
 import xbmc
 import xbmcaddon
 import xbmcgui
-from resources.lib.modules import changelog, control, trakt
+import xbmcplugin
+
+from resources.lib.modules import changelog, control, jsonmenu, log_utils, trakt
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -308,21 +311,26 @@ class navigator:
             pass
 
     def tools(self):
-        self.addDirectoryItem(32043, 'openSettings&query=0.0', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32044, 'openSettings&query=6.1', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32628, 'openSettings&query=1.0', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32679, 'openSettings&query=5.0', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32045, 'openSettings&query=2.0', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32647, 'openSettings&query=3.0', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32046, 'openSettings&query=9.0', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32047, 'openSettings&query=4.0', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32556, 'libraryNavigator', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32048, 'openSettings&query=8.0', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32683, 'openArtwork', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32049, 'viewsNavigator', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32052, 'clearCache', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32668, 'pairTools', 'tools.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32609, 'urlResolver', 'urlresolver.png', 'DefaultAddonProgram.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('utilities')
+
+        for item in rootMenu.menu['tools_menu']:
+            try:
+                try:
+                    url = item['url']
+                except Exception:
+                    url = None
+                try:
+                    query = item['query']
+                except Exception:
+                    query = None
+
+                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
+                link = '%s&query=%s' % (link, query) if query is not None else link
+                self.addDirectoryItem(item['title'], link, item['thumbnail'], item['thumbnail'])
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Channels - Failed to Build: \n' + str(failure))
 
         self.endDirectory()
 
