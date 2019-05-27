@@ -57,10 +57,10 @@ class source:
 
             search = title.lower()
             url = urlparse.urljoin(self.base_link, self.search_link % (search.replace(' ', '+')))
-
+            shell = requests.Session()
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'}
-            Digital = requests.get(url, headers=headers).content
+            Digital = shell.get(url, headers=headers).content
 
             BlackFlag = re.compile(
                 'data-movie-id="" class="ml-item".+?href="(.+?)" class="ml-mask jt".+?<div class="moviename">(.+?)</div>',
@@ -68,7 +68,7 @@ class source:
             for Digibox, Powder in BlackFlag:
                 if title.lower() in Powder.lower():
                     if year in str(Powder):
-                        r = requests.get(Digibox, headers=headers).content
+                        r = shell.get(Digibox, headers=headers).content
                         quality_bitches = re.compile(
                             '<strong>Quality:</strong>\s+<a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
 
@@ -85,12 +85,12 @@ class source:
                         key = re.compile("var randomKeyNo = '(.+?)'", re.DOTALL).findall(r)
                         post_link = urlparse.urljoin(self.base_link, self.download_links)
                         payload = {'key': key}
-                        suck_it = requests.post(post_link, headers=headers, data=payload)
+                        suck_it = shell.post(post_link, headers=headers, data=payload)
                         response = suck_it.content
 
                         grab = re.compile('<a rel="\w+" href="(.+?)">\w{5}\s\w+\s\w+\s\w+\s\w{5}<\/a>', re.DOTALL).findall(response)
                         for links in grab:
-                            r = requests.get(links, headers=headers).content
+                            r = shell.get(links, headers=headers).content
                             links = re.compile('<a rel="\w+" href="(.+?)" target="\w+">', re.DOTALL).findall(r)
 
                         for link in links:

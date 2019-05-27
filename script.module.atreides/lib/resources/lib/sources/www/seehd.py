@@ -14,13 +14,16 @@
 
 '''
 2019/4/17: fix by SC
+2019/5/26: put more work into this. Now pulls more links baby w/ some direct.
+will update/test with json when i get a chance
 '''
 
 import re
+import requests
 import traceback
 import urlparse
 
-from resources.lib.modules import cfscrape, cleantitle, log_utils
+from resources.lib.modules import cfscrape, cleantitle, log_utils, source_utils
 
 
 class source:
@@ -31,6 +34,7 @@ class source:
         self.base_link = 'http://www.seehd.pl'
         self.search_link = '/?s=%s'
         self.tv_link = '/%s-%s-watch-online/'
+        self.hdclub_link = 'https://www.24hd.club/api/source/'
         self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -81,15 +85,41 @@ class source:
                 return sources
             hostDict = hostprDict + hostDict
 
-            r = self.scraper.get(url).content
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            first_url = url
+            r = self.scraper.get(first_url).content
             links = re.compile('<iframe.+?src="(.+?)://(.+?)/(.+?)"', re.DOTALL).findall(r)
             for http, host, url in links:
                 host = host.replace('www.', '')
                 url = '%s://%s/%s' % (http, host, url)
-                if '24hd' in url:
-                    continue
-                sources.append({'source': host, 'quality': '720p', 'language': 'en',
-                                'url': url, 'direct': False, 'debridonly': False})
+                if 'seehd' in url:
+                    r = self.scraper.get(url).content
+                    extra_link = re.compile('<center><iframe.+?src="(.+?)"', re.DOTALL).findall(r)[0]
+                    valid, host = source_utils.is_host_valid(extra_link, hostDict)
+                    sources.append({'source': host, 'quality': '720p', 'language': 'en', 'url': extra_link, 'direct': False, 'debridonly': False})
+                elif '24hd' in url:
+                    url = url.split('v/')[1]
+                    post_link = urlparse.urljoin(self.hdclub_link, url)
+                    payload = {'r': first_url, 'd': 'www.24hd.club'}
+                    post_data = requests.post(post_link, headers=headers, data=payload)
+                    response = post_data.content
+
+                    link = re.compile('"file":"(.+?)","label":"(.+?)"', re.DOTALL).findall(response)
+                    for link, quality in link:
+                        link = link.replace('\/', '/')
+
+                        if '1080p' in quality:
+                            quality = '1080p'
+                        elif '720p' in quality:
+                            quality = '720p'
+                        elif '480p' in quality:
+                            quality = 'SD'
+                        else:
+                            quality = 'SD'
+
+                        sources.append({'source': 'Direct', 'quality': quality, 'language': 'en', 'url': link, 'direct': True, 'debridonly': False})
+                else:
+                    sources.append({'source': host, 'quality': '720p', 'language': 'en', 'url': url, 'direct': False, 'debridonly': False})
 
             return sources
         except Exception:

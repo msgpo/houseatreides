@@ -14,12 +14,14 @@
 
 '''
 2019/4/16: Updated to use CFScrape - Still using single request
+2019/5/26: Added quality check. Adj iframe to pull fembed links again
+as they are now playable.
 '''
 
 import re
 import traceback
 
-from resources.lib.modules import cfscrape, client, log_utils, source_utils
+from resources.lib.modules import client, log_utils, source_utils
 
 
 class source:
@@ -45,29 +47,31 @@ class source:
             sources = []
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
             r = client.request(url, headers=headers)
-            try:
-                match = re.compile('<iframe src="(.+?)"').findall(r)
-                for url in match:
-                    if 'youtube' in url:
-                        continue
-                    valid, hoster = source_utils.is_host_valid(url, hostDict)
-                    if not valid:
-                        continue
-                    sources.append({
-                        'source': hoster,
-                        'quality': 'SD',
-                        'language': 'en',
-                        'url': url,
-                        'direct': False,
-                        'debridonly': False
-                    })
-            except Exception:
-                return sources
+            quality_bitches = re.compile('<strong>Quality:\s+</strong>\s+<span class="quality">(.+?)</span>', re.DOTALL).findall(r)
+
+            for quality in quality_bitches:
+
+                if 'HD' in quality:
+                    quality = '720p'
+                elif 'CAM' in quality:
+                    quality = 'CAM'
+                else:
+                    quality = 'SD'
+
+            match = re.compile('<iframe.+?src="(.+?)"').findall(r)
+            for url in match:
+                if 'youtube' in url:
+                    continue
+                valid, hoster = source_utils.is_host_valid(url, hostDict)
+                if not valid:
+                    continue
+                sources.append({'source': hoster, 'quality': quality, 'language': 'en', 'url': url, 'direct': False, 'debridonly': False})
+
+            return sources
         except Exception:
             failure = traceback.format_exc()
             log_utils.log('HackIMDB - Exception: \n' + str(failure))
             return sources
-        return sources
 
     def resolve(self, url):
         return url

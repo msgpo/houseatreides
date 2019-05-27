@@ -29,7 +29,7 @@ class source:
         self.source = ['www']
         self.domains = ['losmovies.sh']
         self.base_link = 'http://losmovies.pro'
-        self.search_link = '/movies-found?type=movies&q=%s'
+        self.search_link = '/the-movies-found?type=movies&q=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
