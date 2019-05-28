@@ -148,7 +148,7 @@ class navigator:
             self.addDirectoryItem(32028, 'moviePerson', 'people-search.png', 'DefaultMovies.png')
             self.addDirectoryItem(32010, 'movieSearch', 'search.png', 'DefaultMovies.png')
 
-        self.endDirectory()
+        self.endDirectory(category=control.lang(32001).encode('utf-8'))
 
     def mymovies(self, lite=False):
         self.accountCheck()
@@ -186,7 +186,7 @@ class navigator:
             self.addDirectoryItem(32028, 'moviePerson', 'people-search.png', 'DefaultMovies.png')
             self.addDirectoryItem(32010, 'movieSearch', 'search.png', 'DefaultMovies.png')
 
-        self.endDirectory()
+        self.endDirectory(category=control.lang(32003).encode('utf-8'))
 
     def tvshows(self, lite=False):
         if self.getMenuEnabled('navi.tvReviews') is True:
@@ -227,7 +227,7 @@ class navigator:
             self.addDirectoryItem(32028, 'tvPerson', 'people-search.png', 'DefaultTVShows.png')
             self.addDirectoryItem(32010, 'tvSearch', 'search.png', 'DefaultTVShows.png')
 
-        self.endDirectory()
+        self.endDirectory(category=control.lang(32002).encode('utf-8'))
 
     def mytvshows(self, lite=False):
         self.accountCheck()
@@ -276,7 +276,7 @@ class navigator:
             self.addDirectoryItem(32028, 'tvPerson', 'people-search.png', 'DefaultTVShows.png')
             self.addDirectoryItem(32010, 'tvSearch', 'search.png', 'DefaultTVShows.png')
 
-        self.endDirectory()
+        self.endDirectory(category=control.lang(32004).encode('utf-8'))
 
     def kidscorner(self, lite=False):
         self.addDirectoryItem('B98.TV - Currently Down', 'b98Navigator', 'b98.png', 'DefaultTVShows.png')
@@ -292,7 +292,7 @@ class navigator:
             self.addDirectoryItem(32028, 'moviePerson', 'people-search.png', 'DefaultMovies.png')
             self.addDirectoryItem(32010, 'movieSearch', 'search.png', 'DefaultMovies.png')
         '''
-        self.endDirectory()
+        self.endDirectory(category='Kids Corner')
 
     def radio(self):
         try:
@@ -306,7 +306,7 @@ class navigator:
             self.addDirectoryItem(32661, 'radioCat&url=language', 'radio.png', 'DefaultVideoPlaylists.png')
             self.addDirectoryItem('My Saved Stations', 'bmNavigator&url=radio', 'radio.png', 'DefaultVideoPlaylists.png')
 
-            self.endDirectory()
+            self.endDirectory(category='Radio')
         except Exception:
             pass
 
@@ -338,9 +338,9 @@ class navigator:
                 self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
             except Exception:
                 failure = traceback.format_exc()
-                log_utils.log('Channels - Failed to Build: \n' + str(failure))
+                log_utils.log('Tools - Failed to Build: \n' + str(failure))
 
-        self.endDirectory()
+        self.endDirectory(category=control.lang(32008).encode('utf-8'))
 
     def library(self):
         self.addDirectoryItem(32557, 'openSettings&query=5.0', 'tools.png', 'DefaultAddonProgram.png')
@@ -356,7 +356,7 @@ class navigator:
             self.addDirectoryItem(32563, 'tvshowsToLibrary&url=traktcollection', 'trakt.png', 'DefaultTVShows.png')
             self.addDirectoryItem(32564, 'tvshowsToLibrary&url=traktwatchlist', 'trakt.png', 'DefaultTVShows.png')
 
-        self.endDirectory()
+        self.endDirectory(category='Library')
 
     def downloads(self):
         movie_downloads = control.setting('movie.download.path')
@@ -367,15 +367,34 @@ class navigator:
         if len(control.listDir(tv_downloads)[0]) > 0:
             self.addDirectoryItem(32002, tv_downloads, 'tvshows.png', 'DefaultTVShows.png', isAction=False)
 
-        self.endDirectory()
+        self.endDirectory(category=control.lang(32009).encode('utf-8'))
 
     def search(self):
-        self.addDirectoryItem(32001, 'movieSearch', 'search.png', 'DefaultMovies.png')
-        self.addDirectoryItem(32002, 'tvSearch', 'search.png', 'DefaultTVShows.png')
-        self.addDirectoryItem(32029, 'moviePerson', 'people-search.png', 'DefaultMovies.png')
-        self.addDirectoryItem(32030, 'tvPerson', 'people-search.png', 'DefaultTVShows.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('utilities')
 
-        self.endDirectory()
+        for item in rootMenu.menu['search_menu']:
+            try:
+                '''
+                Language file support can be done this way
+                '''
+                title = item['title']
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
+                try:
+                    url = item['url']
+                except Exception:
+                    url = None
+
+                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Search - Failed to Build: \n' + str(failure))
+
+        self.endDirectory(category='Search')
 
     def views(self):
         try:
@@ -442,6 +461,9 @@ class navigator:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self):
-        control.content(syshandle, 'addons')
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+        control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
+        control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)

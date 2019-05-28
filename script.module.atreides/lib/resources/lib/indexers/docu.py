@@ -12,7 +12,6 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
-import json
 import os
 import re
 import requests
@@ -25,7 +24,7 @@ import xbmc
 import xbmcplugin
 
 from random import randint
-from resources.lib.modules import cache, client, control, log_utils, sources, source_utils, utils, youtube
+from resources.lib.modules import cache, client, control, jsonmenu, log_utils, source_utils, utils
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -60,11 +59,31 @@ class documentary:
         pass
 
     def root(self):
-        self.addDirectoryItem(32680, 'docuTDNavigator', 'channels.png', 'DefaultTvShows.png')
-        self.addDirectoryItem(32681, 'docuDHNavigator', 'channels.png', 'DefaultTvShows.png')
-        # self.addDirectoryItem(32682, 'docuDSNavigator', 'channels.png', 'DefaultTvShows.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('documentary')
 
-        self.endDirectory()
+        for item in rootMenu.menu['documentaries_root']:
+            try:
+                '''
+                Language file support can be done this way
+                '''
+                title = item['title']
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
+                try:
+                    url = item['url']
+                except Exception:
+                    url = None
+
+                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Documetary Root - Failed to Build: \n' + str(failure))
+
+        self.endDirectory(category='Documentaries')
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
         try:
@@ -88,8 +107,11 @@ class documentary:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self):
-        control.content(syshandle, 'addons')
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+        control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
+        control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
 
@@ -101,41 +123,25 @@ class topdocs:
 
     def get(self, url=None):
         if url is None:
-            self.items = cache.get(self.root, 24)
-            self.addDirectory(self.items)
+            self.root()
         else:
-            '''
-            Due to Objects, etc. Cannot be cached "easily", so not caching these as of yet.
-            Maybe design a different cache system using json? Sounds better than sql to me anyday for addons
-            '''
             self.items = self.docu_list(url)
             control.addItems(syshandle, self.items)
-            self.endDirectory('videos')
+            self.endDirectory('videos', category='Top Documentaries')
 
     def root(self):
-        try:
-            self.items = []
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('documentary')
 
-            html = client.request(self.cat_link)
-            cat_list = client.parseDOM(html, 'div', attrs={'class': 'sitemap-wraper clear'})
+        for item in rootMenu.menu['topdoc_root']:
+            try:
+                title = item['title']
+                self.addDirectoryItem(title, item['action'], item['thumbnail'], item['thumbnail'])
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Top Documentaries Root - Failed to Build: \n' + str(failure))
 
-            for content in cat_list:
-                cat_info = re.findall('<h2>(.+?)</h2>', content)[0]
-                cat_url = re.findall('href="(.+?)"', cat_info)[0]
-                cat_title = re.findall('href=".+?">(.+?)</a>', cat_info)[0].strip()
-                cat_title = utils.convert(cat_title).encode('utf-8')
-                try:
-                    cat_icon = re.findall('img data-src="(.+?)"', content)[randint(0, 3)]
-                except Exception:
-                    cat_icon = re.findall('img\s.+?src="(.+?)"', content)[randint(0, 3)]
-                cat_action = 'docuTDNavigator&docuCat=%s' % cat_url
-                self.items.append({'name': cat_title, 'url': cat_url, 'image': cat_icon, 'action': cat_action})
-        except Exception as e:
-            log_utils.log('documentary root : Exception - ' + str(e))
-            pass
-
-        self.items = self.items[::-1]
-        return self.items
+        self.endDirectory(category='Top Documentaries')
 
     def docu_list(self, url):
         self.items = []
@@ -293,7 +299,8 @@ class topdocs:
         except Exception:
             pass
         url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
-        thumb = os.path.join(artPath, thumb) if artPath is not None else icon
+        if 'http' not in thumb:
+            thumb = os.path.join(artPath, thumb) if artPath is not None else icon
         cm = []
 
         queueMenu = control.lang(32065).encode('utf-8')
@@ -309,8 +316,10 @@ class topdocs:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
         control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
         control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
@@ -374,51 +383,25 @@ class docuheaven:
 
     def get(self, url=None):
         if url is None:
-            self.items = cache.get(self.root, 24)
-            self.addDirectory(self.items)
+            self.root()
         else:
-            '''
-            Due to Objects, etc. Cannot be cached "easily", so not caching these as of yet.
-            Maybe design a different cache system using json? Sounds better than sql to me anyday for addons
-            '''
             self.items = self.docu_list(url)
             control.addItems(syshandle, self.items)
-            self.endDirectory('videos')
+            self.endDirectory('videos', category='Documentary Heaven')
 
     def root(self):
-        try:
-            self.items = []
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('documentary')
 
-            html = client.request(self.cat_link)
-            cat_list = client.parseDOM(html, 'div', attrs={'class': 'page-wrap'})[0]
+        for item in rootMenu.menu['docuh_root']:
+            try:
+                title = item['title']
+                self.addDirectoryItem(title, item['action'], item['thumbnail'], item['thumbnail'])
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Documentary Heaven Root - Failed to Build: \n' + str(failure))
 
-            '''
-            They split the images and header rows into separate blocks now to push against Scrapers. Easy fix though
-            '''
-            header_stuff = client.parseDOM(cat_list, 'h2')
-            beefy_stuff = client.parseDOM(cat_list, 'div', attrs={'class': 'row'})
-
-            for x in range(len(header_stuff)):
-                try:
-                    cat_info = str(header_stuff[x])
-                    cat_url = re.findall('href="(.+?)"', cat_info)[0]
-                    cat_title = re.findall('href=".+?">(.+?)</a>', cat_info)[0].strip()
-                    cat_title = utils.convert(cat_title).encode('utf-8')
-                    try:
-                        cat_icon = re.findall('img data-src="(.+?)"', beefy_stuff[x])[randint(0, 3)]
-                    except Exception:
-                        cat_icon = re.findall('src="(.+?)"', beefy_stuff[x])[randint(0, 3)]
-                    cat_action = 'docuDHNavigator&docuCat=%s' % cat_url
-                    self.items.append({'name': cat_title, 'url': cat_url, 'image': cat_icon, 'action': cat_action})
-                except Exception:
-                    failure = traceback.format_exc()
-                    log_utils.log('Documentary Heaven: Docu_List: Exception in Loop - ' + str(failure))
-        except Exception:
-            failure = traceback.format_exc()
-            log_utils.log('Documentary Heaven: Exception - ' + str(failure))
-            pass
-
-        return self.items
+        self.endDirectory(category='Documentary Heaven')
 
     def docu_list(self, url):
         try:
@@ -539,7 +522,8 @@ class docuheaven:
         except Exception:
             pass
         url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
-        thumb = os.path.join(artPath, thumb) if artPath is not None else icon
+        if 'http' not in thumb:
+            thumb = os.path.join(artPath, thumb) if artPath is not None else icon
         cm = []
 
         queueMenu = control.lang(32065).encode('utf-8')
@@ -555,8 +539,10 @@ class docuheaven:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
         control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
         control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 

@@ -51,6 +51,8 @@ sortMethod = xbmcplugin.addSortMethod
 
 property = xbmcplugin.setProperty
 
+category = xbmcplugin.setPluginCategory
+
 addonInfo = xbmcaddon.Addon().getAddonInfo
 
 infoLabel = xbmc.getInfoLabel

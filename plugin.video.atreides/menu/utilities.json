@@ -92,5 +92,24 @@
             "action": "urlResolver",
             "thumbnail": "urlresolver.png"
         }
+    ],
+    "search_menu": [
+        {
+            "title": "32001",
+            "action": "movieSearch",
+            "thumbnail": "search.png"
+        }, {
+            "title": "32002",
+            "action": "tvSearch",
+            "thumbnail": "search.png"
+        }, {
+            "title": "32029",
+            "action": "moviePerson",
+            "thumbnail": "people-search.png"
+        }, {
+            "title": "32030",
+            "action": "tvPerson",
+            "thumbnail": "people-search.png"
+        }
     ]
 }

@@ -53,7 +53,7 @@ class channels:
                 failure = traceback.format_exc()
                 log_utils.log('Channels - Failed to Build: \n' + str(failure))
 
-        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_NONE)
+        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_NONE, category='Channels (Live TV)')
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
         try:
@@ -78,8 +78,10 @@ class channels:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
         control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
         control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 

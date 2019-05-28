@@ -47,7 +47,7 @@ class b98tv:
         self.addDirectoryItem('Cartoon Series - Currently Down', 'b98RabbitNav&url=%s' % (self.series_link), 'b98.png', 'DefaultTvShows.png')
         self.addDirectoryItem('Browse by Studio - Currently Down', 'b98RabbitNav&url=%s' % (self.studio_link), 'b98.png', 'DefaultTvShows.png')
 
-        self.endDirectory()
+        self.endDirectory(category='B98 Cartoons')
 
     def scrape(self, url):
         url = urlparse.urljoin(self.base_main_link, url)
@@ -60,7 +60,6 @@ class b98tv:
                 link = re.compile('href="(.+?)"', re.DOTALL).findall(content)[0]
                 icon, title = re.compile('img src="(.+?)" alt="(.+?)"', re.DOTALL).findall(content)[0]
                 try:
-                    loglink = link.decode('utf-8')
                     link = link.replace(self.base_main_link, '')
                     title = utils.convert(title).encode('utf-8')
 
@@ -95,7 +94,7 @@ class b98tv:
         except Exception:
             pass
         control.addItems(syshandle, items)
-        self.endDirectory()
+        self.endDirectory(category='B98 Cartoons')
 
     def play(self, url, title, icon):
         url = urlparse.urljoin(self.base_main_link, url)
@@ -141,8 +140,10 @@ class b98tv:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
         control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
         control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
@@ -224,7 +225,7 @@ class pbskids:
                 log_utils.log('PBSKids - Failed to Build: \n' + str(failure))
 
         control.addItems(syshandle, items)
-        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL)
+        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL, category='PBS Kids')
 
     def scrape(self, url):
         url = self.series_link % (url)
@@ -246,7 +247,7 @@ class pbskids:
         except Exception:
             pass
         control.addItems(syshandle, self.showItems)
-        self.endDirectory('episodes')
+        self.endDirectory('episodes', category=results['object']['title'])
 
     def buildShows(self, content, content_type):
         try:
@@ -339,8 +340,10 @@ class pbskids:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
         control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
         control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 

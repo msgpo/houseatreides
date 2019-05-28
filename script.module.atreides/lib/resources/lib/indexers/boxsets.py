@@ -61,9 +61,10 @@ class boxsets:
                 self.addDirectoryItem(item['title'], url, item['icon'], item['icon'])
 
         if mSection == 'boxsets_main':
-            self.endDirectory()
+            self.endDirectory(category='Boxsets')
         else:
-            self.endDirectory(contentType='movies', sortMethod=xbmcplugin.SORT_METHOD_LABEL)
+            mSection = mSection.split('_')[1].capitalize()
+            self.endDirectory(contentType='movies', sortMethod=xbmcplugin.SORT_METHOD_LABEL, category=mSection)
 
     def boxsetlist(self, url, list_id):
         if url == 'tmdbbox':
@@ -571,9 +572,10 @@ class boxsets:
         except Exception:
             pass
 
-        control.content(syshandle, 'movies')
-        control.directory(syshandle, cacheToDisc=True)
-        views.setView('movies', {'skin.estuary': 55, 'skin.confluence': 500})
+        # control.content(syshandle, 'movies')
+        # control.directory(syshandle, cacheToDisc=True)
+        # views.setView('movies', {'skin.estuary': 55, 'skin.confluence': 500})
+        self.endDirectory(contentType='movies', sortMethod=xbmcplugin.SORT_METHOD_LABEL, category='Boxset List')
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
         try:
@@ -597,8 +599,10 @@ class boxsets:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
         control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
         control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
