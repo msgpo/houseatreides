@@ -21,7 +21,7 @@ import urlparse
 
 import xbmcgui
 import xbmcplugin
-from resources.lib.modules import client, control, jsonbm, log_utils
+from resources.lib.modules import client, control, jsonbm, jsonmenu, log_utils
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -41,93 +41,22 @@ class podcast:
         self.pbcats_link = 'http://podbay.fm/browse/%s'
 
     def root(self):
-        try:
-            self.addDirectoryItem(32629, 'podbay', 'podcast.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32624, 'podcastOne', 'podcast.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem('My Saved Podcasts', 'bmNavigator&url=podcasts', 'podcast.png', 'DefaultVideoPlaylists.png')
-
-            self.endDirectory()
-        except Exception:
-            pass
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('podcast')
+        rootMenu.process('podcast_root')
+        self.endDirectory(category='Podcasts')
 
     def pco_root(self):
-        try:
-            self.addDirectoryItem(32625, 'podcastOne&podcastlist=featured-podcasts',
-                                  'podcast.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32626, 'podcastOne&podcastlist=new-podcasts',
-                                  'podcast.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32627, 'podcastOne&podcastcategories=list',
-                                  'podcast.png', 'DefaultVideoPlaylists.png')
-
-            self.endDirectory()
-        except Exception:
-            pass
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('podcast')
+        rootMenu.process('podcastone_root')
+        self.endDirectory(category='PodcastOne')
 
     def pb_root(self):
-        try:
-            cats = [
-                ('Top Podcasts', 'top', True),
-                ('Arts', 'arts', True),
-                ('Business', 'business', True),
-                ('Comedy', 'comedy', False),
-                ('Education', 'education', True),
-                ('Games and Hobbies', 'games-and-hobbies', True),
-                ('Government and Organizations', 'government-and-organizations', True),
-                ('Health', 'health', True),
-                ('Kids and Family', 'kids-and-family', True),
-                ('Music', 'music', True),
-                ('News and Politics', 'news-and-politics', True),
-                ('Religion and Spirituality', 'religion-and-spirituality', True),
-                ('Science and Medicine', 'science-and-medicine', True),
-                ('Society and Culture', 'society-and-culture', True),
-                ('Sports and Recreation ', 'sports-and-recreation', True),
-                ('Technology', 'technology', True),
-                ('TV and Film', 'tv-and-film', True)
-            ]
-
-            for i in cats:
-                self.list.append({
-                    'name': i[0],
-                    'url': self.pbcats_link % i[1],
-                    'image': 'podcast.png',
-                    'action': 'podbay&podcastlist=%s' % i[1]
-                })
-
-            self.addDirectory(self.list)
-            return self.list
-        except Exception:
-            pass
-
-    def pcocats_list(self):
-        cats = [
-            ('All', 'podcasts', True),
-            ('Arts', 'arts-podcasts', True),
-            ('Comedy', 'comedy-podcasts', True),
-            ('Education', 'education-podcasts', False),
-            ('Games and Hobbies', 'games-and-hobbies-podcasts', True),
-            ('Government and Organizations', 'government-and-organizations-podcasts', True),
-            ('Health', 'health-podcasts', True),
-            ('Kids and Family', 'kids-and-family-podcasts', True),
-            ('Music', 'music-podcasts', True),
-            ('News and Politics', 'news-and-politics-podcasts', True),
-            ('Religion and Spirituality', 'religion-and-spirituality-podcasts', True),
-            ('Science and Medicine', 'science-and-medicine-podcasts', True),
-            ('Society and Culture', 'society-and-culture-podcasts', True),
-            ('Sports and Recreation ', 'sports-and-recreation-podcasts', True),
-            ('Technology and Business', 'technology-and-business-podcasts', True),
-            ('TV and Film', 'tv-and-film-podcasts', True)
-        ]
-
-        for i in cats:
-            self.list.append({
-                'name': i[0],
-                'url': self.pcocats_link % i[1],
-                'image': 'podcast.png',
-                'action': 'podcastOne&podcastlist=%s' % i[1]
-            })
-
-        self.addDirectory(self.list)
-        return self.list
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('podcast')
+        rootMenu.process('podbay_root')
+        self.endDirectory(category='Podbay.fm')
 
     def pco_cat(self, category):
         try:
@@ -331,8 +260,14 @@ class podcast:
         except Exception:
             pass
         url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
-        thumb = os.path.join(artPath, thumb) if artPath is not None else icon
+        if 'http' not in thumb:
+            thumb = os.path.join(artPath, thumb) if artPath is not None else icon
         cm = []
+
+        queueMenu = control.lang(32065).encode('utf-8')
+
+        if queue is True:
+            cm.append((queueMenu, 'RunPlugin(%s?action=queueItem)' % sysaddon))
         if context is not None:
             cm.append((control.lang(context[0]).encode('utf-8'), 'RunPlugin(%s?action=%s)' % (sysaddon, context[1])))
         item = control.item(label=name)
@@ -342,8 +277,11 @@ class podcast:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self):
-        control.content(syshandle, 'addons')
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+        control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
+        control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
     def addDirectory(self, items, queue=False, isFolder=True):

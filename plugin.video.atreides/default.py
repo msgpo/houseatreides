@@ -42,7 +42,7 @@ menu_file = params.get('menu_file')
 
 menu_section = params.get('menu_section')
 
-boxset_list = params.get('list')
+list_id = params.get('listid')
 
 name = params.get('name')
 
@@ -472,8 +472,8 @@ elif action == 'pbsKids':
     from resources.lib.indexers import anime
     if playbasic is not None:
         anime.pbskids().play(url)
-    elif subid is not None:
-        anime.pbskids().scrape(subid)
+    elif url is not None:
+        anime.pbskids().scrape(url)
     else:
         anime.pbskids().root()
 
@@ -527,7 +527,7 @@ elif action == 'boxsetNavigator':
 
 elif action == 'boxsetList':
     from resources.lib.indexers import boxsets
-    boxsets.boxsets().boxsetlist(url, boxset_list)
+    boxsets.boxsets().boxsetlist(url, list_id)
 
 elif action == 'docuNavigator':
     from resources.lib.indexers import docu

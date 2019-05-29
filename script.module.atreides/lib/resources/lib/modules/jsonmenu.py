@@ -15,10 +15,18 @@
 import json
 import os
 import time
+import sys
 import traceback
 import urlparse
 
 from resources.lib.modules import client, control, log_utils
+
+import xbmcplugin
+
+sysaddon = sys.argv[0]
+syshandle = int(sys.argv[1])
+artPath = control.artPath()
+addonFanart = control.addonFanart()
 
 
 class jsonMenu(object):
@@ -70,7 +78,7 @@ class jsonMenu(object):
                 except Exception:
                     remote_version = '0'
                 remote_version = int(float(remote_version))
-                if remote_version < version:
+                if remote_version > version:
                     self.menu = remote_menu
             except Exception:
                 failure = traceback.format_exc()
@@ -87,3 +95,67 @@ class jsonMenu(object):
         with open(self.menu_file, 'w') as json_file:
             json.dump(self.menu, json_file, indent=4)
             json_file.close()
+
+    def process(self, menu_section):
+        for item in self.menu[menu_section]:
+            try:
+                '''
+                Language file support can be done this way
+                '''
+                title = item['title']
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
+                link = item['action']
+
+                try:
+                    url = item['url']
+                    link = '%s&url=%s' % (link, url) if url is not None else link
+                except Exception:
+                    pass
+                try:
+                    listid = item['list_id']
+                    listtype = item['list_type']
+                    link = '%s&listid=%s&listtype=%s' % (link, listid, listtype) if listid is not None else link
+                except Exception:
+                    pass
+                try:
+                    menu_file = item['menu_file']
+                    menu_section = item['menu_section']
+                    link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
+                except Exception:
+                    pass
+                try:
+                    query = item['query']
+                    link = '%s&query=%s' % (link, query) if query is not None else link
+                except Exception:
+                    pass
+
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Process Menu - Failed to Build: \n' + str(failure))
+
+    def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
+        try:
+            name = control.lang(name).encode('utf-8')
+        except Exception:
+            pass
+        url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
+        if 'http' not in thumb:
+            thumb = os.path.join(artPath, thumb) if artPath is not None else icon
+        cm = []
+
+        queueMenu = control.lang(32065).encode('utf-8')
+
+        if queue is True:
+            cm.append((queueMenu, 'RunPlugin(%s?action=queueItem)' % sysaddon))
+        if context is not None:
+            cm.append((control.lang(context[0]).encode('utf-8'), 'RunPlugin(%s?action=%s)' % (sysaddon, context[1])))
+        item = control.item(label=name)
+        item.addContextMenuItems(cm)
+        item.setArt({'icon': thumb, 'thumb': thumb})
+        if addonFanart is not None:
+            item.setProperty('Fanart_Image', addonFanart)
+        control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)

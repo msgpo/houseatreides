@@ -207,24 +207,7 @@ class pbskids:
     def root(self):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('pbskids')
-
-        items = []
-
-        for item in rootMenu.menu['pbskids']:
-            try:
-                title = utils.convert(item['title']).encode('utf-8')
-                icon = item['thumbnail']
-                subid = item['subid']
-
-                item = control.item(label=title)
-                item.setArt({"thumb": icon, "icon": icon})
-                link = '%s?action=pbsKids&subid=%s' % (sysaddon, subid)
-                items.append((link, item, True))
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('PBSKids - Failed to Build: \n' + str(failure))
-
-        control.addItems(syshandle, items)
+        rootMenu.process('pbskids')
         self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL, category='PBS Kids')
 
     def scrape(self, url):

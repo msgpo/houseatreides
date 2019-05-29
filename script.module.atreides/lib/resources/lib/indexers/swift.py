@@ -81,7 +81,7 @@ class swift:
                 failure = traceback.format_exc()
                 log_utils.log('Channels - Failed to Build: \n' + str(failure))
 
-        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL)
+        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL, category='Swift Streamz TV')
 
     def swiftCategory(self, id):
         url = self.base_cat_url % (id)
@@ -140,7 +140,7 @@ class swift:
         except Exception:
             pass
 
-        self.endDirectory('files', xbmcplugin.SORT_METHOD_LABEL)
+        self.endDirectory('files', xbmcplugin.SORT_METHOD_LABEL, category='Swift Streamz TV')
 
     def swiftPlay(self, url):
         url = url.decode('base64')
@@ -219,13 +219,15 @@ class swift:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
         control.content(syshandle, contentType)
         sort_clowns = control.setting('tv.swift.sorttheclowns')
         if sort_clowns == '' or sort_clowns == 'true':
             control.sortMethod(syshandle, xbmcplugin.SORT_METHOD_LABEL)
         else:
             control.sortMethod(syshandle, sortMethod)
+        if category is not None:
+            control.category(syshandle, category)
         control.directory(syshandle, cacheToDisc=True)
 
     def addDirectory(self, items, queue=False, isFolder=True):

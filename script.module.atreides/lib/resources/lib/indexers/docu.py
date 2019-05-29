@@ -61,28 +61,7 @@ class documentary:
     def root(self):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('documentary')
-
-        for item in rootMenu.menu['documentaries_root']:
-            try:
-                '''
-                Language file support can be done this way
-                '''
-                title = item['title']
-                try:
-                    title = control.lang(int(title)).encode('utf-8')
-                except Exception:
-                    pass
-                try:
-                    url = item['url']
-                except Exception:
-                    url = None
-
-                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
-                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Documetary Root - Failed to Build: \n' + str(failure))
-
+        rootMenu.process('documentaries_root')
         self.endDirectory(category='Documentaries')
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
@@ -132,15 +111,7 @@ class topdocs:
     def root(self):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('documentary')
-
-        for item in rootMenu.menu['topdoc_root']:
-            try:
-                title = item['title']
-                self.addDirectoryItem(title, item['action'], item['thumbnail'], item['thumbnail'])
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Top Documentaries Root - Failed to Build: \n' + str(failure))
-
+        rootMenu.process('topdoc_root')
         self.endDirectory(category='Top Documentaries')
 
     def docu_list(self, url):
@@ -392,15 +363,7 @@ class docuheaven:
     def root(self):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('documentary')
-
-        for item in rootMenu.menu['docuh_root']:
-            try:
-                title = item['title']
-                self.addDirectoryItem(title, item['action'], item['thumbnail'], item['thumbnail'])
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Documentary Heaven Root - Failed to Build: \n' + str(failure))
-
+        rootMenu.process('docuh_root')
         self.endDirectory(category='Documentary Heaven')
 
     def docu_list(self, url):

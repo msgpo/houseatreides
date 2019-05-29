@@ -38,21 +38,7 @@ class channels:
     def root(self):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('channels')
-
-        for item in rootMenu.menu['channels_root']:
-            try:
-                title = utils.convert(item['title']).encode('utf-8')
-                try:
-                    url = item['url']
-                except Exception:
-                    url = None
-
-                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
-                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Channels - Failed to Build: \n' + str(failure))
-
+        rootMenu.process('channels_root')
         self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_NONE, category='Channels (Live TV)')
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):

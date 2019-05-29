@@ -51,14 +51,7 @@ class boxsets:
     def get(self, mFile, mSection):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load(mFile)
-
-        for item in rootMenu.menu[mSection]:
-            if mSection == 'boxsets_main':
-                url = item['action'] + '&menu_file=' + item['url'] + '&menu_section=' + item['list']
-                self.addDirectoryItem(item['title'], url, item['icon'], item['icon'])
-            else:
-                url = item['action'] + '&url=' + item['url'] + '&list=' + item['list']
-                self.addDirectoryItem(item['title'], url, item['icon'], item['icon'])
+        rootMenu.process(mSection)
 
         if mSection == 'boxsets_main':
             self.endDirectory(category='Boxsets')

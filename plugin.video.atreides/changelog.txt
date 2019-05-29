@@ -1,3 +1,9 @@
+[COLOR limegreen]Atredies Video Addon v1.2.3[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.3.3[/COLOR]
+    - Scraper Updates
+    - More menu code and skin updates
+    - PodcastOne menu redone
+
 [COLOR limegreen]Atredies Video Addon v1.2.2[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.2[/COLOR]
     - PBS Kids - Expanded support

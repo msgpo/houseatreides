@@ -280,95 +280,20 @@ class navigator:
 
     def kidscorner(self, lite=False):
         rootMenu = jsonmenu.jsonMenu()
-        rootMenu.load('radio')
-
-        for item in rootMenu.menu['radio_menu']:
-            try:
-                '''
-                Language file support can be done this way
-                '''
-                title = item['title']
-                try:
-                    title = control.lang(int(title)).encode('utf-8')
-                except Exception:
-                    pass
-                try:
-                    url = item['url']
-                except Exception:
-                    url = None
-                try:
-                    menu_file = item['menu_file']
-                    menu_section = item['menu_section']
-                except Exception:
-                    menu_file = None
-                    menu_section = None
-
-                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
-                link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
-                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Kids Corner - Failed to Build: \n' + str(failure))
-
+        rootMenu.load('kidscorner')
+        rootMenu.process('kidscorner_root')
         self.endDirectory(category=control.lang(32610).encode('utf-8'))
 
     def radio(self):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('radio')
-
-        for item in rootMenu.menu['radio_menu']:
-            try:
-                '''
-                Language file support can be done this way
-                '''
-                title = item['title']
-                try:
-                    title = control.lang(int(title)).encode('utf-8')
-                except Exception:
-                    pass
-                try:
-                    url = item['url']
-                except Exception:
-                    url = None
-
-                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
-                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Radio - Failed to Build: \n' + str(failure))
-
+        rootMenu.process('radio_root')
         self.endDirectory(category='Radio')
 
     def tools(self):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('utilities')
-
-        for item in rootMenu.menu['tools_menu']:
-            try:
-                '''
-                Language file support can be done this way
-                '''
-                title = item['title']
-                try:
-                    title = control.lang(int(title)).encode('utf-8')
-                except Exception:
-                    pass
-                try:
-                    url = item['url']
-                except Exception:
-                    url = None
-                try:
-                    query = item['query']
-                except Exception:
-                    query = None
-
-                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
-                link = '%s&query=%s' % (link, query) if query is not None else link
-                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Tools - Failed to Build: \n' + str(failure))
-
+        rootMenu.process('tools_menu')
         self.endDirectory(category=control.lang(32008).encode('utf-8'))
 
     def library(self):
@@ -401,28 +326,7 @@ class navigator:
     def search(self):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('utilities')
-
-        for item in rootMenu.menu['search_menu']:
-            try:
-                '''
-                Language file support can be done this way
-                '''
-                title = item['title']
-                try:
-                    title = control.lang(int(title)).encode('utf-8')
-                except Exception:
-                    pass
-                try:
-                    url = item['url']
-                except Exception:
-                    url = None
-
-                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
-                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Search - Failed to Build: \n' + str(failure))
-
+        rootMenu.process('search_menu')
         self.endDirectory(category='Search')
 
     def views(self):
