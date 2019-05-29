@@ -1,0 +1,58 @@
+{
+    "menu_file": [
+        {
+            "title": "Radio Menu File",
+            "version": "1",
+            "checked": "1",
+            "desc": "Menu File containing base menu system for Radio section"
+        }
+    ],
+    "radio_root": [
+        {
+            "title": "32654",
+            "url": "localstations",
+            "action": "radio",
+            "thumbnail": "radio.png"
+        }, {
+            "title": "32655",
+            "url": "recommended",
+            "action": "radio",
+            "thumbnail": "radio.png"
+        }, {
+            "title": "32656",
+            "url": "tophundred",
+            "action": "radio",
+            "thumbnail": "radio.png"
+        }, {
+            "title": "32657",
+            "url": "genre",
+            "action": "radioCat",
+            "thumbnail": "radio.png"
+        }, {
+            "title": "32658",
+            "url": "topic",
+            "action": "radioCat",
+            "thumbnail": "radio.png"
+        }, {
+            "title": "32659",
+            "url": "country",
+            "action": "radioCat",
+            "thumbnail": "radio.png"
+        }, {
+            "title": "32660",
+            "url": "city",
+            "action": "radioCat",
+            "thumbnail": "radio.png"
+        }, {
+            "title": "32661",
+            "url": "language",
+            "action": "radioCat",
+            "thumbnail": "radio.png"
+        }, {
+            "title": "My Saved Stations",
+            "url": "radio",
+            "action": "bmNavigator",
+            "thumbnail": "radio.png"
+        }
+    ]
+}

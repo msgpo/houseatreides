@@ -1,0 +1,31 @@
+{
+    "menu_file": [
+        {
+            "title": "Kids Corner Menu File",
+            "version": "1",
+            "checked": "1",
+            "desc": "Menu File containing base menu system for Kids Corner root"
+        }
+    ],
+    "kidscorner_root": [
+        {
+            "title": "B98.TV - Currently Down",
+            "action": "b98Navigator",
+            "thumbnail": "b98.png"
+        }, {
+            "title": "32633",
+            "menu_file": "boxsets_main",
+            "menu_section": "boxsets_kids",
+            "action": "kidsBoxsetNavigator",
+            "thumbnail": "kidsboxsets.png"
+        }, {
+            "title": "Kids Tube",
+            "action": "kidstube",
+            "thumbnail": "kidstube.png"
+        }, {
+            "title": "PBS Kids",
+            "action": "pbsKids",
+            "thumbnail": "pbskids.png"
+        }
+    ]
+}

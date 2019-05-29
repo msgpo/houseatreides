@@ -279,36 +279,65 @@ class navigator:
         self.endDirectory(category=control.lang(32004).encode('utf-8'))
 
     def kidscorner(self, lite=False):
-        self.addDirectoryItem('B98.TV - Currently Down', 'b98Navigator', 'b98.png', 'DefaultTVShows.png')
-        self.addDirectoryItem(32633, 'kidsBoxsetNavigator&menu_file=boxsets_main&menu_section=boxsets_kids', 'kidsboxsets.png', 'DefaultBoxSets.png')
-        self.addDirectoryItem('Kids Tube', 'kidstube', 'kidstube.png', 'DefaultTVShows.png')
-        self.addDirectoryItem('PBS Kids', 'pbsKids', 'pbskids.png', 'DefaultBoxSets.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('radio')
 
-        '''
-        if lite is False:
-            if not control.setting('lists.widget') == '0':
-                self.addDirectoryItem(32003, 'mymovieliteNavigator', 'mymovies.png', 'DefaultVideoPlaylists.png')
+        for item in rootMenu.menu['radio_menu']:
+            try:
+                '''
+                Language file support can be done this way
+                '''
+                title = item['title']
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
+                try:
+                    url = item['url']
+                except Exception:
+                    url = None
+                try:
+                    menu_file = item['menu_file']
+                    menu_section = item['menu_section']
+                except Exception:
+                    menu_file = None
+                    menu_section = None
 
-            self.addDirectoryItem(32028, 'moviePerson', 'people-search.png', 'DefaultMovies.png')
-            self.addDirectoryItem(32010, 'movieSearch', 'search.png', 'DefaultMovies.png')
-        '''
-        self.endDirectory(category='Kids Corner')
+                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
+                link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Kids Corner - Failed to Build: \n' + str(failure))
+
+        self.endDirectory(category=control.lang(32610).encode('utf-8'))
 
     def radio(self):
-        try:
-            self.addDirectoryItem(32654, 'radio&url=localstations', 'radio.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32655, 'radio&url=recommended', 'radio.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32656, 'radio&url=tophundred', 'radio.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32657, 'radioCat&url=genre', 'radio.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32658, 'radioCat&url=topic', 'radio.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32659, 'radioCat&url=country', 'radio.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32660, 'radioCat&url=city', 'radio.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32661, 'radioCat&url=language', 'radio.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem('My Saved Stations', 'bmNavigator&url=radio', 'radio.png', 'DefaultVideoPlaylists.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('radio')
 
-            self.endDirectory(category='Radio')
-        except Exception:
-            pass
+        for item in rootMenu.menu['radio_menu']:
+            try:
+                '''
+                Language file support can be done this way
+                '''
+                title = item['title']
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
+                try:
+                    url = item['url']
+                except Exception:
+                    url = None
+
+                link = '%s&url=%s' % (item['action'], url) if url is not None else item['action']
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
+            except Exception:
+                failure = traceback.format_exc()
+                log_utils.log('Radio - Failed to Build: \n' + str(failure))
+
+        self.endDirectory(category='Radio')
 
     def tools(self):
         rootMenu = jsonmenu.jsonMenu()
