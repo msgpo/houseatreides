@@ -13,11 +13,13 @@
 # Addon Provider: House Atreides
 
 # 3/30/2019 - Sent to me from another addon dev, credit on their work (asked to be left anon)
+# 5/28/2019 - Fixed
 
 import re
 import traceback
 import urllib
 import urlparse
+import requests
 
 from resources.lib.modules import cleantitle, client, debrid, dom_parser2, log_utils, source_utils, workers
 
@@ -83,12 +85,15 @@ class source:
 
             query = cleantitle.geturl(query)
             url = urlparse.urljoin(self.base_link, query)
+            shell = requests.Session()
 
             headers = {
                 'Referer': url,
                 'User-Agent':
-                'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
-            r = client.request(url, headers=headers)
+                'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            r = shell.get(url, headers=headers)
+            r = r.headers['Location']
+            r = shell.get(r).content
             posts = dom_parser2.parse_dom(r, 'li', {'class': re.compile('.+?'), 'id': re.compile('comment-.+?')})
             self.hostDict = hostDict + hostprDict
             threads = []

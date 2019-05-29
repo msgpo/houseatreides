@@ -12,6 +12,9 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/5/28: Re-add with new url. Credit to host505 for the url
+'''
 import re
 import traceback
 import urllib
@@ -24,8 +27,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['magnet']
-        self.domains = ['magnetdl.com']
-        self.base_link = 'https://www.magnetdl.com/'
+        self.domains = ['torrentquest.com']
+        self.base_link = 'https://torrentquest.com'
         self.search_link = '/%s/%s'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
 
@@ -39,7 +42,7 @@ class source:
             return url
         except Exception:
             failure = traceback.format_exc()
-            log_utils.log('MagnetDL - Exception: \n' + str(failure))
+            log_utils.log('TorrentQuest - Exception: \n' + str(failure))
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
@@ -52,7 +55,7 @@ class source:
             return url
         except Exception:
             failure = traceback.format_exc()
-            log_utils.log('MagnetDL - Exception: \n' + str(failure))
+            log_utils.log('TorrentQuest - Exception: \n' + str(failure))
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
@@ -70,7 +73,7 @@ class source:
             return url
         except Exception:
             failure = traceback.format_exc()
-            log_utils.log('MagnetDL - Exception: \n' + str(failure))
+            log_utils.log('TorrentQuest - Exception: \n' + str(failure))
             return
 
     def sources(self, url, hostDict, hostprDict):
@@ -172,7 +175,7 @@ class source:
             return sources
         except Exception:
             failure = traceback.format_exc()
-            log_utils.log('MagnetDL - Exception: \n' + str(failure))
+            log_utils.log('TorrentQuest - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):

@@ -12,7 +12,12 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/5/28: Fixed. Site changed the search again
+'''
+
 import re
+import urlparse
 import requests
 import traceback
 
@@ -27,23 +32,20 @@ class source:
         self.source = ['www']
         self.domains = ['streamdreams.org']
         self.base_link = 'https://streamdreams.org'
-        self.api_link = 'https://api.searchiq.co/api/search/results'
-        self.headers = {'Host': 'api.searchiq.co', 'Accept': 'application/json, text/javascript, */*; q=0.01', 'Origin': 'https://streamdreams.org',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0',
-                'Referer': 'https://streamdreams.org/results?r=', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'en-US,en;q=0.9'}
+        self.search_link = '/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
-            search = cleantitle.getsearch(imdb)
-            url = self.api_link
-            payload = {'q': search, 'engineKey': '2b67dc761b36dcd1434c6c1bb370d9dd', 'page': '0',
-                    'itemsPerPage': '15', 'group': '0', 'sortby': 'relevance', 'autocomplete': '0'}
-            r = requests.get(url, params=payload, headers=self.headers)
-            response = r.content
-            Yourmouth = re.compile('"title":"(.+?)".+?"url":"(.+?)"', re.DOTALL).findall(response)
-            for Mycock, Mynuts, in Yourmouth:
+            search = cleantitle.getsearch(title)
+            url = urlparse.urljoin(self.base_link, self.search_link)
+            url = url % (search.replace(':', ' ').replace(' ', '+'))
+            headers = {'Referer': url, 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            r = requests.get(url, headers=headers).content
+            Yourmouth = re.compile('<div class="thumbnail  same-height big-title-thumb".+?href="(.+?)"\stitle="(.+?)"', re.DOTALL).findall(r)
+            for Mynuts, Mycock, in Yourmouth:
                 if cleantitle.get(title) in cleantitle.get(Mycock):
-                    return Mynuts
+                    if year in str(Mycock):
+                        return Mynuts
             return
         except Exception:
             failure = traceback.format_exc()
@@ -52,16 +54,16 @@ class source:
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
-            search = cleantitle.getsearch(imdb)
-            url = self.api_link
-            payload = {'q': search, 'engineKey': '2b67dc761b36dcd1434c6c1bb370d9dd', 'page': '0',
-                    'itemsPerPage': '15', 'group': '0', 'sortby': 'relevance', 'autocomplete': '0'}
-            r = requests.get(url, params=payload, headers=self.headers)
-            response = r.content
-            Yourmouth = re.compile('"title":"(.+?)".+?"url":"(.+?)"', re.DOTALL).findall(response)
-            for Mycock, Mynuts, in Yourmouth:
+            search = cleantitle.getsearch(tvshowtitle)
+            url = urlparse.urljoin(self.base_link, self.search_link)
+            url = url % (search.replace(':', ' ').replace(' ', '+'))
+            headers = {'Referer': url, 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            r = requests.get(url, headers=headers).content
+            Yourmouth = re.compile('<div class="thumbnail  same-height big-title-thumb".+?href="(.+?)"\stitle="(.+?)"', re.DOTALL).findall(r)
+            for Mynuts, Mycock, in Yourmouth:
                 if cleantitle.get(tvshowtitle) in cleantitle.get(Mycock):
-                    return Mynuts
+                    if year in str(Mycock):
+                        return Mynuts
             return
         except Exception:
             failure = traceback.format_exc()

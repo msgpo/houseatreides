@@ -14,6 +14,7 @@
 
 '''
 2019/4/16: Updated to use CFScrape - Still using single request
+2019/5/28: Updated base_link
 '''
 
 import re
@@ -28,8 +29,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['www']
-        self.domains = ['0dayreleases.com', '0dayreleases.biz']
-        self.base_link = 'https://0dayreleases.com/'
+        self.domains = ['0dayreleases.com']
+        self.base_link = 'https://0daywarez.us'
         self.search_link = '/search/%s/feed/rss2/'
         self.scraper = cfscrape.create_scraper()
 
