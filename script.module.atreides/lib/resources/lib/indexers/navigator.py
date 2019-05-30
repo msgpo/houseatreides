@@ -48,46 +48,99 @@ class navigator:
     THISADDONPATH = os.path.join(ADDONSPATH, ADDON_ID)
 
     def root(self):
-        self.addDirectoryItem('[COLOR=snow][B][I]News and Updates[/I][/B][/COLOR]',
-                              'newsNavigator', 'icon.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32001, 'movieNavigator', 'movies.png', 'DefaultMovies.png')
-        self.addDirectoryItem(32002, 'tvNavigator', 'tvshows.png', 'DefaultTVShows.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('main')
 
-        if not control.setting('lists.widget') == '0':
-            self.addDirectoryItem(32003, 'mymovieNavigator', 'mymovies.png', 'DefaultVideoPlaylists.png')
-            self.addDirectoryItem(32004, 'mytvNavigator', 'mytvshows.png', 'DefaultVideoPlaylists.png')
+        for item in rootMenu.menu['main_menu']:
+            try:
+                '''
+                First things first, let's see if this is an entry with on/off settings and if we should display it.
+                '''
+                try:
+                    toggle = item.get('toggle', None)
+                    if toggle is not None:
+                        if self.getMenuEnabled(toggle) is False:
+                            continue
+                except Exception:
+                    pass
 
-        if not control.setting('movie.widget') == '0':
-            self.addDirectoryItem(32005, 'movieWidget', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')
+                '''
+                Language file support can be done this way
+                '''
+                title = item.get('title', 'No Title Given')
+                tcheck = title
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
 
-        if (traktIndicators is True and not control.setting('tv.widget.alt') == '0') or (traktIndicators is False and not control.setting('tv.widget') == '0'):
-            self.addDirectoryItem(32006, 'tvWidget', 'latest-episodes.png', 'DefaultRecentlyAddedEpisodes.png')
+                '''
+                Check to see if is a My Lists entry and skip if not enabled
+                '''
+                try:
+                    if tcheck == '32003' or tcheck == '32004':
+                        if control.setting('lists.widget') == '0':
+                            continue
+                except Exception:
+                    pass
 
-        if self.getMenuEnabled('navi.channels') is True:
-            self.addDirectoryItem(32007, 'channelNavigator', 'channels.png', 'DefaultTVShows.png')
-        if self.getMenuEnabled('navi.boxsets') is True:
-            self.addDirectoryItem(32632, 'boxsetNavigator&menu_file=boxsets_main&menu_section=boxsets_main', 'boxsets.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.docu') is True:
-            self.addDirectoryItem(32631, 'docuNavigator', 'movies.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.kidscorner') is True:
-            self.addDirectoryItem(32610, 'kidscorner', 'kidscorner.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.fitness') is True:
-            self.addDirectoryItem(32611, 'fitness', 'fitness.png', 'DefaultMovies.png')
+                '''
+                Check to see if is New Movies and skip if not enabled
+                '''
+                try:
+                    if tcheck == '32005':
+                        theSetting = control.setting('movie.widget')
+                        if theSetting == '0':
+                            continue
+                        if theSetting == '1':
+                            title = title + " (" + control.lang(32321).encode('utf-8') + ")"
+                        elif theSetting == '2':
+                            title = title + " (" + control.lang(32322).encode('utf-8') + ")"
+                        elif theSetting == '3':
+                            title = title + " (" + control.lang(32323).encode('utf-8') + ")"
+                        elif theSetting == '4':
+                            title = title + " (" + control.lang(32324).encode('utf-8') + ")"
+                        elif theSetting == '5':
+                            title = title + " (" + control.lang(32580).encode('utf-8') + ")"
+                except Exception:
+                    pass
 
-        if self.getMenuEnabled('navi.radio') is True:
-            self.addDirectoryItem(32653, 'radioNavigator', 'radio.png', 'DefaultVideoPlaylists.png')
-        if self.getMenuEnabled('navi.podcasts') is True:
-            self.addDirectoryItem(32620, 'podcastNavigator', 'podcast.png', 'DefaultVideoPlaylists.png')
+                '''
+                Check to see if is New Episodes entry and skip if not enabled
+                '''
+                try:
+                    if tcheck == '32006':
+                        if (traktIndicators is True and control.setting('tv.widget.alt') == '0') or (traktIndicators is False and control.setting('tv.widget') == '0'):
+                            continue
+                except Exception:
+                    pass
 
-        self.addDirectoryItem(32008, 'toolNavigator', 'tools.png', 'DefaultAddonProgram.png')
+                '''
+                Check to see if is Downloads entry and skip if not enabled
+                '''
+                try:
+                    if tcheck == '32009':
+                        downloads = True if control.setting('downloads') == 'true' and(
+                            len(control.listDir(control.setting('movie.download.path'))[0]) > 0
+                            or len(control.listDir(control.setting('tv.download.path'))[0]) > 0) else False
+                        if downloads is False:
+                            continue
+                except Exception:
+                    pass
 
-        downloads = True if control.setting('downloads') == 'true' and(
-            len(control.listDir(control.setting('movie.download.path'))[0]) > 0
-            or len(control.listDir(control.setting('tv.download.path'))[0]) > 0) else False
-        if downloads is True:
-            self.addDirectoryItem(32009, 'downloadNavigator', 'downloads.png', 'DefaultFolder.png')
+                icon = item['thumbnail']
+                link = item.get('action', None)
 
-        self.addDirectoryItem(32010, 'searchNavigator', 'search.png', 'DefaultFolder.png')
+                try:
+                    menu_file = item.get('menu_file', None)
+                    menu_section = item.get('menu_section', None)
+                    link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
+                except Exception:
+                    pass
+
+                self.addDirectoryItem(title, link, icon, icon)
+            except Exception:
+                pass
 
         self.endDirectory()
 

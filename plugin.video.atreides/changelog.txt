@@ -1,3 +1,8 @@
+[COLOR limegreen]Atredies Video Addon v1.2.4[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.3.4[/COLOR]
+    - Main Menu moved to the JSON menu code
+    - New Movies, when active, shows setting in name
+
 [COLOR limegreen]Atredies Video Addon v1.2.3[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.3[/COLOR]
     - Scraper Updates

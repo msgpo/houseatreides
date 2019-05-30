@@ -100,34 +100,46 @@ class jsonMenu(object):
         for item in self.menu[menu_section]:
             try:
                 '''
+                First things first, let's see if this is an entry with on/off settings and if we should display it.
+                '''
+                try:
+                    toggle = item.get('toggle', None)
+                    if toggle is not None:
+                        is_enabled = control.setting(toggle).strip()
+                        if (is_enabled == '' or is_enabled == 'false'):
+                            continue
+                except Exception:
+                    pass
+
+                '''
                 Language file support can be done this way
                 '''
-                title = item['title']
+                title = item.get('title', 'No Title Given')
                 try:
                     title = control.lang(int(title)).encode('utf-8')
                 except Exception:
                     pass
-                link = item['action']
+                link = item.get('action', None)
 
                 try:
-                    url = item['url']
+                    url = item.get('url', None)
                     link = '%s&url=%s' % (link, url) if url is not None else link
                 except Exception:
                     pass
                 try:
-                    listid = item['list_id']
-                    listtype = item['list_type']
+                    listid = item.get('list_id', None)
+                    listtype = item.get('list_type', None)
                     link = '%s&listid=%s&listtype=%s' % (link, listid, listtype) if listid is not None else link
                 except Exception:
                     pass
                 try:
-                    menu_file = item['menu_file']
-                    menu_section = item['menu_section']
+                    menu_file = item.get('menu_file', None)
+                    menu_section = item.get('menu_section', None)
                     link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
                 except Exception:
                     pass
                 try:
-                    query = item['query']
+                    query = item.get('query', None)
                     link = '%s&query=%s' % (link, query) if query is not None else link
                 except Exception:
                     pass
