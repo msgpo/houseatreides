@@ -17,23 +17,25 @@
 '''
 
 import re
+import urlparse
 import traceback
 
-from resources.lib.modules import cfscrape, cleantitle, client, log_utils, source_utils
+from resources.lib.modules import cfscrape, cleantitle, log_utils, source_utils
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.source = ['www']
-        self.domains = ['coolmoviezone.online']
-        self.base_link = 'https://coolmoviezone.co'
+        self.domains = ['coolmoviezone.online', 'coolmoviezone.co']
+        self.base_link = 'https://coolmoviezone.io'
+        self.search_link = '/%s-%s'
         self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             title = cleantitle.geturl(title)
-            url = self.base_link + '/%s-%s' % (title, year)
+            url = urlparse.urljoin(self.base_link, (self.search_link % (title, year)))
             return url
         except Exception:
             failure = traceback.format_exc()
@@ -46,9 +48,8 @@ class source:
             r = self.scraper.get(url).content
             match = re.compile('<td align="center"><strong><a href="(.+?)"').findall(r)
             for url in match:
-                host = url.split('//')[1].replace('www.', '')
-                host = host.split('/')[0].split('.')[0].title()
                 quality = source_utils.check_sd_url(url)
+                valid, host = source_utils.is_host_valid(url, hostDict)
                 sources.append({'source': host, 'quality': quality, 'language': 'en',
                                 'url': url, 'direct': False, 'debridonly': False})
         except Exception:

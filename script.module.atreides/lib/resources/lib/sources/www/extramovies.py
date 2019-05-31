@@ -28,7 +28,7 @@ class source:
         self.priority = 0
         self.source = ['www']
         self.domains = ['extramovies.trade', 'extramovies.host']
-        self.base_link = 'http://extramovies.host'
+        self.base_link = 'http://extramovies.guru'
         self.search_link = '/?s=%s'
         self.User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
 
