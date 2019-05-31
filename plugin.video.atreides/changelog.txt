@@ -3,6 +3,7 @@
     - Movies and My Movies moved over to json
     - My Movies now reflects Trakt and/or IMDB
     - Code tweaks to the News Dialog
+    - Scraper Updates
 
 [COLOR limegreen]Atredies Video Addon v1.2.4[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.4[/COLOR]
