@@ -1,0 +1,111 @@
+{
+    "menu_file": [
+        {
+            "title": "Movie Menu File",
+            "version": "1",
+            "checked": "1",
+            "desc": "Menu File containing the Movies menu in Atreides"
+        }
+    ],
+    "movie_menu": [
+        {
+            "title": "32623",
+            "action": "movieReviews",
+            "toggle": "navi.moviereview",
+            "thumbnail": "reviews.png"
+        },
+        {
+            "title": "32011",
+            "action": "movieGenres",
+            "toggle": "navi.moviegenre",
+            "thumbnail": "genres.png"
+        },
+        {
+            "title": "32012",
+            "action": "movieYears",
+            "toggle": "navi.movieyears",
+            "thumbnail": "years.png"
+        },
+        {
+            "title": "32013",
+            "action": "moviePersons",
+            "toggle": "navi.moviepersons",
+            "thumbnail": "people.png"
+        },
+        {
+            "title": "32014",
+            "action": "movieLanguages",
+            "toggle": "navi.movielanguages",
+            "thumbnail": "languages.png"
+        },
+        {
+            "title": "32015",
+            "action": "movieCertificates",
+            "toggle": "navi.moviecerts",
+            "thumbnail": "certificates.png"
+        },
+        {
+            "title": "32017",
+            "action": "movies",
+            "url": "trending",
+            "toggle": "navi.movietrending",
+            "thumbnail": "people-watching.png"
+        },
+        {
+            "title": "32018",
+            "action": "movies",
+            "url": "popular",
+            "toggle": "navi.moviepopular",
+            "thumbnail": "most-popular.png"
+        },
+        {
+            "title": "32019",
+            "action": "movies",
+            "url": "views",
+            "toggle": "navi.movieviews",
+            "thumbnail": "most-voted.png"
+        },
+        {
+            "title": "32020",
+            "action": "movies",
+            "url": "boxoffice",
+            "toggle": "navi.movieboxoffice",
+            "thumbnail": "box-office.png"
+        },
+        {
+            "title": "32021",
+            "action": "movies",
+            "url": "oscars",
+            "toggle": "navi.movieoscars",
+            "thumbnail": "oscar-winners.png"
+        },
+        {
+            "title": "32022",
+            "action": "movies",
+            "url": "theaters",
+            "toggle": "navi.movietheaters",
+            "thumbnail": "in-theaters.png"
+        },
+        {
+            "title": "32005",
+            "action": "movieWidget",
+            "toggle": "navi.moviewidget",
+            "thumbnail": "latest-movies.png"
+        },
+        {
+            "title": "32003",
+            "action": "mymovieliteNavigator",
+            "thumbnail": "mymovies.png"
+        },
+        {
+            "title": "32028",
+            "action": "moviePerson",
+            "thumbnail": "people-search.png"
+        },
+        {
+            "title": "32010",
+            "action": "movieSearch",
+            "thumbnail": "search.png"
+        }
+    ]
+}

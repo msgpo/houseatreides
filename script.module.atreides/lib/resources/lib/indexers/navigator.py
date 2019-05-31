@@ -167,39 +167,69 @@ class navigator:
         changelog.get()
 
     def movies(self, lite=False):
-        if self.getMenuEnabled('navi.moviereview') is True:
-            self.addDirectoryItem(32623, 'movieReviews', 'reviews.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.moviegenre') is True:
-            self.addDirectoryItem(32011, 'movieGenres', 'genres.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieyears') is True:
-            self.addDirectoryItem(32012, 'movieYears', 'years.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.moviepersons') is True:
-            self.addDirectoryItem(32013, 'moviePersons', 'people.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movielanguages') is True:
-            self.addDirectoryItem(32014, 'movieLanguages', 'languages.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.moviecerts') is True:
-            self.addDirectoryItem(32015, 'movieCertificates', 'certificates.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movietrending') is True:
-            self.addDirectoryItem(32017, 'movies&url=trending', 'people-watching.png', 'DefaultRecentlyAddedMovies.png')
-        if self.getMenuEnabled('navi.moviepopular') is True:
-            self.addDirectoryItem(32018, 'movies&url=popular', 'most-popular.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieviews') is True:
-            self.addDirectoryItem(32019, 'movies&url=views', 'most-voted.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieboxoffice') is True:
-            self.addDirectoryItem(32020, 'movies&url=boxoffice', 'box-office.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieoscars') is True:
-            self.addDirectoryItem(32021, 'movies&url=oscars', 'oscar-winners.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movietheaters') is True:
-            self.addDirectoryItem(32022, 'movies&url=theaters', 'in-theaters.png', 'DefaultRecentlyAddedMovies.png')
-        if self.getMenuEnabled('navi.moviewidget') is True:
-            self.addDirectoryItem(32005, 'movieWidget', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('movies')
 
-        if lite is False:
-            if not control.setting('lists.widget') == '0':
-                self.addDirectoryItem(32003, 'mymovieliteNavigator', 'mymovies.png', 'DefaultVideoPlaylists.png')
+        for item in rootMenu.menu['movie_menu']:
+            try:
+                '''
+                First things first, let's see if this is an entry with on/off settings and if we should display it.
+                '''
+                try:
+                    toggle = item.get('toggle', None)
+                    if toggle is not None:
+                        if self.getMenuEnabled(toggle) is False:
+                            continue
+                except Exception:
+                    pass
 
-            self.addDirectoryItem(32028, 'moviePerson', 'people-search.png', 'DefaultMovies.png')
-            self.addDirectoryItem(32010, 'movieSearch', 'search.png', 'DefaultMovies.png')
+                '''
+                Language file support can be done this way
+                '''
+                title = item.get('title', 'No Title Given')
+                tcheck = title
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
+
+                '''
+                Check to see if is a My Lists entry and skip if not enabled
+                '''
+                try:
+                    if tcheck == '32003':
+                        if control.setting('lists.widget') == '0' and lite is True:
+                            continue
+                except Exception:
+                    pass
+
+                '''
+                Check to see if is Lite shit and skip as required
+                '''
+                try:
+                    if (tcheck == '32028' or tcheck == '32010') and lite is True:
+                        continue
+                except Exception:
+                    pass
+
+                icon = item['thumbnail']
+                link = item.get('action', None)
+
+                try:
+                    url = item.get('url', None)
+                    link = '%s&url=%s' % (link, url) if url is not None else link
+                except Exception:
+                    pass
+                try:
+                    menu_file = item.get('menu_file', None)
+                    menu_section = item.get('menu_section', None)
+                    link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
+                except Exception:
+                    pass
+
+                self.addDirectoryItem(title, link, icon, icon)
+            except Exception:
+                pass
 
         self.endDirectory(category=control.lang(32001).encode('utf-8'))
 
