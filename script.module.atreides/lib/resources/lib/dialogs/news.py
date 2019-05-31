@@ -101,11 +101,12 @@ class NewsDialog(pyxbmct.BlankDialogWindow):
         self.newsheader = '[B]Latest News[/B]'
         self.Header = pyxbmct.Label(self.newsheader, alignment=pyxbmct.ALIGN_CENTER, textColor=self.colors.dh_color)
         self.placeControl(self.Header, 2, 20, rowspan=1, columnspan=40)
-        self.Description = pyxbmct.Label(self.news)
-        self.placeControl(self.Description, 3, 21, rowspan=20, columnspan=40)
+        self.Description = pyxbmct.TextBox(self.news)
+        self.placeControl(self.Description, 3, 21, rowspan=16, columnspan=40)
+        self.Description.setText(self.news)
 
         self.RDLink = pyxbmct.Label('Referral Debrid Link: ' + str(get_rd_link()))
-        self.placeControl(self.RDLink, 17, 21, rowspan=2, columnspan=30)
+        self.placeControl(self.RDLink, 17, 21, rowspan=2, columnspan=32)
         self.RDLink.setVisible(False)
 
         self.WatchButton = pyxbmct.Button(
@@ -162,19 +163,19 @@ class NewsDialog(pyxbmct.BlankDialogWindow):
                 selection = self.menu.getListItem(self.menu.getSelectedPosition()).getLabel()
                 if selection == 'News':
                     self.Header.setLabel(self.newsheader)
-                    self.Description.setLabel(self.news)
+                    self.Description.setText(self.news)
                 elif selection == 'Changes':
                     self.Header.setLabel('[B]Latest Changes[/B]', textColor=self.colors.dh_color)
-                    self.Description.setLabel(self.changes)
+                    self.Description.setText(self.changes)
                 elif selection == 'Builds':
                     self.Header.setLabel('[B]Approved Builds[/B]', textColor=self.colors.dh_color)
-                    self.Description.setLabel(self.approved)
+                    self.Description.setText(self.approved)
                 elif selection == 'Paypal':
                     self.Header.setLabel('[B]Paypal[/B]', textColor=self.colors.dh_color)
-                    self.Description.setLabel(self.paypal)
+                    self.Description.setText(self.paypal)
                 elif selection == 'Bug Reports':
                     self.Header.setLabel('[B]Bug Reports[/B]', textColor=self.colors.dh_color)
-                    self.Description.setLabel('If you think you found a bug, broken scraper, bad\nresults, and so on then please let us know below!')
+                    self.Description.setText('If you think you found a bug, broken scraper, bad\nresults, and so on then please let us know below!')
                     self.SubmitButton.setVisible(True)
                     self.BugForm.setVisible(True)
             elif self.getFocus() == self.menu2:
@@ -184,17 +185,17 @@ class NewsDialog(pyxbmct.BlankDialogWindow):
                 self.WatchButton.setVisible(True)
                 if selection == 'Scraper Tips':
                     self.Header.setLabel('[B]Scraper Tips[/B]', textColor=self.colors.dh_color)
-                    self.Description.setLabel(self.scrapers)
+                    self.Description.setText(self.scrapers)
                     self.video = scrapervid
                     self.RDLink.setVisible(False)
                 elif selection == 'Real Debrid':
                     self.Header.setLabel('[B]Real Debrid[/B]', textColor=self.colors.dh_color)
-                    self.Description.setLabel(self.rd)
+                    self.Description.setText(self.rd)
                     self.video = rdvid
                     self.RDLink.setVisible(True)
                 elif selection == 'Torrents':
                     self.Header.setLabel('[B]Torrents in Atreides[/B]', textColor=self.colors.dh_color)
-                    self.Description.setLabel(self.torrents)
+                    self.Description.setText(self.torrents)
                     self.video = torrentvid
                     self.RDLink.setVisible(False)
             else:

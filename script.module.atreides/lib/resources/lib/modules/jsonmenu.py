@@ -144,7 +144,9 @@ class jsonMenu(object):
                 except Exception:
                     pass
 
-                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'])
+                isAction = True if item.get('nolink', None) is None else False
+
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'], isAction=isAction)
             except Exception:
                 failure = traceback.format_exc()
                 log_utils.log('Process Menu - Failed to Build: \n' + str(failure))

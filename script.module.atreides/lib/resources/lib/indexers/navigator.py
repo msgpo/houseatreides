@@ -236,38 +236,82 @@ class navigator:
     def mymovies(self, lite=False):
         self.accountCheck()
 
-        if traktCredentials is True and imdbCredentials is True:
-            self.addDirectoryItem(32032, 'movies&url=traktcollection', 'trakt.png', 'DefaultMovies.png',
-                                  queue=True, context=(32551, 'moviesToLibrary&url=traktcollection'))
-            self.addDirectoryItem(32033, 'movies&url=traktwatchlist', 'trakt.png', 'DefaultMovies.png',
-                                  queue=True, context=(32551, 'moviesToLibrary&url=traktwatchlist'))
-            self.addDirectoryItem(32034, 'movies&url=imdbwatchlist', 'imdb.png', 'DefaultMovies.png', queue=True)
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load('movies')
 
-        elif traktCredentials is True:
-            self.addDirectoryItem(32032, 'movies&url=traktcollection', 'trakt.png', 'DefaultMovies.png',
-                                  queue=True, context=(32551, 'moviesToLibrary&url=traktcollection'))
-            self.addDirectoryItem(32033, 'movies&url=traktwatchlist', 'trakt.png', 'DefaultMovies.png',
-                                  queue=True, context=(32551, 'moviesToLibrary&url=traktwatchlist'))
+        for item in rootMenu.menu['mymovies_menu']:
+            try:
+                '''
+                First things first, let's see if this is an entry with on/off settings and if we should display it.
+                '''
+                try:
+                    toggle = item.get('toggle', None)
+                    if toggle is not None:
+                        if self.getMenuEnabled(toggle) is False:
+                            continue
+                except Exception:
+                    pass
 
-        elif imdbCredentials is True:
-            self.addDirectoryItem(32032, 'movies&url=imdbwatchlist', 'imdb.png', 'DefaultMovies.png', queue=True)
-            self.addDirectoryItem(32033, 'movies&url=imdbwatchlist2', 'imdb.png', 'DefaultMovies.png', queue=True)
+                '''
+                Language file support can be done this way
+                '''
+                title = item.get('title', 'No Title Given')
+                tcheck = title
+                try:
+                    title = control.lang(int(title)).encode('utf-8')
+                except Exception:
+                    pass
 
-        if traktCredentials is True:
-            self.addDirectoryItem(32035, 'movies&url=traktfeatured', 'trakt.png', 'DefaultMovies.png', queue=True)
+                requires_trakt = item.get('req_trakt', None)
+                requires_imdb = item.get('req_imdb', None)
+                try:
+                    if requires_trakt == '1':
+                        if traktCredentials is False:
+                            continue
+                        if item.get('trakt_indicator', None) == '1' and traktIndicators is False:
+                            continue
+                        title = "Trakt " + title
+                    elif requires_imdb == '1':
+                        if imdbCredentials is False:
+                            continue
+                        title = "IMDB " + title
+                except Exception:
+                    pass
 
-        elif imdbCredentials is True:
-            self.addDirectoryItem(32035, 'movies&url=featured', 'imdb.png', 'DefaultMovies.png', queue=True)
+                try:
+                    if (tcheck == '32028' or tcheck == '32010' or tcheck == '32031') and lite is True:
+                        continue
+                except Exception:
+                    pass
 
-        if traktIndicators is True:
-            self.addDirectoryItem(32036, 'movies&url=trakthistory', 'trakt.png', 'DefaultMovies.png', queue=True)
+                icon = item['thumbnail']
+                link = item.get('action', None)
 
-        self.addDirectoryItem(32039, 'movieUserlists', 'userlists.png', 'DefaultMovies.png')
+                try:
+                    url = item.get('url', None)
+                    link = '%s&url=%s' % (link, url) if url is not None else link
+                except Exception:
+                    pass
+                try:
+                    menu_file = item.get('menu_file', None)
+                    menu_section = item.get('menu_section', None)
+                    link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
+                except Exception:
+                    pass
 
-        if lite is False:
-            self.addDirectoryItem(32031, 'movieliteNavigator', 'movies.png', 'DefaultMovies.png')
-            self.addDirectoryItem(32028, 'moviePerson', 'people-search.png', 'DefaultMovies.png')
-            self.addDirectoryItem(32010, 'movieSearch', 'search.png', 'DefaultMovies.png')
+                if item.get('queue', None) == '1':
+                    queue = True
+                else:
+                    queue = False
+
+                context = item.get('context', None)
+                if context is not None:
+                    context = context.split('|', 1)
+                    context = (int(context[0]), context[1])
+
+                self.addDirectoryItem(title, link, icon, icon, queue=queue, context=context)
+            except Exception:
+                pass
 
         self.endDirectory(category=control.lang(32003).encode('utf-8'))
 

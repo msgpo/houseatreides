@@ -107,5 +107,84 @@
             "action": "movieSearch",
             "thumbnail": "search.png"
         }
+    ],
+    "mymovies_menu": [
+        {
+            "title": "32032",
+            "action": "movies",
+            "url": "traktcollection",
+            "context": "32551|moviesToLibrary&url=traktcollection",
+            "queue": "1",
+            "req_trakt": "1",
+            "req_imdb": "0",
+            "thumbnail": "trakt.png"
+        },
+        {
+            "title": "32032",
+            "action": "movies",
+            "url": "imdbwatchlist",
+            "queue": "1",
+            "req_trakt": "0",
+            "req_imdb": "1",
+            "thumbnail": "imdb.png"
+        },
+        {
+            "title": "32033",
+            "action": "movies",
+            "url": "traktwatchlist",
+            "context": "32551|moviesToLibrary&url=traktwatchlist",
+            "queue": "1",
+            "req_trakt": "1",
+            "req_imdb": "0",
+            "thumbnail": "trakt.png"
+        },
+        {
+            "title": "32033",
+            "action": "movies",
+            "url": "imdbwatchlist2",
+            "queue": "1",
+            "req_trakt": "0",
+            "req_imdb": "1",
+            "thumbnail": "imdb.png"
+        },
+        {
+            "title": "32035",
+            "action": "movies",
+            "url": "traktfeatured",
+            "queue": "1",
+            "req_trakt": "1",
+            "req_imdb": "0",
+            "thumbnail": "trakt.png"
+        },
+        {
+            "title": "32036",
+            "action": "movies",
+            "url": "trakthistory",
+            "queue": "1",
+            "req_trakt": "1",
+            "req_imdb": "0",
+            "trakt_indicator": "1",
+            "thumbnail": "trakt.png"
+        },
+        {
+            "title": "32039",
+            "action": "movieUserlists",
+            "thumbnail": "userlists.png"
+        },
+        {
+            "title": "32031",
+            "action": "movieliteNavigator",
+            "thumbnail": "movies.png"
+        },
+        {
+            "title": "32028",
+            "action": "moviePerson",
+            "thumbnail": "people-search.png"
+        },
+        {
+            "title": "32010",
+            "action": "movieSearch",
+            "thumbnail": "search.png"
+        }
     ]
 }

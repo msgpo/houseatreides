@@ -193,7 +193,7 @@ class movies:
         if delete_option:
             navigator.navigator().addDirectoryItem(32605, 'clearCacheSearch', 'tools.png', 'DefaultAddonProgram.png')
 
-        navigator.navigator().endDirectory()
+        navigator.navigator().endDirectory(category='Search')
 
     def search_new(self):
         control.idle()
@@ -1184,11 +1184,10 @@ class movies:
         except Exception:
             pass
 
-        control.content(syshandle, 'movies')
-        control.directory(syshandle, cacheToDisc=True)
+        navigator.navigator().endDirectory('movies', category='Movies')
         views.setView('movies', {'skin.estuary': 55, 'skin.confluence': 500})
 
-    def addDirectory(self, items, queue=False):
+    def addDirectory(self, items, queue=False, category=None):
         if items is None or len(items) == 0:
             control.idle()
             sys.exit()
@@ -1245,5 +1244,4 @@ class movies:
             except Exception:
                 pass
 
-        control.content(syshandle, 'addons')
-        control.directory(syshandle, cacheToDisc=True)
+        navigator.navigator().endDirectory(category=category)
