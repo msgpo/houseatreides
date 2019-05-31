@@ -14,6 +14,7 @@
 
 '''
 2019/5/28: Re-add with new url. Credit to host505 for the url
+2019/5/30: magnetdl came back i guess...
 '''
 import re
 import traceback
@@ -27,7 +28,7 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['magnet']
-        self.domains = ['torrentquest.com']
+        self.domains = ['magnetdl.com']
         self.base_link = 'https://torrentquest.com'
         self.search_link = '/%s/%s'
         self.min_seeders = int(control.setting('torrent.min.seeders'))

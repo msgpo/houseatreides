@@ -75,12 +75,11 @@ class source:
                 quality = 'SD'
 
             # We pull the only playable link
-            movie_scrape = re.compile('<a title=.+?data-svv1="(.+?)"', re.DOTALL).findall(r)
-            for link in movie_scrape:
+            movie_scrape = re.compile('<a title=.+?data-svv1="(.+?)"', re.DOTALL).findall(r)[0]
 
-                host = link.split('//')[1].replace('www.', '')
-                host = host.split('/')[0].split('.')[0].title()
-                sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': link, 'direct': False, 'debridonly': False})
+            host = movie_scrape.split('//')[1].replace('www.', '')
+            host = host.split('/')[0].split('.')[0].title()
+            sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': movie_scrape, 'direct': False, 'debridonly': False})
             return sources
         except Exception:
             failure = traceback.format_exc()
