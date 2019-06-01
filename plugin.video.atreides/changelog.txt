@@ -1,3 +1,7 @@
+[COLOR limegreen]Atredies Video Addon v1.2.6[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.3.6[/COLOR]
+    - Icon code updates
+
 [COLOR limegreen]Atredies Video Addon v1.2.5[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.5[/COLOR]
     - Movies and My Movies moved over to json

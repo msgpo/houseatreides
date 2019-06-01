@@ -2,7 +2,7 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-# @tantrumdev wrote this file.  As long as you retain this notice you can do whatever you want with this
+#  As long as you retain this notice you can do whatever you want with this
 # stuff. Just please ask before copying. If we meet some day, and you think
 # this stuff is worth it, you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
@@ -576,7 +576,8 @@ class boxsets:
         except Exception:
             pass
         url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
-        thumb = os.path.join(artPath, thumb) if artPath is not None else icon
+        if 'http' not in thumb:
+            thumb = os.path.join(artPath, thumb) if artPath is not None else icon
         cm = []
 
         queueMenu = control.lang(32065).encode('utf-8')

@@ -6,7 +6,7 @@
 
     ----------------------------------------------------------------------------
     "THE BEER-WARE LICENSE - JEN EDITION":
-    @tantrumdev wrote this file.  As long as you retain this notice you can do 
+    Welcome to House Atreides.  As long as you retain this notice you can do 
     whatever you want with this stuff. Just Ask first when not released through
     the tools and parser GIT. If we meet some day, and you think this stuff is
     worth it, you can buy him a beer in return. - Muad'Dib
