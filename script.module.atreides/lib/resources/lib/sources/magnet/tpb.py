@@ -25,7 +25,7 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['magnet']
-        self.domains = ['tpb.cool', 'thepiratebay.fail', 'openpirate.org', 'piratebay.icu', 'thepiratebay.fyi', 'thepirate.fun', 'thepiratebay.press']
+        self.domains = ['tpb.guru', 'thepiratebay.fail', 'openpirate.org', 'piratebay.icu', 'thepiratebay.fyi', 'thepirate.fun', 'openpirate.cc']
         self._base_link = None
         self.search_link = '/search.php?q=%s&page=0&orderby=99'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
