@@ -59,7 +59,7 @@ class source:
             url = urlparse.urljoin(self.base_link, self.search_link % (search.replace(' ', '+')))
             shell = requests.Session()
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'}
+                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
             Digital = shell.get(url, headers=headers).content
 
             BlackFlag = re.compile(

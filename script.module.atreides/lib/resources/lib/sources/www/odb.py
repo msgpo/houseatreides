@@ -60,7 +60,8 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            r = client.request(url)
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
+            r = client.request(url, headers=headers)
             try:
                 match = re.compile('iframe id="odbIframe" src="(.+?)"').findall(r)
                 for url in match:

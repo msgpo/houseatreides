@@ -58,8 +58,7 @@ class source:
             search = imdb.lower()
             url = urlparse.urljoin(self.base_link, self.search_link % (search.replace(' ', '+')))
 
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'}
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
             request = self.scraper.get(url).content
 
             regex = re.compile('<h2\s+\w{5}="\w{5}-\w{5}"><\w\shref=(.+?)\stitle="(.+?)"', re.DOTALL).findall(request)
