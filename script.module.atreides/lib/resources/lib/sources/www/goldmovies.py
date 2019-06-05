@@ -88,7 +88,7 @@ class source:
                 if cleantitle.getsearch(query).lower() == cleantitle.getsearch(title_data).lower():
                     r = client.request(url, headers=headers)
                     year_data = re.compile('<strong>Release:\s+</strong>\s+<a href=.+?rel="tag">(.+?)</a>').findall(r)
-                    if year in year_data:
+                    if year in str(year_data):
                         if 'tvshowtitle' in data:
                             year is None
 

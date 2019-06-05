@@ -26,8 +26,8 @@ class source:
         self.priority = 1
         self.source = ['www']
         self.domains = ['300mbfilms.co']
-        self.base_link = 'https://www.300mbfilms.co/'
-        self.search_link = '/search/%s/feed/rss2/'
+        self.base_link = 'https://www.300mbfilms.co'
+        self.search_link = '/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -91,41 +91,22 @@ class source:
 
             r = client.request(url)
 
-            posts = client.parseDOM(r, 'item')
+            posts = client.parseDOM(r, 'h2')
 
             hostDict = hostprDict + hostDict
 
-            items = []
-            for post in posts:
-                try:
-                    t = client.parseDOM(post, 'title')[0]
-                    u = client.parseDOM(post, 'link')[0]
-                    s = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GiB|MiB|GB|MB))', t)
-                    s = s[0] if s else '0'
-
-                    items += [(t, u, s)]
-
-                except Exception:
-                    pass
-
             urls = []
-            for item in items:
+            for item in posts:
 
                 try:
+                    item = re.compile('a href="(.+?)"').findall(item)
                     name = item[0]
+                    query = query.replace(" ", "-").lower()
+                    if query not in name:
+                        continue
                     name = client.replaceHTMLCodes(name)
 
-                    # t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name)
-
-                    if not cleantitle.get(title) in cleantitle.get(name):
-                        raise Exception()
-
-                    y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', name)[-1].upper()
-
-                    if not y == hdlr:
-                        raise Exception()
-
-                    quality, info = source_utils.get_release_quality(name, item[1])
+                    quality, info = source_utils.get_release_quality(name, item[0])
                     if any(x in quality for x in ['CAM', 'SD']):
                         continue
 
@@ -140,7 +121,7 @@ class source:
 
                     info = ' | '.join(info)
 
-                    url = item[1]
+                    url = item
                     links = self.links(url)
                     urls += [(i, quality, info) for i in links]
 
@@ -184,12 +165,13 @@ class source:
         try:
             if url is None:
                 return
-            r = client.request(url)
-            r = client.parseDOM(r, 'div', attrs={'class': 'entry'})
-            r = client.parseDOM(r, 'a', ret='href')
-            r1 = [(i) for i in r if 'money' in i][0]
-            r = client.request(r1)
-            r = client.parseDOM(r, 'div', attrs={'id': 'post-\d+'})[0]
+            for url in url:
+                r = client.request(url)
+                r = client.parseDOM(r, 'div', attrs={'class': 'entry'})
+                r = client.parseDOM(r, 'a', ret='href')
+                r1 = [i for i in r if 'money' in i][0]
+                r = client.request(r1)
+                r = client.parseDOM(r, 'div', attrs={'id': 'post-\d+'})[0]
 
             if 'enter the password' in r:
                 plink = client.parseDOM(r, 'form', ret='action')[0]
@@ -202,7 +184,7 @@ class source:
 
             link = re.findall('<strong>Single(.+?)</tr', link, re.DOTALL)[0]
             link = client.parseDOM(link, 'a', ret='href')
-            link = [(i.split('=')[-1]) for i in link]
+            # link = [(i.split('=')[-1]) for i in link]
             for i in link:
                 urls.append(i)
 

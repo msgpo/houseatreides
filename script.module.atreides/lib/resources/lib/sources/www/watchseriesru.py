@@ -12,10 +12,15 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/6/5: Adjusted to pull more links
+'''
+
 import re
 import traceback
+import urlparse
 
-from resources.lib.modules import cleantitle, client, log_utils
+from resources.lib.modules import cleantitle, client, log_utils, source_utils
 
 
 class source:
@@ -23,7 +28,7 @@ class source:
         self.priority = 1
         self.source = ['www']
         self.domains = ['watch-series.ru']
-        self.base_link = 'https://watch-series.ru'
+        self.base_link = 'https://watch-series.live'
         self.search_link = '/series/%s-season-%s-episode-%s'
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
@@ -50,29 +55,25 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         sources = []
         try:
-            r = client.request(url)
-            try:
-                match = re.compile('data-video="http(.+?)"><div class=".+?">(.+?)</div>').findall(r)
-                for url, source in match:
-                    url = 'http' + url
-                    source = source.replace('OpenUpload', 'Openload')
-                    sources.append({
-                        'source': source,
-                        'quality': 'SD',
-                        'language': 'en',
-                        'url': url,
-                        'direct': False,
-                        'debridonly': False
-                    })
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('WatchSeriesRU - Exception: \n' + str(failure))
-                return sources
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/67.0'}
+            r = client.request(url, headers=headers)
+            match = re.compile('data-video="(.+?)">').findall(r)
+            for url in match:
+                if 'vidcloud' in url:
+                    url = urlparse.urljoin('https:', url)
+                    r = client.request(url, headers=headers)
+                    regex = re.compile("file: '(.+?)'").findall(r)
+                    for direct_links in regex:
+                        sources.append({'source': 'cdn', 'quality': 'SD', 'language': 'en', 'url': direct_links, 'direct': False, 'debridonly': False})
+
+                else:
+                    valid, host = source_utils.is_host_valid(url, hostDict)
+                    sources.append({'source': host, 'quality': 'SD', 'language': 'en', 'url': url, 'direct': False, 'debridonly': False})
+            return sources
         except Exception:
             failure = traceback.format_exc()
             log_utils.log('WatchSeriesRU - Exception: \n' + str(failure))
             return sources
-        return sources
 
     def resolve(self, url):
         return url
