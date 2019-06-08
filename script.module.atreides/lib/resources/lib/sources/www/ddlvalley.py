@@ -31,7 +31,7 @@ class source:
         self.domains = ['ddlvalley.me']
         self.base_link = 'http://www.ddlvalley.me'
         self.search_link = 'search/%s/'
-        self.scraper = cfscrape.create_scraper()
+        self.cfscraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -89,12 +89,12 @@ class source:
             url = urlparse.urljoin(self.base_link, url)
 
             headers = {
-                'Referer': 'http://www.ddlvalley.me/?s=',
+                'Referer': 'www.ddlvalley.me',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
                 'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9',
                 'User-Agent':
                 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0'}
-            r = self.scraper.get(url, headers=headers).content
+            r = self.cfscraper.get(url, headers=headers).content
 
             items = dom_parser2.parse_dom(r, 'h2')
             items = [dom_parser2.parse_dom(i.content, 'a', req=['href', 'rel', 'data-wpel-link']) for i in items]
@@ -111,13 +111,13 @@ class source:
                         continue
                     url = item[1]
                     headers = {
-                        'Referer': 'http://www.ddlvalley.me/search/',
+                        'Referer': 'www.ddlvalley.me',
                         'Accept':
                         'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
                         'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9',
                         'User-Agent':
                         'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0'}
-                    r = self.scraper.get(url, headers=headers).content
+                    r = self.cfscraper.get(url, headers=headers).content
                     links = dom_parser2.parse_dom(r, 'a', req=['href', 'rel', 'data-wpel-link'])
                     links = [i.attrs['href'] for i in links]
                     for url in links:

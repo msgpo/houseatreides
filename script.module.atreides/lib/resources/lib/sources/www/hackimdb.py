@@ -21,7 +21,7 @@ as they are now playable.
 import re
 import traceback
 
-from resources.lib.modules import client, log_utils, source_utils
+from resources.lib.modules import cfscrape, client, log_utils, source_utils
 
 
 class source:
@@ -32,6 +32,7 @@ class source:
         self.base_link = 'https://hackimdb.com'
         # this still works too '/title/&%s'
         self.search_link = '/title/%s'
+        self.cfscraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -45,8 +46,8 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
-            r = client.request(url, headers=headers)
+            # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            r = self.cfscraper.get(url).content
             quality_bitches = re.compile('<strong>Quality:\s+</strong>\s+<span class="quality">(.+?)</span>', re.DOTALL).findall(r)
 
             for quality in quality_bitches:

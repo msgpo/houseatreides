@@ -28,8 +28,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['www']
-        self.domains = ['filmxy.me', 'filmxy.one']
-        self.base_link = 'https://www.filmxy.ws'
+        self.domains = ['filmxy.me', 'filmxy.one', 'filmxy.ws']
+        self.base_link = 'https://www.filmxy.live'
         self.search_link = '/%s-%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):

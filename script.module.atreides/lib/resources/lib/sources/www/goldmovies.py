@@ -15,9 +15,10 @@
 import re
 import urllib
 import urlparse
+import requests
 import traceback
 
-from resources.lib.modules import cleantitle, client, source_utils, log_utils
+from resources.lib.modules import cleantitle, source_utils, log_utils
 
 
 class source:
@@ -78,28 +79,31 @@ class source:
             year = data['year']
             search = cleantitle.getsearch(query.lower())
             url = urlparse.urljoin(self.base_link, self.search_link % (search.replace(' ', '+')))
-
-            headers = {'Referer': self.base_link, 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
-            r = client.request(url, headers=headers)
+            shell = requests.Session()
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
+            r = shell.get(url, headers=headers).content
 
             scrape = re.compile('<div data-movie-id=.+?class="ml-item">\s+<a href="(.+?)" data-url="" class="ml-mask jt".+?oldtitle="(.+?)"').findall(r)
 
             for url, title_data in scrape:
                 if cleantitle.getsearch(query).lower() == cleantitle.getsearch(title_data).lower():
-                    r = client.request(url, headers=headers)
+                    r = shell.get(url, headers=headers).content
                     year_data = re.compile('<strong>Release:\s+</strong>\s+<a href=.+?rel="tag">(.+?)</a>').findall(r)
                     if year in str(year_data):
                         if 'tvshowtitle' in data:
                             year is None
 
-                    parse_a_bitch = client.parseDOM(r, 'div', attrs={'id': 'lnk list-downloads'})
-                    for url in parse_a_bitch:
-                        gold_links = client.parseDOM(url, 'a', ret='href')
+                    regex_a_bitch = re.compile('<input type="hidden" id="link" name="link" value="(.+?)"').findall(r)
+                    for url in regex_a_bitch:
+                        post_link = 'http://instalyser.com/form3.php'
+                        payload = {'title': url, 'submit': 'Download'}
+                        post_it = shell.post(post_link, headers=headers, data=payload)
+                        response = post_it.content
 
-                    for url in gold_links:
-                        quality = source_utils.check_sd_url(url)
-                        url = url.split('php?')[1]
-                        sources.append({'source': 'Direct', 'quality': quality, 'language': 'en', 'url': url, 'direct': True, 'debridonly': False})
+                        gold_links = re.findall(r'<[^\d]\s\w+\=\"(.+?)\"\s[^\d]{6}\=\"\w{6}\">', response)
+                        for url in gold_links:
+                            quality, info = source_utils.get_release_quality(url, url)
+                            sources.append({'source': 'Direct', 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': True, 'debridonly': False})
 
                 return sources
         except Exception:

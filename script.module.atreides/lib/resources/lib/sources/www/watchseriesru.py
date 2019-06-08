@@ -55,7 +55,7 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         sources = []
         try:
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/67.0'}
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
             r = client.request(url, headers=headers)
             match = re.compile('data-video="(.+?)">').findall(r)
             for url in match:

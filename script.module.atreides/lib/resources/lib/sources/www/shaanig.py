@@ -16,6 +16,7 @@ import re
 import urlparse
 import traceback
 
+from resources.lib.modules import cfscrape
 from resources.lib.modules import client
 from resources.lib.modules import cleantitle
 from resources.lib.modules import source_utils
@@ -30,6 +31,7 @@ class source:
         self.base_link = 'https://www.shaanig.se'
         self.search_link = '/%s-%s'
         self.search_tvlink = '/episode/%s'
+        self.cfscraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -64,8 +66,8 @@ class source:
         try:
             sources = []
 
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
-            r = client.request(url, headers=headers)
+            # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            r = self.cfscraper.get(url).content
             give_me = client.parseDOM(r, "div", attrs={"id": "lnk list-downloads"})
             for url in give_me:
 
