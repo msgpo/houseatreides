@@ -28,6 +28,7 @@ class source:
         self.domains = ['goldmovies.xyz']
         self.base_link = 'http://goldmovies.xyz'
         self.search_link = '/?s=%s'
+        self.postlink = 'https://tinyurl.com/gold-post'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -77,8 +78,8 @@ class source:
             query = '%s Season %d Episode %d' % (data['tvshowtitle'], int(data['season']), int(data['episode']))if 'tvshowtitle' in data else '%s' % (data['title'])
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
             year = data['year']
-            search = cleantitle.getsearch(query.lower())
-            url = urlparse.urljoin(self.base_link, self.search_link % (search.replace(' ', '+')))
+            kcus_snwolc = cleantitle.getsearch(query.lower())
+            url = urlparse.urljoin(self.base_link, self.search_link % (kcus_snwolc.replace(' ', '+')))
             shell = requests.Session()
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
             r = shell.get(url, headers=headers).content
