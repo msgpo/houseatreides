@@ -30,7 +30,7 @@ class source:
         self.priority = 1
         self.source = ['www']
         self.domains = ['2ddl.ws']
-        self.base_link = 'https://2ddl.ws/'
+        self.base_link = 'https://2ddl.vg'
         self.search_link = '/search/%s/feed/rss2/'
 
     def movie(self, imdb, title, localtitle, aliases, year):
