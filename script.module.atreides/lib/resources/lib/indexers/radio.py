@@ -301,6 +301,10 @@ class radionet:
 
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self):
-        control.content(syshandle, 'addons')
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
+        control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)

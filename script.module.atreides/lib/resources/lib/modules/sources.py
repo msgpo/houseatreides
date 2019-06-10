@@ -51,6 +51,25 @@ class sources:
         self.getConstants()
         self.sources = []
 
+    def playDirect(self, title, icon, url):
+        try:
+            ourl = url
+            url = source_utils.uResolve(url)
+            if url is None:
+                log_utils.log('Play Direct: Unable to resolve url: ' + str(ourl))
+                control.infoDialog('Unable to play video', sound=True, icon='INFO')
+                return
+
+            li = control.item(title, path=url)
+            li.setArt({"thumb": icon, "icon": icon})
+            li.setInfo(type="video", infoLabels={"Title": title})
+            li.setProperty('IsPlayable', 'true')
+
+            control.resolve(handle=int(sys.argv[1]), succeeded=True, listitem=li)
+        except Exception as e:
+            log_utils.log('Play Direct: Exception - ' + str(e))
+            pass
+
     def play(self, title, year, imdb, tvdb, season, episode, tvshowtitle, premiered, meta, select):
         try:
 
@@ -58,7 +77,7 @@ class sources:
 
             items = self.getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered)
             select = control.setting('hosts.mode') if select is None else select
-            title = tvshowtitle if not tvshowtitle is None else title
+            title = tvshowtitle if tvshowtitle is not None else title
 
             if control.window.getProperty('PseudoTVRunning') == 'True':
                 return control.resolve(int(sys.argv[1]), True, control.item(path=str(self.sourcesDirect(items))))
@@ -330,7 +349,21 @@ class sources:
 
             self.errorForSources()
         except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('Play Item - Failed to Play: \n' + str(failure))
             pass
+
+    def playSimple(self, title, url, resolved=None):
+        if resolved is None:
+            url = source_utils.uResolve(url)
+        try:
+            if url is not None:
+                li = control.item(title, path=url)
+                li.setInfo(type="video", infoLabels={"Title": title})
+                li.setProperty("IsPlayable", "true")
+                control.resolve(handle=int(sys.argv[1]), succeeded=True, listitem=li)
+        except Exception:
+            return
 
     def getSources(self, title, year, imdb, tvdb, season, episode, tvshowtitle, premiered, quality='HD', timeout=30):
 
@@ -1167,10 +1200,10 @@ class sources:
             u = url = item['url']
 
             d = item['debrid']
-            direct = item['direct']
+            direct = item.get('direct', False)
             local = item.get('local', False)
 
-            provider = item['provider']
+            provider = item.get('provider', 'Atreides')
             call = [i[1] for i in self.sourceDict if i[0] == provider][0]
             u = url = call.resolve(url)
             if url is None or ('://' not in str(url) and not local and 'magnet:' not in url):

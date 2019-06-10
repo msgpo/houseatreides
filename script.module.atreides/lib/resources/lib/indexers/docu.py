@@ -87,11 +87,12 @@ class documentary:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
         control.content(syshandle, contentType)
         if category is not None:
             control.category(syshandle, category)
-        control.sortMethod(syshandle, sortMethod)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
 
@@ -288,11 +289,12 @@ class topdocs:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
         control.content(syshandle, contentType)
         if category is not None:
             control.category(syshandle, category)
-        control.sortMethod(syshandle, sortMethod)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
     def addDirectory(self, items, queue=False, isFolder=True):
@@ -503,11 +505,12 @@ class docuheaven:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
         control.content(syshandle, contentType)
         if category is not None:
             control.category(syshandle, category)
-        control.sortMethod(syshandle, sortMethod)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
     def addDirectory(self, items, queue=False, isFolder=True):
@@ -558,4 +561,4 @@ class docuheaven:
             except Exception:
                 pass
 
-        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_NONE)
+        self.endDirectory(sortMethod=control.xDirSort.NoSort)

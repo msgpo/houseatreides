@@ -393,3 +393,12 @@ def queueItem():
 
 def getKodiVersion():
     return xbmc.getInfoLabel("System.BuildVersion").split(".")[0]
+
+
+class Remap(dict):
+    def __init__(self, **kwargs):
+        super(Remap, self).__init__(**kwargs)
+        self.__dict__ = self
+
+
+xDirSort = Remap(NoSort=xbmcplugin.SORT_METHOD_NONE, Label=xbmcplugin.SORT_METHOD_LABEL, Title=xbmcplugin.SORT_METHOD_TITLE)

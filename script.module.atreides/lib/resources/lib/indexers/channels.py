@@ -39,7 +39,7 @@ class channels:
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('channels')
         rootMenu.process('channels_root')
-        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_NONE, category='Channels (Live TV)')
+        self.endDirectory(sortMethod=control.xDirSort.NoSort, category='Channels (Live TV)')
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
         try:
@@ -64,11 +64,12 @@ class channels:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
         control.content(syshandle, contentType)
         if category is not None:
             control.category(syshandle, category)
-        control.sortMethod(syshandle, sortMethod)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
     def addDirectory(self, items, queue=False, isFolder=True):

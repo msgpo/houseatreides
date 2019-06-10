@@ -93,5 +93,10 @@ class yt_index:
         except Exception:
             pass
 
-    def endDirectory(self):
-        control.directory(thishandle, cacheToDisc=True)
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
+        control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
+        control.directory(syshandle, cacheToDisc=True)

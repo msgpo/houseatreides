@@ -138,6 +138,17 @@ class navigator:
                 except Exception:
                     pass
 
+                try:
+                    link = '%s&menu_title=%s' % (link, title)
+                except Exception:
+                    pass
+
+                try:
+                    menu_sort = item.get('menu_sort', None)
+                    link = '%s&menu_sort=%s' % (link, menu_sort) if menu_sort is not None else link
+                except Exception:
+                    pass
+
                 self.addDirectoryItem(title, link, icon, icon)
             except Exception:
                 pass
@@ -405,6 +416,12 @@ class navigator:
 
         self.endDirectory(category=control.lang(32004).encode('utf-8'))
 
+    def jsonMenu(self, menufile, menusection, menuContent='addons', menuSort=control.xDirSort.Label, menuCategory=None):
+        rootMenu = jsonmenu.jsonMenu()
+        rootMenu.load(menufile)
+        rootMenu.process(menusection)
+        self.endDirectory(contentType=menuContent, sortMethod=menuSort, category=menuCategory)
+
     def kidscorner(self, lite=False):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('kidscorner')
@@ -522,9 +539,10 @@ class navigator:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
         control.content(syshandle, contentType)
         if category is not None:
             control.category(syshandle, category)
-        control.sortMethod(syshandle, sortMethod)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)

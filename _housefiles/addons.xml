@@ -27,7 +27,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.atreides" version="1.2.5" name="Atreides" provider-name="Paul Atreides">
+<addon id="plugin.video.atreides" version="1.2.6" name="Atreides" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.atreides" />
@@ -131,7 +131,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
-<addon id="script.atreides.artwork" version="1.1.0" name="Atreides Artwork" provider-name="Paul Atreides">
+<addon id="script.atreides.artwork" version="1.1.1" name="Atreides Artwork" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>
@@ -148,7 +148,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.atreides.artwork.nebula" version="1.0.0" name="Atreides Nebula Artwork" provider-name="Paul Atreides">
+<addon id="script.atreides.artwork.nebula" version="1.0.1" name="Atreides Nebula Artwork" provider-name="Paul Atreides">
 	<requires>
 		<import addon="kodi.resource" version="1.0.0"/>
 	</requires>
@@ -182,7 +182,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.atreides.scifi" version="1.0.0" name="Atreides Sci-Fi Artwork" provider-name="Paul Atreides">
+<addon id="script.atreides.scifi" version="1.0.1" name="Atreides Sci-Fi Artwork" provider-name="Paul Atreides">
 	<requires>
 		<import addon="kodi.resource" version="1.0.0"/>
 	</requires>
@@ -199,7 +199,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.atreides" name="Atreides Module" version="1.3.5" provider-name="Paul Atreides">
+<addon id="script.module.atreides" name="Atreides Module" version="1.3.6" provider-name="Paul Atreides">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.pyxbmct" version="1.1.4" />
@@ -214,5 +214,109 @@ This is a Non-profit resource, organized solely for educational purposes which i
         <license>Beerware rev. 42</license>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
+</addon>
+
+<addon id="skin.real-steel" version="1.0.0" name="Real-Steel" provider-name="Terror Skins">
+	<requires>
+		<import addon="xbmc.gui" version="5.14.0" />
+		<import addon="script.skinshortcuts" version="1.0.10" />
+		<import addon="service.library.data.provider" version="0.0.7" />
+		<import addon="script.grab.fanart" version="0.12.8" />
+		<import addon="resource.images.studios.white" version="0.0.1" />
+		<import addon="resource.images.recordlabels.white" version="0.0.1" />
+	</requires>
+	<extension point="xbmc.gui.skin" debugging="false">
+		<res width="1920" height="1080" aspect="16:9" default="true" folder="16x9" />
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="de_DE">Erstellt von SiLVO, modifiziert von Terror, Widgets von Terror</summary>
+		<summary lang="el_GR">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="en_AU">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="en_GB">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="en_NZ">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="en_US">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="es_ES">Creada por SiLVO, Modificada por Terror, y Widgets por Terror</summary>
+		<summary lang="et_EE">Looja: SiLVO, muutja: Terror, ja vidinad: Terror</summary>
+		<summary lang="fi_FI">SiLVOin tekemä ja Terrorn muokkaama. Widgetit Terror:ltä</summary>
+		<summary lang="fr_CA">Créé par SiLVO, modifié by Terror, et widgets par Terror</summary>
+		<summary lang="fr_FR">Créé par SiLVO, Moddé par Terror, avec les widgets de Mr V</summary>
+		<summary lang="gl_ES">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="he_IL">המעטפת נוצרה על ידי SiLVO, Modded by Terror, and והיישומונים על ידי TerrorLO</summary>
+		<summary lang="hu_HU">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="is_IS">Útbúið af SiLVO, breytt af Terror, viðmótshlutar eftir Terror</summary>
+		<summary lang="it_IT">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="ko_KR">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="lt_LT">Sukūrė SiLVO, modifikavo Terror bei valdiklius pridėjo Terror</summary>
+		<summary lang="ms_MY">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="nb_NO">Laget av SiLVO, modifisert av Terror, og miniprogrammer av Terror.</summary>
+		<summary lang="nl_NL">Ontwikkeld door SiLVO, aangepast door Terror, en Widgets door Terror</summary>
+		<summary lang="pl_PL">Stworzona przez SiLVO, zmodyfikowana przez Terror, a gadżety autorstwa Terror</summary>
+		<summary lang="pt_BR">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="pt_PT">Criado por SiLVO, Modded por Terror, e Widgets por Terror</summary>
+		<summary lang="ro_RO">Creat de SiLVO, Modificat de Terror, și widget-uri deTerror</summary>
+		<summary lang="ru_RU">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="sk_SK">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="sv_SE">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="th_TH">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="tr_TR">SiLVO tarafından oluşturuldu; Modlar Terror'dan, Widget'lar Terror'den.</summary>
+		<summary lang="vi_VN">Created by SiLVO, Modded by Terror, and fixed by Handy Andy - Sự trở về</summary>
+		<summary lang="zh_CN">Created by SiLVO, Modded by Terror, and fixed by Handy Andy</summary>
+		<summary lang="zh_TW">由SiLVO原創，Terror進行改造，以及由Terror製作的小工具</summary>
+		<description lang="de_DE">Komplett neu designed für ein modernes Aussehen und das klassische Aeon-Feeling beizubehalten.</description>
+		<description lang="el_GR">Πλήρως επανασχεδιασμένο για να προσφέρει μια μοντέρνα αισθητική, διατηρώντας ταυτόχρονα την κλασική ομορφιά του Aeon.</description>
+		<description lang="en_AU">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<description lang="en_GB">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<description lang="en_NZ">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<description lang="en_US">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<description lang="es_ES">Completamente rediseñado para crear un aspecto moderno, pero conservando el toque clásico Aeon.</description>
+		<description lang="et_EE">Täielikult uuesti disainitud, et luua tänapäevane välimus samas säilitades klassikaline Aeoni tunnetus.</description>
+		<description lang="fi_FI">Täysin uudelleensuunniteltu moderni ulkoasu, kuitenkin tuntuen klassiselta Aeonilta.</description>
+		<description lang="fr_CA">Complètement remanié pour créer une apparence moderne, tout en conservant l’esprit classique d’Aeon.</description>
+		<description lang="fr_FR">Totalement revu pour créer un look moderne, en gardant l'expérience Aeon.</description>
+		<description lang="gl_ES">Redeseñado completamente para crear unha aparencia moderna ao tempo que mantén a sensación do clásico Aeon.</description>
+		<description lang="he_IL">עיצוב חדש היוצר מראה מודרני אך משמר את ההרגשה של Aeon הקלאסי.</description>
+		<description lang="hr_HR">Potpuno preoblikovan moderan izgled, uz zadržani klasični Aeon osjećaj.</description>
+		<description lang="hu_HU">Teljesen áttervezett modern kinézet, de megtartva a klasszikus Aeon érzetet.</description>
+		<description lang="is_IS">Endurhannað nútímalegt útlit í anda Aeon.</description>
+		<description lang="it_IT">Completamente ridisegnato per creare un look moderno, mantenendo la consueta qualità Aeon.</description>
+		<description lang="ko_KR">고전적인 Aeon 느낌을 유지하면서 현대적인 모습으로 완전히 다시 디자인하여 만들었습니다.</description>
+		<description lang="lt_LT">Pilnai atnaujinta, kad sukurtų modernią išvaizdą, išlaikant klasikinio Aeon pojūtį.</description>
+		<description lang="ms_MY">Direka semula sepenuhnya untuk hasilkan penampilan modern, tetapi masih mengekalkan penampilan Aeon klasik.</description>
+		<description lang="nb_NO">Helt redesignet for å tilby en moderne utforming, samtidig som den klassiske Aeon-følelsen er beholdt.</description>
+		<description lang="nl_NL">Volledig opnieuw ontworpen om een ​​moderne look te creëren, met behoud van het klassieke Aeon gevoel.</description>
+		<description lang="pl_PL">Całkowicie przeprojektowana skóra Aeon, o nowoczesnym wyglądzie, zachowując klasyczny układ skóry Aeon.</description>
+		<description lang="pt_BR">Design completamente novo para criar um look moderno, mantendo o feeling do Aeon Clássico.</description>
+		<description lang="pt_PT">Completamente redesenhado para criar um visual moderno enquanto retém o toque clássico Aeon.</description>
+		<description lang="ro_RO">Complet reproiectat pentru a crea o înfățișare modernă, dar totuși păstrând atmosfera clasică Aeon.</description>
+		<description lang="ru_RU">Полностью переработан, чтобы создать современный облик, сохраняя при этом классическое чувство Aeon.</description>
+		<description lang="sk_SK">Kompletne prepracovaný dizajn s moderným vzhľadom pri zachovaní klasického štýlu Aeon.</description>
+		<description lang="sv_SE">Totalt omarbetad för att skapa ett modernt utseende, samtidigt som man behåller den klassiska Aeon-känslan.</description>
+		<description lang="th_TH">การออกแบบใหม่หมดจด เพื่อสร้างรูปลักษณ์ทันสมัย, ​​ขณะที่ยังคงความรู้สึกคลาสสิคของ Aeon.</description>
+		<description lang="tr_TR">Modern görünüme kavuşturmak için baştan tasarlandı, klasik Aeon hissi korundu</description>
+		<description lang="vi_VN">Thiết kế lại hoàn toàn để tạo nên một phong cách hiện đại, trong khi đó vẫn duy trì một cảm giác Aeon cổ điển.</description>
+		<description lang="zh_TW">完全的翻新設計以創造現代化的視覺感受，同時仍維持Aeon的經典外觀。</description>
+		<platform>all</platform>
+		<license>CC BY-NC-SA 4.0</license>
+		<forum>http://</forum>
+		<website>https://</website>
+		<source>https://</source>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+			<screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-05.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-06.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-07.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-08.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-09.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-10.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-11.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-12.jpg</screenshot>
+		</assets>
+		<news>[I][COLOR FFFF9800]v1.0.0[/COLOR][/I][CR]- Forked from Aeon NoX SiLVO. Skin options by handy Andy</news>
+	</extension>
 </addon>
 </addons>

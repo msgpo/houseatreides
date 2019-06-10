@@ -2,7 +2,7 @@
     "menu_file": [
         {
             "title": "Main Menu File",
-            "version": "2",
+            "version": "3",
             "checked": "1",
             "desc": "Menu File containing the main menu in Atreides"
         }
@@ -75,6 +75,15 @@
             "action": "fitness",
             "toggle": "navi.fitness",
             "thumbnail": "fitness.png"
+        },
+        {
+            "title": "The Kitchen",
+            "action": "menu",
+            "menu_file": "food",
+            "menu_section": "food_root",
+            "menu_sort": "Label",
+            "toggle": "navi.kitchen",
+            "thumbnail": "kitchen.png"
         },
         {
             "title": "32653",

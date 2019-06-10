@@ -21,7 +21,7 @@ import urlparse
 
 import resolveurl
 
-from resources.lib.modules import client, directstream, log_utils, pyaes, trakt
+from resources.lib.modules import client, control, directstream, log_utils, pyaes, trakt
 
 
 def is_anime(content, type, type_id):
@@ -325,23 +325,41 @@ def __top_domain(url):
 
 
 def uResolve(url):
-    resolvers = resolveurl.relevant_resolvers(order_matters=True)
-    hostDict = resolvers
-    hostDict = [i.domains for i in hostDict if '*' not in i.domains]
-    hostDict = [i.lower() for i in reduce(lambda x, y: x+y, hostDict)]
-    hostDict = [x for y, x in enumerate(hostDict) if x not in hostDict[:y]]
-    valid, host = is_host_valid(url, hostDict)
-    if not valid:
-        log_utils.log('Source Utils uResolve: Invalid Host: ' + str(url))
-        return None
-    try:
-        resolver = [resolver for resolver in resolvers if resolver.name in url][0]
-        host, media_id = resolver().get_host_and_id(url)
-        url = resolver().get_media_url(host, media_id)
-    except Exception:
-        failure = traceback.format_exc()
-        log_utils.log('Source Utils uResolve: Invalid Resolve: ' + str(failure))
-        return None
+    ourl = url
+    if url.startswith('plugin'):
+        # to another plugin, nothing to resolve here
+        pass
+    elif url.startswith('http') and 'youtube' in url:
+        # Ugh, ok, so let's handle this. Cuz resolveurl doesn't always get the google content resolve right
+        # see if video or list first cuz I am a lazy bastard.
+        if 'list=' not in url.lower() and 'playlist' not in url.lower():
+            v = url.split("?v=")[-1].split("/")[-1].split("?")[0].split("&")[0]
+            check = client.request("http://www.youtube.com/watch?v=%s" % v)
+            if check:
+                url = "plugin://plugin.video.youtube/play/?video_id=%s" % (v)
+        else:
+            if 'list=' in url.lower():
+                playlist_id = url.split('list=')[1]
+                url = 'plugin://plugin.video.youtube/play/?playlist_id=%s&play=1' % playlist_id
+    else:
+        resolvers = resolveurl.relevant_resolvers(order_matters=True)
+        hostDict = resolvers
+        hostDict = [i.domains for i in hostDict if '*' not in i.domains]
+        hostDict = [i.lower() for i in reduce(lambda x, y: x+y, hostDict)]
+        hostDict = [x for y, x in enumerate(hostDict) if x not in hostDict[:y]]
+        valid, host = is_host_valid(url, hostDict)
+        if not valid:
+            log_utils.log('Source Utils uResolve: Invalid Host: %s' % (str(url)))
+            return None
+        try:
+            resolver = [resolver for resolver in resolvers if resolver.name in url][0]
+            host, media_id = resolver().get_host_and_id(url)
+            url = resolver().get_media_url(host, media_id)
+        except Exception:
+            debugcheck = control.setting('menu_links')
+            if (debugcheck == 'true'):
+                log_utils.log('Source Utils uResolve: Unable to resolve: %s' % (ourl))
+            return None
     return url
 
 

@@ -17,11 +17,10 @@ import os
 import time
 import sys
 import traceback
+import urllib
 import urlparse
 
-from resources.lib.modules import client, control, log_utils
-
-import xbmcplugin
+from resources.lib.modules import client, control, log_utils, source_utils
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -36,6 +35,9 @@ class jsonMenu(object):
         self.local_root = os.path.join(control.addonPath, 'menu')
         self.remote_root = 'SaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3RoZXJlYWxhdHJlaWRlcy9ob3VzZWF0cmVpZGVzL21hc3Rlci9wbHVnaW4udmlkZW8uYXRyZWlkZXMvbWVudS8='[1:].decode('base64')
         self.menu = None
+
+        self.precheck = control.setting('menu.links.resolve')
+        self.debugcheck = control.setting('menu_links')
 
         self.agent = 'hQXRyZWlkZXMgSlNPTiBNZW51'[1:].decode('base64')
 
@@ -98,6 +100,7 @@ class jsonMenu(object):
 
     def process(self, menu_section):
         for item in self.menu[menu_section]:
+            isFolder = True
             try:
                 '''
                 First things first, let's see if this is an entry with on/off settings and if we should display it.
@@ -119,8 +122,17 @@ class jsonMenu(object):
                     title = control.lang(int(title)).encode('utf-8')
                 except Exception:
                     pass
-                link = item.get('action', None)
 
+                link = item.get('action', None)
+                if link is None:
+                    '''
+                    This is something without an action like direct link or nolink.
+                    '''
+                    link = item.get('link', None)
+                    if link is None:
+                        link = item.get('plugin', None)
+                    else:
+                        isFolder = False
                 try:
                     url = item.get('url', None)
                     link = '%s&url=%s' % (link, url) if url is not None else link
@@ -136,8 +148,17 @@ class jsonMenu(object):
                     menu_file = item.get('menu_file', None)
                     menu_section = item.get('menu_section', None)
                     link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
+                    if menu_file is not None:
+                        isFolder = True
                 except Exception:
                     pass
+
+                try:
+                    menu_sort = item.get('menu_sort', None)
+                    link = '%s&menu_sort=%s' % (link, menu_sort) if menu_sort is not None else link
+                except Exception:
+                    pass
+
                 try:
                     query = item.get('query', None)
                     link = '%s&query=%s' % (link, query) if query is not None else link
@@ -145,18 +166,36 @@ class jsonMenu(object):
                     pass
 
                 isAction = True if item.get('nolink', None) is None else False
+                if isAction is False:
+                    isFolder = False
 
-                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'], isAction=isAction)
+                self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'], isAction=isAction, isFolder=isFolder)
             except Exception:
                 failure = traceback.format_exc()
                 log_utils.log('Process Menu - Failed to Build: \n' + str(failure))
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
+        isPlayable = False
         try:
             name = control.lang(name).encode('utf-8')
         except Exception:
             pass
-        url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
+        if query.startswith('http'):
+            '''
+            This is a direct play link. Need to add support for it.
+            '''
+            if ((self.precheck == '' or self.precheck == 'false') and (self.debugcheck == '' or self.debugcheck == 'false')):
+                url = '%s?action=playSimple&title=%s&url=%s' % (sysaddon, urllib.quote_plus(name), urllib.quote_plus(query))
+            else:
+                source = source_utils.uResolve(query)
+                if source is None and self.precheck == 'true':
+                    return
+                url = '%s?action=playSimple&title=%s&url=%s&resolved=true' % (sysaddon,  urllib.quote_plus(name), urllib.quote_plus(source))
+            isPlayable = True
+        elif query.startswith('plugin'):
+            url = query
+        else:
+            url = '%s?action=%s' % (sysaddon, query) if isAction is True else query
         if 'http' not in thumb:
             thumb = os.path.join(artPath, thumb) if artPath is not None else icon
         cm = []
@@ -172,4 +211,7 @@ class jsonMenu(object):
         item.setArt({'icon': thumb, 'thumb': thumb})
         if addonFanart is not None:
             item.setProperty('Fanart_Image', addonFanart)
+        if isPlayable:
+            item.setInfo(type="video", infoLabels={"Title": name})
+            item.setProperty("IsPlayable", "true")
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)

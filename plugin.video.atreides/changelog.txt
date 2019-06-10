@@ -1,6 +1,12 @@
 [COLOR limegreen]Atredies Video Addon v1.2.6[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.6[/COLOR]
+    - Scraper Updates
     - Icon code updates
+    - The Kitchen (cooking/food) section added
+    - Concerts added in Radio
+    - Trakt API updates
+    - Bug fix for (Year) on Trakt returns
+        Kodi core bug caused it with Sort code
 
 [COLOR limegreen]Atredies Video Addon v1.2.5[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.5[/COLOR]

@@ -77,7 +77,7 @@ class tvtap:
             except Exception:
                 pass
 
-        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL, category='TV Tap')
+        self.endDirectory(sortMethod=control.xDirSort.Label, category='TV Tap')
 
     def tvtapCategory(self, id):
         headers = {"app-token": "37a6259cc0c1dae299a7866489dff0bd"}
@@ -145,7 +145,7 @@ class tvtap:
                 return
         except Exception:
             pass
-        self.endDirectory(sortMethod=xbmcplugin.SORT_METHOD_LABEL, category='TV Tap')
+        self.endDirectory(sortMethod=control.xDirSort.Label, category='TV Tap')
 
     def tvtapPlay(self, chan_id):
         headers = {"app-token": "37a6259cc0c1dae299a7866489dff0bd"}
@@ -244,7 +244,7 @@ class tvtap:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
         control.content(syshandle, contentType)
         scrambled_eggs = control.setting('tv.tvtap.frytheeggs')
         if scrambled_eggs == '' or scrambled_eggs == 'true':

@@ -24,6 +24,8 @@ subid = params.get('subid')
 
 playbasic = params.get('playBasic')
 
+resolved = params.get('resolved')
+
 docu_category = params.get('docuCat')
 
 docu_watch = params.get('docuPlay')
@@ -37,6 +39,10 @@ podcast_cat = params.get('podcastlist')
 podcast_cats = params.get('podcastcategories')
 
 podcast_episode = params.get('podcastepisode')
+
+menu_title = params.get('menu_title')
+
+menu_sort = params.get('menu_sort')
 
 menu_file = params.get('menu_file')
 
@@ -417,6 +423,14 @@ elif action == 'authTrakt':
     from resources.lib.modules import trakt
     trakt.authTrakt()
 
+elif action == 'menu':
+    from resources.lib.indexers import navigator
+    from resources.lib.modules import control
+    if menu_sort is not None:
+        nvar = 'control.xDirSort.' + menu_sort
+        menu_sort = eval(nvar)
+    navigator.navigator().jsonMenu(menu_file, menu_section, menuSort=menu_sort, menuCategory=menu_title)
+
 elif action == 'urlResolver':
     try:
         import resolveurl
@@ -587,6 +601,10 @@ elif action == 'addItem':
 elif action == 'playItem':
     from resources.lib.modules import sources
     sources.sources().playItem(title, source)
+
+elif action == 'playSimple':
+    from resources.lib.modules import sources
+    sources.sources().playSimple(title, url, resolved)
 
 elif action == 'alterSources':
     from resources.lib.modules import sources

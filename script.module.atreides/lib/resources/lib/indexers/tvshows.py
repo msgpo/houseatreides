@@ -38,7 +38,7 @@ class tvshows:
         self.list = []
 
         self.imdb_link = 'https://www.imdb.com'
-        self.trakt_link = 'http://api.trakt.tv'
+        self.trakt_link = 'https://api.trakt.tv'
         self.tvmaze_link = 'http://www.tvmaze.com'
         self.logo_link = 'https://i.imgur.com/'
         self.tvdb_key = control.setting('tvdb.user')
@@ -49,7 +49,7 @@ class tvshows:
         self.user = control.setting('fanart.tv.user') + str('')
         self.lang = control.apiLanguage()['tvdb']
 
-        self.search_link = 'http://api.trakt.tv/search/show?limit=20&page=1&query='
+        self.search_link = 'https://api.trakt.tv/search/show?limit=20&page=1&query='
         self.tvmaze_info_link = 'http://api.tvmaze.com/shows/%s'
         self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/%s.xml' % (
             self.tvdb_key, '%s', self.lang)
@@ -73,14 +73,14 @@ class tvshows:
         self.keyword_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&keywords=%s&sort=moviemeter,asc&count=40&start=1'
         self.language_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=100,&production_status=released&primary_language=%s&sort=moviemeter,asc&count=40&start=1'
         self.certification_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&certificates=us:%s&sort=moviemeter,asc&count=40&start=1'
-        self.trending_link = 'http://api.trakt.tv/shows/trending?limit=40&page=1'
+        self.trending_link = 'https://api.trakt.tv/shows/trending?limit=40&page=1'
 
-        self.traktlists_link = 'http://api.trakt.tv/users/me/lists'
-        self.traktlikedlists_link = 'http://api.trakt.tv/users/likes/lists?limit=1000000'
-        self.traktlist_link = 'http://api.trakt.tv/users/%s/lists/%s/items'
-        self.traktcollection_link = 'http://api.trakt.tv/users/me/collection/shows'
-        self.traktwatchlist_link = 'http://api.trakt.tv/users/me/watchlist/shows'
-        self.traktfeatured_link = 'http://api.trakt.tv/recommendations/shows?limit=40'
+        self.traktlists_link = 'https://api.trakt.tv/users/me/lists'
+        self.traktlikedlists_link = 'https://api.trakt.tv/users/likes/lists?limit=1000000'
+        self.traktlist_link = 'https://api.trakt.tv/users/%s/lists/%s/items'
+        self.traktcollection_link = 'https://api.trakt.tv/users/me/collection/shows'
+        self.traktwatchlist_link = 'https://api.trakt.tv/users/me/watchlist/shows'
+        self.traktfeatured_link = 'https://api.trakt.tv/recommendations/shows?limit=40'
         self.imdblists_link = 'https://www.imdb.com/user/ur%s/lists?tab=all&sort=mdfd&order=desc&filter=titles' % self.imdb_user
         self.imdblist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=alpha,asc&title_type=tvSeries,miniSeries&start=1'
         self.imdblist2_link = 'https://www.imdb.com/list/%s/?view=detail&sort=date_added,desc&title_type=tvSeries,miniSeries&start=1'

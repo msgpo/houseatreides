@@ -291,7 +291,7 @@ class jsonBookmarks(object):
 
         return cm
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort):
         control.content(int(sys.argv[1]), contentType)
         control.sortMethod(int(sys.argv[1]), sortMethod)
         control.directory(int(sys.argv[1]), cacheToDisc=True)

@@ -26,7 +26,7 @@ from resources.lib.modules import control
 from resources.lib.modules import log_utils
 from resources.lib.modules import utils
 
-BASE_URL = 'http://api.trakt.tv'
+BASE_URL = 'https://api.trakt.tv'
 V2_API_KEY = '7a422607d83d5efb71f30b1f8a2be8ed730795cd337ec1177891ca4085d007d2'
 CLIENT_SECRET = '78b43ad3c3b1a7907c39b37fa12482733248d08f71bb63a5b35fe101916d5293'
 REDIRECT_URI = 'http://www.tantrumtv.com'

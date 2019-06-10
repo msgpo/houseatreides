@@ -29,13 +29,18 @@ from resources.lib.modules import cache, cleangenre, client, control, metacache,
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?', ''))) if len(sys.argv) > 1 else dict()
 action = params.get('action')
 
+sysaddon = sys.argv[0]
+syshandle = int(sys.argv[1])
+artPath = control.artPath()
+addonFanart = control.addonFanart()
+
 
 class movies:
     def __init__(self):
         self.list = []
 
         self.imdb_link = 'https://www.imdb.com'
-        self.trakt_link = 'http://api.trakt.tv'
+        self.trakt_link = 'https://api.trakt.tv'
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours=5))
         self.systime = (self.datetime).strftime('%Y%m%d%H%M%S%f')
         self.year_date = (self.datetime - datetime.timedelta(days=365)).strftime('%Y-%m-%d')
@@ -48,7 +53,7 @@ class movies:
         self.lang = control.apiLanguage()['trakt']
         self.hidecinema = control.setting('hidecinema')
 
-        self.search_link = 'http://api.trakt.tv/search/movie?limit=20&page=1&query='
+        self.search_link = 'https://api.trakt.tv/search/movie?limit=20&page=1&query='
         self.fanart_tv_art_link = 'http://webservice.fanart.tv/v3/movies/%s'
         self.fanart_tv_level_link = 'http://webservice.fanart.tv/v3/level'
         self.tm_art_link = 'http://api.themoviedb.org/3/movie/%s/images?api_key=%s&language=en-US&include_image_language=en,%s,null' % (
@@ -82,14 +87,14 @@ class movies:
 
         self.added_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&languages=en&num_votes=500,&production_status=released&release_date=%s,%s&sort=release_date,desc&count=20&start=1' % (
             self.year_date, self.today_date)
-        self.trending_link = 'http://api.trakt.tv/movies/trending?limit=40&page=1'
-        self.traktlists_link = 'http://api.trakt.tv/users/me/lists'
-        self.traktlikedlists_link = 'http://api.trakt.tv/users/likes/lists?limit=1000000'
-        self.traktlist_link = 'http://api.trakt.tv/users/%s/lists/%s/items?type=movie'
-        self.traktcollection_link = 'http://api.trakt.tv/users/me/collection/movies'
-        self.traktwatchlist_link = 'http://api.trakt.tv/users/me/watchlist/movies'
-        self.traktfeatured_link = 'http://api.trakt.tv/recommendations/movies?limit=40'
-        self.trakthistory_link = 'http://api.trakt.tv/users/me/history/movies?limit=40&page=1'
+        self.trending_link = 'https://api.trakt.tv/movies/trending?limit=40&page=1'
+        self.traktlists_link = 'https://api.trakt.tv/users/me/lists'
+        self.traktlikedlists_link = 'https://api.trakt.tv/users/likes/lists?limit=1000000'
+        self.traktlist_link = 'https://api.trakt.tv/users/%s/lists/%s/items?type=movie'
+        self.traktcollection_link = 'https://api.trakt.tv/users/me/collection/movies'
+        self.traktwatchlist_link = 'https://api.trakt.tv/users/me/watchlist/movies'
+        self.traktfeatured_link = 'https://api.trakt.tv/recommendations/movies?limit=40'
+        self.trakthistory_link = 'https://api.trakt.tv/users/me/history/movies?limit=40&page=1'
         self.imdblists_link = 'https://www.imdb.com/user/ur%s/lists?tab=all&sort=mdfd&order=desc&filter=titles' % self.imdb_user
         self.imdblist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdblist2_link = 'https://www.imdb.com/list/%s/?view=detail&sort=date_added,desc&title_type=movie,tvMovie&start=1'
@@ -193,7 +198,7 @@ class movies:
         if delete_option:
             navigator.navigator().addDirectoryItem(32605, 'clearCacheSearch', 'tools.png', 'DefaultAddonProgram.png')
 
-        navigator.navigator().endDirectory(category='Search')
+        self.endDirectory(category='Search')
 
     def search_new(self):
         control.idle()
@@ -1066,6 +1071,7 @@ class movies:
         for i in items:
             try:
                 label = '%s (%s)' % (i['title'], i['year'])
+
                 imdb, tmdb, title, year = i['imdb'], i['tmdb'], i['originaltitle'], i['year']
                 sysname = urllib.quote_plus('%s (%s)' % (title, year))
                 systitle = urllib.quote_plus(title)
@@ -1184,7 +1190,9 @@ class movies:
         except Exception:
             pass
 
-        navigator.navigator().endDirectory('movies', category='Movies')
+        # control.content(syshandle, 'movies')
+        # control.directory(syshandle, cacheToDisc=True)
+        self.endDirectory('movies', category='Movies')
         views.setView('movies', {'skin.estuary': 55, 'skin.confluence': 500})
 
     def addDirectory(self, items, queue=False, category=None):
@@ -1244,4 +1252,12 @@ class movies:
             except Exception:
                 pass
 
-        navigator.navigator().endDirectory(category=category)
+        self.endDirectory(category=category)
+
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
+        control.content(syshandle, contentType)
+        if category is not None:
+            control.category(syshandle, category)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
+        control.directory(syshandle, cacheToDisc=True)

@@ -57,7 +57,7 @@ class boxsets:
             self.endDirectory(category='Boxsets')
         else:
             mSection = mSection.split('_')[1].capitalize()
-            self.endDirectory(contentType='movies', sortMethod=xbmcplugin.SORT_METHOD_LABEL, category=mSection)
+            self.endDirectory(contentType='movies', sortMethod=control.xDirSort.Label, category=mSection)
 
     def boxsetlist(self, url, list_id):
         if url == 'tmdbbox':
@@ -568,7 +568,7 @@ class boxsets:
         # control.content(syshandle, 'movies')
         # control.directory(syshandle, cacheToDisc=True)
         # views.setView('movies', {'skin.estuary': 55, 'skin.confluence': 500})
-        self.endDirectory(contentType='movies', sortMethod=xbmcplugin.SORT_METHOD_LABEL, category='Boxset List')
+        self.endDirectory(contentType='movies', sortMethod=control.xDirSort.Label, category='Boxset List')
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
         try:
@@ -593,11 +593,12 @@ class boxsets:
             item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 
-    def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE, category=None):
+    def endDirectory(self, contentType='addons', sortMethod=control.xDirSort.NoSort, category=None):
         control.content(syshandle, contentType)
         if category is not None:
             control.category(syshandle, category)
-        control.sortMethod(syshandle, sortMethod)
+        if sortMethod is not control.xDirSort.NoSort:
+            control.sortMethod(syshandle, sortMethod)
         control.directory(syshandle, cacheToDisc=True)
 
     def addDirectory(self, items, queue=False, isFolder=True):
