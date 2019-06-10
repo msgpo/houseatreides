@@ -46,8 +46,8 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
-            r = self.cfscraper.get(url).content
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
+            r = self.cfscraper.get(url, headers=headers).content
             quality_bitches = re.compile('<strong>Quality:\s+</strong>\s+<span class="quality">(.+?)</span>', re.DOTALL).findall(r)
 
             for quality in quality_bitches:
