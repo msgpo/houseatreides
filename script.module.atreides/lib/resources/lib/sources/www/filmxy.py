@@ -15,13 +15,14 @@
 '''
 2019/5/24: Removed filter function, as its not needed anymore. Updated/tweaked regex
 to pull both iframes. Added some quality checking from source_utils.
+2019/6/12: Added cfscrape
 '''
 
 import re
 import urlparse
 import traceback
 
-from resources.lib.modules import cleantitle, client, log_utils, source_utils
+from resources.lib.modules import cleantitle, log_utils, source_utils, cfscrape
 
 
 class source:
@@ -31,6 +32,7 @@ class source:
         self.domains = ['filmxy.me', 'filmxy.one', 'filmxy.ws']
         self.base_link = 'https://www.filmxy.live'
         self.search_link = '/%s-%s'
+        self.cfscraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -48,8 +50,8 @@ class source:
 
             if url is None:
                 return sources
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
-            result = client.request(url, headers=headers)
+            # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            result = self.cfscraper.get(url).content
             streams = re.compile('data-player="&lt;[A-Za-z]{6}\s[A-Za-z]{3}=&quot;(.+?)&quot;', re.DOTALL).findall(result)
 
             for link in streams:

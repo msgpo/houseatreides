@@ -12,6 +12,11 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/6/12: Adjusted regex in links to remove the trailer link
+that was sneaking in.
+'''
+
 import re
 import urlparse
 import requests
@@ -54,7 +59,7 @@ class source:
                 else:
                     quality = 'SD'
 
-            links = re.compile('li class=.+?data-href="(.+?)"').findall(r)
+            links = re.compile('li class=.+?data-target="\W[A-Za-z]+\d"\sdata-href="(.+?)"').findall(r)
             for url in links:
 
                 valid, host = source_utils.is_host_valid(url, hostDict)

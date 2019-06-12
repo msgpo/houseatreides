@@ -30,7 +30,7 @@ class source:
         self.priority = 1
         self.source = ['www']
         self.domains = ['ganol.si', 'ganool123.com']
-        self.base_link = 'https://www2.ganool.ws'
+        self.base_link = 'https://www3.ganool.ws'
         self.search_link = '/search/?q=%s'
         self.download_links = '/loadmoviedownloadsection.php'
 
