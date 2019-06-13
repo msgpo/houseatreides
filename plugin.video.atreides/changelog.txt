@@ -1,3 +1,9 @@
+[COLOR limegreen]Atredies Video Addon v1.2.7[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.3.7[/COLOR]
+    - Scraper Updates
+    - Menu updates
+    - YT Menu file fix (I broke it, booo)
+
 [COLOR limegreen]Atredies Video Addon v1.2.6[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.6[/COLOR]
     - Scraper Updates

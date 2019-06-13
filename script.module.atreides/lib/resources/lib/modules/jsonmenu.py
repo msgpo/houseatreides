@@ -147,7 +147,7 @@ class jsonMenu(object):
                 try:
                     menu_file = item.get('menu_file', None)
                     menu_section = item.get('menu_section', None)
-                    link = '%s&menu_file=%s&menu_section=%s' % (link, menu_file, menu_section) if menu_file is not None else link
+                    link = '%s&menu_file=%s&menu_section=%s&menu_title=%s' % (link, menu_file, menu_section, title) if menu_file is not None else link
                     if menu_file is not None:
                         isFolder = True
                 except Exception:

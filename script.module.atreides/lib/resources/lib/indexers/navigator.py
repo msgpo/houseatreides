@@ -416,29 +416,11 @@ class navigator:
 
         self.endDirectory(category=control.lang(32004).encode('utf-8'))
 
-    def jsonMenu(self, menufile, menusection, menuContent='addons', menuSort=control.xDirSort.Label, menuCategory=None):
+    def jsonMenu(self, menufile, menusection, menuContent='addons', menuSort=control.xDirSort.NoSort, menuCategory=None):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load(menufile)
         rootMenu.process(menusection)
         self.endDirectory(contentType=menuContent, sortMethod=menuSort, category=menuCategory)
-
-    def kidscorner(self, lite=False):
-        rootMenu = jsonmenu.jsonMenu()
-        rootMenu.load('kidscorner')
-        rootMenu.process('kidscorner_root')
-        self.endDirectory(category=control.lang(32610).encode('utf-8'))
-
-    def radio(self):
-        rootMenu = jsonmenu.jsonMenu()
-        rootMenu.load('radio')
-        rootMenu.process('radio_root')
-        self.endDirectory(category='Radio')
-
-    def tools(self):
-        rootMenu = jsonmenu.jsonMenu()
-        rootMenu.load('utilities')
-        rootMenu.process('tools_menu')
-        self.endDirectory(category=control.lang(32008).encode('utf-8'))
 
     def library(self):
         self.addDirectoryItem(32557, 'openSettings&query=5.0', 'tools.png', 'DefaultAddonProgram.png')
@@ -466,12 +448,6 @@ class navigator:
             self.addDirectoryItem(32002, tv_downloads, 'tvshows.png', 'DefaultTVShows.png', isAction=False)
 
         self.endDirectory(category=control.lang(32009).encode('utf-8'))
-
-    def search(self):
-        rootMenu = jsonmenu.jsonMenu()
-        rootMenu.load('utilities')
-        rootMenu.process('search_menu')
-        self.endDirectory(category='Search')
 
     def views(self):
         try:

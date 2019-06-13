@@ -2,7 +2,7 @@
     "menu_file": [
         {
             "title": "Main Menu File",
-            "version": "3",
+            "version": "4",
             "checked": "1",
             "desc": "Menu File containing the main menu in Atreides"
         }
@@ -66,7 +66,9 @@
         },
         {
             "title": "32610",
-            "action": "kidscorner",
+            "action": "menu",
+            "menu_file": "kidscorner",
+            "menu_section": "kidscorner_root",
             "toggle": "navi.kidscorner",
             "thumbnail": "kidscorner.png"
         },
@@ -87,7 +89,9 @@
         },
         {
             "title": "32653",
-            "action": "radioNavigator",
+            "action": "menu",
+            "menu_file": "radio",
+            "menu_section": "radio_root",
             "toggle": "navi.radio",
             "thumbnail": "radio.png"
         },
@@ -99,7 +103,9 @@
         },
         {
             "title": "32008",
-            "action": "toolNavigator",
+            "action": "menu",
+            "menu_file": "utilities",
+            "menu_section": "tools_menu",
             "thumbnail": "tools.png"
         },
         {
@@ -109,7 +115,9 @@
         },
         {
             "title": "32010",
-            "action": "searchNavigator",
+            "action": "menu",
+            "menu_file": "utilities",
+            "menu_section": "search_menu",
             "thumbnail": "search.png"
         }
     ]

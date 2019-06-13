@@ -16,6 +16,8 @@ import sys
 import urllib
 import urlparse
 
+from resources.lib.modules import log_utils
+
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?', '')))
 
 action = params.get('action')
@@ -196,14 +198,6 @@ elif action == 'remove_radio':
 elif action == 'libraryNavigator':
     from resources.lib.indexers import navigator
     navigator.navigator().library()
-
-elif action == 'toolNavigator':
-    from resources.lib.indexers import navigator
-    navigator.navigator().tools()
-
-elif action == 'searchNavigator':
-    from resources.lib.indexers import navigator
-    navigator.navigator().search()
 
 elif action == 'viewsNavigator':
     from resources.lib.indexers import navigator
@@ -429,6 +423,8 @@ elif action == 'menu':
     if menu_sort is not None:
         nvar = 'control.xDirSort.' + menu_sort
         menu_sort = eval(nvar)
+    else:
+        menu_sort = control.xDirSort.NoSort
     navigator.navigator().jsonMenu(menu_file, menu_section, menuSort=menu_sort, menuCategory=menu_title)
 
 elif action == 'urlResolver':
@@ -454,10 +450,6 @@ elif action == 'download':
 elif action == 'channelNavigator':
     from resources.lib.indexers import channels
     channels.channels().root()
-
-elif action == 'kidscorner':
-    from resources.lib.indexers import navigator
-    navigator.navigator().kidscorner()
 
 elif action == 'kidsBoxsetNavigator':
     from resources.lib.indexers import boxsets
@@ -497,10 +489,6 @@ elif action == 'fitness':
         youtube.yt_index().root(action)
     else:
         youtube.yt_index().get(action, subid)
-
-elif action == 'radioNavigator':
-    from resources.lib.indexers import navigator
-    navigator.navigator().radio()
 
 elif action == 'radio':
     from resources.lib.indexers import radio

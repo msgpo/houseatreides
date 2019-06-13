@@ -15,10 +15,12 @@
 
 import sys
 
-from resources.lib.modules import control, youtube_menu
+from resources.lib.modules import control, log_utils, youtube_menu
 
-thishandle = int(sys.argv[1])
-
+sysaddon = sys.argv[0]
+syshandle = int(sys.argv[1])
+artPath = control.artPath()
+addonFanart = control.addonFanart()
 
 # initializes as Kids Corner, functions can override based on action and subid.
 class yt_index:
