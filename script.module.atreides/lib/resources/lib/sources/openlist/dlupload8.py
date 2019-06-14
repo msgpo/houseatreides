@@ -47,13 +47,14 @@ class source:
             if url is None:
                 return sources
 
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             title = data['title']
             year = data['year']
             url = self.base_link + self.search_link % year
 
-            html = client.request(url)
+            html = client.request(url, headers=headers)
             if html is None:
                 return sources
 

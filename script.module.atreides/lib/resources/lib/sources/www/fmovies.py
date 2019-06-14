@@ -18,7 +18,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cfscrape, cleantitle, dom_parser2, log_utils
+from resources.lib.modules import cfscrape, cleantitle, dom_parser2, log_utils, source_utils
 
 
 class source:
@@ -93,7 +93,8 @@ class source:
                     'data-server': i.attrs['data-server'],
                     'data-name': i.attrs['data-name']}
                 url = urllib.urlencode(url)
-                sources.append({'source': i.content, 'quality': quality, 'language': 'en',
+                valid, host = source_utils.is_host_valid(i.content, hostDict)
+                sources.append({'source': host, 'quality': quality, 'language': 'en',
                                 'url': url, 'direct': False, 'debridonly': False})
             return sources
         except Exception:
@@ -131,7 +132,9 @@ class source:
                     (p1['s'],
                      urldata['data-server'])).content
                 p2 = json.loads(p2)
-            url = "https:%s" % p2["data"].replace("\/", "/")
+            url = p2["data"].replace("\/", "/")
+            if not url.startswith('http'):
+                url = "https:" + url
             return url
         except Exception:
             failure = traceback.format_exc()

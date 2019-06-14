@@ -58,6 +58,7 @@ class source:
             if url is None:
                 return sources
 
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             hldr = 'S%02dE%02d' % (int(data['season']), int(data['episode']))
@@ -68,7 +69,7 @@ class source:
             Check for season directory, no need for extra checks. Path is there or it's not
             '''
             url = urlparse.urljoin(self.base_link, self.search_link % (title, season))
-            results = client.request(url)
+            results = client.request(url, headers=headers)
             if results is None:
                 return sources
 

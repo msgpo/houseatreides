@@ -21,8 +21,8 @@ import re
 import traceback
 import urllib
 import urlparse
-
 import xbmcgui
+
 from resources.lib.modules import cleantitle, client, debrid, log_utils
 
 
@@ -30,9 +30,9 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['www']
-        self.domains = ['myvideolinks.net', 'iwantmyshow.tk']
+        self.domains = ['myvideolinks.net', 'iwantmyshow.tk', 'new.myvideolinks.net']
         self.base_link = 'http://myvideolinks.net'
-        self.search_link = '/def/?s=%s'
+        self.search_link = '/wp/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
