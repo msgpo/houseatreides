@@ -912,7 +912,7 @@ msgid "Getting genre information from Trakt"
 msgstr ""
 
 msgctxt "#32600"
-msgid "Preparing the speculum"
+msgid "Preparing the Landsraad"
 msgstr ""
 
 msgctxt "#32601"

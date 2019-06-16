@@ -174,9 +174,6 @@ class navigator:
             return False
         return True
 
-    def news(self):
-        changelog.get()
-
     def movies(self, lite=False):
         rootMenu = jsonmenu.jsonMenu()
         rootMenu.load('movies')
