@@ -92,46 +92,45 @@ class source:
                     url = re.findall('''frame_url\s*=\s*["']([^']+)['"]\;''', r, re.DOTALL)[0]
                     url = url if url.startswith('http') else urlparse.urljoin('https://', url)
 
-                    if 'vidlink' in url:
-                        ua = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+                    ua = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
 
-                        postID = url.split('/embed/')[1]
-                        post_link = 'https://vidlink.org/embed/update_views'
-                        payload = {'postID': postID}
-                        headers = ua
-                        headers['X-Requested-With'] = 'XMLHttpRequest'
-                        headers['Referer'] = url
+                    postID = url.split('/embed/')[1]
+                    post_link = 'https://vidlink.org/embed/update_views'
+                    payload = {'postID': postID}
+                    headers = ua
+                    headers['X-Requested-With'] = 'XMLHttpRequest'
+                    headers['Referer'] = url
 
-                        ihtml = client.request(post_link, post=payload, headers=headers)
-                        linkcode = jsunpack.unpack(ihtml).replace('\\', '')
-                        try:
-                            extra_link = re.findall(r'var oploadID="(.+?)"', linkcode)[0]
-                            oload = 'https://openload.co/embed/' + extra_link
-                            sources.append({'source': 'openload.co', 'quality': '1080p', 'language': 'en', 'url': oload, 'direct': False, 'debridonly': False})
+                    ihtml = client.request(post_link, post=payload, headers=headers)
+                    linkcode = jsunpack.unpack(ihtml).replace('\\', '')
+                    try:
+                        extra_link = re.findall(r'var oploadID="(.+?)"', linkcode)[0]
+                        oload = 'https://openload.co/embed/' + extra_link
+                        sources.append({'source': 'openload.co', 'quality': '1080p', 'language': 'en', 'url': oload, 'direct': False, 'debridonly': False})
 
-                        except Exception:
-                            pass
+                    except Exception:
+                        pass
 
-                        give_me = re.findall(r'var file1="(.+?)"', linkcode)[0]
-                        stream_link = give_me.split('/pl/')[0]
-                        headers = {'Referer': 'https://vidlink.org/', 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
-                        r = client.request(give_me, headers=headers)
-                        my_links = re.findall(r'[A-Z]{10}=\d+x(\d+)\W[A-Z]+=\"\w+\"\s+\/(.+?)\.', r)
-                        for quality_bitches, link in my_links:
+                    give_me = re.findall(r'var file1="(.+?)"', linkcode)[0]
+                    stream_link = give_me.split('/pl/')[0]
+                    headers = {'Referer': 'https://vidlink.org/', 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+                    r = client.request(give_me, headers=headers)
+                    my_links = re.findall(r'[A-Z]{10}=\d+x(\d+)\W[A-Z]+=\"\w+\"\s+\/(.+?)\.', r)
+                    for quality_bitches, link in my_links:
 
-                            if '1080' in quality_bitches:
-                                quality = '1080p'
-                            elif '720' in quality_bitches:
-                                quality = '720p'
-                            elif '480' in quality_bitches:
-                                quality = 'SD'
-                            elif '360' in quality_bitches:
-                                quality = 'SD'
-                            else:
-                                quality = 'SD'
+                        if '1080' in quality_bitches:
+                            quality = '1080p'
+                        elif '720' in quality_bitches:
+                            quality = '720p'
+                        elif '480' in quality_bitches:
+                            quality = 'SD'
+                        elif '360' in quality_bitches:
+                            quality = 'SD'
+                        else:
+                            quality = 'SD'
 
-                            final = stream_link + '/' + link + '.m3u8'
-                            sources.append({'source': 'GVIDEO', 'quality': quality, 'language': 'en', 'url': final, 'direct': True, 'debridonly': False})
+                        final = stream_link + '/' + link + '.m3u8'
+                        sources.append({'source': 'GVIDEO', 'quality': quality, 'language': 'en', 'url': final, 'direct': True, 'debridonly': False})
 
                 except Exception:
                     pass

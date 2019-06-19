@@ -76,7 +76,6 @@ class source:
         try:
             if not url:
                 return
-
             url = url[:-1]
             url = url.replace('/tvshows/', '/episodes/')
             url = url + '-%sx%s' % (season, episode)
@@ -97,7 +96,7 @@ class source:
 
             r = self.shellscraper.get(url, headers=self.shell_headers).content
             regex = re.compile("data-type='(.+?)' data-post='(.+?)' data-nume='(\d+)'><i class='icon-play3'></i><span class='title'>(.+?)</span>", re.DOTALL).findall(r)
-            for type, post, nume, quality in regex:
+            for data_type, post, nume, quality in regex:
 
                 cust_headers = {
                     'Host': 'hdmo.tv',
@@ -111,7 +110,7 @@ class source:
                 }
 
                 post_link = urlparse.urljoin(self.base_link, self.ajax_link)
-                payload = {'action': 'doo_player_ajax', 'post': post, 'nume': nume, 'type': type}
+                payload = {'action': 'doo_player_ajax', 'post': post, 'nume': nume, 'type': data_type}
                 suck_my_nuts = self.shellscraper.post(post_link, headers=cust_headers, data=payload)
                 copy_n_paste_bitches = suck_my_nuts.content
                 links = re.compile('<iframe.+?src="(.+?)"', re.DOTALL).findall(copy_n_paste_bitches)

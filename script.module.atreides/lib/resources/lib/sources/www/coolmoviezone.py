@@ -20,7 +20,7 @@ import re
 import urlparse
 import traceback
 
-from resources.lib.modules import cfscrape, cleantitle, log_utils, source_utils
+from resources.lib.modules import client, cleantitle, log_utils, source_utils
 
 
 class source:
@@ -30,7 +30,7 @@ class source:
         self.domains = ['coolmoviezone.online', 'coolmoviezone.co']
         self.base_link = 'https://coolmoviezone.io'
         self.search_link = '/%s-%s'
-        self.scraper = cfscrape.create_scraper()
+        # self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -45,7 +45,8 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            r = self.scraper.get(url).content
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
+            r = client.request(url, headers=headers)
             match = re.compile('<td align="center"><strong><a href="(.+?)"').findall(r)
             for url in match:
                 quality = source_utils.check_sd_url(url)

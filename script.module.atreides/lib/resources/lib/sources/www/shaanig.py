@@ -12,15 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
-import re
 import urlparse
 import traceback
 
-from resources.lib.modules import cfscrape
-from resources.lib.modules import client
-from resources.lib.modules import cleantitle
-from resources.lib.modules import source_utils
-from resources.lib.modules import log_utils
+from resources.lib.modules import cfscrape, cleantitle, client, log_utils, source_utils
 
 
 class source:

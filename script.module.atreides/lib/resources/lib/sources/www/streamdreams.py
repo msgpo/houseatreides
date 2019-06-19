@@ -21,9 +21,7 @@ import urlparse
 import requests
 import traceback
 
-from resources.lib.modules import cleantitle
-from resources.lib.modules import log_utils
-from resources.lib.modules import source_utils
+from resources.lib.modules import cleantitle, log_utils, source_utils
 
 
 class source:
