@@ -68,7 +68,7 @@ class source:
             shell = requests.Session()
 
             r = shell.get(url, headers=headers).content
-            movie_scrape = re.compile('<div class="col-xs-.+?a href="(.+?)".+?div class="post-title">(.+?)<', re.DOTALL).findall(r)
+            movie_scrape = re.compile('<h2 class="h2 p-title.+?a href="(.+?)".+?div class="post-title">(.+?)<', re.DOTALL).findall(r)
 
             for movie_url, movie_title in movie_scrape:
                 if cleantitle.getsearch(title).lower() == cleantitle.getsearch(movie_title).lower():
