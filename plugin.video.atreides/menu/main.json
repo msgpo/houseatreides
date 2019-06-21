@@ -2,7 +2,7 @@
     "menu_file": [
         {
             "title": "Main Menu File",
-            "version": "4",
+            "version": "5",
             "checked": "1",
             "desc": "Menu File containing the main menu in Atreides"
         }

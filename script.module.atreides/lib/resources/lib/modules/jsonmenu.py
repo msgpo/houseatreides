@@ -165,9 +165,12 @@ class jsonMenu(object):
                 except Exception:
                     pass
 
-                isAction = True if item.get('nolink', None) is None else False
-                if isAction is False:
+                if item.get('nolink', None) is not None:
+                    link = "sectionItem"
+                    isAction = False
                     isFolder = False
+                else:
+                    isAction = True
 
                 self.addDirectoryItem(title, link, item['thumbnail'], item['thumbnail'], isAction=isAction, isFolder=isFolder)
             except Exception:

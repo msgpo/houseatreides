@@ -897,8 +897,8 @@ msgid "Getting genre information from Trakt"
 msgstr "Uzyskiwanie informacji o gatunkach z Trakt"
 
 msgctxt "#32600"
-msgid "Preparing the speculum"
-msgstr "Przygotowywanie źródeł"
+msgid "Preparing the Landsraad"
+msgstr "Przygotowywanie Landsraad"
 
 msgctxt "#32601"
 msgid "Total"

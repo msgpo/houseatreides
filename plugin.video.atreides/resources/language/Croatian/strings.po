@@ -899,8 +899,8 @@ msgid "Getting genre information from Trakt"
 msgstr "Dobivanje informacija žanra sa trakta"
 
 msgctxt "#32600"
-msgid "Preparing the speculum"
-msgstr "Pripremanje izvora"
+msgid "Preparing the Landsraad"
+msgstr "Pripremanje Landsraad"
 
 msgctxt "#32601"
 msgid "Total"

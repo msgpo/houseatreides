@@ -455,13 +455,6 @@ elif action == 'kidsBoxsetNavigator':
     from resources.lib.indexers import boxsets
     boxsets.boxsets().get(menu_file, menu_section)
 
-elif action == 'kidstube':
-    from resources.lib.indexers import youtube
-    if subid is None:
-        youtube.yt_index().root(action)
-    else:
-        youtube.yt_index().get(action, subid)
-
 elif action == 'b98Navigator':
     from resources.lib.indexers import anime
     anime.b98tv().root()

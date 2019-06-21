@@ -913,5 +913,5 @@ msgid "Getting genre information from Trakt"
 msgstr "Hole Genre-Info von Trakt"
 
 msgctxt "#32600"
-msgid "Preparing the speculum"
+msgid "Preparing the Landsraad"
 msgstr "Quellen werden vorbereitet"
