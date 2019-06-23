@@ -251,13 +251,13 @@ elif action == 'movieSearchterm':
     from resources.lib.indexers import movies
     movies.movies().search_term(name)
 
-elif action == 'moviePerson':
-    from resources.lib.indexers import movies
-    movies.movies().person()
-
 elif action == 'movieGenres':
     from resources.lib.indexers import movies
     movies.movies().genres()
+
+elif action == 'moviePerson':
+    from resources.lib.indexers import movies
+    movies.movies().person()
 
 elif action == 'movieLanguages':
     from resources.lib.indexers import movies
@@ -308,13 +308,6 @@ elif action == 'tvGenres':
     tvshows.tvshows().genres()
 
 elif action == 'tvReviews':
-    from resources.lib.indexers import youtube
-    if subid is None:
-        youtube.yt_index().root(action)
-    else:
-        youtube.yt_index().get(action, subid)
-
-elif action == 'movieReviews':
     from resources.lib.indexers import youtube
     if subid is None:
         youtube.yt_index().root(action)

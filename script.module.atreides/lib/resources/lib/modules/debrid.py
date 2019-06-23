@@ -91,9 +91,10 @@ def check_torrent_cache(url, debrid):
 def resolver(url, debrid):
     try:
         debrid_resolver = [resolver for resolver in debrid_resolvers if resolver.name == debrid][0]
+
         debrid_resolver.login()
         _host, _media_id = debrid_resolver.get_host_and_id(url)
-        stream_url = debrid_resolver.get_media_url(_host, _media_id, cached_only=False)
+        stream_url = debrid_resolver.get_media_url(_host, _media_id, cached_only=True)
 
         return stream_url
     except Exception as e:

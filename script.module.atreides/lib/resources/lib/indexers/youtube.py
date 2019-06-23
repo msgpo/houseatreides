@@ -42,10 +42,6 @@ class yt_index:
                 self.action = 'tvReviews'
                 self.base_url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3RoZXJlYWxhdHJlaWRlcy9hdHJlaWRlc2V4dHJhcy9tYXN0ZXIveXRtZW51cy90aGVjcml0aWNzLw=='.decode('base64')
                 self.mainmenu = 'JXN0ZWxldmlzaW9uLnR4dA=='.decode('base64') % (self.base_url)
-            elif action == 'movieReviews':
-                self.action = 'movieReviews'
-                self.base_url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3RoZXJlYWxhdHJlaWRlcy9hdHJlaWRlc2V4dHJhcy9tYXN0ZXIveXRtZW51cy90aGVjcml0aWNzLw=='.decode('base64')
-                self.mainmenu = 'JXNtb3ZpZXMudHh0'.decode('base64') % (self.base_url)
             self.submenu = self.submenu % (self.base_url, '%s')
             self.default_icon = self.default_icon % (self.base_url)
             self.default_fanart = self.default_fanart % (self.base_url)

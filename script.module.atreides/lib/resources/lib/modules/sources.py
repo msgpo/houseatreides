@@ -13,7 +13,8 @@
 # Addon Provider: House Atreides
 
 '''
-2019/5/12: Duplicate Host removal added, thanks to doko
+2019/05/12: Duplicate Host removal added, thanks to doko
+2919/06/23: Host dict updates. Credit to host505
 '''
 
 import datetime
@@ -1023,12 +1024,17 @@ class sources:
             dcheck = str(d.get_setting('cached_only'))
             if dcheck == 'false':
                 import xbmcgui
-                xbmcgui.Dialog().ok('Torrent Support', 'Torrent links will not be shown, as only Cached are currently supported. Please go to ResolveURL and enable Cached Only for your Premium Resolver.')
+                xbmcgui.Dialog().ok(
+                    'Torrent Support',
+                    'Torrent links will not be shown, as only Cached are currently supported. Please go to ResolveURL and enable Cached Only for your Premium Resolver.')
             if sortabitch == 'true':
-                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if 'magnet:' in i['url'] and dcheck == 'true']
-                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if i['source'] in valid_hoster and 'magnet:' not in i['url']]
+                filter += [dict(i.items() + [('debrid', d.name)])
+                           for i in self.sources if 'magnet:' in i['url'] and dcheck == 'true']
+                filter += [dict(i.items() + [('debrid', d.name)])
+                           for i in self.sources if i['source'] in valid_hoster and 'magnet:' not in i['url']]
             else:
-                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if i['source'] in valid_hoster or ('magnet:' in i['url'] and dcheck == 'true')]
+                filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if i['source']
+                           in valid_hoster or ('magnet:' in i['url'] and dcheck == 'true')]
         filter += [i for i in self.sources if not i['source'].lower() in self.hostprDict and i['debridonly'] is False]
 
         self.sources = filter
@@ -1491,15 +1497,20 @@ class sources:
         except Exception:
             self.hostDict = []
 
-        self.hostprDict = ['1fichier.com', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net',
-                           'uploaded.to', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net']
+        self.hostprDict = [
+            '1fichier.com', 'multiup.org', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to',
+            'uploadgig.com', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net']
 
-        self.hostcapDict = ['hugefiles.net', 'kingfiles.net', 'openload.io', 'openload.co',
-                            'oload.tv', 'thevideo.me', 'vidup.me', 'streamin.to', 'torba.se']
+        self.hostcapDict = [
+            'openload.io', 'openload.co', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download', 'oload.info',
+            'oload.icu', 'oload.fun', 'oload.life', 'openload.pw', 'vev.io', 'vidup.me', 'vidup.tv', 'vshare.io',
+            'vshare.eu', 'flashx.tv', 'flashx.to', 'flashx.sx', 'flashx.bz', 'flashx.cc', 'hugefiles.net',
+            'thevideo.me', 'streamin.to']
 
         self.hosthqDict = [
             'gvideo', 'google.com', 'openload.io', 'openload.co', 'oload.tv', 'thevideo.me', 'rapidvideo.com',
-            'raptu.com', 'filez.tv', 'uptobox.com', 'uptobox.com', 'uptostream.com', 'xvidstage.com', 'streamango.com']
+            'raptu.com', 'filez.tv', 'uptobox.com', 'uptostream.com', 'xvidstage.com', 'streamango.com',
+            'xstreamcdn.com', 'idtbox.com']
 
         self.hostblockDict = []
 
