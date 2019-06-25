@@ -1,3 +1,6 @@
+[COLOR limegreen]Atredies Script Module v1.3.9a[/COLOR]
+    - Removed a scraper
+
 [COLOR limegreen]Atredies Video Addon v1.2.9[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.3.9a[/COLOR]
     - Scraper Updates
