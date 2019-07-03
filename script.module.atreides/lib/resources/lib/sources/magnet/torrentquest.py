@@ -77,7 +77,7 @@ class source:
             log_utils.log('TorrentQuest - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         sources = []
         try:
             if debrid.status() is False:
@@ -105,16 +105,26 @@ class source:
             Have to clean the titles up completely, as they remove characters like : and so on, and replace spaces with dashes
             '''
             url = urlparse.urljoin(self.base_link, self.search_link % (query[0].lower(), cleantitle.geturl(query)))
+
+            timer = control.Time(start=True)
+
             html = client.request(url)
             html = html.replace('&nbsp;', ' ')
             try:
                 results = client.parseDOM(html, 'tbody')[0]
             except Exception:
                 return sources
+
             rows = re.findall('<tr>(.+?)</tr>', results, re.DOTALL)
             if rows is None:
                 return sources
+
             for entry in rows:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('TorrentQuest - Timeout Reached')
+                    break
+
                 try:
                     '''
                     Test category. If it fails, no need to parse this line.

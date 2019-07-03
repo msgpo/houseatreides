@@ -17,7 +17,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import client, log_utils, source_utils
+from resources.lib.modules import client, control, log_utils, source_utils
 
 
 class source:
@@ -51,7 +51,7 @@ class source:
             log_utils.log('DL3F2M.IO - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -69,12 +69,20 @@ class source:
             Check for season directory, no need for extra checks. Path is there or it's not
             '''
             url = urlparse.urljoin(self.base_link, self.search_link % (title, season))
+
+            timer = control.Time(start=True)
+
             results = client.request(url, headers=headers)
             if results is None:
                 return sources
 
             results = re.compile('<a href="(.+?)"').findall(results)
             for link in results:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('DL3F2M - Timeout Reached')
+                    break
+
                 if link.startswith('.') or link.startswith('?'):
                     continue
                 if hldr in link:

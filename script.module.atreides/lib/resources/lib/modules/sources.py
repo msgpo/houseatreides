@@ -2,7 +2,7 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you can do whatever you want with this
+# As long as you retain this notice you can do whatever you want with this
 # stuff. Just please ask before copying. If we meet some day, and you think
 # this stuff is worth it, you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
@@ -15,6 +15,9 @@
 '''
 2019/05/12: Duplicate Host removal added, thanks to doko
 2919/06/23: Host dict updates. Credit to host505
+2019/06/28: Added sc_timeout before sources call on scrapers. Idea from Gaia, but setting is called here a single time then passed
+            down through the function to call scraper.sources() and then utilized in the scraper to limit the time scrapers run better.
+            Need to implement this in each scraper and as lazy as I am, will take a little bit. Uses Providers Timout from addon settings.
 '''
 
 import datetime
@@ -408,12 +411,17 @@ class sources:
 
         threads = []
 
+        try:
+            sc_timeout = int(control.setting('scrapers.timeout.1')) - 8
+        except Exception:
+            sc_timeout = 17
+
         if content == 'movie':
             title = self.getTitle(title)
             localtitle = self.getLocalTitle(title, imdb, tvdb, content)
             aliases = self.getAliasTitles(imdb, localtitle, content)
             for i in sourceDict:
-                threads.append(workers.Thread(self.getMovieSource, title, localtitle, aliases, year, imdb, i[0], i[1]))
+                threads.append(workers.Thread(self.getMovieSource, title, localtitle, aliases, year, imdb, i[0], i[1], sc_timeout))
         else:
             tvshowtitle = self.getTitle(tvshowtitle)
             localtvshowtitle = self.getLocalTitle(tvshowtitle, imdb, tvdb, content)
@@ -422,7 +430,7 @@ class sources:
             # season, episode = thexem.get_scene_episode_number(tvdb, season, episode)
             for i in sourceDict:
                 threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season,
-                                              episode, tvshowtitle, localtvshowtitle, aliases, premiered, i[0], i[1]))
+                                              episode, tvshowtitle, localtvshowtitle, aliases, premiered, i[0], i[1], sc_timeout))
 
         s = [i[0] + (i[1],) for i in zip(sourceDict, threads)]
         s = [(i[3].getName(), i[0], i[2]) for i in s]
@@ -760,7 +768,7 @@ class sources:
         except Exception:
             pass
 
-    def getMovieSource(self, title, localtitle, aliases, year, imdb, source, call):
+    def getMovieSource(self, title, localtitle, aliases, year, imdb, source, call, sc_timeout):
 
         try:
             dbcon = database.connect(self.sourceFile)
@@ -822,7 +830,7 @@ class sources:
 
         try:
             sources = []
-            sources = call.sources(url, self.hostDict, self.hostprDict)
+            sources = call.sources(url, self.hostDict, self.hostprDict, sc_timeout)
             if sources is None or sources == []:
                 raise Exception()
             sources = [json.loads(t) for t in set(json.dumps(d, sort_keys=True) for d in sources)]
@@ -840,7 +848,7 @@ class sources:
 
     def getEpisodeSource(
             self, title, year, imdb, tvdb, season, episode, tvshowtitle, localtvshowtitle, aliases, premiered, source,
-            call):
+            call, sc_timeout):
         try:
             dbcon = database.connect(self.sourceFile)
             dbcur = dbcon.cursor()
@@ -912,7 +920,7 @@ class sources:
 
         try:
             sources = []
-            sources = call.sources(ep_url, self.hostDict, self.hostprDict)
+            sources = call.sources(ep_url, self.hostDict, self.hostprDict, sc_timeout)
             if sources is None or sources == []:
                 raise Exception()
             sources = [json.loads(t) for t in set(json.dumps(d, sort_keys=True) for d in sources)]

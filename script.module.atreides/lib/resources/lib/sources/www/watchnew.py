@@ -21,7 +21,7 @@ import urllib
 import urlparse
 import traceback
 
-from resources.lib.modules import cleantitle, cfscrape, client, log_utils, source_utils
+from resources.lib.modules import cleantitle, cfscrape, client, control, log_utils, source_utils
 
 
 class source:
@@ -102,7 +102,7 @@ class source:
             log_utils.log('WatchNEW - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:
@@ -123,10 +123,17 @@ class source:
                         url = re.findall('''src=['"]\s*(.+?)['"]''', url, re.DOTALL)
                     except Exception:
                         url = re.compile('<iframe id="advanced_iframe.+?src="(.+?)"', re.DOTALL).findall(url)
-
             except Exception:
                 pass
+
+            timer = control.Time(start=True)
+
             for u in url:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('WatchNew - Timeout Reached')
+                    break
+
                 u = u.lstrip()
                 if 'watchnewmovienet' in u:
                     continue
@@ -137,6 +144,11 @@ class source:
                                'Upgrade-Insecure-Requests': '1',
                                'Accept-Language': 'en-US,en;q=0.9'}
                     r = client.request(u, headers=headers)
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('WatchNew - Timeout Reached')
+                        break
+
                     links = re.findall('''\{file:\s*['"]([^'"]+).*?label:\s*['"](\d+\s*P)['"]''', r, re.DOTALL | re.I)
                     for u, qual in links:
                         quality, info = source_utils.get_release_quality(qual, u)

@@ -17,7 +17,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, dom_parser, log_utils, source_utils
+from resources.lib.modules import cleantitle, client, control, dom_parser, log_utils, source_utils
 
 
 class source:
@@ -70,7 +70,7 @@ class source:
             log_utils.log('WatchSeries - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -78,6 +78,9 @@ class source:
                 return sources
 
             url = urlparse.urljoin(self.base_link, url)
+
+            timer = control.Time(start=True)
+
             for i in range(3):
                 result = client.request(url, timeout=10)
                 if result is not None:
@@ -90,6 +93,11 @@ class source:
                 '<tr\s*>\s*<td><i\s+class="fa fa-youtube link-logo"></i>([^<]+).*?href="([^"]+)"\s+class="watch',
                 re.DOTALL).findall(result)
             for link in links[:5]:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('SeriesFree - Timeout Reached')
+                    break
+
                 try:
                     url2 = urlparse.urljoin(self.base_link, link[1])
                     for i in range(2):

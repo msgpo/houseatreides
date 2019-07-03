@@ -18,7 +18,7 @@ import urlparse
 import requests
 import traceback
 
-from resources.lib.modules import cleantitle, log_utils
+from resources.lib.modules import cleantitle, control, log_utils
 
 
 class source:
@@ -39,7 +39,7 @@ class source:
             log_utils.log('iWAATCH - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -65,12 +65,18 @@ class source:
                 'DNT': '1'
             }
 
-            shell = requests.Session()
+            timer = control.Time(start=True)
 
+            shell = requests.Session()
             r = shell.get(url, headers=headers).content
             movie_scrape = re.compile('<h2 class="h2 p-title.+?a href="(.+?)".+?div class="post-title">(.+?)<', re.DOTALL).findall(r)
 
             for movie_url, movie_title in movie_scrape:
+                 # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('IWaatch - Timeout Reached')
+                    break
+
                 if cleantitle.getsearch(title).lower() == cleantitle.getsearch(movie_title).lower():
 
                     r = shell.get(movie_url, headers=headers).content

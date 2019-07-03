@@ -142,7 +142,7 @@ class source:
         except Exception:
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 

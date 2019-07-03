@@ -36,7 +36,7 @@ class source:
             log_utils.log('PLAYMOVIES - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             scraper = cfscrape.create_scraper()

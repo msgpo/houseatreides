@@ -22,7 +22,7 @@ import urlparse
 import requests
 import traceback
 
-from resources.lib.modules import cleantitle, source_utils, log_utils
+from resources.lib.modules import cleantitle, control, source_utils, log_utils
 
 
 class source:
@@ -43,12 +43,15 @@ class source:
             log_utils.log('IwannaWatch - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             hostDict = hostprDict + hostDict
 
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
+
+            timer = control.Time(start=True)
+
             r = requests.get(url, headers=headers).content
             quality_check = re.compile('class="quality">(.+?)<').findall(r)
 
@@ -61,6 +64,10 @@ class source:
 
             links = re.compile('li class=.+?data-target="\W[A-Za-z]+\d"\sdata-href="(.+?)"').findall(r)
             for url in links:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('IWannaWatch - Timeout Reached')
+                    break
 
                 valid, host = source_utils.is_host_valid(url, hostDict)
                 sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'direct': False, 'debridonly': False})

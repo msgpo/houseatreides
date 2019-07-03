@@ -20,7 +20,7 @@ import re
 import traceback
 import urlparse
 
-from resources.lib.modules import cfscrape, cleantitle, log_utils, source_utils
+from resources.lib.modules import cfscrape, cleantitle, control, log_utils, source_utils
 
 
 class source:
@@ -51,7 +51,7 @@ class source:
             log_utils.log('Movie4kis - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:
@@ -59,10 +59,11 @@ class source:
             hostDict = hostprDict + hostDict
             # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'}
 
+            timer = control.Time(start=True)
+
             r = self.scraper.get(url).content
             qual = re.compile('<span class="calidad2">(.+?)</span>').findall(r)
             for url in qual:
-
                 if '1080' in url:
                     quality = '1080p'
                 elif '720' in url:
@@ -75,6 +76,10 @@ class source:
             links = re.compile('<iframe src="(.+?)"', re.DOTALL).findall(r)
 
             for link in links:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('Movie4kis - Timeout Reached')
+                    break
 
                 host = link.split('//')[1].replace('www.', '')
                 host = host.split('/')[0].split('.')[0].title()

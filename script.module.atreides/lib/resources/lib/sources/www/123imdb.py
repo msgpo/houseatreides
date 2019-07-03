@@ -23,7 +23,7 @@ import urlparse
 import requests
 import traceback
 
-from resources.lib.modules import cleantitle, log_utils
+from resources.lib.modules import cleantitle, control, log_utils
 
 
 class source:
@@ -44,12 +44,15 @@ class source:
             log_utils.log('123IMDB - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:
                 return sources
             hostDict = hostprDict + hostDict
+
+            timer = control.Time(start=True)
+
             '''
             Sometimes this source url will have extra characters after /movie/%s-%s/.
             Site will automatically forward us to the correct page for the movie. So
@@ -66,6 +69,12 @@ class source:
             r = requests.get(url, headers=headers).content
 
             quality_scrape = re.compile('<span class="quality"><a href=.+?rel="tag">(.+?)</a>', re.DOTALL).findall(r)
+
+            # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+            # We stop here even though no loop in case the request went too long
+            if timer.elapsed() > sc_timeout:
+                log_utils.log('123IMDB - Timeout Reached')
+                return sources
 
             if 'HD' in quality_scrape:
                 quality = '720p'

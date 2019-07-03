@@ -21,7 +21,7 @@ as they are now playable.
 import re
 import traceback
 
-from resources.lib.modules import cfscrape, client, log_utils, source_utils
+from resources.lib.modules import cfscrape, client, control, log_utils, source_utils
 
 
 class source:
@@ -43,10 +43,13 @@ class source:
             log_utils.log('HackIMDB - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
+
+            timer = control.Time(start=True)
+
             r = self.cfscraper.get(url, headers=headers).content
             quality_bitches = re.compile('<strong>Quality:\s+</strong>\s+<span class="quality">(.+?)</span>', re.DOTALL).findall(r)
 
@@ -61,6 +64,11 @@ class source:
 
             match = re.compile('<iframe.+?src="(.+?)"').findall(r)
             for url in match:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('HackIMDB - Timeout Reached')
+                    break
+
                 if 'youtube' in url:
                     continue
                 valid, hoster = source_utils.is_host_valid(url, hostDict)

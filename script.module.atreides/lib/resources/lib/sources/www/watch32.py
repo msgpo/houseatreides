@@ -20,7 +20,7 @@ import urllib
 import urlparse
 import traceback
 
-from resources.lib.modules import cleantitle, client, dom_parser2, jsunpack, log_utils
+from resources.lib.modules import cleantitle, client, control, dom_parser2, jsunpack, log_utils
 
 
 class source:
@@ -41,7 +41,7 @@ class source:
             log_utils.log('Watch32 - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -59,6 +59,9 @@ class source:
 
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
+
+            timer = control.Time(start=True)
+
             r = client.request(url)
 
             posts = client.parseDOM(r, 'div', attrs={'class': 'video_title'})
@@ -66,6 +69,11 @@ class source:
             items = []
 
             for post in posts:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('Watch32 - Timeout Reached')
+                    break
+
                 try:
                     data = dom_parser2.parse_dom(post, 'a', req=['href', 'title'])[0]
                     t = data.content
@@ -83,6 +91,11 @@ class source:
                 except Exception:
                     pass
             for item in items:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('Watch32 - Timeout Reached')
+                    break
+
                 try:
                     r = client.request(item[0]) if item[0].startswith('http') else client.request(urlparse.urljoin(self.base_link, item[0]))
 
@@ -115,6 +128,12 @@ class source:
                     stream_link = give_me.split('/pl/')[0]
                     headers = {'Referer': 'https://vidlink.org/', 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
                     r = client.request(give_me, headers=headers)
+
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('Watch32 - Timeout Reached')
+                        break
+
                     my_links = re.findall(r'[A-Z]{10}=\d+x(\d+)\W[A-Z]+=\"\w+\"\s+\/(.+?)\.', r)
                     for quality_bitches, link in my_links:
 

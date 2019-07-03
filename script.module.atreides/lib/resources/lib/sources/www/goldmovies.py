@@ -18,7 +18,7 @@ import urlparse
 import requests
 import traceback
 
-from resources.lib.modules import cleantitle, source_utils, log_utils
+from resources.lib.modules import cleantitle, control, source_utils, log_utils
 
 
 class source:
@@ -65,7 +65,7 @@ class source:
             log_utils.log('GoldMovies - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -80,6 +80,9 @@ class source:
             year = data['year']
             kcus_snwolc = cleantitle.getsearch(query.lower())
             url = urlparse.urljoin(self.base_link, self.search_link % (kcus_snwolc.replace(' ', '+')))
+
+            timer = control.Time(start=True)
+
             shell = requests.Session()
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
             r = shell.get(url, headers=headers).content
@@ -87,6 +90,11 @@ class source:
             scrape = re.compile('<div data-movie-id=.+?class="ml-item">\s+<a href="(.+?)" data-url="" class="ml-mask jt".+?oldtitle="(.+?)"').findall(r)
 
             for url, title_data in scrape:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('GoldMovies - Timeout Reached')
+                    break
+
                 if cleantitle.getsearch(query).lower() == cleantitle.getsearch(title_data).lower():
                     r = shell.get(url, headers=headers).content
                     year_data = re.compile('<strong>Release:\s+</strong>\s+<a href=.+?rel="tag">(.+?)</a>').findall(r)

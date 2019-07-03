@@ -15,7 +15,7 @@
 import re
 import traceback
 
-from resources.lib.modules import cleantitle, client, log_utils
+from resources.lib.modules import cleantitle, client, control, log_utils
 
 
 class source:
@@ -37,14 +37,22 @@ class source:
             log_utils.log('Reddit - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
+
+            timer = control.Time(start=True)
+
             r = client.request(url)
             try:
                 match = re.compile(
                     'class="search-title may-blank" >(.+?)</a>.+?<span class="search-result-icon search-result-icon-external"></span><a href="(.+?)://(.+?)/(.+?)" class="search-link may-blank" >').findall(r)
                 for info, http, host, ext in match:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('Reddit - Timeout Reached')
+                        break
+
                     if '2160' in info:
                         quality = '4K'
                     elif '1080' in info:

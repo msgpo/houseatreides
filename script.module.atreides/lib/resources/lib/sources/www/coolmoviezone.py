@@ -20,7 +20,7 @@ import re
 import urlparse
 import traceback
 
-from resources.lib.modules import client, cleantitle, log_utils, source_utils
+from resources.lib.modules import client, cleantitle, control, log_utils, source_utils
 
 
 class source:
@@ -42,13 +42,21 @@ class source:
             log_utils.log('CoolMovieZone - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
+
+            timer = control.Time(start=True)
+
             r = client.request(url, headers=headers)
             match = re.compile('<td align="center"><strong><a href="(.+?)"').findall(r)
             for url in match:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('CoolMovieZone - Timeout Reached')
+                    break
+
                 quality = source_utils.check_sd_url(url)
                 valid, host = source_utils.is_host_valid(url, hostDict)
                 sources.append({'source': host, 'quality': quality, 'language': 'en',

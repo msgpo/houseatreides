@@ -56,7 +56,7 @@ class source:
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             r = client.request(url)

@@ -15,7 +15,7 @@
 import urlparse
 import traceback
 
-from resources.lib.modules import cfscrape, cleantitle, client, log_utils, source_utils
+from resources.lib.modules import cfscrape, cleantitle, client, control, log_utils, source_utils
 
 
 class source:
@@ -57,14 +57,20 @@ class source:
             log_utils.log('SHAANIG - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
+
+            timer = control.Time(start=True)
 
             # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
             r = self.cfscraper.get(url).content
             give_me = client.parseDOM(r, "div", attrs={"id": "lnk list-downloads"})
             for url in give_me:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('Shaanig - Timeout Reached')
+                    break
 
                 some_links = client.parseDOM(url, 'a', ret='href')
                 for url in some_links:

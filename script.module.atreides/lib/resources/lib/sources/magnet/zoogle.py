@@ -73,7 +73,7 @@ class source:
             log_utils.log('ZOOGLE - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -99,6 +99,9 @@ class source:
 
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url) + str(category)
+
+            timer = control.Time(start=True)
+
             html = client.request(url)
             html = html.replace('&nbsp;', ' ')
             try:
@@ -108,7 +111,13 @@ class source:
             rows = re.findall('<tr(.+?)</tr>', results, re.DOTALL)
             if rows is None:
                 return sources
+
             for entry in rows:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('Zoogle - Timeout Reached')
+                    break
+
                 try:
                     try:
                         name = re.findall('<a class=".+?>(.+?)</a>', entry, re.DOTALL)[0]

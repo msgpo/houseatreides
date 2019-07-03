@@ -17,8 +17,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import (cfscrape, cleantitle, client, debrid,
-                                   log_utils, source_utils)
+from resources.lib.modules import cfscrape, cleantitle, client, control, debrid, log_utils, source_utils
 
 
 class source:
@@ -65,7 +64,7 @@ class source:
             log_utils.log('SceneRls - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -95,6 +94,8 @@ class source:
                 url = self.search_link % urllib.quote_plus(query)
                 url = urlparse.urljoin(self.base_link, url)
 
+                timer = control.Time(start=True)
+
                 r = self.scraper.get(url).content
 
                 posts = client.parseDOM(r, 'div', attrs={'class': 'post'})
@@ -103,6 +104,11 @@ class source:
                 dupes = []
 
                 for post in posts:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('SceneRLS - Timeout Reached')
+                        break
+
                     try:
                         t = client.parseDOM(post, 'a')[0]
                         t = re.sub('<.+?>|</.+?>', '', t)

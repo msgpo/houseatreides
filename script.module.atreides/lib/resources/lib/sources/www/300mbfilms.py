@@ -18,7 +18,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, debrid, log_utils, source_utils
+from resources.lib.modules import cleantitle, client, control, debrid, log_utils, source_utils
 
 
 class source:
@@ -64,7 +64,7 @@ class source:
             log_utils.log('300MBFilms - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -89,6 +89,8 @@ class source:
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
 
+            timer = control.Time(start=True)
+
             r = client.request(url)
 
             posts = client.parseDOM(r, 'h2')
@@ -97,6 +99,10 @@ class source:
 
             urls = []
             for item in posts:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('300MBFilms - Timeout Reached')
+                    break
 
                 try:
                     item = re.compile('a href="(.+?)"').findall(item)

@@ -67,7 +67,7 @@ class source:
             log_utils.log('EZTV - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -91,6 +91,9 @@ class source:
 
             url = self.search_link % (urllib.quote_plus(query).replace('+', '-'))
             url = urlparse.urljoin(self.base_link, url)
+
+            timer = control.Time(start=True)
+
             html = client.request(url)
 
             try:
@@ -101,11 +104,17 @@ class source:
                         break
             except Exception:
                 return sources
+
             rows = re.findall('<tr name="hover" class="forum_header_border">(.+?)</tr>', results, re.DOTALL)
             if rows is None:
                 return sources
 
             for entry in rows:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('EZTV - Timeout Reached')
+                    break
+
                 try:
                     try:
                         columns = re.findall('<td\s.+?>(.+?)</td>', entry, re.DOTALL)

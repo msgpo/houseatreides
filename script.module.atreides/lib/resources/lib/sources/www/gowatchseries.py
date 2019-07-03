@@ -18,7 +18,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, log_utils, source_utils
+from resources.lib.modules import cleantitle, client, control, log_utils, source_utils
 
 
 class source:
@@ -65,7 +65,7 @@ class source:
             log_utils.log('GoWatchSeries - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -92,6 +92,9 @@ class source:
 
                 query = urlparse.urljoin(self.base_link, self.search_link %
                                          urllib.quote_plus(cleantitle.getsearch(title)))
+
+                timer = control.Time(start=True)
+
                 r = client.request(query, headers=headers, XHR=True)
                 r = json.loads(r)['content']
                 r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a'))
@@ -113,6 +116,11 @@ class source:
                 r = client.request(vurl, headers=headers)
                 headers['Referer'] = vurl
 
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('GoWatchSeries - Timeout Reached')
+                    return sources
+
                 slinks = client.parseDOM(r, 'div', attrs={'class': 'anime_muti_link'})
                 slinks = client.parseDOM(slinks, 'li', ret='data-video')
                 if len(slinks) == 0 and vurl2 is not None:
@@ -122,6 +130,11 @@ class source:
                     slinks = client.parseDOM(slinks, 'li', ret='data-video')
 
                 for slink in slinks:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('GoWatchSeries - Timeout Reached')
+                        break
+
                     try:
                         if 'vidnode.net/streaming.php' in slink:
                             r = client.request('https:%s' % slink, headers=headers)

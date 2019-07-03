@@ -18,7 +18,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import client, log_utils, source_utils
+from resources.lib.modules import client, control, log_utils, source_utils
 
 
 class source:
@@ -41,7 +41,7 @@ class source:
             log_utils.log('DivxCrawler - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -63,6 +63,9 @@ class source:
                     link = m
                 else:
                     query = urlparse.urljoin(self.base_link, self.search_link2)
+
+                    timer = control.Time(start=True)
+
                     result = client.request(query)
                     m = re.findall('Movie Size:(.+?)<.+?href="(.+?)".+?href="(.+?)"\s*onMouse', result, re.DOTALL)
                     m = [(i[0], i[1], i[2]) for i in m if imdb in i[1]]
@@ -82,6 +85,11 @@ class source:
                 return sources
 
             for item in link:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('DivxCrawler - Timeout Reached')
+                    break
+
                 try:
                     quality, info = source_utils.get_release_quality(item[2], None)
                     try:

@@ -18,7 +18,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cfscrape, cleantitle, dom_parser2, log_utils, source_utils
+from resources.lib.modules import cfscrape, cleantitle, control, dom_parser2, log_utils, source_utils
 
 
 class source:
@@ -71,11 +71,13 @@ class source:
             log_utils.log('FMovies - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:
                 return sources
+
+            timer = control.Time(start=True)
 
             r = self.scraper.get(url).content
             quality = re.findall(">(\w+)<\/p", r)
@@ -87,6 +89,11 @@ class source:
             r = [dom_parser2.parse_dom(i, 'a', req=['href']) for i in r if i]
 
             for i in r[0]:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('FMovies - Timeout Reached')
+                    break
+
                 url = {
                     'url': i.attrs['href'],
                     'data-film': i.attrs['data-film'],

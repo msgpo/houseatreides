@@ -40,7 +40,7 @@ class source:
             log_utils.log('S19BITDL - Exception: \n' + str(failure))
             return None
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:

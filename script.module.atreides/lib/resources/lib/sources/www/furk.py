@@ -108,7 +108,7 @@ class source:
             log_utils.log('FurkIt - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         if url is None:
             return
 
@@ -149,6 +149,8 @@ class source:
                 self.base_link + self.meta_search_link % (
                     api_key, link, match, moderated, search_in, self.search_limit))
 
+            timer = control.Time(start=True)
+
             p = s.get(link)
             p = json.loads(p.text)
 
@@ -158,6 +160,11 @@ class source:
             files = p['files']
 
             for i in files:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('Furk - Timeout Reached')
+                    break
+
                 if i['is_ready'] == '1' and i['type'] == 'video':
                     try:
                         source = 'SINGLE'

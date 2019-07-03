@@ -23,7 +23,7 @@ import requests
 import traceback
 import urlparse
 
-from resources.lib.modules import cfscrape, cleantitle, log_utils, source_utils
+from resources.lib.modules import cfscrape, cleantitle, control, log_utils, source_utils
 
 
 class source:
@@ -78,7 +78,7 @@ class source:
             log_utils.log('SEEHD - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:
@@ -87,9 +87,17 @@ class source:
 
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
             first_url = url
+
+            timer = control.Time(start=True)
+
             r = self.scraper.get(first_url).content
             links = re.compile('<iframe.+?src="(.+?)://(.+?)/(.+?)"', re.DOTALL).findall(r)
             for http, host, url in links:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('SeeHD - Timeout Reached')
+                    break
+
                 host = host.replace('www.', '')
                 url = '%s://%s/%s' % (http, host, url)
                 if 'seehd' in url:

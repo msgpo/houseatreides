@@ -17,7 +17,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, directstream, log_utils
+from resources.lib.modules import cleantitle, client, control, directstream, log_utils
 
 
 class source:
@@ -117,7 +117,7 @@ class source:
             log_utils.log('SeriesOnline - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -144,6 +144,8 @@ class source:
             if url is None:
                 raise Exception()
 
+            timer = control.Time(start=True)
+
             r = client.request(url, headers=headers, timeout='10')
             r = client.parseDOM(r, 'div', attrs={'class': 'les-content'})
             if 'tvshowtitle' in data:
@@ -153,6 +155,11 @@ class source:
                 links = client.parseDOM(r, 'a', ret='player-data')
 
             for link in links:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('SeriesOnline - Timeout Reached')
+                    break
+
                 if '123movieshd' in link or 'seriesonline' in link:
                     r = client.request(link, headers=headers, timeout='10')
                     r = re.findall('(https:.*?redirector.*?)[\'\"]', r)

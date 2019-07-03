@@ -80,7 +80,7 @@ class source:
             log_utils.log('TPB - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -103,17 +103,26 @@ class source:
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|<|>|\|)', ' ', query)
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
+
+            timer = control.Time(start=True)
+
             html = client.request(url)
             html = html.replace('&nbsp;', ' ')
             try:
                 results = client.parseDOM(html, 'table', attrs={'id': 'searchResult'})[0]
             except Exception:
                 return sources
+
             rows = re.findall('<tr(.+?)</tr>', results, re.DOTALL)
             if rows is None:
                 return sources
 
             for entry in rows:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('TPB - Timeout Reached')
+                    break
+
                 try:
                     try:
                         name = re.findall('class="detLink" title=".+?">(.+?)</a>', entry, re.DOTALL)[0]

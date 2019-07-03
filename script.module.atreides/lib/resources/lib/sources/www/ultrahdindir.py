@@ -17,7 +17,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import client, debrid, dom_parser2, log_utils
+from resources.lib.modules import client, control, debrid, dom_parser2, log_utils
 
 
 class source:
@@ -38,7 +38,7 @@ class source:
             log_utils.log('UltraHD - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -59,6 +59,8 @@ class source:
             post = 'do=search&subaction=search&search_start=0&full_search=0&result_from=1&story=%s' % urllib.quote_plus(
                 query)
 
+            timer = control.Time(start=True)
+
             r = client.request(url, post=post)
             r = client.parseDOM(r, 'div', attrs={'class': 'box-out margin'})
             r = [(dom_parser2.parse_dom(i, 'div', attrs={'class': 'news-title'})) for i in r if data['imdb'] in i]
@@ -68,6 +70,11 @@ class source:
             hostDict = hostprDict + hostDict
 
             for item in r:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('UltraHDInDir - Timeout Reached')
+                    break
+
                 try:
                     name = item[0]
                     s = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GB|GiB|Gb|MB|MiB|Mb))', name)
@@ -76,6 +83,11 @@ class source:
                     data = dom_parser2.parse_dom(data, 'div', attrs={'id': 'r-content'})
                     data = re.findall('\s*<b><a href="(.+?)".+?</a></b>', data[0].content, re.DOTALL)
                     for url in data:
+                        # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                        if timer.elapsed() > sc_timeout:
+                            log_utils.log('UltraHDInDir - Timeout Reached')
+                            break
+
                         try:
                             qual = client.request(url)
                             quals = re.findall('span class="file-title" id="file-title">(.+?)</span', qual)

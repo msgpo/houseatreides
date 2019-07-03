@@ -17,7 +17,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, dom_parser, log_utils
+from resources.lib.modules import cleantitle, client, control, dom_parser, log_utils
 
 
 class source:
@@ -74,17 +74,25 @@ class source:
             log_utils.log('TVBox - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
             if url is None:
                 return
+
+            timer = control.Time(start=True)
+
             r = client.request(url, cookie='check=2')
 
             m = dom_parser.parse_dom(r, 'table', attrs={'class': 'show_links'})[0]
             links = re.findall('k">(.*?)<.*?f="(.*?)"', m.content)
             for link in links:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('TVBox - Timeout Reached')
+                    break
+
                 try:
                     sources.append({'source': link[0], 'quality': 'SD', 'language': 'en',
                                     'url': link[1], 'direct': False, 'debridonly': False})

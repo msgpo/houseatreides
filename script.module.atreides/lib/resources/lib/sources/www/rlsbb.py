@@ -19,7 +19,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cfscrape, client, debrid, log_utils
+from resources.lib.modules import cfscrape, client, control, debrid, log_utils
 
 
 class source:
@@ -68,7 +68,7 @@ class source:
             log_utils.log('RLSBB - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -98,6 +98,8 @@ class source:
 
             url = "http://rlsbb.ru/" + query
 
+            timer = control.Time(start=True)
+
             r = self.scraper.get(url).content
 
             if r is None and 'tvshowtitle' in data:
@@ -113,6 +115,11 @@ class source:
                 r = self.scraper.get(url).content
 
             for loopCount in range(0, 2):
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('RLSBB - Timeout Reached')
+                    break
+
                 if loopCount == 1 or(
                         r is None and 'tvshowtitle' in data):
 
@@ -133,6 +140,11 @@ class source:
                 hostDict = hostprDict + hostDict
                 items = []
                 for post in posts:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('RLSBB - Timeout Reached')
+                        break
+
                     try:
                         u = client.parseDOM(post, 'a', ret='href')
                         for i in u:
@@ -153,6 +165,11 @@ class source:
             seen_urls = set()
 
             for item in items:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('RLSBB - Timeout Reached')
+                    break
+
                 try:
                     info = []
 

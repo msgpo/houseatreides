@@ -1,3 +1,15 @@
+[COLOR limegreen]Atredies Video Addon v1.3.0[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.4.0[/COLOR]
+    - Enhanced providers timeout
+        All scrapers updated for this
+    - Hung scrapers now terminate much closer to
+        provider timeout setting (doesn't cure hang)
+    - Inspired by similar method in Gaia
+    - Updated "default" timeout to 20 seconds
+    - Internal timeout is setting minus 8 to give
+        scrapers time to exit gracefully and 
+        return results already gathered. If any
+
 [COLOR limegreen]Atredies Script Module v1.3.9a[/COLOR]
     - Removed a scraper
 

@@ -23,7 +23,7 @@ import urllib
 import urlparse
 import xbmcgui
 
-from resources.lib.modules import cleantitle, client, debrid, log_utils
+from resources.lib.modules import cleantitle, client, control, debrid, log_utils
 
 
 class source:
@@ -69,7 +69,7 @@ class source:
             log_utils.log('MyVideoLink - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -93,6 +93,9 @@ class source:
 
             url = urlparse.urljoin(self.base_link, self.search_link)
             url = url % urllib.quote_plus(query)
+
+            timer = control.Time(start=True)
+
             r = client.request(url)
 
             r = client.parseDOM(r, 'h2')
@@ -119,6 +122,11 @@ class source:
             items = []
 
             for post in posts:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('MyVideoLink - Timeout Reached')
+                    break
+
                 try:
                     t = post[0]
 
@@ -132,6 +140,11 @@ class source:
                     pass
 
             for item in items:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('MyVideoLink - Timeout Reached')
+                    break
+
                 try:
                     name = item[0]
                     name = client.replaceHTMLCodes(name)

@@ -21,7 +21,7 @@ import urlparse
 import requests
 import traceback
 
-from resources.lib.modules import cleantitle, log_utils, source_utils
+from resources.lib.modules import cleantitle, control, log_utils, source_utils
 
 
 class source:
@@ -79,7 +79,7 @@ class source:
             log_utils.log('StreamDreams - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:
@@ -87,9 +87,16 @@ class source:
 
             hostDict = hostprDict + hostDict
             headers = {'Referer': url, 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+
+            timer = control.Time(start=True)
+
             r = requests.get(url, headers=headers).content
             links = re.compile("data-href='(.+?)'\s+data", re.DOTALL).findall(r)
             for link in links:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('StreamDreams - Timeout Reached')
+                    break
 
                 if 'BDRip' in link:
                     quality = '720p'

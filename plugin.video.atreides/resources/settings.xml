@@ -3,7 +3,7 @@
     <category label="32310">
         <setting id="appearance.alt" type="action" label="32311" default="-" option="close" action="RunPlugin(plugin://plugin.video.atreides/?action=artwork)" visible="!System.HasAddon(script.atreides.artwork)" />
         <setting id="appearance.1" type="action" label="32311" option="close" action="RunPlugin(plugin://plugin.video.atreides/?action=customartwork)" default="atreides" visible="System.HasAddon(script.atreides.artwork)" />
-        <setting id="scrapers.timeout.1" type="slider" label="32312" default="25" range="10,60" option="int" />
+        <setting id="scrapers.timeout.1" type="slider" label="32312" default="20" range="10,60" option="int" />
         <setting id="indicators.alt" type="enum" label="32313" lvalues="32314|32315" default="1" visible="!eq(-1,)" />
         <setting id="indicators" type="enum" label="32313" lvalues="32314" default="0" visible="eq(-2,)" />
         <setting id="api.language" type="select" label="32316" values="AUTO|Bulgarian|Chinese|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hebrew|Hungarian|Italian|Japanese|Korean|Norwegian|Polish|Portuguese|Romanian|Russian|Serbian|Slovak|Slovenian|Spanish|Swedish|Thai|Turkish|Ukrainian" default="AUTO" />

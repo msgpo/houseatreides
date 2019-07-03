@@ -20,7 +20,7 @@ import urllib
 import urlparse
 import requests
 
-from resources.lib.modules import cfscrape, cleantitle, log_utils
+from resources.lib.modules import cfscrape, cleantitle, control, log_utils
 
 
 class source:
@@ -74,7 +74,7 @@ class source:
             return False
         return True
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -86,12 +86,19 @@ class source:
             url = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(cleantitle.query(title)))
             headers = {'User-Agent': self.User_Agent}
 
+            timer = control.Time(start=True)
+
             if 'tvshowtitle' in data:
                 scraper = cfscrape.create_scraper()
                 html = scraper.get(url, headers=headers).content
 
                 match = re.compile('class="post-item.+?href="(.+?)" title="(.+?)"', re.DOTALL).findall(html)
                 for url, item_name in match:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('ExtraMovies - Timeout Reached')
+                        break
+
                     if cleantitle.getsearch(title).lower() in cleantitle.getsearch(item_name).lower():
                         season_url = '%02d' % int(data['season'])
                         episode_url = '%02d' % int(data['episode'])

@@ -44,7 +44,7 @@ class source:
             log_utils.log('YTSAM - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -58,6 +58,9 @@ class source:
 
             url = self.search_link % urllib.quote(query)
             url = urlparse.urljoin(self.base_link, url)
+
+            timer = control.Time(start=True)
+
             html = self.scraper.get(url).content
             try:
                 results = client.parseDOM(html, 'div', attrs={'class': 'row'})[2]
@@ -69,6 +72,11 @@ class source:
                 return sources
 
             for entry in items:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('YTSAM - Timeout Reached')
+                    break
+
                 try:
                     try:
                         link, name = re.findall('<a href="(.+?)" class="browse-movie-title">(.+?)</a>', entry, re.DOTALL)[0]
@@ -85,6 +93,11 @@ class source:
                     try:
                         entries = client.parseDOM(response, 'div', attrs={'class': 'modal-torrent'})
                         for torrent in entries:
+                            # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                            if timer.elapsed() > sc_timeout:
+                                log_utils.log('YTSAM - Timeout Reached')
+                                break
+
                             link, name = re.findall('href="magnet:(.+?)" class="magnet-download download-torrent magnet" title="(.+?)"', torrent, re.DOTALL)[0]
                             link = 'magnet:%s' % link
                             link = str(client.replaceHTMLCodes(link).split('&tr')[0])

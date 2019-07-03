@@ -21,7 +21,7 @@ import requests
 
 import xbmc
 from bs4 import BeautifulSoup, NavigableString
-from resources.lib.modules import cleantitle, jsunpack, log_utils
+from resources.lib.modules import cleantitle, control, jsunpack, log_utils
 from resources.lib.modules.client import randomagent
 
 try:
@@ -102,6 +102,9 @@ class source:
             pageURL = data['pageURL']
 
             xbmc.sleep(1000)
+
+            timer = control.Time(start=True)
+
             r = self._sessionGET(pageURL, session)
             if not r.ok:
                 failure = traceback.format_exc()
@@ -113,6 +116,10 @@ class source:
             soup = BeautifulSoup(r.content, 'html.parser')
             mainDIV = soup.find('div', class_='actual_tab')
             for hostBlock in mainDIV.findAll('tbody'):
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('Primewire - Timeout Reached')
+                    break
 
                 # All valid host links always have an 'onclick' attribute.
                 if 'onclick' in hostBlock.a.attrs:

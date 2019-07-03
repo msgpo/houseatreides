@@ -20,7 +20,7 @@
 import re
 import traceback
 
-from resources.lib.modules import client, log_utils
+from resources.lib.modules import client, control, log_utils
 
 
 class source:
@@ -61,14 +61,22 @@ class source:
             log_utils.log('Putlocker - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+
+            timer = control.Time(start=True)
+
             r = client.request(url, headers=headers)
             try:
                 match = re.compile('<iframe src="(.+?)://(.+?)/(.+?)"').findall(r)
                 for http, host, url in match:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('PutLocker - Timeout Reached')
+                        break
+
                     url = '%s://%s/%s' % (http, host, url)
                     sources.append({'source': host, 'quality': 'HD', 'language': 'en',
                                     'url': url, 'direct': False, 'debridonly': False})

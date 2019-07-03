@@ -40,7 +40,7 @@ class source:
             log_utils.log('123MovieHD - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             hostDict = hostprDict + hostDict

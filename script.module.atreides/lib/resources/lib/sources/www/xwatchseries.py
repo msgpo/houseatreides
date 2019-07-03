@@ -18,7 +18,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, log_utils, proxy
+from resources.lib.modules import cleantitle, client, control, log_utils, proxy
 
 
 class source:
@@ -110,7 +110,7 @@ class source:
             log_utils.log('XWatchSeries - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -119,12 +119,19 @@ class source:
 
             url = urlparse.urljoin(self.base_link, url)
 
+            timer = control.Time(start=True)
+
             r = proxy.request(url, 'tv shows')
 
             links = client.parseDOM(r, 'a', ret='href', attrs={'target': '.+?'})
             links = [x for y, x in enumerate(links) if x not in links[:y]]
 
             for i in links:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('XWatchSeries - Timeout Reached')
+                    break
+
                 try:
                     url = i
                     url = proxy.parse(url)

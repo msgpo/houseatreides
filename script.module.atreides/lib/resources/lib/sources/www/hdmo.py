@@ -21,7 +21,7 @@ import urlparse
 import traceback
 import requests
 
-from resources.lib.modules import cleantitle, log_utils, source_utils
+from resources.lib.modules import cleantitle, control, log_utils, source_utils
 
 
 class source:
@@ -85,7 +85,7 @@ class source:
             log_utils.log('HDMO - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -93,6 +93,8 @@ class source:
                 return sources
 
             hostDict = hostprDict + hostDict
+
+            timer = control.Time(start=True)
 
             r = self.shellscraper.get(url, headers=self.shell_headers).content
             regex = re.compile("data-type='(.+?)' data-post='(.+?)' data-nume='(\d+)'><i class='icon-play3'></i><span class='title'>(.+?)</span>", re.DOTALL).findall(r)
@@ -112,9 +114,20 @@ class source:
                 post_link = urlparse.urljoin(self.base_link, self.ajax_link)
                 payload = {'action': 'doo_player_ajax', 'post': post, 'nume': nume, 'type': data_type}
                 suck_my_nuts = self.shellscraper.post(post_link, headers=cust_headers, data=payload)
+
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('HDMO - Timeout Reached')
+                    return sources
+
                 copy_n_paste_bitches = suck_my_nuts.content
                 links = re.compile('<iframe.+?src="(.+?)"', re.DOTALL).findall(copy_n_paste_bitches)
                 for link in links:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('HDMO - Timeout Reached')
+                        break
+
                     '''
                     Testing this out still. Not sure if it will stay 1080p or change it to 720p.
                     '''

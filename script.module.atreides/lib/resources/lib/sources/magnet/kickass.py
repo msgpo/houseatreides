@@ -80,7 +80,7 @@ class source:
             log_utils.log('KICKASS - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:
@@ -102,6 +102,9 @@ class source:
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|<|>|\|)', ' ', query)
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
+
+            timer = control.Time(start=True)
+
             html = client.request(url)
             html = html.replace('&nbsp;', ' ')
             try:
@@ -114,6 +117,11 @@ class source:
                 return sources
 
             for entry in rows:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('KICKASS - Timeout Reached')
+                    break
+
                 try:
                     try:
                         name = re.findall('class="cellMainLink">(.+?)</a>', entry, re.DOTALL)[0]

@@ -107,7 +107,7 @@ class source:
             log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
             if url is None:
@@ -122,6 +122,9 @@ class source:
                 url = self.searchShow(title, int(data['season']), int(data['episode']), aliases, headers)
             else:
                 url = self.searchMovie(title, data['year'], aliases, headers)
+
+            timer = control.Time(start=True)
+
             r = client.request(url, headers=headers, output='extended', timeout='10')
             if not imdb in r[0]:
                 raise Exception()
@@ -131,6 +134,11 @@ class source:
             try:
                 r = re.findall('(https:.*?redirector.*?)[\'\"]', result)
                 for i in r:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('CartoonHD - Timeout Reached')
+                        break
+
                     try:
                         sources.append({'source': 'gvideo', 'quality': directstream.googletag(
                             i)[0]['quality'], 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
@@ -156,10 +164,16 @@ class source:
             post = urllib.urlencode(post)
             cookie += ';%s=%s' % (idEl, elid)
             headers['Cookie'] = cookie
+
             r = client.request(u, post=post, headers=headers, cookie=cookie, XHR=True)
             r = str(json.loads(r))
             r = re.findall('\'(http.+?)\'', r) + re.findall('\"(http.+?)\"', r)
             for i in r:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('CartoonHD - Timeout Reached')
+                    break
+
                 try:
                     if 'google' in i:
                         quality = 'SD'

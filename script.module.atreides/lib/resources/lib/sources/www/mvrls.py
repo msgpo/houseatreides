@@ -19,7 +19,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, debrid, log_utils, source_utils
+from resources.lib.modules import cleantitle, client, control, debrid, log_utils, source_utils
 
 
 class source:
@@ -65,7 +65,7 @@ class source:
             log_utils.log('MVRLS - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -90,6 +90,8 @@ class source:
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
 
+            timer = control.Time(start=True)
+
             html = client.request(url)
             posts = client.parseDOM(html, 'item')
 
@@ -98,6 +100,11 @@ class source:
             items = []
 
             for post in posts:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('MVRLS - Timeout Reached')
+                    break
+
                 try:
                     t = client.parseDOM(post, 'title')[0]
                     u = client.parseDOM(post, 'enclosure', ret='url')
@@ -108,6 +115,11 @@ class source:
                     pass
 
             for item in items:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('MVRLS - Timeout Reached')
+                    break
+
                 try:
 
                     url = item[1]

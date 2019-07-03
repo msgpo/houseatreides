@@ -22,7 +22,7 @@ import urllib
 import urlparse
 import requests
 
-from resources.lib.modules import log_utils, source_utils
+from resources.lib.modules import control, log_utils, source_utils
 
 
 class source:
@@ -44,7 +44,7 @@ class source:
             log_utils.log('Ganol - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         sources = []
         hostDict = hostprDict + hostDict
         try:
@@ -57,6 +57,9 @@ class source:
 
             search = title.lower()
             url = urlparse.urljoin(self.base_link, self.search_link % (search.replace(' ', '+')))
+
+            timer = control.Time(start=True)
+
             shell = requests.Session()
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
@@ -66,6 +69,11 @@ class source:
                 'data-movie-id="" class="ml-item".+?href="(.+?)" class="ml-mask jt".+?<div class="moviename">(.+?)</div>',
                 re.DOTALL).findall(Digital)
             for Digibox, Powder in BlackFlag:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('Ganol - Timeout Reached')
+                    break
+
                 if title.lower() in Powder.lower():
                     if year in str(Powder):
                         r = shell.get(Digibox, headers=headers).content

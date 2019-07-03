@@ -21,7 +21,7 @@ import urllib
 import urlparse
 import requests
 
-from resources.lib.modules import cleantitle, client, debrid, dom_parser2, log_utils, source_utils, workers
+from resources.lib.modules import cleantitle, client, control, debrid, dom_parser2, log_utils, source_utils, workers
 
 
 class source:
@@ -66,7 +66,7 @@ class source:
             log_utils.log('ScnSrc - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             self._sources = []
             if url is None:
@@ -85,6 +85,9 @@ class source:
 
             query = cleantitle.geturl(query)
             url = urlparse.urljoin(self.base_link, query)
+
+            self.timer = control.Time(start=True)
+
             shell = requests.Session()
 
             headers = {
@@ -99,7 +102,7 @@ class source:
             threads = []
 
             for i in posts:
-                threads.append(workers.Thread(self._get_sources, i.content))
+                threads.append(workers.Thread(self._get_sources, i.content, sc_timeout))
             [i.start() for i in threads]
             [i.join() for i in threads]
 
@@ -107,7 +110,7 @@ class source:
         except Exception:
             return self._sources
 
-    def _get_sources(self, item):
+    def _get_sources(self, item, sc_timeout):
         try:
             links = dom_parser2.parse_dom(item, 'a', req='href')
             links = [i.attrs['href'] for i in links]
@@ -122,6 +125,11 @@ class source:
                 pass
             info = ' | '.join(info)
             for url in links:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if self.timer.elapsed() > sc_timeout:
+                    log_utils.log('Scnsrc - Timeout Reached')
+                    break
+
                 if 'youtube' in url:
                     continue
                 if any(x in url for x in ['.rar.', '.zip.', '.iso.']) or any(

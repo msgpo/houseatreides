@@ -19,7 +19,7 @@ import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, debrid, log_utils
+from resources.lib.modules import cleantitle, client, control, debrid, log_utils
 
 
 class source:
@@ -101,7 +101,7 @@ class source:
             log_utils.log('DirectDL - Exception: \n' + str(failure))
             return
 
-    def sources(self, url, hostDict, hostprDict):
+    def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
 
@@ -124,6 +124,9 @@ class source:
                 q = self.search_link + urllib.quote_plus('%s %s' % (t, f[0]))
 
                 q = urlparse.urljoin(self.base_link, q)
+
+                timer = control.Time(start=True)
+
                 result = client.request(q)
                 print(q)
                 result = json.loads(result)
@@ -133,6 +136,11 @@ class source:
                 links = result = []
 
             for i in result:
+                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                if timer.elapsed() > sc_timeout:
+                    log_utils.log('DirectDL - Timeout Reached')
+                    break
+
                 try:
                     if not cleantitle.get(t) == cleantitle.get(i['showName']):
                         raise Exception()
