@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -13,7 +13,8 @@
 # Addon Provider: House Atreides
 
 '''
-2019/4/15: Domain name change/update
+2019/04/15: Domain name change/update
+2019/07/05: Rewrite due to site changes
 '''
 
 import re
@@ -107,9 +108,11 @@ class source:
 
             for post in posts:
                 try:
-                    t = client.parseDOM(post, 'title')[0]
+                    t = re.findall('<title>(.+?)</title>', post, re.IGNORECASE)[0]
                     u = re.findall('<link>(.+?)</link>', post, re.IGNORECASE)[0]
-                    items += [(t, u)]
+                    # "Quick" check to reduce invalid results
+                    if data['year'] in t:
+                        items += [(t, u)]
                 except Exception:
                     pass
 
@@ -120,59 +123,55 @@ class source:
                     break
 
                 try:
-                    if title.lower() not in item[0].lower():
+                    if cleantitle.query(title).lower() not in item[0].lower():
                         continue
 
                     url = item[1]
                     html = scraper.get(url).content
 
                     try:
-                        download_area = client.parseDOM(html, 'div', attrs={'class': 'postpage_movie_download_area'})
-                        for box in download_area:
-                            if '<span>Single Links</span>' not in box:
-                                continue
-                            link_boxes = re.findall('anch_multilink">(.+?)</div>', box, re.DOTALL)
-                            if link_boxes is None:
-                                continue
+                        link_areas = client.parseDOM(html, 'div', attrs={'class': 'multilink_lnks'})
+                        for area in link_areas:
+                            link_boxes = re.findall('<div class="anch_multilink">(.+?)</div>', area, re.DOTALL)
                             for link_section in link_boxes:
-                                url = re.findall('href="(.+?)"', link_section, re.DOTALL)[0]
-                                if any(x in url for x in ['.rar', '.zip', '.iso']):
-                                    continue
-                                url = client.replaceHTMLCodes(url)
-                                url = url.encode('utf-8')
-                                valid, host = source_utils.is_host_valid(url, hostDict)
-                                if not valid:
-                                    continue
-                                host = client.replaceHTMLCodes(host)
-                                host = host.encode('utf-8')
-
-                                name = item[0]
-                                name = client.replaceHTMLCodes(name)
-
-                                t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name, flags=re.I)
-
-                                if not cleantitle.get(t) == cleantitle.get(title):
-                                    continue
-
-                                y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', name)[-1].upper()
-
-                                if not y == hdlr:
-                                    continue
-
-                                quality, info = source_utils.get_release_quality(name, url)
-
                                 try:
-                                    size = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GB|GiB|MB|MiB))', item[2])[-1]
-                                    div = 1 if size.endswith(('GB', 'GiB')) else 1024
-                                    size = float(re.sub('[^0-9|/.|/,]', '', size)) / div
-                                    size = '%.2f GB' % size
-                                    info.append(size)
-                                except Exception:
-                                    pass
+                                    url = re.findall('href="(.+?)"', link_section, re.DOTALL)[0]
+                                    url = client.replaceHTMLCodes(url)
+                                    url = url.encode('utf-8')
+                                    valid, host = source_utils.is_host_valid(url, hostDict)
+                                    if not valid:
+                                        continue
 
-                                info = ' | '.join(info)
-                                sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info,
-                                                'direct': False, 'debridonly': debrid.status()})
+                                    name = item[0]
+                                    name = client.replaceHTMLCodes(name)
+
+                                    # t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name, flags=re.I)
+
+                                    if not cleantitle.get(title) in cleantitle.get(name):
+                                        continue
+
+                                    y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', name)[-1].upper()
+
+                                    if not y == hdlr:
+                                        continue
+
+                                    quality, info = source_utils.get_release_quality(name, url)
+
+                                    try:
+                                        size = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GB|GiB|MB|MiB))', item[2])[-1]
+                                        div = 1 if size.endswith(('GB', 'GiB')) else 1024
+                                        size = float(re.sub('[^0-9|/.|/,]', '', size)) / div
+                                        size = '%.2f GB' % size
+                                        info.append(size)
+                                    except Exception:
+                                        pass
+
+                                    info = ' | '.join(info)
+                                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info,
+                                                    'direct': False, 'debridonly': debrid.status()})
+                                except Exception:
+                                    log_utils.log('2DDL - Fuckup in Download Area')
+                                    continue
                     except Exception:
                         # No section found, report to debugger and quit working this one
                         log_utils.log('2DDL - Download Area not found')

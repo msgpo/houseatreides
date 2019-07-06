@@ -18,6 +18,7 @@
 2019/06/28: Added sc_timeout before sources call on scrapers. Idea from Gaia, but setting is called here a single time then passed
             down through the function to call scraper.sources() and then utilized in the scraper to limit the time scrapers run better.
             Need to implement this in each scraper and as lazy as I am, will take a little bit. Uses Providers Timout from addon settings.
+2019/07/04: Prem naming and checks added. Credit to host505
 '''
 
 import datetime
@@ -282,10 +283,21 @@ class sources:
                     w = workers.Thread(self.sourcesResolve, items[i])
                     w.start()
 
-                    offset = 60 * 2 if items[i].get('source') in self.hostcapDict else 0
+                    #offset = 60 * 2 if items[i].get('source') in self.hostcapDict else 0
+                    if items[i].get('debrid').lower() == 'real-debrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'alldebrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'premiumize.me':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'linksnappy':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
+
+                    if items[i].get('source') in self.hostcapDict: offset = 60 * 2
+                    elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
+                    else: offset = 0
 
                     m = ''
-
                     for x in range(3600):
                         try:
                             if xbmc.abortRequested is True:
@@ -1147,8 +1159,20 @@ class sources:
             except Exception:
                 d = self.sources[i]['debrid'] = ''
 
+            if d.lower() == 'alldebrid':
+                d = 'AD'
+            if d.lower() == 'debrid-link.fr':
+                d = 'DL.FR'
+            if d.lower() == 'linksnappy':
+                d = 'LS'
+            if d.lower() == 'megadebrid':
+                d = 'MD'
+            if d.lower() == 'premiumize.me':
+                d = 'PM'
             if d.lower() == 'real-debrid':
                 d = 'RD'
+            if d.lower() == 'zevera':
+                d = 'ZVR'
 
             if not d == '':
                 label = '%02d | [B]%s | %s[/B] | ' % (int(i+1), d, p)
@@ -1310,8 +1334,27 @@ class sources:
                     except Exception:
                         progressDialog.update(int((100 / float(len(items))) * i), str(header2), str(items[i]['label']))
 
-                    m = ''
+                    if items[i].get('debrid').lower() == 'real-debrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon(
+                            'script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'alldebrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == 'false' or control.addon(
+                            'script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'premiumize.me':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon(
+                            'script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'linksnappy':
+                        no_skip = control.addon('script.module.resolveurl').getSetting(
+                            'LinksnappyResolver_cached_only') == 'false'
 
+                    if items[i].get('source') in self.hostcapDict:
+                        offset = 60 * 2
+                    elif items[i].get('source').lower() == 'torrent' and no_skip:
+                        offset = float('inf')
+                    else:
+                        offset = 0
+
+                    m = ''
                     for x in range(3600):
                         try:
                             if xbmc.abortRequested is True:
@@ -1325,13 +1368,13 @@ class sources:
                         if k:
                             m += '1'
                             m = m[-1]
-                        if (w.is_alive() is False or x > 30) and not k:
+                        if (w.is_alive() is False or x > 30 + offset) and not k:
                             break
                         k = control.condVisibility('Window.IsActive(yesnoDialog)')
                         if k:
                             m += '1'
                             m = m[-1]
-                        if (w.is_alive() is False or x > 30) and not k:
+                        if (w.is_alive() is False or x > 30 + offset) and not k:
                             break
                         time.sleep(0.5)
 

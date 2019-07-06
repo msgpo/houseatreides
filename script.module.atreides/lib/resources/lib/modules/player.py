@@ -12,8 +12,11 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
-# 3/28/2019: Kodi 18 Updates from The Oath - https://github.com/host505/plugin.video.theoath
-# 4/6/2019: Additional Kodi 18 resume update pointed out by host505, dev of The Oath
+'''
+2019/03/28: Kodi 18 Updates from The Oath - https://github.com/host505/plugin.video.theoath
+2019/04/06: Additional Kodi 18 resume update pointed out by host505, dev of The Oath
+2019/07/04: More 18 support
+'''
 
 import base64
 import codecs
@@ -273,11 +276,11 @@ class player(xbmc.Player):
 
     def idleForPlayback(self):
         for i in range(0, 400):
-            if control.condVisibility('Window.IsActive(busydialog)') == 1:
-                control.idle()
+            if control.condVisibility('Window.IsActive(busydialog)') == 1 or control.condVisibility('Window.IsActive(busydialognocancel)') == 1:
+                control.sleep(100)
             else:
+                control.execute('Dialog.Close(all,true)')
                 break
-            control.sleep(100)
 
     def onAVStarted(self):
         try:
@@ -291,16 +294,18 @@ class player(xbmc.Player):
             pass
 
     def onPlayBackStarted(self):
-        control.execute('Dialog.Close(all,true)')
-        if not self.offset == '0':
-            self.seekTime(float(self.offset))
-        subtitles().get(self.name, self.imdb, self.season, self.episode)
-        self.idleForPlayback()
+        if int(control.getKodiVersion()) < 18:
+            control.execute('Dialog.Close(all,true)')
+            if not self.offset == '0': self.seekTime(float(self.offset))
+            subtitles().get(self.name, self.imdb, self.season, self.episode)
+            self.idleForPlayback()
+        else:
+            self.onAVStarted()
 
     def onPlayBackStopped(self):
         bookmarks().reset(self.currentTime, self.totalTime, self.name, self.year)
         if control.setting('crefresh') == 'true':
-            xbmc.executebuiltin('Container.Refresh')
+            control.refresh()
         try:
             if (self.currentTime / self.totalTime) >= .90:
                 self.libForPlayback()
@@ -311,7 +316,7 @@ class player(xbmc.Player):
         self.libForPlayback()
         self.onPlayBackStopped()
         if control.setting('crefresh') == 'true':
-            xbmc.executebuiltin('Container.Refresh')
+           control.refresh()
 
 
 class subtitles:

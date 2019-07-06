@@ -298,6 +298,13 @@ def strip_domain(url):
 
 def is_host_valid(url, domains):
     try:
+        if any(x in url.lower() for x in ['.rar.', '.zip.', '.iso.']):
+            raise Exception()
+        if any(url.lower().endswith(x) for x in ['.rar', '.zip', '.iso']):
+            raise Exception()
+        if any(x in url.lower() for x in ['youtube', 'sample', 'trailer', 'zippyshare', 'facebook']):
+            raise Exception()
+
         host = __top_domain(url)
         hosts = [domain.lower() for domain in domains if host and host in domain.lower()]
 

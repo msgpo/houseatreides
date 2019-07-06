@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -12,6 +12,9 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/07/06: Scraper updated.
+'''
 
 import base64
 import re
@@ -20,7 +23,7 @@ import urllib
 import urlparse
 import requests
 
-from resources.lib.modules import cfscrape, cleantitle, control, log_utils
+from resources.lib.modules import cfscrape, cleantitle, control, log_utils, source_utils
 
 
 class source:
@@ -69,14 +72,15 @@ class source:
             return
 
     def filter_host(self, host):
-        if host not in ['openload.co', 'yourupload.com', 'streamango.com', 'rapidvideo.com', 'uptobox.com',
-                        'clicknupload.org']:
+        if host not in ['openload.co', 'yourupload.com', 'streamango.com', 'rapidvideo.com', 'uptobox.com', 'clicknupload.org']:
             return False
         return True
 
     def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
+
+            hostDict = hostDict + hostprDict
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
@@ -141,15 +145,10 @@ class source:
                                     link = base64.b64decode(link)
                                 except Exception:
                                     pass
-                                try:
-                                    host = link.split('//')[1].replace('www.', '')
-                                    host = host.split('/')[0].lower()
-                                except Exception:
-                                    pass
-                                if not self.filter_host(host):
+                                valid, host = source_utils.is_host_valid(link, hostDict)
+                                if not valid or not self.filter_host(host):
                                     continue
-                                sources.append({'source': host, 'quality': quality, 'language': 'en',
-                                                'url': link, 'direct': False, 'debridonly': False})
+                                sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': link, 'direct': False, 'debridonly': False})
 
             return sources
         except Exception:

@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you can do whatever you want with this
-# stuff. Just please ask before copying. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -13,16 +13,17 @@
 # Addon Provider: House Atreides
 
 '''
-2019/5/24: Removed filter function, as its not needed anymore. Updated/tweaked regex
+2019/05/24: Removed filter function, as its not needed anymore. Updated/tweaked regex
 to pull both iframes. Added some quality checking from source_utils.
-2019/6/12: Added cfscrape
+2019/06/12: Added cfscrape
+2019/07/06: Minor tweaks
 '''
 
 import re
 import urlparse
 import traceback
 
-from resources.lib.modules import cleantitle, control, log_utils, source_utils, cfscrape
+from resources.lib.modules import cfscrape, cleantitle, control, log_utils, source_utils
 
 
 class source:
@@ -50,7 +51,8 @@ class source:
 
             if url is None:
                 return sources
-            # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+
+            hostDict = hostprDict + hostDict
 
             timer = control.Time(start=True)
 
@@ -63,9 +65,11 @@ class source:
                     log_utils.log('FilmXY - Timeout Reached')
                     break
 
+                valid, host = source_utils.is_host_valid(link, hostDict)
+                if not valid:
+                    continue
+
                 quality = source_utils.check_sd_url(link)
-                host = link.split('//')[1].replace('www.', '')
-                host = host.split('/')[0].lower()
                 '''
                 Now source_utils can't strip quality on some of these links. It will drop them
                 down to SD. So i say we try this as most if not all links are HD

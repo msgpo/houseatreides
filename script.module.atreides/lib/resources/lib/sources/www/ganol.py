@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -13,7 +13,8 @@
 # Addon Provider: House Atreides
 
 '''
-2019/5/1: Initial import to Atreides. Initial scraper done by a friend, all credit to them
+2019/05/01: Initial import to Atreides. Initial scraper done by a friend, all credit to them
+2019/07/06: Domain updates
 '''
 
 import re
@@ -29,8 +30,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['www']
-        self.domains = ['ganol.si', 'ganool123.com']
-        self.base_link = 'https://www3.ganool.ws'
+        self.domains = ['ganool.bz']
+        self.base_link = 'https://ganool.bz'
         self.search_link = '/search/?q=%s'
         self.download_links = '/loadmoviedownloadsection.php'
 

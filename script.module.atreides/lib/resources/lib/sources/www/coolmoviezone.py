@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -13,7 +13,8 @@
 # Addon Provider: House Atreides
 
 '''
-2019/4/17: Readded this one, fix by SC
+2019/04/17: Readded this one, fix by SC
+2019/07/06: Minor code updates
 '''
 
 import re
@@ -43,6 +44,7 @@ class source:
             return
 
     def sources(self, url, hostDict, hostprDict, sc_timeout):
+        hostDict = hostprDict + hostDict
         try:
             sources = []
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
@@ -59,8 +61,9 @@ class source:
 
                 quality = source_utils.check_sd_url(url)
                 valid, host = source_utils.is_host_valid(url, hostDict)
-                sources.append({'source': host, 'quality': quality, 'language': 'en',
-                                'url': url, 'direct': False, 'debridonly': False})
+                if not valid:
+                    continue
+                sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'direct': False, 'debridonly': False})
         except Exception:
             failure = traceback.format_exc()
             log_utils.log('CoolMovieZone - Exception: \n' + str(failure))

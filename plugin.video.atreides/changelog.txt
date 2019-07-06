@@ -1,3 +1,9 @@
+[COLOR limegreen]Atredies Script Module v1.4.1[/COLOR]
+    - Cipher updates
+    - Premium source name and filter updates
+    - Kodi 18 player updates
+    - Scraper updates
+
 [COLOR limegreen]Atredies Video Addon v1.3.0[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.4.0[/COLOR]
     - Enhanced providers timeout

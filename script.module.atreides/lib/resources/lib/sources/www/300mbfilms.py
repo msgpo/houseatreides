@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -12,13 +12,16 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/07/06: Updated scraper. Reduced use of parsedom and loops. Simplified name checks
+'''
 
 import re
 import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cleantitle, client, control, debrid, log_utils, source_utils
+from resources.lib.modules import cleantitle, client, control, log_utils, source_utils
 
 
 class source:
@@ -93,7 +96,7 @@ class source:
 
             r = client.request(url)
 
-            posts = client.parseDOM(r, 'h2')
+            posts = re.findall('<h2 class="title">(.+?)</h2>', r, re.IGNORECASE)
 
             hostDict = hostprDict + hostDict
 
@@ -105,21 +108,17 @@ class source:
                     break
 
                 try:
-                    item = re.compile('a href="(.+?)"').findall(item)
-                    name = item[0]
-                    query = query.replace(" ", "-").lower()
-                    if query not in name:
+                    link, name = re.findall('href="(.+?)" title="(.+?)"', item, re.IGNORECASE)[0]
+                    if not cleantitle.get(title) in cleantitle.get(name):
                         continue
                     name = client.replaceHTMLCodes(name)
 
-                    quality, info = source_utils.get_release_quality(name, item[0])
-                    if any(x in quality for x in ['CAM', 'SD']):
-                        continue
+                    quality, info = source_utils.get_release_quality(name, link)
 
                     try:
-                        size = re.sub('i', '', item[2])
-                        div = 1 if size.endswith('GB') else 1024
-                        size = float(re.sub('[^0-9|/.|/,]', '', size))/div
+                        size = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GB|GiB|MB|MiB))', name)[-1]
+                        div = 1 if size.endswith(('GB', 'GiB')) else 1024
+                        size = float(re.sub('[^0-9|/.|/,]', '', size)) / div
                         size = '%.2f GB' % size
                         info.append(size)
                     except Exception:
@@ -127,19 +126,17 @@ class source:
 
                     info = ' | '.join(info)
 
-                    url = item
-                    links = self.links(url)
+                    links = self.links(link)
                     urls += [(i, quality, info) for i in links]
-
                 except Exception:
+                    failure = traceback.format_exc()
+                    log_utils.log('300MBFilms - Exception: \n' + str(failure))
                     pass
 
             for item in urls:
-
                 if 'earn-money' in item[0]:
                     continue
-                if any(x in item[0] for x in ['.rar', '.zip', '.iso']):
-                    continue
+
                 url = client.replaceHTMLCodes(item[0])
                 url = url.encode('utf-8')
 
@@ -149,17 +146,7 @@ class source:
                 host = client.replaceHTMLCodes(host)
                 host = host.encode('utf-8')
 
-                if debrid.status() is False:
-                    sources.append(
-                        {'source': host, 'quality': item[1],
-                         'language': 'en', 'url': url, 'info': item[2],
-                         'direct': False, 'debridonly': False})
-                else:
-                    sources.append(
-                        {'source': host, 'quality': item[1],
-                         'language': 'en', 'url': url, 'info': item[2],
-                         'direct': False, 'debridonly': True})
-
+                sources.append({'source': host, 'quality': item[1], 'language': 'en', 'url': url, 'info': item[2], 'direct': False, 'debridonly': False})
             return sources
         except Exception:
             failure = traceback.format_exc()
@@ -171,13 +158,13 @@ class source:
         try:
             if url is None:
                 return
-            for url in url:
-                r = client.request(url)
-                r = client.parseDOM(r, 'div', attrs={'class': 'entry'})
-                r = client.parseDOM(r, 'a', ret='href')
-                r1 = [i for i in r if 'money' in i][0]
-                r = client.request(r1)
-                r = client.parseDOM(r, 'div', attrs={'id': 'post-\d+'})[0]
+
+            r = client.request(url)
+            r = client.parseDOM(r, 'div', attrs={'class': 'entry'})
+            r = client.parseDOM(r, 'a', ret='href')
+            r1 = [i for i in r if 'money' in i][0]
+            r = client.request(r1)
+            r = client.parseDOM(r, 'div', attrs={'id': 'post-\d+'})[0]
 
             if 'enter the password' in r:
                 plink = client.parseDOM(r, 'form', ret='action')[0]
@@ -190,9 +177,17 @@ class source:
 
             link = re.findall('<strong>Single(.+?)</tr', link, re.DOTALL)[0]
             link = client.parseDOM(link, 'a', ret='href')
-            # link = [(i.split('=')[-1]) for i in link]
             for i in link:
-                urls.append(i)
+                if 'earn-money-onlines.info' in i:
+                    trim = i.replace('protector1.php', 'protector.php')
+                    r = client.request(trim)
+                    filter_links = re.compile('<center> <a href="(.+?)"').findall(r)
+                    for i in filter_links:
+                        if any(x in i for x in ['uptobox', 'clicknupload']):
+                            continue
+                        urls.append(i)
+                else:
+                    urls.append(i)
 
             return urls
         except Exception:
