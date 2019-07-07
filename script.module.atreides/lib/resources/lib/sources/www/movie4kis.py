@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -13,7 +13,8 @@
 # Addon Provider: House Atreides
 
 '''
-2019/4/17: Readded this one, fix by SC
+2019/04/17: Readded this one, fix by SC
+2019/07/06: Updated and normalized
 '''
 
 import re
@@ -39,12 +40,11 @@ class source:
             url = url % (search.replace(':', ' ').replace(' ', '+'))
 
             r = self.scraper.get(url).content
-            Yourmouth = re.compile(
-                '<div class="boxinfo".+?href="(.+?)".+?<h2>(.+?)</h2>.+?class="year">(.+?)</span>', re.DOTALL).findall(r)
-            for Myballs, Mycock, Myjizz in Yourmouth:
-                if cleantitle.get(title) in cleantitle.get(Mycock):
-                    if year in str(Myjizz):
-                        return Myballs
+            info = re.findall('<div class="boxinfo".+?href="(.+?)".+?<h2>(.+?)</h2>.+?class="year">(.+?)</span>', r, re.DOTALL)
+            for link, name, r_year in info:
+                if cleantitle.get(title) in cleantitle.get(name):
+                    if year in str(r_year):
+                        return link
             return
         except Exception:
             failure = traceback.format_exc()
@@ -63,15 +63,8 @@ class source:
 
             r = self.scraper.get(url).content
             qual = re.compile('<span class="calidad2">(.+?)</span>').findall(r)
-            for url in qual:
-                if '1080' in url:
-                    quality = '1080p'
-                elif '720' in url:
-                    quality = '720p'
-                elif 'HD' in url:
-                    quality = 'HD'
-                else:
-                    quality = 'SD'
+            for qcheck in qual:
+                quality, info = source_utils.get_release_quality(qcheck, qcheck)
 
             links = re.compile('<iframe src="(.+?)"', re.DOTALL).findall(r)
 
@@ -81,11 +74,10 @@ class source:
                     log_utils.log('Movie4kis - Timeout Reached')
                     break
 
-                host = link.split('//')[1].replace('www.', '')
-                host = host.split('/')[0].split('.')[0].title()
                 valid, host = source_utils.is_host_valid(link, hostDict)
-                sources.append({'source': host, 'quality': quality, 'language': 'en',
-                                'url': link, 'direct': False, 'debridonly': False})
+                if not valid:
+                    continue
+                sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': link, 'direct': False, 'debridonly': False})
             return sources
         except Exception:
             failure = traceback.format_exc()

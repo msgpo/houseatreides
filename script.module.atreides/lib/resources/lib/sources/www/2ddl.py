@@ -15,6 +15,7 @@
 '''
 2019/04/15: Domain name change/update
 2019/07/05: Rewrite due to site changes
+2019/07/06: Note to self - I fucked size checks and need to rewrite it but too lazy to right now
 '''
 
 import re

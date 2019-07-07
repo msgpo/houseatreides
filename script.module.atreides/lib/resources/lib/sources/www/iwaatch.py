@@ -2,15 +2,19 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-# @shellc0de wrote this file.  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
 # Addon Name: Atreides
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
+
+'''
+2019/07/06: Minor tweaks
+'''
 
 import re
 import urllib
@@ -67,8 +71,8 @@ class source:
 
             timer = control.Time(start=True)
 
-            shell = requests.Session()
-            r = shell.get(url, headers=headers).content
+            response = requests.Session()
+            r = response.get(url, headers=headers).content
             movie_scrape = re.compile('<h2 class="h2 p-title.+?a href="(.+?)".+?div class="post-title">(.+?)<', re.DOTALL).findall(r)
 
             for movie_url, movie_title in movie_scrape:
@@ -78,14 +82,11 @@ class source:
                     break
 
                 if cleantitle.getsearch(title).lower() == cleantitle.getsearch(movie_title).lower():
-
-                    r = shell.get(movie_url, headers=headers).content
-                    year_data = re.compile('<h2 style="margin-bottom: 0">(.+?)</h2>', re.DOTALL).findall(r)
-                    if year in str(year_data):
+                    r = response.get(movie_url, headers=headers).content
+                    year_data = re.findall('<h2 style="margin-bottom: 0">(.+?)</h2>', r, re.IGNORECASE)[0]
+                    if year == year_data:
                         links = re.findall(r"<a href='(.+?)'>(\d+)p<\/a>", r)
-
                         for link, quality in links:
-
                             if '1080' in quality:
                                 quality = '1080p'
                             elif '720' in quality:
@@ -94,7 +95,6 @@ class source:
                                 quality = 'SD'
                             else:
                                 quality = 'SD'
-
                             sources.append({'source': 'Direct', 'quality': quality, 'language': 'en', 'url': link+'|Referer=https://iwaatch.com/movie/' + title, 'direct': True, 'debridonly': False})
             return sources
         except Exception:

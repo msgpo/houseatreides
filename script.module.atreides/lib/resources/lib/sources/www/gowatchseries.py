@@ -2,15 +2,19 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
 # Addon Name: Atreides
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
+
+'''
+2019/07/06: Domain and one host domain change
+'''
 
 import json
 import re
@@ -26,7 +30,7 @@ class source:
         self.priority = 1
         self.source = ['www']
         self.domains = ['gowatchseries.io', 'gowatchseries.co']
-        self.base_link = 'https://ww2.gowatchseries.co'
+        self.base_link = 'https://gowatchseries.tv'
         self.search_link = '/ajax-search.html?keyword=%s&id=-1'
         self.search_link2 = '/search.html?keyword=%s'
 
@@ -90,8 +94,7 @@ class source:
                 # result = r[0]
                 headers['Cookie'] = cookie
 
-                query = urlparse.urljoin(self.base_link, self.search_link %
-                                         urllib.quote_plus(cleantitle.getsearch(title)))
+                query = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(cleantitle.getsearch(title)))
 
                 timer = control.Time(start=True)
 
@@ -108,8 +111,7 @@ class source:
                 else:
                     cltitle = cleantitle.getsearch(title)
                     cltitle2 = cleantitle.getsearch('%s (%s)' % (title, year))
-                    r = [i for i in r if cltitle2 == cleantitle.getsearch(
-                        i[1]) or cltitle == cleantitle.getsearch(i[1])]
+                    r = [i for i in r if cltitle2 == cleantitle.getsearch(i[1]) or cltitle == cleantitle.getsearch(i[1])]
                     vurl = '%s%s-episode-0' % (self.base_link, str(r[0][0]).replace('/info', ''))
                     vurl2 = '%s%s-episode-1' % (self.base_link, str(r[0][0]).replace('/info', ''))
 
@@ -136,19 +138,17 @@ class source:
                         break
 
                     try:
-                        if 'vidnode.net/streaming.php' in slink:
+                        if 'vidcloud.icu/streaming.php' in slink:
                             r = client.request('https:%s' % slink, headers=headers)
                             clinks = re.findall(r'sources:\[(.*?)\]', r)[0]
                             clinks = re.findall(r'file:\s*\'(http[^\']+)\',label:\s*\'(\d+)', clinks)
                             for clink in clinks:
                                 q = source_utils.label_to_quality(clink[1])
-                                sources.append({'source': 'cdn', 'quality': q, 'language': 'en',
-                                                'url': clink[0], 'direct': True, 'debridonly': False})
+                                sources.append({'source': 'cdn', 'quality': q, 'language': 'en', 'url': clink[0], 'direct': True, 'debridonly': False})
                         else:
                             valid, hoster = source_utils.is_host_valid(slink, hostDict)
                             if valid:
-                                sources.append({'source': hoster, 'quality': 'SD', 'language': 'en',
-                                                'url': slink, 'direct': False, 'debridonly': False})
+                                sources.append({'source': hoster, 'quality': 'SD', 'language': 'en', 'url': slink, 'direct': False, 'debridonly': False})
                     except Exception:
                         pass
 

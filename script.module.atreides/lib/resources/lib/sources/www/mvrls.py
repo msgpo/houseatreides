@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -12,7 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
-# 3/30/2019 - Sent to me from another addon dev, credit on their work (asked to be left anon)
+'''
+2019/03/30: Initial work by SC
+2019/07/06: Minor tweaks
+'''
 
 import re
 import traceback
@@ -106,8 +109,9 @@ class source:
                     break
 
                 try:
-                    t = client.parseDOM(post, 'title')[0]
-                    u = client.parseDOM(post, 'enclosure', ret='url')
+                    log_utils.log('POST: ' + str(post))
+                    t = re.findall('<title>(.+?)</title>', post, re.IGNORECASE)[0]
+                    u = re.findall('<enclosure url="(.+?)"', post, re.IGNORECASE)
                     s = re.search('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GB|GiB|MB|MiB))', post)
                     s = s.groups()[0] if s else '0'
                     items += [(t, i, s) for i in u]
@@ -121,10 +125,7 @@ class source:
                     break
 
                 try:
-
                     url = item[1]
-                    if any(x in url for x in ['.rar', '.zip', '.iso', '.part']):
-                        raise Exception()
                     url = client.replaceHTMLCodes(url)
                     url = url.encode('utf-8')
 
@@ -138,15 +139,15 @@ class source:
                     name = item[0]
                     name = client.replaceHTMLCodes(name)
 
-                    t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name, flags=re.I)
+                    # t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name, flags=re.I)
 
-                    if not cleantitle.get(t) == cleantitle.get(title):
-                        raise Exception()
+                    if not cleantitle.get(title) in cleantitle.get(name):
+                        continue
 
                     y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', name)[-1].upper()
 
                     if not y == hdlr:
-                        raise Exception()
+                        continue
 
                     quality, info = source_utils.get_release_quality(name, url)
 
@@ -161,8 +162,7 @@ class source:
 
                     info = ' | '.join(info)
 
-                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info,
-                                    'direct': False, 'debridonly': debrid.status()})
+                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': debrid.status()})
                 except Exception:
                     pass
 

@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -14,8 +14,7 @@
 
 '''
 2019/4/16: Updated to use CFScrape - Still using single request
-2019/5/26: Added quality check. Adj iframe to pull fembed links again
-as they are now playable.
+2019/5/26: Added quality check. Adj iframe to pull fembed links again as they are now playable.
 '''
 
 import re

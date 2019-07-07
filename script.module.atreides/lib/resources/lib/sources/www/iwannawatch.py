@@ -2,9 +2,9 @@
 #######################################################################
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-# @shellc0de wrote this file.  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+# As long as you retain this notice you can do whatever you want with
+# this stuff. If we meet some day, and you think this stuff is worth it,
+# you can buy me a beer in return. - Muad'Dib
 # ----------------------------------------------------------------------------
 #######################################################################
 
@@ -13,8 +13,8 @@
 # Addon Provider: House Atreides
 
 '''
-2019/6/12: Adjusted regex in links to remove the trailer link
-that was sneaking in.
+2019/06/12: Adjusted regex in links to remove the trailer link that was sneaking in.
+2019/07/06: Added valid host check since already pulled
 '''
 
 import re
@@ -56,7 +56,6 @@ class source:
             quality_check = re.compile('class="quality">(.+?)<').findall(r)
 
             for quality in quality_check:
-
                 if 'HD' in quality:
                     quality = '720p'
                 else:
@@ -70,6 +69,8 @@ class source:
                     break
 
                 valid, host = source_utils.is_host_valid(url, hostDict)
+                if not valid:
+                    continue
                 sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'direct': False, 'debridonly': False})
             return sources
         except Exception:
