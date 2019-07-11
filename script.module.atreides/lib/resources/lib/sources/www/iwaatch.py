@@ -22,7 +22,7 @@ import urlparse
 import requests
 import traceback
 
-from resources.lib.modules import cleantitle, control, log_utils
+from resources.lib.modules import cfscrape, cleantitle, control, log_utils
 
 
 class source:
@@ -50,6 +50,8 @@ class source:
             if url is None:
                 return sources
 
+            scraper = cfscrape.create_scraper()
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
@@ -71,9 +73,8 @@ class source:
 
             timer = control.Time(start=True)
 
-            response = requests.Session()
-            r = response.get(url, headers=headers).content
-            movie_scrape = re.compile('<h2 class="h2 p-title.+?a href="(.+?)".+?div class="post-title">(.+?)<', re.DOTALL).findall(r)
+            r = scraper.get(url, headers=headers).content
+            movie_scrape = re.findall('<h2 class="h2 p-title.+?a href="(.+?)".+?div class="post-title">(.+?)<', r, re.DOTALL)
 
             for movie_url, movie_title in movie_scrape:
                  # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
@@ -82,7 +83,7 @@ class source:
                     break
 
                 if cleantitle.getsearch(title).lower() == cleantitle.getsearch(movie_title).lower():
-                    r = response.get(movie_url, headers=headers).content
+                    r = scraper.get(movie_url, headers=headers).content
                     year_data = re.findall('<h2 style="margin-bottom: 0">(.+?)</h2>', r, re.IGNORECASE)[0]
                     if year == year_data:
                         links = re.findall(r"<a href='(.+?)'>(\d+)p<\/a>", r)

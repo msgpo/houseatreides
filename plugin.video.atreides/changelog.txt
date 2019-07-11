@@ -1,3 +1,9 @@
+[COLOR limegreen]Atredies Script Module v1.4.3[/COLOR]
+    - Scraper updates
+    - Progress Dialog Tweak
+    - Client Request default timeout cut in half
+    - Scraper Thread Monitor added to Debug
+
 [COLOR limegreen]Atredies Script Module v1.4.2[/COLOR]
     - Scraper updates
 

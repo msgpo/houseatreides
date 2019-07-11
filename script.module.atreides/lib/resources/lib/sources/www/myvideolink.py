@@ -23,7 +23,7 @@ import urllib
 import urlparse
 import xbmcgui
 
-from resources.lib.modules import cleantitle, client, control, debrid, log_utils
+from resources.lib.modules import cfscrape, cleantitle, client, control, debrid, log_utils
 
 
 class source:
@@ -76,6 +76,8 @@ class source:
             if url is None:
                 return sources
 
+            scraper = cfscrape.create_scraper()
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
@@ -96,7 +98,7 @@ class source:
 
             timer = control.Time(start=True)
 
-            r = client.request(url)
+            r = scraper.get(url).content
 
             r = client.parseDOM(r, 'h2')
             z = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='title'))
@@ -130,7 +132,7 @@ class source:
                 try:
                     t = post[0]
 
-                    u = client.request(post[1])
+                    u = scraper.get(post[1]).content
                     u = re.findall('\'(http.+?)\'', u) + re.findall('\"(http.+?)\"', u)
                     u = [i for i in u if '/embed/' not in i]
                     u = [i for i in u if 'youtube' not in i]

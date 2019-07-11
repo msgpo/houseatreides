@@ -64,6 +64,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url)
 
             timer = control.Time(start=True)
+
             r = self.scraper.get(url).content
             match = re.findall('<div data-movie-id=.+?href="(.+?)".+?oldtitle="(.+?)".+?div class="jt-info".+?release-year/(.+?)/', r, re.DOTALL)
             items = []

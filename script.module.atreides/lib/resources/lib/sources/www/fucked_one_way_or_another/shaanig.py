@@ -74,7 +74,6 @@ class source:
 
                 some_links = client.parseDOM(url, 'a', ret='href')
                 for url in some_links:
-
                     quality = source_utils.check_sd_url(url)
                     url = url.split('?s=')[1]
                     final = urlparse.urljoin('http:', url)

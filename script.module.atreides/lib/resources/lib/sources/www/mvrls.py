@@ -109,7 +109,6 @@ class source:
                     break
 
                 try:
-                    log_utils.log('POST: ' + str(post))
                     t = re.findall('<title>(.+?)</title>', post, re.IGNORECASE)[0]
                     u = re.findall('<enclosure url="(.+?)"', post, re.IGNORECASE)
                     s = re.search('((?:\d+\.\d+|\d+\,\d+|\d+)\s*(?:GB|GiB|MB|MiB))', post)

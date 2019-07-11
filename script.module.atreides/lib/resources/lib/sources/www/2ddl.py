@@ -78,6 +78,8 @@ class source:
             if url is None:
                 return sources
 
+            hostDict = hostprDict + hostDict
+
             scraper = cfscrape.create_scraper()
 
             data = urlparse.parse_qs(url)
@@ -102,8 +104,6 @@ class source:
 
             html = scraper.get(url).content
             posts = client.parseDOM(html, 'item')
-
-            hostDict = hostprDict + hostDict
 
             items = []
 

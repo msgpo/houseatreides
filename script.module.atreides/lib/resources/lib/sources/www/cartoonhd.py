@@ -12,6 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019:07/08: Minor tweaks
+'''
+
 import base64
 import json
 import re
@@ -29,13 +33,13 @@ class source:
     def __init__(self):
         self.priority = 0
         self.source = ['www']
-        self.domains = ['cartoonhd.care', 'cartoonhd.de', 'cartoonhd.cz']
+        self.domains = ['www1.cartoonhd.care', 'www1.cartoonhd.it', 'cartoonhd.cz']
         self._base_link = None
 
     @property
     def base_link(self):
         if not self._base_link:
-            self._base_link = cache.get(self.__get_base_url, 120, 'http://%s' % self.domains[0])
+            self._base_link = cache.get(self.__get_base_url, 120, 'https://%s' % self.domains[0])
         return self._base_link
 
     def movie(self, imdb, title, localtitle, aliases, year):

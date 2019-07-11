@@ -33,7 +33,7 @@ from resources.lib.modules import cache, dom_parser, log_utils, utils, workers
 
 
 def request(url, close=True, redirect=True, error=False, verify=True, proxy=None, post=None, headers=None, mobile=False,
-            XHR=False, limit=None, referer=None, cookie=None, compression=True, output='', timeout='30'):
+            XHR=False, limit=None, referer=None, cookie=None, compression=True, output='', timeout='15'):
     try:
         if not url:
             return

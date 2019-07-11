@@ -451,6 +451,10 @@ class sources:
         sourcelabelDict = dict([(i[0], i[1].upper()) for i in s])
 
         [i.start() for i in threads]
+        hall_monitor = None
+        if control.setting('thread.monitoring') == 'true' and control.setting('addon_debug') == 'true':
+            log_utils.log('Thread Monitoring Started')
+            hall_monitor = workers.start_monitoring()
 
         string1 = control.lang(32404).encode('utf-8')
         string2 = control.lang(32405).encode('utf-8')
@@ -481,8 +485,8 @@ class sources:
         debrid_status = debrid.status()
 
         total_format = '[COLOR %s][B]%s[/B][/COLOR]'
-        pdiag_format = ' 4K: %s | 1080p: %s | 720p: %s | SD: %s | %s: %s'.split('|')
-        pdiag_bg_format = '4K:%s(%s)|1080p:%s(%s)|720p:%s(%s)|SD:%s(%s)|T:%s(%s)'.split('|')
+        pdiag_format = ' 4K: %s | 1080: %s | 720: %s | SD: %s | %s: %s'.split('|')
+        pdiag_bg_format = '4K:%s(%s)|1080:%s(%s)|720:%s(%s)|SD:%s(%s)|T:%s(%s)'.split('|')
 
         for i in range(0, 4 * timeout):
             try:
@@ -740,6 +744,10 @@ class sources:
                 time.sleep(0.5)
             except Exception:
                 pass
+
+        if hall_monitor is not None:
+            hall_monitor.stop()
+            log_utils.log('Thread Monitoring Stopped')
 
         try:
             progressDialog.close()
