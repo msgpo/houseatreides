@@ -12,6 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/07/18: Added creating base default header when none passed. Specifies mobile version if mobile is true
+'''
+
 # Credit out for CF updates. It's cropped up in tons of addons, but no one giving credit so no clue
 # who it first came from. Props out to the original writer.
 
@@ -37,6 +41,12 @@ def request(url, close=True, redirect=True, error=False, verify=True, proxy=None
     try:
         if not url:
             return
+
+        if not headers:
+            if not mobile:
+                headers = randomagent()
+            else:
+                headers = randommobileagent()
 
         handlers = []
 

@@ -32,7 +32,7 @@ class source:
         self.source = ['www']
         self.domains = ['myvideolinks.net', 'iwantmyshow.tk', 'new.myvideolinks.net']
         self.base_link = 'http://myvideolinks.net'
-        self.search_link = '/wp/?s=%s'
+        self.search_link = '/mv1/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:

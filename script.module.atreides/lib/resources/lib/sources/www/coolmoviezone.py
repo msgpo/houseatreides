@@ -52,7 +52,9 @@ class source:
             timer = control.Time(start=True)
 
             r = client.request(url, headers=headers)
-            match = re.compile('<td align="center"><strong><a href="(.+?)"').findall(r)
+            if r is None:
+                return sources
+            match = re.findall('<td align="center"><strong><a href="(.+?)"', r, re.DOTALL)
             for url in match:
                 # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
                 if timer.elapsed() > sc_timeout:

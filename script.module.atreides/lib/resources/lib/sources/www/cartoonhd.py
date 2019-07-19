@@ -13,7 +13,8 @@
 # Addon Provider: House Atreides
 
 '''
-2019:07/08: Minor tweaks
+2019/07/08: Minor tweaks
+2019/07/18: Rewrote search portion to use the API for more accuracy. Need to find resolver for viduplayer.com embed links to make it pull ALL links properly
 '''
 
 import base64
@@ -26,15 +27,23 @@ import urlparse
 
 import xbmc
 
-from resources.lib.modules import cache, cleantitle, client, control, directstream, log_utils, source_utils
+from resources.lib.modules import cache, cfscrape, cleantitle, client, control, directstream, log_utils, source_utils
 
 
 class source:
     def __init__(self):
         self.priority = 0
         self.source = ['www']
-        self.domains = ['www1.cartoonhd.care', 'www1.cartoonhd.it', 'cartoonhd.cz']
+        self.domains = ['cartoonhd.cz', 'www1.cartoonhd.it', 'www1.cartoonhd.care']
         self._base_link = None
+        self.search_link = 'https://api.cartoonhd.cz/api/v1/0A6ru35yevokjaqbb3'
+        self.search_set = "MmTkOQzKUxltDSrwSNEWnmqCs"
+        '''
+        Next two are referenced. They are in the headers, but currently never change and combine to equal the search url last item.
+        If they start changing it up, will look at pulling them out of the header to append to the search link.
+        '''
+        self.search_slk = "0A6ru35y"
+        self.search_key = "evokjaqbb3"
 
     @property
     def base_link(self):
@@ -78,34 +87,69 @@ class source:
             log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return
 
-    def searchShow(self, title, season, episode, aliases, headers):
+    def searchShow(self, title, season, episode, year):
         try:
-            for alias in aliases:
-                url = '%s/show/%s/season/%01d/episode/%01d' % (self.base_link,
-                                                               cleantitle.geturl(title), int(season), int(episode))
-                url = client.request(url, headers=headers, output='geturl', timeout='10')
-                if not url is None and url != self.base_link:
-                    break
-            return url
+            chkurl = urlparse.urljoin(self.base_link, '/tv-shows')
+            data = client.request(chkurl, headers={})
+            try:
+                tok = re.findall("var\s*tok\s*=\s*'(.+?)'", data)[0]
+            except Exception:
+                log_utils.log('CartoonHD: Unable to retrieve token')
+                return
+
+            params = {
+                "q": cleantitle.geturl(title),
+                "limit": 100,
+                "timestamp": int(time.time() * 1000),
+                "verifiedCheck": tok,
+                "set": self.search_set,
+                "rt": self.search_set,
+                "sl": self.search_key
+                }
+
+            results = client.request(self.search_link, referer=chkurl, post=params)
+            for entry in json.loads(results):
+                if "show" not in entry["meta"].lower():
+                    continue
+                if str(year) != str(entry["year"]):
+                    continue
+                if cleantitle.get(title) == cleantitle.get(entry["title"]):
+                    return urlparse.urljoin(self.base_link, entry["permalink"])
+            return
         except Exception:
             failure = traceback.format_exc()
             log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return
 
-    def searchMovie(self, title, year, aliases, headers):
+    def searchMovie(self, title, year):
         try:
-            for alias in aliases:
-                url = '%s/film/%s' % (self.base_link, cleantitle.geturl(alias['title']))
-                url = client.request(url, headers=headers, output='geturl', timeout='10')
-                if not url is None and url != self.base_link:
-                    break
-            if url is None:
-                for alias in aliases:
-                    url = '%s/film/%s-%s' % (self.base_link, cleantitle.geturl(alias['title']), year)
-                    url = client.request(url, headers=headers, output='geturl', timeout='10')
-                    if not url is None and url != self.base_link:
-                        break
-            return url
+            chkurl = urlparse.urljoin(self.base_link, '/films')
+            data = client.request(chkurl, headers={})
+            try:
+                tok = re.findall("var\s*tok\s*=\s*'(.+?)'", data)[0]
+            except Exception:
+                log_utils.log('CartoonHD: Unable to retrieve token')
+                return
+
+            params = {
+                "q": cleantitle.geturl(title),
+                "limit": 100,
+                "timestamp": int(time.time() * 1000),
+                "verifiedCheck": tok,
+                "set": self.search_set,
+                "rt": self.search_set,
+                "sl": self.search_key
+                }
+
+            results = client.request(self.search_link, referer=chkurl, post=params)
+            for entry in json.loads(results):
+                if "movie" not in entry["meta"].lower():
+                    continue
+                if str(year) != str(entry["year"]):
+                    continue
+                if cleantitle.get(title) == cleantitle.get(entry["title"]):
+                    return urlparse.urljoin(self.base_link, entry["permalink"])
+            return
         except Exception:
             failure = traceback.format_exc()
             log_utils.log('CartoonHD - Exception: \n' + str(failure))
@@ -114,24 +158,31 @@ class source:
     def sources(self, url, hostDict, hostprDict, sc_timeout):
         try:
             sources = []
+
             if url is None:
                 return sources
+
+            hostDict = hostDict + hostprDict
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
             imdb = data['imdb']
-            aliases = eval(data['aliases'])
-            headers = {}
-            if 'tvshowtitle' in data:
-                url = self.searchShow(title, int(data['season']), int(data['episode']), aliases, headers)
-            else:
-                url = self.searchMovie(title, data['year'], aliases, headers)
 
             timer = control.Time(start=True)
 
-            r = client.request(url, headers=headers, output='extended', timeout='10')
+            if 'tvshowtitle' in data:
+                url = self.searchShow(title, int(data['season']), int(data['episode']), data['year'])
+                url = url + '/season/%s/episode/%s' % (data['season'], data['episode'])
+            else:
+                url = self.searchMovie(title, data['year'])
+
+            r = client.request(url, output='extended', timeout='10')
+
             if not imdb in r[0]:
-                raise Exception()
+                log_utils.log('CartoonHD - IMDB Not Found')
+                return sources
+
             cookie = r[4]
             headers = r[3]
             result = r[0]
@@ -150,6 +201,7 @@ class source:
                         pass
             except:
                 pass
+
             try:
                 auth = re.findall('__utmx=(.+)', cookie)[0].split(';')[0]
             except:
@@ -158,6 +210,7 @@ class source:
             headers['Authorization'] = auth
             headers['Referer'] = url
             u = '/ajax/vsozrflxcw.php'
+
             self.base_link = client.request(self.base_link, headers=headers, output='geturl')
             u = urlparse.urljoin(self.base_link, u)
             action = 'getEpisodeEmb' if '/episode/' in url else 'getMovieEmb'
@@ -171,44 +224,46 @@ class source:
 
             r = client.request(u, post=post, headers=headers, cookie=cookie, XHR=True)
             r = str(json.loads(r))
-            r = re.findall('\'(http.+?)\'', r) + re.findall('\"(http.+?)\"', r)
-            for i in r:
-                # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
-                if timer.elapsed() > sc_timeout:
-                    log_utils.log('CartoonHD - Timeout Reached')
-                    break
 
-                try:
-                    if 'google' in i:
-                        quality = 'SD'
-                        if 'googleapis' in i:
+            if len(r) > 0:
+                r = re.findall('\'(http.+?)\'', r) + re.findall('\"(http.+?)\"', r)
+                for i in r:
+                    # Stop searching 8 seconds before the provider timeout, otherwise might continue searching, not complete in time, and therefore not returning any links.
+                    if timer.elapsed() > sc_timeout:
+                        log_utils.log('CartoonHD - Timeout Reached')
+                        break
+
+                    try:
+                        if 'google' in i:
+                            quality = 'SD'
+                            if 'googleapis' in i:
+                                try:
+                                    quality = source_utils.check_sd_url(i)
+                                except:
+                                    pass
+                            if 'googleusercontent' in i:
+                                i = directstream.googleproxy(i)
+                                try:
+                                    quality = directstream.googletag(i)[0]['quality']
+                                except:
+                                    pass
+                            sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en',
+                                            'url': i, 'direct': True, 'debridonly': False})
+                        elif 'llnwi.net' in i or 'vidcdn.pro' in i:
                             try:
                                 quality = source_utils.check_sd_url(i)
+                                sources.append({'source': 'CDN', 'quality': quality, 'language': 'en',
+                                                'url': i, 'direct': True, 'debridonly': False})
                             except:
                                 pass
-                        if 'googleusercontent' in i:
-                            i = directstream.googleproxy(i)
-                            try:
-                                quality = directstream.googletag(i)[0]['quality']
-                            except:
-                                pass
-                        sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en',
-                                        'url': i, 'direct': True, 'debridonly': False})
-                    elif 'llnwi.net' in i or 'vidcdn.pro' in i:
-                        try:
-                            quality = source_utils.check_sd_url(i)
-                            sources.append({'source': 'CDN', 'quality': quality, 'language': 'en',
-                                            'url': i, 'direct': True, 'debridonly': False})
-                        except:
-                            pass
-                    else:
-                        valid, hoster = source_utils.is_host_valid(i, hostDict)
-                        if not valid:
-                            continue
-                        sources.append({'source': hoster, 'quality': '720p', 'language': 'en',
-                                        'url': i, 'direct': False, 'debridonly': False})
-                except:
-                    pass
+                        else:
+                            valid, hoster = source_utils.is_host_valid(i, hostDict)
+                            if not valid:
+                                continue
+                            sources.append({'source': hoster, 'quality': '720p', 'language': 'en',
+                                            'url': i, 'direct': False, 'debridonly': False})
+                    except:
+                        pass
             return sources
         except:
             return sources

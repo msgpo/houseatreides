@@ -62,6 +62,9 @@ class source:
             timer = control.Time(start=True)
 
             html = self.scraper.get(url).content
+            if html is None:
+                log_utils.log('YTS - Website Timed Out')
+                return sources
             try:
                 results = client.parseDOM(html, 'div', attrs={'class': 'row'})[2]
             except Exception:

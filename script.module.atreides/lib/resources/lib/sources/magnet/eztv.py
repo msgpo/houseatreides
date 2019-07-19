@@ -95,6 +95,9 @@ class source:
             timer = control.Time(start=True)
 
             html = client.request(url)
+            if html is None:
+                log_utils.log('EZTV - Website Timed Out')
+                return sources
 
             try:
                 results = client.parseDOM(html, 'table', attrs={'class': 'forum_header_border'})

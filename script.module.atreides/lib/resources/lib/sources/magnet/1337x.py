@@ -144,6 +144,9 @@ class source:
     def _get_items(self, url, sc_timeout):
         try:
             r = self.scraper.get(url).content
+            if r is None:
+                log_utils.log('1337x - Website Timed Out')
+                return
             posts = client.parseDOM(r, 'tbody')[0]
             posts = client.parseDOM(posts, 'tr')
             for post in posts:

@@ -12,6 +12,9 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/07/17: Domain updates
+'''
 
 import re
 import traceback
@@ -25,7 +28,7 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['magnet']
-        self.domains = ['kickass2.how', 'kickasstorrents.bz', 'kkickass.com', 'kkat.net', 'kickass-kat.com', 'kickasst.net', 'kickasst.org', 'kickasstorrents.id', 'thekat.cc', 'thekat.ch']
+        self.domains = ['kickass.vc', 'kickasstorrents.bz', 'kkickass.com', 'kkat.net', 'kickass-kat.com', 'kickasst.net', 'kickasst.org', 'kickasstorrents.id', 'thekat.cc', 'thekat.ch']
         self._base_link = None
         self.search_link = '/usearch/%s'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
@@ -106,7 +109,12 @@ class source:
             timer = control.Time(start=True)
 
             html = client.request(url)
+            if html is None:
+                log_utils.log('KICKASS - Website Timed Out')
+                return sources
+
             html = html.replace('&nbsp;', ' ')
+
             try:
                 rows = client.parseDOM(html, 'tr', attrs={'id': 'torrent_latest_torrents'})
             except Exception:

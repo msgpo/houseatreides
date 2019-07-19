@@ -16,6 +16,7 @@
 2019/5/21: Since spacemov.cc has a captcha on the main page, we will now scrape
 their sister site 123imdb. Also completely rewrote the script for better
 accuracy
+2019/07/17: Minor tweaks
 '''
 
 import re
@@ -23,7 +24,7 @@ import urlparse
 import requests
 import traceback
 
-from resources.lib.modules import cleantitle, control, log_utils
+from resources.lib.modules import cleantitle, control, log_utils, source_utils
 
 
 class source:
@@ -64,6 +65,11 @@ class source:
             the url.
             '''
             r = requests.get(url, headers=headers).url
+            if r is None or r == self.base_link:
+                '''
+                Invalid info or movie not hosted by 123imdb (or site has wrong year like with Alita: Battle Angel)
+                '''
+                return sources
             url = urlparse.urljoin(r, 'watching/?ep=1')
 
             r = requests.get(url, headers=headers).content
@@ -84,10 +90,14 @@ class source:
                 quality = 'SD'
 
             # We pull the only playable link
-            movie_scrape = re.compile('<a title=.+?data-svv1="(.+?)"', re.DOTALL).findall(r)[0]
+            try:
+                movie_scrape = re.findall('<a title=.+?data-svv1="(.+?)"', r, re.DOTALL)[0]
+            except Exception:
+                return sources
 
-            host = movie_scrape.split('//')[1].replace('www.', '')
-            host = host.split('/')[0].split('.')[0].title()
+            valid, host = source_utils.is_host_valid(movie_scrape, hostDict)
+            if not valid:
+                return sources
             sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': movie_scrape, 'direct': False, 'debridonly': False})
             return sources
         except Exception:

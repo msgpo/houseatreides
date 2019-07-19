@@ -112,29 +112,15 @@ class source:
                         Regex = re.compile('href="(.+?)"', re.DOTALL).findall(result)
                         for ep_url in Regex:
                             if sea_epi in ep_url:
-                                if '1080p' in ep_url:
-                                    qual = '1080p'
-                                elif '720p' in ep_url:
-                                    qual = '720p'
-                                elif '480p' in ep_url:
-                                    qual = '480p'
-                                else:
-                                    qual = 'SD'
-
-                                sources.append({'source': 'CDN', 'quality': qual, 'language': 'en',
-                                                'url': ep_url, 'direct': False, 'debridonly': False})
+                                quality = source_utils.check_sd_url(ep_url)
+                                sources.append({'source': 'CDN', 'quality': quality, 'language': 'en', 'url': ep_url, 'direct': False, 'debridonly': False})
             else:
                 html = requests.get(url, headers=headers).content
                 match = re.compile('<div class="thumbnail".+?href="(.+?)" title="(.+?)"', re.DOTALL).findall(html)
 
                 for url, item_name in match:
                     if cleantitle.getsearch(title).lower() in cleantitle.getsearch(item_name).lower():
-                        if '1080' in url:
-                            quality = '1080p'
-                        elif '720' in url:
-                            quality = '720p'
-                        else:
-                            quality = 'SD'
+                        quality = source_utils.check_sd_url(url)
 
                         result = requests.get(url, headers=headers, timeout=10).content
                         Regex = re.compile('href="/download.php.+?link=(.+?)"', re.DOTALL).findall(result)

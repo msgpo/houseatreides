@@ -12,22 +12,26 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/07/17: Minor tweaks. Various proxies still giving periodic 502 pages though, nothing to do about that part.
+'''
 
 import re
 import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cache, cleantitle, client, control, debrid, log_utils, source_utils
+from resources.lib.modules import cache, cfscrape, cleantitle, client, control, debrid, log_utils, source_utils
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.source = ['magnet']
-        self.domains = ['tpb.cool', 'piratebay.tech', 'openpirate.org', 'piratebay.icu', 'mypirate.live', 'thepirate.fun', 'openpirate.info']
+        self.domains = ['mypirate.live', 'piratebay.tech', 'openpirate.org', 'piratebay.icu', 'tpb.cool', 'thepirate.fun', 'openpirate.info']
         self._base_link = None
         self.search_link = '/search.php?q=%s&page=0&orderby=99'
+        self.scraper = cfscrape.create_scraper()
         self.min_seeders = int(control.setting('torrent.min.seeders'))
 
     @property
@@ -91,6 +95,7 @@ class source:
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
             title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
+            title = cleantitle.geturl(title)
 
             hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
 
@@ -106,7 +111,10 @@ class source:
 
             timer = control.Time(start=True)
 
-            html = client.request(url)
+            html = self.scraper.get(url).content
+            if html is None:
+                log_utils.log('TPB - Website Timed Out')
+                return sources
             html = html.replace('&nbsp;', ' ')
             try:
                 results = client.parseDOM(html, 'table', attrs={'id': 'searchResult'})[0]
@@ -132,8 +140,11 @@ class source:
                             continue
                     except Exception:
                         continue
-                    y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', name)[-1].upper()
-                    if not y == hdlr:
+                    try:
+                        y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', name)[-1].upper()
+                        if not y == hdlr:
+                            continue
+                    except Exception:
                         continue
 
                     try:

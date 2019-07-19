@@ -103,6 +103,9 @@ class source:
             timer = control.Time(start=True)
 
             html = client.request(url)
+            if html is None:
+                log_utils.log('Zoogle - Website Timed Out')
+                return sources
             html = html.replace('&nbsp;', ' ')
             try:
                 results = client.parseDOM(html, 'table', attrs={'class': 'table table-condensed table-torrents vmiddle'})[0]

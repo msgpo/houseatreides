@@ -12,6 +12,10 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/07/17: Added cleanup of long dash
+'''
+
 import re
 import unicodedata
 
@@ -24,6 +28,8 @@ def get(title):
     except Exception:
         pass
     title = str(title)
+    title = title.rstrip()
+    title = title.replace('–', '-')
     title = re.sub('&#(\d);', '', title)
     title = re.sub('(&#[0-9]+)([^;^0-9]+)', '\\1;\\2', title)
     title = title.replace('&quot;', '\"').replace('&amp;', '&')
@@ -35,17 +41,21 @@ def geturl(title):
     if title is None:
         return
     title = title.lower()
+    title = title.rstrip()
     title = title.translate(None, ':*?"\'\.<>|&!,')
     title = title.replace('/', '-')
     title = title.replace(' ', '-')
     title = title.replace('--', '-')
+    title = title.replace('–', '-')
     return title
 
 
 def get_simple(title):
     if title is None:
         return
+    title = title.replace('–', '-')
     title = title.lower()
+    title = title.rstrip()
     title = re.sub('(\d{4})', '', title)
     title = re.sub('&#(\d+);', '', title)
     title = re.sub('(&#[0-9]+)([^;^0-9]+)', '\\1;\\2', title)
@@ -58,6 +68,8 @@ def getsearch(title):
     if title is None:
         return
     title = title.lower()
+    title = title.rstrip()
+    title = title.replace('–', '-')
     title = re.sub('&#(\d+);', '', title)
     title = re.sub('(&#[0-9]+)([^;^0-9]+)', '\\1;\\2', title)
     title = title.replace('&quot;', '\"').replace('&amp;', '&')
@@ -68,7 +80,7 @@ def getsearch(title):
 def query(title):
     if title is None:
         return
-    title = title.replace('\'', '').rsplit(':', 1)[0].rsplit(' -', 1)[0].replace('-', ' ')
+    title = title.replace('\'', '').rsplit(':', 1)[0].rsplit(' -', 1)[0].replace('-', ' ').replace('–', '-')
     return title
 
 

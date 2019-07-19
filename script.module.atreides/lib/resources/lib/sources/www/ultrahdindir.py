@@ -12,20 +12,24 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/07/17: Optimized things a bit and reogranized cleanup locations in function
+'''
+
 import re
 import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import client, control, debrid, dom_parser2, log_utils
+from resources.lib.modules import client, control, debrid, dom_parser2, log_utils, source_utils
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.source = ['www']
-        self.domains = ['ultrahdindir.net']
-        self.base_link = 'https://www.ultrahdindir.net/'
+        self.domains = ['ultrahdindir.com']
+        self.base_link = 'https://ultrahdindir.com/'
         self.post_link = '/index.php?do=search'
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -56,12 +60,12 @@ class source:
 
             url = urlparse.urljoin(self.base_link, self.post_link)
 
-            post = 'do=search&subaction=search&search_start=0&full_search=0&result_from=1&story=%s' % urllib.quote_plus(
-                query)
+            post = 'do=search&subaction=search&search_start=0&full_search=0&result_from=1&story=%s' % urllib.quote_plus(query)
 
             timer = control.Time(start=True)
 
             r = client.request(url, post=post)
+
             r = client.parseDOM(r, 'div', attrs={'class': 'box-out margin'})
             r = [(dom_parser2.parse_dom(i, 'div', attrs={'class': 'news-title'})) for i in r if data['imdb'] in i]
             r = [(dom_parser2.parse_dom(i[0], 'a', req='href')) for i in r if i]
@@ -88,25 +92,20 @@ class source:
                             log_utils.log('UltraHDInDir - Timeout Reached')
                             break
 
+                        url = client.replaceHTMLCodes(url)
+                        url = url.encode('utf-8')
+
+                        if 'turbobit' not in url:
+                            continue
+                        valid, host = source_utils.is_host_valid(url, hostDict)
+                        if not valid:
+                            continue
+
                         try:
                             qual = client.request(url)
                             quals = re.findall('span class="file-title" id="file-title">(.+?)</span', qual)
                             for quals in quals:
-                                if '4K' in quals:
-                                    quality = '4K'
-                                elif '2160p' in quals:
-                                    quality = '4K'
-                                elif '1080p' in quals:
-                                    quality = '1080p'
-                                elif '720p' in quals:
-                                    quality = '720p'
-                                elif any(i in ['dvdscr', 'r5', 'r6'] for i in quals):
-                                    quality = 'SCR'
-                                elif any(i in ['camrip', 'tsrip', 'hdcam', 'hdts', 'dvdcam', 'dvdts', 'cam', 'telesync', 'ts']
-                                         for i in quals):
-                                    quality = 'CAM'
-                                else:
-                                    quality = '720p'
+                                quality = source_utils.check_sd_url(quals)
 
                             info = []
                             if '3D' in name or '.3D.' in quals:
@@ -117,14 +116,8 @@ class source:
 
                             info = ' | '.join(info)
 
-                            url = client.replaceHTMLCodes(url)
-                            url = url.encode('utf-8')
-                            if any(x in url for x in ['.rar', '.zip', '.iso']):
-                                raise Exception()
-                            if 'turbobit' not in url:
-                                continue
-                            sources.append({'source': 'turbobit', 'quality': quality, 'language': 'en',
-                                            'url': url, 'info': info, 'direct': True, 'debridonly': debrid.status()})
+                            sources.append({'source': host, 'quality': quality, 'language': 'en',
+                                            'url': url, 'info': info, 'direct': True, 'debridonly': False})
 
                         except Exception:
                             pass

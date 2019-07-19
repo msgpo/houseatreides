@@ -140,7 +140,6 @@ class source:
                         name = re.findall('<td class="n">(.+?)</td>', entry, re.DOTALL)[0]
                         name = re.findall('title="(.+?)"', name, re.DOTALL)[0]
                         name = client.replaceHTMLCodes(name)
-                        # t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name, flags=re.I)
                         if not cleantitle.get(title) in cleantitle.get(name):
                             continue
                     except Exception:
