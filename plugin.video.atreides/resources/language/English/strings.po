@@ -1104,23 +1104,23 @@ msgid "[B]SETTINGS[/B] : Filters"
 msgstr ""
 
 msgctxt "#32648"
-msgid "This option will clear the base cache that is\nstored in Atreides"
+msgid "This option will clear the base cache that is stored in Atreides"
 msgstr ""
 
 msgctxt "#32649"
-msgid "This will clear the cache for the Providers saved\nduring the scrape process"
+msgid "This will clear the cache for the Providers saved during the scrape process"
 msgstr ""
 
 msgctxt "#32650"
-msgid "This will clear all the Metadata Cache stored in\nAtreides for movies and tv shows"
+msgid "This will clear all the Metadata Cache stored in Atreides for movies and tv shows"
 msgstr ""
 
 msgctxt "#32651"
-msgid "This clears the search history for movies and tv\nshows saved when you do manual searches"
+msgid "This clears the search history for movies and tv shows saved when you do manual searches"
 msgstr ""
 
 msgctxt "#32652"
-msgid "This clears all stored cache in Atreides, except\nfor the search history"
+msgid "This clears all stored cache in Atreides, except for the search history"
 msgstr ""
 
 msgctxt "#32653"

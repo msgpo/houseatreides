@@ -24,14 +24,13 @@ import xbmcaddon
 import xbmcgui
 
 from resources.lib.dialogs import themecontrol
-from resources.lib.modules import client, control
+from resources.lib.modules import client, control, log_utils
 
 
 newsfile = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L21nU3h1WnZ6'.decode('base64')
 changesfile = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L3pNNkc3TjBS'.decode('base64')
 approvedfile = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L2RmNDIyMlJE'.decode('base64')
 paypalfile = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L0tYdERqMnQ2'.decode('base64')
-bugsfile = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L2hrQXdHcTdn'.decode('base64')
 scraperfile = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L016VlJUcGQy'.decode('base64')
 rdfile = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L1VrWURnY1du'.decode('base64')
 torrentfile = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L3EyMEpnODg2'.decode('base64')
@@ -76,8 +75,7 @@ class NewsDialog(pyxbmct.BlankDialogWindow):
         self.menu.addItems(['News',
                             'Changes',
                             'Builds',
-                            'Paypal',
-                            'Bug Reports'])
+                            'Paypal'])
         '''
         Left Side Menu Bottom Section, currently unused
         '''
@@ -116,25 +114,9 @@ class NewsDialog(pyxbmct.BlankDialogWindow):
         self.WatchButton.setVisible(False)
         self.connect(self.WatchButton, self.watchVideo)
 
-        self.BugForm = pyxbmct.Edit('', _alignment=pyxbmct.ALIGN_CENTER)
-        self.placeControl(self.BugForm, 8, 24, 2, 31)
-        self.BugForm.setVisible(False)
-
-        self.SubmitButton = pyxbmct.Button(
-            'Submit', textColor='0xFFFFFFFF', shadowColor='0xFF000000', focusedColor='0xFFbababa',
-            focusTexture=themecontrol.btn_focus, noFocusTexture=themecontrol.btn_nofocus)
-        self.placeControl(self.SubmitButton, 15, 36, rowspan=2, columnspan=8)
-        self.SubmitButton.setVisible(False)
-        self.connect(self.SubmitButton, self.submitForm)
-
     def set_navigation(self):
         self.menu.controlUp(self.menu2)
         self.menu.controlDown(self.menu2)
-        self.menu.controlRight(self.BugForm)
-        self.BugForm.controlLeft(self.menu)
-        self.BugForm.controlDown(self.SubmitButton)
-        self.SubmitButton.controlUp(self.BugForm)
-        self.SubmitButton.controlLeft(self.menu)
         self.menu2.controlUp(self.menu)
         self.menu2.controlDown(self.CloseButton)
         self.menu2.controlRight(self.WatchButton)
@@ -155,8 +137,6 @@ class NewsDialog(pyxbmct.BlankDialogWindow):
     def update_view(self):
         try:
             if self.getFocus() == self.menu:
-                self.SubmitButton.setVisible(False)
-                self.BugForm.setVisible(False)
                 self.WatchButton.setVisible(False)
                 self.RDLink.setVisible(False)
                 self.video = None
@@ -173,14 +153,7 @@ class NewsDialog(pyxbmct.BlankDialogWindow):
                 elif selection == 'Paypal':
                     self.Header.setLabel('[B]Paypal[/B]', textColor=self.colors.dh_color)
                     self.Description.setText(self.paypal)
-                elif selection == 'Bug Reports':
-                    self.Header.setLabel('[B]Bug Reports[/B]', textColor=self.colors.dh_color)
-                    self.Description.setText('If you think you found a bug, broken scraper, bad\nresults, and so on then please let us know below!')
-                    self.SubmitButton.setVisible(True)
-                    self.BugForm.setVisible(True)
             elif self.getFocus() == self.menu2:
-                self.SubmitButton.setVisible(False)
-                self.BugForm.setVisible(False)
                 selection = self.menu2.getListItem(self.menu2.getSelectedPosition()).getLabel()
                 self.WatchButton.setVisible(True)
                 if selection == 'Scraper Tips':
@@ -210,21 +183,6 @@ class NewsDialog(pyxbmct.BlankDialogWindow):
         # Have tried resolvedUrl but no valid handle due to custom GUI. Executing only causes crash or nothing at all (tried trailer url for
         # atreides default.py and just fails)
         control.execute('PlayMedia("%s")' % (self.video.decode('base64')))
-
-    def submitForm(self):
-        reportText = self.BugForm.getText()
-        self.close()
-        from resources.lib.modules import webform
-        result = webform.webform().bug_report('Atreides', reportText)
-        if result is None:
-            # Wait before submitting another report you fuckin spammer
-            xbmc.executebuiltin("XBMC.Notification(%s, %s, %s, %s)" % ('Atreides Bug Report', 'Wait Before Next Submission', 4000, control.addonIcon()))
-        elif result is False:
-            # Failed to send. Site timed out or is down. Ya'll suck
-            xbmc.executebuiltin("XBMC.Notification(%s, %s, %s, %s)" % ('Atreides Bug Report', 'Submission Failed', 4000, control.addonIcon()))
-        elif result is True:
-            # Bug Report worked, FUCK YEAH!
-            xbmc.executebuiltin("XBMC.Notification(%s, %s, %s, %s)" % ('Atreides Bug Report', 'Bug Report Completed', 4000, control.addonIcon()))
 
     def getDialogText(self, url):
         try:

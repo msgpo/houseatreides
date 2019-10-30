@@ -83,6 +83,16 @@
             "thumbnail": "tools.png"
         },
         {
+            "title": "[B]ATREIDES[/B] : Log Viewer",
+            "action": "logViewer",
+            "thumbnail": "tools.png"
+        },
+        {
+            "title": "[B]ATREIDES[/B] : Bug Reporting",
+            "action": "bugReports",
+            "thumbnail": "tools.png"
+        },
+        {
             "title": "32668",
             "action": "pairTools",
             "thumbnail": "tools.png"

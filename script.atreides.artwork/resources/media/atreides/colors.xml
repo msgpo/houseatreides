@@ -4,5 +4,7 @@
         <menuheader>0xFF37a1d1</menuheader>
         <menutext>0xFFFFFFFF</menutext>
         <link>0xFFd0f9f9</link>
+        <focustext>0xFFbababa</focustext>
+        <focusbutton>0xFFbababa</focusbutton>
     </color>
 </colors>

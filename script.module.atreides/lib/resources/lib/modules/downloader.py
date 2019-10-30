@@ -122,7 +122,8 @@ def done(title, dest, downloaded):
     xbmcgui.Window(10000).setProperty('GEN-DOWNLOADED', text)
 
     if (not downloaded) or (not playing):
-        xbmcgui.Dialog().ok(title, text)
+        from resources.lib.dialogs import ok
+        ok.OK_Dialog(title, text)
         xbmcgui.Window(10000).clearProperty('GEN-DOWNLOADED')
 
 
@@ -143,7 +144,8 @@ def doDownload(url, dest, title, image, headers):
     resp = getResponse(url, headers, 0)
 
     if not resp:
-        xbmcgui.Dialog().ok(title, dest, 'Download failed', 'No response from server')
+        from resources.lib.dialogs import ok
+        ok.OK_Dialog(title + ' - Download failed' , 'No response from server')
         return
 
     try:
@@ -162,7 +164,8 @@ def doDownload(url, dest, title, image, headers):
         print "Download is resumable"
 
     if content < 1:
-        xbmcgui.Dialog().ok(title, file, 'Unknown filesize', 'Unable to download')
+        from resources.lib.dialogs import ok
+        ok.OK_Dialog(title + ' - Unknown filesize', 'Unable to download')
         return
 
     size = 1024 * 1024

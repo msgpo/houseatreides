@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.atreides" name="Atreides Repository" version="0.0.6" provider-name="House Atreides">
+<addon id="repository.atreides" name="Atreides Repository" version="0.0.7" provider-name="House Atreides">
     <requires>
         <import addon="xbmc.addon" version="12.0.0"/>
     </requires>
@@ -9,14 +9,14 @@
         <datadir zip="true">https://raw.githubusercontent.com/therealatreides/houseatreides/master/_housefiles/</datadir>
         <hashes>false</hashes>
         <dir>
-            <info compressed="false">http://kodicustombuilds.com/terrorize/repo/addons.xml</info>
-            <checksum>http://kodicustombuilds.com/terrorize/repo/addons.xml.md5</checksum>
-            <datadir zip="true">http://kodicustombuilds.com/terrorize/repo/zips/</datadir>
-        </dir>
-        <dir>
             <info compressed="false">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/</datadir>
         </dir>
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>

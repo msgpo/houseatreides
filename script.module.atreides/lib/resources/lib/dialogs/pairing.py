@@ -17,7 +17,6 @@ import os
 import traceback
 import webbrowser
 
-import pyxbmct
 import xbmc
 import xbmcaddon
 import xbmcgui
@@ -53,179 +52,148 @@ AUTH_LIST = [
      'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3RoZXJlYWxhdHJlaWRlcy9hdHJlaWRlc2V4dHJhcy9tYXN0ZXIvYXJ0d29yay9wYWlyaW5nL3JkLnBuZw==')]
 
 
-class NewsDialog(pyxbmct.BlankDialogWindow):
-    def __init__(self):
-        super(NewsDialog, self).__init__()
-        self.setGeometry(800, 450, 20, 60)
-
-        self.colors = themecontrol.ThemeColors()
-        self.open_browser = control.setting('browser.pair')
-        if self.open_browser == '' or self.open_browser == 'true':
-            self.open_browser = True
-        else:
-            self.open_browser = False
-
-        self.Background = pyxbmct.Image(themecontrol.bg_news)
-        self.placeControl(self.Background, 0, 0, rowspan=20, columnspan=60)
-
-        self.set_controls()
-        self.set_navigation()
-        self.connect(pyxbmct.ACTION_NAV_BACK, self.close)
-
-        self.video = None
-
-    def set_controls(self):
-        '''
-        Left Side Menu Top Section
-        '''
-        self.MenuSection = pyxbmct.Label(
-            '[B]Tool Menu[/B]', alignment=pyxbmct.ALIGN_LEFT, textColor=self.colors.mh_color)
-        self.placeControl(self.MenuSection, 3, 1, columnspan=17)
-        self.menu = pyxbmct.List(textColor=self.colors.mt_color)
-        self.placeControl(self.menu, 4, 1, rowspan=8, columnspan=17)
-        self.menu.addItems(['Pairing', 'Authorize'])
-
-        '''
-        Primary buttons in left menu
-        '''
-        self.CloseButton = pyxbmct.Button(
-            'Close', textColor='0xFFFFFFFF', shadowColor='0xFF000000', focusedColor='0xFFbababa',
-            focusTexture=themecontrol.btn_focus, noFocusTexture=themecontrol.btn_nofocus)
-        self.placeControl(self.CloseButton, 17, 10, rowspan=2, columnspan=8)
-        self.connect(self.CloseButton, self.close)
-
-        self.OpenButton = pyxbmct.RadioButton(
-            'Open in Browser', textColor='0xFFFFFFFF', shadowColor='0xFF000000', focusedColor='0xFFbababa')
-        self.placeControl(self.OpenButton, 12, 1, rowspan=2, columnspan=17)
-        self.OpenButton.setSelected(self.open_browser)
-        self.connect(self.OpenButton, self.toggle)
-
-        '''
-        Right Side, to display stuff for the above menu items
-        '''
-        self.pairingheader = '[B]Pairing Tool[/B]'
-        self.Header = pyxbmct.Label(self.pairingheader, alignment=pyxbmct.ALIGN_CENTER, textColor=self.colors.dh_color)
-        self.placeControl(self.Header, 2, 20, rowspan=1, columnspan=40)
-        self.pairMenu = pyxbmct.List(textColor=self.colors.mt_color, _imageWidth=50, _imageHeight=50)
-        self.placeControl(self.pairMenu, 3, 21, rowspan=20, columnspan=30)
-        pairItems = []
-        for item in PAIR_LIST:
-            the_title = 'Pair for %s' % (item[0].replace('_', ' ').capitalize())
-            the_item = control.item(label=the_title)
-            the_icon = item[2].decode('base64')
-            the_item.setArt({'icon': the_icon, 'thumb': the_icon})
-            pairItems.append(the_item)
-        self.pairMenu.addItems(pairItems)
-        self.connect(self.pairMenu, self.pairHandler)
-
-        self.authMenu = pyxbmct.List(textColor=self.colors.mt_color, _imageWidth=50, _imageHeight=50)
-        self.placeControl(self.authMenu, 3, 21, rowspan=20, columnspan=30)
-        self.authMenu.setVisible(False)
-        authItems = []
-        for item in AUTH_LIST:
-            the_title = 'Authorize %s' % (item[0].replace('_', ' ').capitalize())
-            the_item = control.item(label=the_title)
-            the_icon = item[2].decode('base64')
-            the_item.setArt({'icon': the_icon, 'thumb': the_icon})
-            authItems.append(the_item)
-        self.authMenu.addItems(authItems)
-        self.connect(self.authMenu, self.authHandler)
-
-    def set_navigation(self):
-        self.menu.controlUp(self.CloseButton)
-        self.menu.controlDown(self.OpenButton)
-        self.menu.controlRight(self.pairMenu)
-        self.pairMenu.controlLeft(self.menu)
-        self.authMenu.controlLeft(self.menu)
-        self.OpenButton.controlUp(self.menu)
-        self.OpenButton.controlDown(self.CloseButton)
-        self.CloseButton.controlUp(self.OpenButton)
-        self.CloseButton.controlDown(self.menu)
-
-        self.connectEventList(
-            [pyxbmct.ACTION_MOVE_DOWN,
-             pyxbmct.ACTION_MOVE_UP,
-             pyxbmct.ACTION_MOUSE_WHEEL_DOWN,
-             pyxbmct.ACTION_MOUSE_WHEEL_UP,
-             pyxbmct.ACTION_MOUSE_MOVE],
-            self.update_view)
-        # Set initial focus
-        self.setFocus(self.menu)
-
-    def update_view(self):
-        try:
-            if self.getFocus() == self.menu:
-                selection = self.menu.getListItem(self.menu.getSelectedPosition()).getLabel()
-                if selection == 'Pairing':
-                    self.Header.setLabel(self.pairingheader)
-                    self.pairMenu.setVisible(True)
-                    self.authMenu.setVisible(False)
-                    self.menu.controlRight(self.pairMenu)
-                elif selection == 'Authorize':
-                    self.Header.setLabel('[B]Authorize Atreides[/B]', textColor=self.colors.dh_color)
-                    self.authMenu.setVisible(True)
-                    self.pairMenu.setVisible(False)
-                    self.menu.controlRight(self.authMenu)
+def Pair_Dialog():
+    class Pair_Window(xbmcgui.WindowXMLDialog):
+        # until now we have a blank window, the onInit function will parse your xml file
+        def onInit(self):
+            self.last_selection = ''
+            self.colors = themecontrol.ThemeColors()
+            self.open_browser = control.setting('browser.pair')
+            if self.open_browser == '' or self.open_browser == 'true':
+                self.open_browser = True
             else:
-                pass
-        except (RuntimeError, SystemError):
-            pass
+                self.open_browser = False
 
-    def toggle(self):
-        if self.OpenButton.isSelected():
-            self.open_browser = True
-            control.setSetting('browser.pair', 'true')
-        else:
-            self.open_browser = False
-            control.setSetting('browser.pair', 'false')
+            self.menu_list = 100
+            self.menu = self.getControl(self.menu_list)
+            self.browserbtn = 150
+            self.OpenButton = self.getControl(self.browserbtn)
+            self.OpenButton.setSelected(self.open_browser)
+            self.right_pane = 200
+            self.content = self.getControl(self.right_pane)
 
-    def pairHandler(self):
-        selection = self.pairMenu.getListItem(self.pairMenu.getSelectedPosition()).getLabel()
-        self.close()
+            self.setProperty('dhtext', self.colors.dh_color)
+            self.setProperty('mhtext', self.colors.mh_color)
+            self.setProperty('mttext', self.colors.mt_color)
+            self.setProperty('fttext', self.colors.focus_textcolor)
 
-        pair_item = re.sub('\[.*?]', '', selection).replace('Pair for ', '').replace(' ', '_').lower()
-        for item in PAIR_LIST:
-            if str(item[0]) == pair_item:
-                site = item[1]
-                site_name = item[0].replace('_', ' ').capitalize()
-                break
+            menu_items = []
+            menu_items.append(control.item(label='Pairing'))
+            menu_items.append(control.item(label='Authorize'))
+            self.menu.addItems(menu_items)
 
-        if self.open_browser:
-            check_os = platform()
-            if check_os == 'android':
-                xbmc.executebuiltin('StartAndroidActivity(,android.intent.action.VIEW,,%s)' % (site))
-            elif check_os == 'osx':
-                os.system("open " + site)
+            self.pairItems = []
+            for item in PAIR_LIST:
+                the_title = 'Pair for %s' % (item[0].replace('_', ' ').capitalize())
+                the_item = control.item(label=the_title)
+                the_icon = item[2].decode('base64')
+                the_item.setArt({'icon': the_icon, 'thumb': the_icon})
+                self.pairItems.append(the_item)
+
+            self.authItems = []
+            for item in AUTH_LIST:
+                the_title = 'Authorize %s' % (item[0].replace('_', ' ').capitalize())
+                the_item = control.item(label=the_title)
+                the_icon = item[2].decode('base64')
+                the_item.setArt({'icon': the_icon, 'thumb': the_icon})
+                self.authItems.append(the_item)
+
+            self.content.addItems(self.pairItems)
+
+            xbmc.sleep(100)
+            # this puts the focus on the top item of the container
+            self.setFocusId(self.getCurrentContainerId())
+            self.setFocus(self.getControl(self.menu_list))
+            xbmc.executebuiltin("Dialog.Close(busydialog)")
+
+        def onClick(self, controlId):
+            if (controlId == self.browserbtn):
+                if self.OpenButton.isSelected():
+                    self.open_browser = True
+                    control.setSetting('browser.pair', 'true')
+                else:
+                    self.open_browser = False
+                    control.setSetting('browser.pair', 'false')
+            elif (controlId == self.right_pane):
+                selection = self.content.getListItem(self.content.getSelectedPosition()).getLabel()
+                if 'Pair for' in selection:
+                    self.pairHandler(selection)
+                elif 'Authorize' in selection:
+                    self.authHandler(selection)
+
+        def onAction(self, action):
+            if action == themecontrol.ACTION_PREVIOUS_MENU or action == themecontrol.ACTION_NAV_BACK:
+                self.close()
+            elif any(i == action for i in themecontrol.MENU_ACTIONS):
+                try:
+                    '''
+                    self.last_selection is used so the same code does keep running while the mouse is
+                    hovering over the same item during movement.
+                    '''
+                    if (self.getFocusId() > 0):
+                        self.setFocusId(self.getFocusId())
+                    if self.getFocusId() == self.menu_list:
+                        try:
+                            selection = self.menu.getListItem(self.menu.getSelectedPosition()).getLabel()
+                            if self.last_selection != selection:
+                                self.last_selection = selection
+                                self.content.reset()
+                                if selection == 'Pairing':
+                                    self.content.addItems(self.pairItems)
+                                elif selection == 'Authorize':
+                                    self.content.addItems(self.authItems)
+                        except Exception:
+                            failure = traceback.format_exc()
+                            log_utils.log('Fuck, it failed.\n' + failure)
+                except Exception:
+                    # Nothing has focus in this case, like when just moving the mouse around in general
+                    pass
+
+        def pairHandler(self, selection):
+            self.close()
+
+            pair_item = re.sub('\[.*?]', '', selection).replace('Pair for ', '').replace(' ', '_').lower()
+            log_utils.log(selection)
+            log_utils.log(pair_item)
+            for item in PAIR_LIST:
+                if str(item[0]) == pair_item:
+                    site = item[1]
+                    site_name = item[0].replace('_', ' ').capitalize()
+                    break
+
+            if self.open_browser:
+                check_os = platform()
+                if check_os == 'android':
+                    xbmc.executebuiltin('StartAndroidActivity(,android.intent.action.VIEW,,%s)' % (site))
+                elif check_os == 'osx':
+                    os.system("open " + site)
+                else:
+                    webbrowser.open(site)
             else:
-                webbrowser.open(site)
-        else:
-            try:
-                from resources.lib.dialogs import ok
-                ok.load('%s Stream Authorization' % (site_name), 'Using a device on your network, visit the link below to   authorize streams:', site)
-            except Exception:
-                failure = traceback.format_exc()
-                log_utils.log('Pairing - Exception: \n' + str(failure))
-                return
+                try:
+                    from resources.lib.dialogs import ok
+                    ok.OK_Dialog('%s Stream Authorization' % (site_name), 'Using a device on your network, visit the link below to authorize streams:[CR][CR]%s' % (site))
+                except Exception:
+                    failure = traceback.format_exc()
+                    log_utils.log('Pairing - Exception: \n' + str(failure))
+                    return
 
-    def authHandler(self):
-        selection = self.authMenu.getListItem(self.authMenu.getSelectedPosition()).getLabel()
-        self.close()
+        def authHandler(self, selection):
+            self.close()
 
-        auth_item = re.sub('\[.*?]', '', selection).replace('Authorize ', '').replace(' ', '_').lower()
-        func = None
-        for item in AUTH_LIST:
-            if str(item[0]) == auth_item:
-                func = item[1]
-                break
+            auth_item = re.sub('\[.*?]', '', selection).replace('Authorize ', '').replace(' ', '_').lower()
+            func = None
+            for item in AUTH_LIST:
+                if str(item[0]) == auth_item:
+                    func = item[1]
+                    break
 
-        if func is not None:
-            xbmc.executebuiltin(func)
+            if func is not None:
+                xbmc.executebuiltin(func)
 
-
-def load():
-    dialog = NewsDialog()
-    dialog.doModal()
-    del dialog
+    pair = Pair_Window('Pair_Tool.xml', control.skinModule(), control.skinTheme(), '1080i')
+    pair.doModal()
+    del pair
 
 
 def platform():

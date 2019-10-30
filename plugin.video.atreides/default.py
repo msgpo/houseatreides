@@ -205,23 +205,39 @@ elif action == 'viewsNavigator':
 
 elif action == 'clearCache':
     from resources.lib.dialogs import cache
-    cache.load()
+    cache.Cache_Dialog()
+
+elif action == 'clearBaseCache':
+    from resources.lib.modules import cache
+    cache.cache_clear()
+
+elif action == 'clearProviderCache':
+    from resources.lib.modules import cache
+    cache.cache_clear_providers()
+
+elif action == 'clearMetaCache':
+    from resources.lib.indexers import navigator
+    navigator.navigator().clearCacheMeta()
 
 elif action == 'clearCacheSearch':
     from resources.lib.modules import cache
     cache.cache_clear_search()
 
 elif action == 'clearAllCache':
-    from resources.lib.indexers import navigator
-    navigator.navigator().clearCacheAll()
+    from resources.lib.modules import cache
+    cache.cache_clear_all()
 
-elif action == 'clearMetaCache':
-    from resources.lib.indexers import navigator
-    navigator.navigator().clearCacheMeta()
+elif action == 'logViewer':
+    from resources.lib.dialogs import logviewer
+    logviewer.LogViewer(logfile='kodi.log')
+
+elif action == 'bugReports':
+    from resources.lib.dialogs import bugreports
+    bugreports.BugReporter()
 
 elif action == 'pairTools':
     from resources.lib.dialogs import pairing
-    pairing.load()
+    pairing.Pair_Dialog()
 
 elif action == 'infoCheck':
     from resources.lib.indexers import navigator

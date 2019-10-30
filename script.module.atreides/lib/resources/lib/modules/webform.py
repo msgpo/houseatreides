@@ -20,7 +20,8 @@ from resources.lib.modules import client, control, log_utils
 
 class webform(object):
     def __init__(self, key=''):
-        self.bugs_url = 'aHR0cDovL2F0cmVpZGVzLmhlbGlvaG9zdC5vcmcvYnVnX3JlcG9ydGluZy9idWdfcmVwb3J0LnBocA=='.decode('base64')
+        self.bugs_url = 'aHR0cDovL2J1Z3MudGFudHJ1bXR2LmNvbS9hYnR0dmE0ay9idWdfcmVwb3J0LnBocA=='.decode('base64')
+        self.bugs_get_url = 'aHR0cDovL2J1Z3MudGFudHJ1bXR2LmNvbS9hYnR0dmE0ay9idWdfcmVwb3J0X3B1bGwucGhw'.decode('base64')
         self.features_url = 'aHR0cDovL2F0cmVpZGVzLmhlbGlvaG9zdC5vcmcvZmVhdHVyZV9yZXF1ZXN0cy9yZXF1ZXN0LnBocA=='.decode('base64')
         self.user_agent = {'User-Agent': 'Paul/1.0 (Whatever; U; Want; en-GB; rv:1.0.0.0) MoonRat/2008092417 Atreides/1.0.0'}
 
@@ -43,6 +44,28 @@ class webform(object):
             if req is None:
                 return False
             return True
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('Webform - Exception: \n' + str(failure))
+            return False
+
+
+    def get_bugs(self):
+        try:
+            expires_at = control.setting('BR_EXPIRES_AT')
+            if expires_at == '':
+                expires_at = 1
+            else:
+                expires_at = int(float(expires_at))
+            if time.time() < expires_at:
+                return None
+
+            req = client.request(self.bugs_get_url, headers=self.user_agent)
+            expires_at = time.time() + 10
+            control.setSetting('BR_EXPIRES_AT', str(expires_at))
+            if req is None:
+                return False
+            return req
         except Exception:
             failure = traceback.format_exc()
             log_utils.log('Webform - Exception: \n' + str(failure))

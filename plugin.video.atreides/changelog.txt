@@ -1,3 +1,13 @@
+[COLOR limegreen]Atredies Video Plugin v1.3.2[/COLOR]
+[COLOR limegreen]Atredies Artwork Module v1.2.0[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.5.0[/COLOR]
+    - New XML based skinning done up
+        - OK, Yes/No, Cache Tool, Pairing Tool
+    - New Bug Reporting interface from Tools Menu
+    - Moved Bug Reporting remote DB to new host
+    - New Log Viewer from Tools Menu
+    - More to come, but I am lazy
+
 [COLOR limegreen]Atredies Script Module v1.4.3[/COLOR]
     - Scrapers updated
     - Added a few Scrapers

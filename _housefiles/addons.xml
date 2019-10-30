@@ -27,7 +27,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.atreides" version="1.3.1" name="Atreides" provider-name="Paul Atreides">
+<addon id="plugin.video.atreides" version="1.3.2" name="Atreides" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.atreides" />
@@ -93,7 +93,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="repository.atreides" name="Atreides Repository" version="0.0.6" provider-name="House Atreides">
+<addon id="repository.atreides" name="Atreides Repository" version="0.0.7" provider-name="House Atreides">
     <requires>
         <import addon="xbmc.addon" version="12.0.0"/>
     </requires>
@@ -103,14 +103,14 @@ This is a Non-profit resource, organized solely for educational purposes which i
         <datadir zip="true">https://raw.githubusercontent.com/therealatreides/houseatreides/master/_housefiles/</datadir>
         <hashes>false</hashes>
         <dir>
-            <info compressed="false">http://kodicustombuilds.com/terrorize/repo/addons.xml</info>
-            <checksum>http://kodicustombuilds.com/terrorize/repo/addons.xml.md5</checksum>
-            <datadir zip="true">http://kodicustombuilds.com/terrorize/repo/zips/</datadir>
-        </dir>
-        <dir>
             <info compressed="false">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/</datadir>
         </dir>
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
@@ -136,7 +136,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
-<addon id="script.atreides.artwork" version="1.1.1" name="Atreides Artwork" provider-name="Paul Atreides">
+<addon id="script.atreides.artwork" version="1.2.0" name="Atreides Artwork" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>
@@ -204,10 +204,11 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.atreides" name="Atreides Module" version="1.4.3" provider-name="Paul Atreides">
+<addon id="script.module.atreides" name="Atreides Module" version="1.5.0" provider-name="Paul Atreides">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.pyxbmct" version="1.1.4" />
+		<import addon="script.module.pyqrcode" version="0.0.1"/>
         <import addon="script.module.beautifulsoup4"/>
     </requires>
     <extension point="xbmc.python.module" library="lib" />

@@ -1051,8 +1051,8 @@ class sources:
             valid_hoster = [i for i in valid_hoster if d.valid_url('', i)]
             dcheck = str(d.get_setting('cached_only'))
             if dcheck == 'false':
-                import xbmcgui
-                xbmcgui.Dialog().ok(
+                from resources.lib.dialogs import ok
+                ok.OK_Dialog(
                     'Torrent Support',
                     'Torrent links will not be shown, as only Cached are currently supported. Please go to ResolveURL and enable Cached Only for your Premium Resolver.')
             if sortabitch == 'true':
