@@ -2,7 +2,7 @@
     "menu_file": [
         {
             "title": "Main Menu File",
-            "version": "5",
+            "version": "6",
             "checked": "1",
             "desc": "Menu File containing the main menu in Atreides"
         }
@@ -94,12 +94,6 @@
             "menu_section": "radio_root",
             "toggle": "navi.radio",
             "thumbnail": "radio.png"
-        },
-        {
-            "title": "32620",
-            "action": "podcastNavigator",
-            "toggle": "navi.podcasts",
-            "thumbnail": "podcast.png"
         },
         {
             "title": "32008",

@@ -1,6 +1,12 @@
+[COLOR limegreen]Atredies Video Plugin v1.3.3[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.5.1[/COLOR]
+    - Removed Podcast code from Bookmarks
+    - Updated menus to reflect Podcast section removal
+
 [COLOR limegreen]Atredies Video Plugin v1.3.2[/COLOR]
 [COLOR limegreen]Atredies Artwork Module v1.2.0[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.5.0[/COLOR]
+[COLOR limegreen]House Atreides Repository v0.0.7[/COLOR]
     - New XML based skinning done up
         - OK, Yes/No, Cache Tool, Pairing Tool
     - New Bug Reporting interface from Tools Menu

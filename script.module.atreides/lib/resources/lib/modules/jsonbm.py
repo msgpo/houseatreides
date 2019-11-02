@@ -27,8 +27,7 @@ FILENAME = os.path.join(HOME, 'userdata/addon_data/plugin.video.atreides/bookmar
 
 defaults = {'Channels': {},
             'Documentaries': {},
-            'Radio': {},
-            'Podcasts': {}
+            'Radio': {}
             }
 
 
@@ -107,72 +106,6 @@ class jsonBookmarks(object):
                     ok.load('Bookmarks Error', '[B]Error loading bookmarks.[/B]')
                     failure = traceback.format_exc()
                     log_utils.log('Show Channel Bookmarks - Exception: \n' + str(failure))
-                    return
-        control.addItems(int(sys.argv[1]), items)
-        self.endDirectory('files', xbmcplugin.SORT_METHOD_LABEL)
-
-    def add_podcast(self, dbase):
-        temp = dbase.decode('base64').split('|')
-        name = temp[0]
-        show_id = temp[1]
-        action = temp[2]
-        icon = temp[3]
-        url = temp[4]
-        try:
-            if action in self.bookmarks['Podcasts']:
-                if show_id not in self.bookmarks['Podcasts'][action]:
-                    self.bookmarks['Podcasts'][action][show_id] = {'name': name, 'id': show_id, 'action': action, 'icon': icon, 'url': url}
-                    self.save()
-                    control.refresh()
-            else:
-                self.bookmarks['Podcasts'][action] = {}
-                self.bookmarks['Podcasts'][action][show_id] = {}
-                self.bookmarks['Podcasts'][action][show_id] = {'name': name, 'id': show_id, 'action': action, 'icon': icon, 'url': url}
-                self.save()
-                control.refresh()
-        except Exception:
-            failure = traceback.format_exc()
-            log_utils.log('Bookmarks - Add Podcast Exception: \n' + str(failure))
-
-    def rem_podcast(self, dbase):
-        temp = dbase.decode('base64').split('|')
-        show_id = temp[1]
-        action = temp[2]
-        try:
-            del self.bookmarks['Podcasts'][action][show_id]
-            self.save()
-            control.refresh()
-        except Exception:
-            from resources.lib.dialogs import ok
-            ok.load('Bookmarks Error', '[B]Error removing podcast show.[/B]')
-            failure = traceback.format_exc()
-            log_utils.log('Remove Podcast Bookmark - Exception: \n' + str(failure))
-            return
-
-    def show_podcasts(self):
-        items = []
-        for action in self.bookmarks['Podcasts'].keys():
-            for entry in self.bookmarks['Podcasts'][action].keys():
-                try:
-                    show = self.bookmarks['Podcasts'][action][entry]
-                    item = control.item(label=show['name'])
-                    item.setProperty("IsPlayable", "false")
-                    item.setArt({"thumb": show['icon'], "icon": show['icon']})
-                    url = '%s?action=%s&podcastshow=%s' % (sys.argv[0], show['action'], show['url'])
-
-                    cm = self.build_cm('Podcasts', name=show['name'], id=show['id'], action=show['action'], icon=show['icon'], url=show['url'])
-                    item.addContextMenuItems(cm)
-
-                    try:
-                        item.setContentLookup(False)
-                    except AttributeError:
-                        pass
-                    items.append((url, item, True))
-                except Exception:
-                    from resources.lib.dialogs import ok
-                    ok.load('Bookmarks Error', '[B]Error loading bookmarks.[/B]')
-                    failure = traceback.format_exc()
-                    log_utils.log('Show Podcast Bookmarks - Exception: \n' + str(failure))
                     return
         control.addItems(int(sys.argv[1]), items)
         self.endDirectory('files', xbmcplugin.SORT_METHOD_LABEL)
@@ -265,16 +198,6 @@ class jsonBookmarks(object):
                         cm.append(('Add Bookmark', 'RunPlugin(%s?action=%s&url=%s)' % (sys.argv[0], 'add_channel', dbase.encode('base64'))))
                 else:
                     cm.append(('Add Bookmark', 'RunPlugin(%s?action=%s&url=%s)' % (sys.argv[0], 'add_channel', dbase.encode('base64'))))
-            elif bmtype == 'Podcasts':
-                show_id = kwargs.get('id')
-                dbase = name + '|' + show_id + '|' + action + '|' + icon + '|' + url
-                if action in self.bookmarks[bmtype]:
-                    if show_id in self.bookmarks[bmtype][action]:
-                        cm.append(('Remove Bookmark', 'RunPlugin(%s?action=%s&url=%s)' % (sys.argv[0], 'remove_podcast', dbase.encode('base64'))))
-                    else:
-                        cm.append(('Add Bookmark', 'RunPlugin(%s?action=%s&url=%s)' % (sys.argv[0], 'add_podcast', dbase.encode('base64'))))
-                else:
-                    cm.append(('Add Bookmark', 'RunPlugin(%s?action=%s&url=%s)' % (sys.argv[0], 'add_podcast', dbase.encode('base64'))))
             elif bmtype == 'Radio':
                 station_id = kwargs.get('id')
                 dbase = name + '|' + station_id + '|' + action + '|' + icon + '|' + url
