@@ -1,8 +1,10 @@
 [COLOR limegreen]Atredies Video Plugin v1.3.3[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.5.1[/COLOR]
+[COLOR limegreen]Atredies Artwork Module v1.2.1[/COLOR]
     - Removed Podcast code from Bookmarks
     - Updated menus to reflect Podcast section removal
     - Cleaned up old code from B98 which is now removed
+    - Removed Golden Artwork theme, replaced with SciFi
 
 [COLOR limegreen]Atredies Video Plugin v1.3.2[/COLOR]
 [COLOR limegreen]Atredies Artwork Module v1.2.0[/COLOR]
