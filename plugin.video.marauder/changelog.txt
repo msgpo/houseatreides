@@ -1,0 +1,15 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.0b[/COLOR][/B]
+[B][COLOR gold]Marauder Artwork v2.0.0b[/COLOR][/B]
+[B][COLOR gold]Marauder Meta v2.0.0[/COLOR][/B]
+[B][COLOR gold]Barnacle Scrapers v1.0.0[/COLOR][/B]
+- Rework of the addon with a more modern based fork
+- Added TVDB Key to Settings and updated calls
+- Added Fanart TV API Key to Settings and updated calls
+- Updated Anilist.CO API details
+- Added all original Marauder lists
+- Added Navigation to Settings
+- Implementing Category based directory calls with sort ability
+- New fully skinned Changelog window
+- Dual Scraper abilities (Barnacle and OpenScrapers)
+- Artwork revamp
+- New lists added to Movies -> Collection
