@@ -1,3 +1,6 @@
+[COLOR limegreen]Atredies Script Module v1.5.1[/COLOR]
+    - Minor scraper updates
+
 [COLOR limegreen]Atredies Video Plugin v1.3.3[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.5.1[/COLOR]
 [COLOR limegreen]Atredies Artwork Module v1.2.1[/COLOR]

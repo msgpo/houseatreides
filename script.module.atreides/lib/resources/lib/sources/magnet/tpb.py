@@ -14,6 +14,7 @@
 
 '''
 2019/07/17: Minor tweaks. Various proxies still giving periodic 502 pages though, nothing to do about that part.
+2019/11/03: Domain updates
 '''
 
 import re
@@ -28,7 +29,7 @@ class source:
     def __init__(self):
         self.priority = 1
         self.source = ['magnet']
-        self.domains = ['mypirate.live', 'piratebay.tech', 'openpirate.org', 'piratebay.icu', 'tpb.cool', 'thepirate.fun', 'openpirate.info']
+        self.domains = ['mypirate.cc', 'UnblockPirate.uk', 'OpenPirate.cc', 'MyPirate.org', 'piratebay.life', 'thepiratebay.icu', 'piratebay.icu']
         self._base_link = None
         self.search_link = '/search.php?q=%s&page=0&orderby=99'
         self.scraper = cfscrape.create_scraper()

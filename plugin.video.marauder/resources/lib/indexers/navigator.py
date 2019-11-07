@@ -43,13 +43,15 @@ class navigator:
     def root(self):
         self.addDirectoryItem(32001, 'movieNavigator', 'movies.png', 'DefaultMovies.png')
         self.addDirectoryItem(32002, 'tvNavigator', 'tvshows.png', 'DefaultTVShows.png')
-
-        if self.getMenuEnabled('navi.moviechest') is True:
-            self.addDirectoryItem('The Movie Chest', 'moviechest', 'chest.png', 'Defaultmovies.png')
+        
         if self.getMenuEnabled('navi.imdbtop') is True:
-            self.addDirectoryItem('IMDB Top 250', 'imdbtop250', 'imdb.png', 'Defaultmovies.png')
+            self.addDirectoryItem('[COLORgold]IMDB Top 250[/COLOR]', 'imdbtop250', 'imdb.png', 'Defaultmovies.png')
+           
+        if self.getMenuEnabled('navi.moviechest') is True:
+            self.addDirectoryItem('[COLORorange]The Movie Chest[/COLOR]', 'moviechest', 'chest.png', 'Defaultmovies.png')    
         if self.getMenuEnabled('navi.hack') is True:
-            self.addDirectoryItem('Hack The Planet', 'movies&url=hacktheplanet', 'hack.png', 'playlist.jpg')
+            self.addDirectoryItem('[COLORturquoise]Hack The Planet[/COLOR]', 'movies&url=hacktheplanet', 'hack.png', 'playlist.jpg')
+        
         if self.getMenuEnabled('navi.boxsets') is True:
             self.addDirectoryItem('Boxsets', 'boxsetNavigator', 'boxsets.png', 'DefaultBoxSets.png')
 
@@ -85,16 +87,9 @@ class navigator:
         self.endDirectory(category='Furk')
 
     def movies(self, lite=False):
-        if self.getMenuEnabled('navi.moviegenre') is True:
-            self.addDirectoryItem(32011, 'movieGenres', 'genres.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieyears') is True:
-            self.addDirectoryItem(32012, 'movieYears', 'years.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.moviepersons') is True:
-            self.addDirectoryItem(32013, 'moviePersons', 'people.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movielanguages') is True:
-            self.addDirectoryItem(32014, 'movieLanguages', 'languages.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.moviecerts') is True:
-            self.addDirectoryItem(32015, 'movieCertificates', 'certificates.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.movietheaters') is True:
+            self.addDirectoryItem(32022, 'movies&url=theaters', 'in-theaters.png', 'DefaultRecentlyAddedMovies.png')
+        self.addDirectoryItem(32005, 'movieWidget', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')
         if self.getMenuEnabled('navi.movietrending') is True:
             self.addDirectoryItem(32017, 'movies&url=trending', 'people-watching.png', 'DefaultRecentlyAddedMovies.png')
         if self.getMenuEnabled('navi.moviepopular') is True:
@@ -105,13 +100,20 @@ class navigator:
             self.addDirectoryItem(32020, 'movies&url=boxoffice', 'box-office.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.movieoscars') is True:
             self.addDirectoryItem(32021, 'movies&url=oscars', 'oscar-winners.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movietheaters') is True:
-            self.addDirectoryItem(32022, 'movies&url=theaters', 'in-theaters.png', 'DefaultRecentlyAddedMovies.png')
-        self.addDirectoryItem(32005, 'movieWidget', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')
         if self.getMenuEnabled('navi.ccollect') is True:
-            self.addDirectoryItem('Collections >', 'movieCollections', 'collections.png', 'DefaultMovies.png')
+            self.addDirectoryItem('[COLORorange]Collections[/COLOR]', 'movieCollections', 'collections.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.moviemosts') is True:
-            self.addDirectoryItem('Movie Mosts >', 'movieMosts', 'featured.png', 'playlist.jpg')
+            self.addDirectoryItem('[COLORturquoise]Movie Mosts[/COLOR]', 'movieMosts', 'featured.png', 'playlist.jpg')
+        if self.getMenuEnabled('navi.moviegenre') is True:
+            self.addDirectoryItem(32011, 'movieGenres', 'genres.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.movieyears') is True:
+            self.addDirectoryItem(32012, 'movieYears', 'years.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.moviepersons') is True:
+            self.addDirectoryItem(32013, 'moviePersons', 'people.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.movielanguages') is True:
+            self.addDirectoryItem(32014, 'movieLanguages', 'languages.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.moviecerts') is True:
+            self.addDirectoryItem(32015, 'movieCertificates', 'certificates.png', 'DefaultMovies.png')
 
         if lite == False:
             if not control.setting('lists.widget') == '0':
@@ -619,7 +621,7 @@ class navigator:
         self.addDirectoryItem('Anime', 'movies&url=anime', 'anime.png', 'playlist.jpg')
         self.addDirectoryItem('Avant Garde', 'movies&url=avant', 'avant.png', 'playlist.jpg')
         self.addDirectoryItem('Based On A True Story', 'movies&url=true', 'true.png', 'playlist.jpg')
-        self.addDirectoryItem('Biographical', 'movies&url=imdb53', 'bio.png', 'playlist.jpg')
+        self.addDirectoryItem('Biographical', 'movies&url=bio', 'bio.png', 'playlist.jpg')
         self.addDirectoryItem('Biker', 'movies&url=biker', 'biker.png', 'playlist.jpg')
         self.addDirectoryItem('B Movies', 'movies&url=bmovie', 'bmovie.png', 'playlist.jpg')
         self.addDirectoryItem('Breaking The Fourth Wall', 'movies&url=breaking', 'breaking.png', 'playlist.jpg')
@@ -634,22 +636,22 @@ class navigator:
         self.addDirectoryItem('Cyberpunk', 'movies&url=cyber', 'cyber.png', 'playlist.jpg')
         self.addDirectoryItem('DC Universe', 'movies&url=dc', 'dc.png', 'playlist.jpg')
         self.addDirectoryItem('Disney and Pixar', 'movies&url=disney', 'disney.png', 'playlist.jpg')
-        self.addDirectoryItem('Drug Addiction', 'movies&url=imdb43', 'drugs.png', 'playlist.jpg')
+        self.addDirectoryItem('Drug Addiction', 'movies&url=drugs', 'drugs.png', 'playlist.jpg')
         self.addDirectoryItem('Dystopia', 'movies&url=dystopia', 'dystopia.png', 'playlist.jpg')
-        self.addDirectoryItem('Epic!', 'movies&url=espionage', 'epic.png', 'playlist.jpg')
+        self.addDirectoryItem('Epic!', 'movies&url=epic', 'epic.png', 'playlist.jpg')
         self.addDirectoryItem('Espionage', 'movies&url=espionage', 'espionage.png', 'playlist.jpg')
         self.addDirectoryItem('Fairy Tale', 'movies&url=fairytale', 'fairytale.png', 'playlist.jpg')
         # self.addDirectoryItem('Fairy Tale', 'movies&url=fairytale', 'fairytale.png', 'playlist.jpg')
         self.addDirectoryItem('Farce', 'movies&url=farce', 'farce.png', 'playlist.jpg')
         self.addDirectoryItem('Femme Fatale', 'movies&url=femme', 'femme.png', 'playlist.jpg')
         self.addDirectoryItem('Futuristic', 'movies&url=futuristic', 'futuristic.png', 'playlist.jpg')
-        self.addDirectoryItem('Gangster', 'movies&url=imdb39', 'gangsters.png', 'playlist.jpg')
+        self.addDirectoryItem('Gangster', 'movies&url=gangster', 'gangsters.png', 'playlist.jpg')
         # self.addDirectoryItem('Halloween', 'movies&url=halloween', 'halloween.png', 'season.jpg')
         self.addDirectoryItem('James Bond', 'movies&url=bond', 'bond.png', 'playlist.jpg')
-        self.addDirectoryItem('Man Vs. Nature', 'movies&url=imdb38', 'man.png', 'playlist.jpg')
+        self.addDirectoryItem('Man Vs. Nature', 'movies&url=nature', 'man.png', 'playlist.jpg')
         self.addDirectoryItem('Marvel Universe', 'movies&url=marvel', 'marvel.png', 'playlist.jpg')
-        self.addDirectoryItem('Motivational Movies', 'movies&url=imdb26', 'mot.png', 'playlist.jpg')
-        self.addDirectoryItem('Monster', 'movies&url=monster', 'monster.png', 'playlist.jpg')
+        self.addDirectoryItem('Motivational Movies', 'movies&url=mot', 'mot.png', 'playlist.jpg')
+        self.addDirectoryItem('Monsters', 'movies&url=monsters', 'monster.png', 'playlist.jpg')
         self.addDirectoryItem('Movies To Make You Rethink Your Survival Plan',
                               'movies&url=survival', 'survival.png', 'playlist.jpg')
         self.addDirectoryItem('Movies To Make You Cancel That Vacation',
@@ -657,30 +659,30 @@ class navigator:
         self.addDirectoryItem('Movies To Make You Pick Up And Move', 'movies&url=move', 'house.png', 'playlist.jpg')
         self.addDirectoryItem('Movies To Make You Reconsider Parenthood',
                               'movies&url=parenthood', 'kids.png', 'playlist.jpg')
-        self.addDirectoryItem('Musical Movies', 'movies&url=imdb28', 'musical.png', 'playlist.jpg')
+        self.addDirectoryItem('Musical Movies', 'movies&url=music', 'musical.png', 'playlist.jpg')
         self.addDirectoryItem('Neo Noir', 'movies&url=neo', 'neo.png', 'playlist.jpg')
         self.addDirectoryItem('Parody', 'movies&url=parody', 'parody.png', 'playlist.jpg')
         self.addDirectoryItem('Post Apocalypse', 'movies&url=apocalypse', 'apocalypse.png', 'playlist.jpg')
-        self.addDirectoryItem('Private Eye', 'movies&url=imdb7', 'eye.png', 'playlist.jpg')
+        self.addDirectoryItem('Private Eye', 'movies&url=private', 'eye.png', 'playlist.jpg')
         self.addDirectoryItem('Psychological Thrillers', 'movies&url=psychological', 'thrill.png', 'playlist.jpg')
-        self.addDirectoryItem('Revenge', 'movies&url=imdb25', 'revenge.png', 'playlist.jpg')
+        self.addDirectoryItem('Revenge', 'movies&url=revenge', 'revenge.png', 'playlist.jpg')
         self.addDirectoryItem('Satire', 'movies&url=satire', 'satire.png', 'playlist.jpg')
-        self.addDirectoryItem('Science Fiction', 'movies&url=imdb5', 'sci.png', 'playlist.jpg')
-        self.addDirectoryItem('Serial Killers', 'movies&url=imdb42', 'killers.png', 'playlist.jpg')
+        self.addDirectoryItem('Science Fiction', 'movies&url=sci', 'sci.png', 'playlist.jpg')
+        self.addDirectoryItem('Serial Killers', 'movies&url=killer', 'killers.png', 'playlist.jpg')
         self.addDirectoryItem('Slasher', 'movies&url=slasher', 'slasher.png', 'playlist.jpg')
-        self.addDirectoryItem('Sleeper Hits', 'movies&url=imdb8', 'sleeper.png', 'playlist.jpg')
+        self.addDirectoryItem('Sleeper Hits', 'movies&url=sleeper', 'sleeper.png', 'playlist.jpg')
         self.addDirectoryItem('Spoofs', 'movies&url=spoof', 'spoof.png', 'playlist.jpg')
         self.addDirectoryItem('Sports', 'movies&url=sports', 'sports.png', 'playlist.jpg')
-        self.addDirectoryItem('SPY - CIA - KGB', 'movies&url=imdb33', 'spy.png', 'playlist.jpg')
+        self.addDirectoryItem('SPY - CIA - KGB', 'movies&url=spy', 'spy.png', 'playlist.jpg')
         self.addDirectoryItem('Star Wars', 'movies&url=star', 'starwars.png', 'playlist.jpg')
         self.addDirectoryItem('Steampunk', 'movies&url=steampunk', 'steampunk.png', 'playlist.jpg')
         self.addDirectoryItem('Superheros', 'movies&url=superhero', 'superhero.png', 'playlist.jpg')
         self.addDirectoryItem('Supernatural', 'movies&url=supernatural', 'super.png', 'playlist.jpg')
         self.addDirectoryItem('Tarantino Films', 'movies&url=tarantino', 'tino.png', 'playlist.jpg')
         self.addDirectoryItem('Tech Noir', 'movies&url=tech', 'tech.png', 'playlist.jpg')
-        self.addDirectoryItem('Teenage', 'movies&url=imdb40', 'teen.png', 'playlist.jpg')
+        self.addDirectoryItem('Teenage', 'movies&url=teen', 'teen.png', 'playlist.jpg')
         self.addDirectoryItem('Time Travel', 'movies&url=time', 'time.png', 'playlist.jpg')
-        self.addDirectoryItem('Twist Ending Movies', 'movies&url=imdb30', 'twist.png', 'playlist.jpg')
+        self.addDirectoryItem('Twist Ending Movies', 'movies&url=twist', 'twist.png', 'playlist.jpg')
         self.addDirectoryItem('Virtual Reality', 'movies&url=vr', 'vr.png', 'playlist.jpg')
 
         self.endDirectory(category='Collections', sortMethod=control.xDirSort.Label)

@@ -12,22 +12,32 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/11/03: Domain updates
+'''
+
 import re
 import traceback
 import urllib
 import urlparse
 
-from resources.lib.modules import cfscrape, cleantitle, client, control, debrid, log_utils, source_utils, workers
+from resources.lib.modules import cache, cfscrape, cleantitle, client, control, debrid, log_utils, source_utils, workers
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.source = ['magnet']
-        self.domains = ['torrentdownloads.me', 'torrentsdl1.unblocked.lol']
-        self.base_link = 'https://torrentsdl1.unblocked.lol/'
-        self.search = 'https://torrentsdl1.unblocked.lol/rss.xml?new=1&type=search&cid={0}&search={1}'
+        self.domains = ['torrentdownloads.me', 'torrentdownloads.info']
+        self._base_link = None
+        self.search = '%s/rss.xml?new=1&type=search&cid={0}&search={1}' % (self.base_link)
         self.scraper = cfscrape.create_scraper()
+
+    @property
+    def base_link(self):
+        if self._base_link is None:
+            self._base_link = cache.get(self.__get_base_url, 120, 'https://%s' % self.domains[0])
+        return self._base_link
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status(True) is False:
@@ -142,6 +152,22 @@ class source:
                                               'url': url, 'info': info, 'direct': False, 'debridonly': True})
         except BaseException:
             pass
+
+    def __get_base_url(self, fallback):
+        try:
+            for domain in self.domains:
+                try:
+                    url = 'https://%s' % domain
+                    result = client.request(url, timeout='10')
+                    search_n = re.findall('alt="Torrent Downloads"', result, re.DOTALL)[0]
+                    if search_n:
+                        return url
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+        return fallback
 
     def resolve(self, url):
         return url

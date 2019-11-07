@@ -14,6 +14,10 @@
 
 '''
 2019/06/23: Readded with my own tweaks and enhancements. Pulled from other Covenant/Placenta forks.
+2019/11/03: Increased pages for searches. Fuck it
+2019/11/04: Note to self----Stop doing function calls like self.base_link() in the god damn init. Slows
+            the start of scrapers since ALL scrapers (regardless of settings), run and the init executes
+            before filtering out www, magnet, etc. BAD DOG, BAD DOG. Dumbass
 '''
 
 import re
@@ -31,8 +35,8 @@ class source:
         self.domains = ['1337x.to', 'x1337x.ws', '1337x.st', 'x1337x.eu', '1337x.is', '1337x.unblocked.win']
         self._base_link = None
         self.scraper = cfscrape.create_scraper()
-        self.tvsearch = '%s/sort-category-search/%s/TV/seeders/desc/1/' % (self.base_link, '%s')
-        self.moviesearch = '%s/sort-category-search/%s/Movies/size/desc/1/' % (self.base_link, '%s')
+        self.tvsearch = '%s/sort-category-search/%s/TV/seeders/desc/%s/' % (self.base_link, '%s', '%s')
+        self.moviesearch = '%s/sort-category-search/%s/Movies/size/desc/%s/' % (self.base_link, '%s', '%s')
 
     @property
     def base_link(self):
@@ -107,19 +111,13 @@ class source:
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
             urls = []
             if 'tvshowtitle' in data:
-                urls.append(self.tvsearch % (urllib.quote(query)))
-                '''
-                Why spam for multiple pages, since it gives plenty on each page?
-                urls.append(self.tvsearch.format(urllib.quote(query), '2'))
-                urls.append(self.tvsearch.format(urllib.quote(query), '3'))
-                '''
+                urls.append(self.tvsearch % (urllib.quote(query), '1'))
+                urls.append(self.tvsearch % (urllib.quote(query), '2'))
+                urls.append(self.tvsearch % (urllib.quote(query), '3'))
             else:
-                urls.append(self.moviesearch % (urllib.quote(query)))
-                '''
-                Why spam for multiple pages, since it gives plenty on each page?
-                urls.append(self.moviesearch.format(urllib.quote(query), '2'))
-                urls.append(self.moviesearch.format(urllib.quote(query), '3'))
-                '''
+                urls.append(self.moviesearch % (urllib.quote(query), '1'))
+                urls.append(self.moviesearch % (urllib.quote(query), '2'))
+                urls.append(self.moviesearch % (urllib.quote(query), '3'))
             threads = []
 
             self.timer = control.Time(start=True)

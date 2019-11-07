@@ -15,6 +15,7 @@
 '''
 2019/04/17: Readded this one, fix by SC
 2019/07/06: Minor code updates
+2019/11/04: Domain update
 '''
 
 import re
@@ -29,7 +30,7 @@ class source:
         self.priority = 1
         self.source = ['www']
         self.domains = ['coolmoviezone.online', 'coolmoviezone.co']
-        self.base_link = 'https://coolmoviezone.io'
+        self.base_link = 'https://coolmoviezone.cc'
         self.search_link = '/%s-%s'
         # self.scraper = cfscrape.create_scraper()
 

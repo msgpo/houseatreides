@@ -59,7 +59,7 @@ class source:
             url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
             clean_title = cleantitle.geturl(url['tvshowtitle'])+'-s%02d' % int(season)
             url = urlparse.urljoin(self.base_link, (self.search_link % (clean_title, url['year'])))
-            r = client.request(url)
+            r = self.scraper.get(url).content
             r = dom_parser2.parse_dom(r, 'div', {'id': 'ip_episode'})
             r = [dom_parser2.parse_dom(i, 'a', req=['href']) for i in r if i]
             for i in r[0]:

@@ -15,6 +15,7 @@
 '''
 2019/07/08: Minor tweaks
 2019/07/18: Rewrote search portion to use the API for more accuracy. Need to find resolver for viduplayer.com embed links to make it pull ALL links properly
+2019/10/04: Added some additional resolving per updates from shellc0de
 '''
 
 import base64
@@ -27,7 +28,7 @@ import urlparse
 
 import xbmc
 
-from resources.lib.modules import cache, cfscrape, cleantitle, client, control, directstream, log_utils, source_utils
+from resources.lib.modules import cache, cfscrape, cleantitle, client, control, directstream, jsunpack, log_utils, source_utils
 
 
 class source:
@@ -91,6 +92,7 @@ class source:
         try:
             chkurl = urlparse.urljoin(self.base_link, '/tv-shows')
             data = client.request(chkurl, headers={})
+
             try:
                 tok = re.findall("var\s*tok\s*=\s*'(.+?)'", data)[0]
             except Exception:
@@ -197,14 +199,14 @@ class source:
                     try:
                         sources.append({'source': 'gvideo', 'quality': directstream.googletag(
                             i)[0]['quality'], 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
-                    except:
+                    except Exception:
                         pass
-            except:
+            except Exception:
                 pass
 
             try:
                 auth = re.findall('__utmx=(.+)', cookie)[0].split(';')[0]
-            except:
+            except Exception:
                 auth = 'false'
             auth = 'Bearer %s' % urllib.unquote_plus(auth)
             headers['Authorization'] = auth
@@ -239,13 +241,13 @@ class source:
                             if 'googleapis' in i:
                                 try:
                                     quality = source_utils.check_sd_url(i)
-                                except:
+                                except Exception:
                                     pass
                             if 'googleusercontent' in i:
                                 i = directstream.googleproxy(i)
                                 try:
                                     quality = directstream.googletag(i)[0]['quality']
-                                except:
+                                except Exception:
                                     pass
                             sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en',
                                             'url': i, 'direct': True, 'debridonly': False})
@@ -254,15 +256,58 @@ class source:
                                 quality = source_utils.check_sd_url(i)
                                 sources.append({'source': 'CDN', 'quality': quality, 'language': 'en',
                                                 'url': i, 'direct': True, 'debridonly': False})
-                            except:
+                            except Exception:
+                                pass
+                        # tested with Brightburn 2019 and Yellowstone S02E04
+                        elif 'vidnode.net/streaming.php' in i:
+                            try:
+                                vc_headers = {
+                                    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0',
+                                    'Referer': i
+                                }
+                                r = client.request(i, headers=vc_headers)
+                                clinks = re.compile('''sources:\[\{file: ['"](.+?)['"]''').findall(r)[1]
+                                r = client.request(clinks, headers=vc_headers)
+                                regex = re.compile('[A-Z]{4}="(.+?)"\s+\w+\.\w(.+?)\.', re.DOTALL).findall(r)
+                                for quality, links in regex:
+                                    quality = source_utils.check_sd_url(quality)
+                                    stream_link = clinks.rstrip('.m3u8')
+                                    final = '{0}{1}.m3u8'.format(stream_link, links)
+                                    sources.append({'source': 'cdn', 'quality': quality, 'language': 'en',
+                                                    'url': final+'|Referer='+i, 'direct': True, 'debridonly': False})
+                            except Exception:
+                                pass
+                        # tested with Captain Marvel 2019
+                        elif 'viduplayer' in i:
+                            try:
+                                vp_headers = {
+                                    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0',
+                                    'Referer': i
+                                }
+                                result = client.request(i, headers=vp_headers)
+                                for x in re.findall('(eval\s*\(function.*?)</script>', result, re.DOTALL):
+                                    try:
+                                        result += jsunpack.unpack(x).replace('\\', '')
+                                    except Exception:
+                                        pass
+                                result = jsunpack.unpack(result)
+                                result = unicode(result, 'utf-8')
+                                links = re.findall('''['"]?file['"]?\s*:\s*['"]([^'"]+)['"][^}]*['"]?label['"]?\s*:\s*['"]([^'"]*)''', result, re.DOTALL)
+                                for direct_links, qual in links:
+                                    quality = source_utils.check_sd_url(qual)
+                                    sources.append({'source': 'vidu', 'quality': quality, 'language': 'en',
+                                                    'url': direct_links, 'direct': True, 'debridonly': False})
+                            except Exception:
                                 pass
                         else:
+                            if 'vidnode.net/load.php' in i:
+                                continue
                             valid, hoster = source_utils.is_host_valid(i, hostDict)
                             if not valid:
                                 continue
                             sources.append({'source': hoster, 'quality': '720p', 'language': 'en',
                                             'url': i, 'direct': False, 'debridonly': False})
-                    except:
+                    except Exception:
                         pass
             return sources
         except:

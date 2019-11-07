@@ -9,6 +9,9 @@
 # ----------------------------------------------------------------------------
 #######################################################################
 
+'''
+2019/11/07: Fixed typo missed when importing from Atreides
+'''
 
 import os
 import requests
@@ -36,7 +39,7 @@ MENU_ACTIONS = [ACTION_MOVE_UP, ACTION_MOVE_DOWN, ACTION_MOUSE_WHEEL_UP, ACTION_
 
 artPath = control.artPath()
 skinSubPath = control.skinSubPath()
-_addon = xbmcaddon.Addon(id='plugin.video.atreides')
+_addon = xbmcaddon.Addon(id='plugin.video.marauder')
 addonname = _addon.getAddonInfo('name')
 
 bg_news = os.path.join(artPath, 'newsbg.png')
