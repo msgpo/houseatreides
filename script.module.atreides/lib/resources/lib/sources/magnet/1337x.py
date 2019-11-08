@@ -18,6 +18,7 @@
 2019/11/04: Note to self----Stop doing function calls like self.base_link() in the god damn init. Slows
             the start of scrapers since ALL scrapers (regardless of settings), run and the init executes
             before filtering out www, magnet, etc. BAD DOG, BAD DOG. Dumbass
+2019/11/08: Moved base_link calls down to sources. Let's see how this goes, Mmmmkay?
 '''
 
 import re
@@ -35,8 +36,8 @@ class source:
         self.domains = ['1337x.to', 'x1337x.ws', '1337x.st', 'x1337x.eu', '1337x.is', '1337x.unblocked.win']
         self._base_link = None
         self.scraper = cfscrape.create_scraper()
-        self.tvsearch = '%s/sort-category-search/%s/TV/seeders/desc/%s/' % (self.base_link, '%s', '%s')
-        self.moviesearch = '%s/sort-category-search/%s/Movies/size/desc/%s/' % (self.base_link, '%s', '%s')
+        self.tvsearch = '%s/sort-category-search/%s/TV/seeders/desc/%s/'
+        self.moviesearch = '%s/sort-category-search/%s/Movies/size/desc/%s/'
 
     @property
     def base_link(self):
@@ -111,10 +112,12 @@ class source:
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
             urls = []
             if 'tvshowtitle' in data:
+                self.tvsearch = self.tvsearch % (self.base_link, '%s', '%s')
                 urls.append(self.tvsearch % (urllib.quote(query), '1'))
                 urls.append(self.tvsearch % (urllib.quote(query), '2'))
                 urls.append(self.tvsearch % (urllib.quote(query), '3'))
             else:
+                self.moviesearch = self.moviesearch % (self.base_link, '%s', '%s')
                 urls.append(self.moviesearch % (urllib.quote(query), '1'))
                 urls.append(self.moviesearch % (urllib.quote(query), '2'))
                 urls.append(self.moviesearch % (urllib.quote(query), '3'))

@@ -14,6 +14,7 @@
 
 '''
 2019/11/03: Domain updates
+2019/11/08: Moved base_link calls down to sources. Let's see how this goes, Mmmmkay?
 '''
 
 import re
@@ -30,7 +31,7 @@ class source:
         self.source = ['magnet']
         self.domains = ['torrentdownloads.me', 'torrentdownloads.info']
         self._base_link = None
-        self.search = '%s/rss.xml?new=1&type=search&cid={0}&search={1}' % (self.base_link)
+        self.search = '%s/rss.xml?new=1&type=search&cid={0}&search={1}'
         self.scraper = cfscrape.create_scraper()
 
     @property
@@ -96,6 +97,7 @@ class source:
             query = '%s S%02dE%02d' % (data['tvshowtitle'], int(data['season']), int(data['episode'])) \
                 if 'tvshowtitle' in data else '%s %s' % (data['title'], data['year'])
             query = re.sub(r'(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
+            self.search = self.search % (self.base_link)
             if 'tvshowtitle' in data:
                 url = self.search.format('8', urllib.quote(query))
             else:

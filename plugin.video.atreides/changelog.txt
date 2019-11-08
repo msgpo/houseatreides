@@ -1,4 +1,7 @@
-[COLOR limegreen]Atredies Script Module v1.5.1[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.5.1b[/COLOR]
+    - base_link call updates
+
+[COLOR limegreen]Atredies Script Module v1.5.1a[/COLOR]
     - Minor scraper updates
 
 [COLOR limegreen]Atredies Video Plugin v1.3.3[/COLOR]

@@ -112,7 +112,7 @@ msgid "Box Office"
 msgstr "Box Office"
 
 msgctxt "#32021"
-msgid "COLORgold]Oscar Winners[/COLOR]"
+msgid "Oscar Winners"
 msgstr "Νικητές Oscar"
 
 msgctxt "#32022"

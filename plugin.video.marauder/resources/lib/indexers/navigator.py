@@ -43,15 +43,15 @@ class navigator:
     def root(self):
         self.addDirectoryItem(32001, 'movieNavigator', 'movies.png', 'DefaultMovies.png')
         self.addDirectoryItem(32002, 'tvNavigator', 'tvshows.png', 'DefaultTVShows.png')
-        
+
         if self.getMenuEnabled('navi.imdbtop') is True:
-            self.addDirectoryItem('[COLORgold]IMDB Top 250[/COLOR]', 'imdbtop250', 'imdb.png', 'Defaultmovies.png')
-           
+            self.addDirectoryItem('IMDB Top 250', 'imdbtop250', 'imdb.png', 'Defaultmovies.png')
+
         if self.getMenuEnabled('navi.moviechest') is True:
-            self.addDirectoryItem('[COLORorange]The Movie Chest[/COLOR]', 'moviechest', 'chest.png', 'Defaultmovies.png')    
+            self.addDirectoryItem('The Movie Chest', 'moviechest', 'chest.png', 'Defaultmovies.png')
         if self.getMenuEnabled('navi.hack') is True:
-            self.addDirectoryItem('[COLORturquoise]Hack The Planet[/COLOR]', 'movies&url=hacktheplanet', 'hack.png', 'playlist.jpg')
-        
+            self.addDirectoryItem('Hack The Planet', 'movies&url=hacktheplanet', 'hack.png', 'playlist.jpg')
+
         if self.getMenuEnabled('navi.boxsets') is True:
             self.addDirectoryItem('Boxsets', 'boxsetNavigator', 'boxsets.png', 'DefaultBoxSets.png')
 
@@ -101,9 +101,9 @@ class navigator:
         if self.getMenuEnabled('navi.movieoscars') is True:
             self.addDirectoryItem(32021, 'movies&url=oscars', 'oscar-winners.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.ccollect') is True:
-            self.addDirectoryItem('[COLORorange]Collections[/COLOR]', 'movieCollections', 'collections.png', 'DefaultMovies.png')
+            self.addDirectoryItem('Collections', 'movieCollections', 'collections.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.moviemosts') is True:
-            self.addDirectoryItem('[COLORturquoise]Movie Mosts[/COLOR]', 'movieMosts', 'featured.png', 'playlist.jpg')
+            self.addDirectoryItem('Movie Mosts', 'movieMosts', 'featured.png', 'playlist.jpg')
         if self.getMenuEnabled('navi.moviegenre') is True:
             self.addDirectoryItem(32011, 'movieGenres', 'genres.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.movieyears') is True:

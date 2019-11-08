@@ -1,3 +1,9 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.2[/COLOR][/B]
+- TMDB Code Expired. New one in Settings that will
+  require you to open Settings -> hit Defaults button
+  -> Hit OK to save.
+- Menu updates
+
 [B][COLOR gold]Marauder Video Plugin v2.0.1a[/COLOR][/B]
 - Minor tweak in theme code
 
