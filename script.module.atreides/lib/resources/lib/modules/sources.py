@@ -19,6 +19,7 @@
             down through the function to call scraper.sources() and then utilized in the scraper to limit the time scrapers run better.
             Need to implement this in each scraper and as lazy as I am, will take a little bit. Uses Providers Timout from addon settings.
 2019/07/04: Prem naming and checks added. Credit to host505
+2019/11/10: Filter updates
 '''
 
 import datetime
@@ -1113,7 +1114,7 @@ class sources:
             filter = [i for i in self.sources if i['source'].lower() in self.hostcapDict and 'debrid' not in i]
             self.sources = [i for i in self.sources if i not in filter]
 
-        filter = [i for i in self.sources if i['source'].lower() in self.hostblockDict and 'debrid' not in i]
+        filter = [i for i in self.sources if i['source'].lower() in self.hostblockDict]
         self.sources = [i for i in self.sources if i not in filter]
 
         multi = [i['language'] for i in self.sources]
@@ -1436,7 +1437,7 @@ class sources:
         filter = [i for i in items if i['source'].lower() in self.hostcapDict and i['debrid'] == '']
         items = [i for i in items if i not in filter]
 
-        filter = [i for i in items if i['source'].lower() in self.hostblockDict and i['debrid'] == '']
+        filter = [i for i in items if i['source'].lower() in self.hostblockDict]
         items = [i for i in items if i not in filter]
 
         items = [i for i in items if ('autoplay' in i and i['autoplay'] is True) or 'autoplay' not in i]
@@ -1557,21 +1558,24 @@ class sources:
             self.hostDict = []
 
         self.hostprDict = [
-            '1fichier.com', 'multiup.org', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to',
-            'uploadgig.com', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net']
+            '1fichier.com', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to', 'uploadgig.com',
+            'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net', 'multiup.org']
 
         self.hostcapDict = [
             'openload.io', 'openload.co', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download', 'oload.info',
-            'oload.icu', 'oload.fun', 'oload.life', 'openload.pw', 'vev.io', 'vidup.me', 'vidup.tv', 'vshare.io',
-            'vshare.eu', 'flashx.tv', 'flashx.to', 'flashx.sx', 'flashx.bz', 'flashx.cc', 'hugefiles.net',
-            'thevideo.me', 'streamin.to']
+            'oload.icu', 'oload.fun', 'oload.life', 'openload.pw', 'vev.io', 'vidup.me', 'vidup.tv', 'vidup.io',
+            'vshare.io', 'vshare.eu', 'flashx.tv', 'flashx.to', 'flashx.sx', 'flashx.bz', 'flashx.cc', 'hugefiles.net',
+            'hugefiles.cc', 'thevideo.me', 'streamin.to']
 
         self.hosthqDict = [
-            'gvideo', 'google.com', 'openload.io', 'openload.co', 'oload.tv', 'thevideo.me', 'rapidvideo.com',
-            'raptu.com', 'filez.tv', 'uptobox.com', 'uptostream.com', 'xvidstage.com', 'streamango.com',
-            'xstreamcdn.com', 'idtbox.com']
+            'gvideo', 'google.com', 'thevideo.me', 'raptu.com', 'filez.tv', 'uptobox.com', 'uptostream.com',
+            'xvidstage.com', 'xstreamcdn.com', 'idtbox.com']
 
-        self.hostblockDict = []
+        self.hostblockDict = [
+            'zippyshare.com', 'youtube.com', 'facebook.com', 'twitch.tv', 'streamango.com', 'streamcherry.com',
+            'openload.io', 'openload.co', 'openload.pw', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download',
+            'oload.info', 'oload.icu', 'oload.fun', 'oload.life', 'oload.space', 'oload.monster', 'openload.pw',
+            'rapidvideo.com', 'rapidvideo.is', 'rapidvid.to']
 
     def getPremColor(self, n):
         if n == '0':

@@ -17,6 +17,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+'''
+2019/11/10: Updated blocked and hq lists
+'''
 
 import sys
 import re
@@ -1142,7 +1145,7 @@ class sources:
             filter = [i for i in self.sources if i['source'].lower() in self.hostcapDict and not 'debrid' in i]
             self.sources = [i for i in self.sources if not i in filter]
 
-        filter = [i for i in self.sources if i['source'].lower() in self.hostblockDict and not 'debrid' in i]
+        filter = [i for i in self.sources if i['source'].lower() in self.hostblockDict]
         self.sources = [i for i in self.sources if not i in filter]
 
         multi = [i['language'] for i in self.sources]
@@ -1631,16 +1634,19 @@ class sources:
 
         self.hostcapDict = [
             'openload.io', 'openload.co', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download', 'oload.info',
-            'oload.icu', 'oload.fun', 'oload.life', 'openload.pw', 'vev.io', 'vidup.me', 'vidup.tv', 'vshare.io',
-            'vshare.eu', 'flashx.tv', 'flashx.to', 'flashx.sx', 'flashx.bz', 'flashx.cc', 'hugefiles.net',
-            'thevideo.me', 'streamin.to']
+            'oload.icu', 'oload.fun', 'oload.life', 'openload.pw', 'vev.io', 'vidup.me', 'vidup.tv', 'vidup.io',
+            'vshare.io', 'vshare.eu', 'flashx.tv', 'flashx.to', 'flashx.sx', 'flashx.bz', 'flashx.cc', 'hugefiles.net',
+            'hugefiles.cc', 'thevideo.me', 'streamin.to']
 
         self.hosthqDict = [
-            'gvideo', 'google.com', 'openload.io', 'openload.co', 'oload.tv', 'thevideo.me', 'rapidvideo.com',
-            'raptu.com', 'filez.tv', 'uptobox.com', 'uptostream.com', 'xvidstage.com', 'streamango.com',
-            'xstreamcdn.com', 'idtbox.com']
+            'gvideo', 'google.com', 'thevideo.me', 'raptu.com', 'filez.tv', 'uptobox.com', 'uptostream.com',
+            'xvidstage.com', 'xstreamcdn.com', 'idtbox.com']
 
-        self.hostblockDict = ['zippyshare.com', 'youtube.com', 'facebook.com', 'twitch.tv']
+        self.hostblockDict = [
+            'zippyshare.com', 'youtube.com', 'facebook.com', 'twitch.tv', 'streamango.com', 'streamcherry.com',
+            'openload.io', 'openload.co', 'openload.pw', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download',
+            'oload.info', 'oload.icu', 'oload.fun', 'oload.life', 'oload.space', 'oload.monster', 'openload.pw',
+            'rapidvideo.com', 'rapidvideo.is', 'rapidvid.to']
 
     def enableAll(self):
         try:

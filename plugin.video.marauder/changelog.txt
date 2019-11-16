@@ -1,3 +1,10 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.3[/COLOR][/B]
+[B][COLOR gold]Marauder Artwork v2.0.2[/COLOR][/B]
+- Filter updates
+- Log Viewer/Uploader added under Tools
+- Pairing tool added under Tools
+- Skin updates
+
 [B][COLOR gold]Marauder Video Plugin v2.0.2[/COLOR][/B]
 - TMDB Code Expired. New one in Settings that will
   require you to open Settings -> hit Defaults button

@@ -721,6 +721,7 @@ class navigator:
 
     def tools(self):
         self.addDirectoryItem('[B]Marauder[/B] : Changelog', 'changelog', 'tools.png', 'DefaultAddonProgram.png')
+        self.addDirectoryItem('[B]Marauder[/B] : Log Viewer', 'logViewer', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32043, 'openSettings&query=0.0', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32556, 'libraryNavigator', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32049, 'viewsNavigator', 'tools.png', 'DefaultAddonProgram.png')
@@ -742,7 +743,7 @@ class navigator:
             self.addDirectoryItem(32080, 'orionsettings', 'orion.png', 'DefaultAddonProgram.png')
         if trakt.getTraktCredentialsInfo():
             self.addDirectoryItem(32093, 'syncTraktStatus', 'trakt.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32073, 'authTrakt', 'trakt.png', 'DefaultAddonProgram.png')
+        self.addDirectoryItem('Pairing and Authorize Tools', 'pairTools', 'tools.png', 'DefaultAddonProgram.png')
 
         self.endDirectory(category='Tools and More')
 

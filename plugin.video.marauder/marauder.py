@@ -583,3 +583,11 @@ elif action == 'syncTraktStatus':
 elif action == 'changelog':
     from resources.lib.dialogs import changelog
     changelog.ChangelogViewer()
+
+elif action == 'pairTools':
+    from resources.lib.dialogs import pairing
+    pairing.Pair_Dialog()
+
+elif action == 'logViewer':
+    from resources.lib.dialogs import logviewer
+    logviewer.LogViewer(logfile='kodi.log')

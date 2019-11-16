@@ -110,6 +110,8 @@ deleteDir = xbmcvfs.rmdir
 
 listDir = xbmcvfs.listdir
 
+profile = addonInfo('profile').decode('utf-8')
+
 transPath = xbmc.translatePath
 
 skinPath = xbmc.translatePath('special://skin/')

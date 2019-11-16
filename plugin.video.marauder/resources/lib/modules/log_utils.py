@@ -21,19 +21,30 @@ import cProfile
 import json
 import os
 import pstats
+import re
+import requests
 import StringIO
 import time
 from datetime import datetime
 
+import pyqrcode
 import xbmc
+import xbmcgui
+import xbmcvfs
+
+from resources.lib.dialogs import themecontrol
 from resources.lib.modules import control
 from xbmc import (LOGDEBUG, LOGERROR, LOGFATAL, LOGINFO,  # @UnusedImport
                   LOGNONE, LOGNOTICE, LOGSEVERE, LOGWARNING)
 
 name = control.addonInfo('name')
+aid = control.addonInfo('id')
+version = control.addonInfo('version')
+# Using color coding, for color formatted log viewers like Assassin's Tools
 DEBUGPREFIX = '[ Marauder DEBUG ]'
 LOGPATH = xbmc.translatePath('special://logpath/')
-
+HOMEPATH = xbmc.translatePath('special://home/')
+PROFILE = control.profile
 
 def log(msg, level=LOGNOTICE):
     debug_enabled = control.setting('addon_debug')
@@ -61,6 +72,104 @@ def log(msg, level=LOGNOTICE):
             xbmc.log('Logging Failure: %s' % (e), level)
         except Exception:
             pass
+
+
+def cleanLog(content):
+    replaces = (('//.+?:.+?@', '//USER:PASSWORD@'),('<user>.+?</user>', '<user>USER</user>'),('<pass>.+?</pass>', '<pass>PASSWORD</pass>'),)
+    for pattern, repl in replaces:
+        content = re.sub(pattern, repl, content)
+        return content
+
+
+def readLog(path):
+    try:
+        lf = xbmcvfs.File(path)
+        sz = lf.size()
+        if sz > 1000000:
+            log('file is too large')
+            return 'File is too large'
+        content = lf.read()
+        lf.close()
+        if content:
+            return content
+        else:
+            log('file is empty')
+            return 'File is Empty'
+    except:
+        log('unable to read file')
+        return 'Unable to read file'
+
+
+def highlightText(msg):
+    msg = cleanLog(msg)
+    msg = msg.replace('\n', '[NL]')
+    matches = re.compile("-->Python callback/script returned the following error<--(.+?)-->End of Python script error report<--").findall(msg)
+    for item in matches:
+        string = '-->Python callback/script returned the following error<--%s-->End of Python script error report<--' % item
+        msg    = msg.replace(string, '[COLOR red]%s[/COLOR]' % string)
+    msg = msg.replace('WARNING', '[COLOR yellow]WARNING[/COLOR]').replace('ERROR', '[COLOR red]ERROR[/COLOR]').replace('[NL]', '\n').replace(': EXCEPTION Thrown (PythonToCppException) :', '[COLOR red]: EXCEPTION Thrown (PythonToCppException) :[/COLOR]')
+    msg = msg.replace('\\\\', '\\').replace(HOMEPATH, '')
+    return msg
+
+
+def uploadLog(data):
+    url = 'https://paste.kodi.tv/'
+
+    session = requests.Session()
+    UserAgent = '%s: %s' % (aid, version)
+    try:
+        response = session.post(url + 'documents', data=data, headers={'User-Agent': UserAgent})
+        if 'key' in response.json():
+            result = url + response.json()['key']
+            return True, result
+        elif 'message' in response.json():
+            log('upload failed, paste may be too large')
+            return False, response.json()['message']
+        else:
+            log('error: %s' % response.text)
+            return False, 'Error posting the logfile.'
+    except:
+        log('unable to retrieve the paste url')
+        return False, 'Failed to retrieve the paste url'
+
+
+def showResult(message, url=None):
+    if url:
+        imagefile = os.path.join(xbmc.translatePath(PROFILE),'%s.png' % str(url.split('/')[-1]))
+        qrIMG = pyqrcode.create(url)
+        qrIMG.png(imagefile, scale=10)
+        qr = QRCode("LogViewer_QR.xml", control.skinModule(), control.skinTheme(), '1080i', image=imagefile, text=message)
+        qr.doModal()
+        del qr
+        xbmcvfs.delete(imagefile)
+    else:
+        from resources.lib.dialogs import ok
+        ok.OK_Dialog('Upload Complete', message)
+
+
+class QRCode(xbmcgui.WindowXMLDialog):
+    def __init__(self, *args, **kwargs):
+        self.colors = themecontrol.ThemeColors()
+
+        self.image = kwargs["image"]
+        self.text = kwargs["text"]
+
+    def onInit(self):
+        self.imagecontrol = 501
+        self.textbox = 502
+        self.okbutton = 503
+        self.showdialog()
+
+    def showdialog(self):
+        self.setProperty('dhtext', self.colors.dh_color)
+
+        self.getControl(self.imagecontrol).setImage(self.image)
+        self.getControl(self.textbox).setText(self.text)
+        self.setFocus(self.getControl(self.okbutton))
+
+    def onClick(self, controlId):
+        if (controlId == self.okbutton):
+            self.close()
 
 
 class Profiler(object):

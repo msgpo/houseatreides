@@ -1,3 +1,6 @@
+[COLOR limegreen]Atredies Script Module v1.5.1c[/COLOR]
+    - Filter updates for dead hosters
+
 [COLOR limegreen]Atredies Script Module v1.5.1b[/COLOR]
     - base_link call updates
 
