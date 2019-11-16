@@ -1,4 +1,9 @@
 [B][COLOR gold]Marauder Video Plugin v2.0.3[/COLOR][/B]
+- TVDB adjustment. Fixes Seasons etc, artwork
+  slow to load at the moment but does load
+- Remember to clear ALL cache (except Search)
+
+[B][COLOR gold]Marauder Video Plugin v2.0.3[/COLOR][/B]
 [B][COLOR gold]Marauder Artwork v2.0.2[/COLOR][/B]
 - Filter updates
 - Log Viewer/Uploader added under Tools

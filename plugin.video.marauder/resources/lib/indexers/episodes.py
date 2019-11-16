@@ -27,14 +27,15 @@ import os
 import re
 import StringIO
 import sys
+import traceback
 import urllib
 import urllib2
 import urlparse
 import zipfile
 
 from resources.lib.modules import (cache, cleangenre, cleantitle, client,
-                                   control, playcount, trakt, utils, views,
-                                   workers)
+                                   control, log_utils, playcount, trakt, utils,
+                                   views, workers)
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?',''))) if len(sys.argv) > 1 else dict()
 
@@ -126,7 +127,7 @@ class seasons:
             data = urllib2.urlopen(url, timeout=30).read()
 
             zip = zipfile.ZipFile(StringIO.StringIO(data))
-            result = zip.read('%s.xml' % 'en')
+            result = zip.read('%s.xml' % 'en.zip')
             artwork = zip.read('banners.xml')
             zip.close()
 
@@ -149,7 +150,7 @@ class seasons:
                 data = urllib2.urlopen(url, timeout=30).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result2 = zip.read('%s.xml' % lang)
+                result2 = zip.read('%s.zip.xml' % lang)
                 zip.close()
             else:
                 result2 = result
@@ -881,7 +882,7 @@ class episodes:
                 data = urllib2.urlopen(url, timeout=10).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.xml' % lang)
+                result = zip.read('%s.zip.xml' % lang)
                 artwork = zip.read('banners.xml')
                 zip.close()
 
@@ -1083,7 +1084,7 @@ class episodes:
                 data = urllib2.urlopen(url, timeout=10).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.xml' % lang)
+                result = zip.read('%s.zip.xml' % lang)
                 artwork = zip.read('banners.xml')
                 zip.close()
 
