@@ -1,3 +1,6 @@
+[COLOR limegreen]Atredies Script Module v1.5.1e[/COLOR]
+    - TVDB Update - Clear All Cache under Tools menu
+
 [COLOR limegreen]Atredies Script Module v1.5.1d[/COLOR]
     - TVDB Update - Clear All Cache under Tools menu
 

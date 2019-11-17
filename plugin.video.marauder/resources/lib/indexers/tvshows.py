@@ -28,12 +28,13 @@ import json
 import os
 import re
 import sys
+import traceback
 import urllib
 import urlparse
 
 from resources.lib.indexers import navigator
 from resources.lib.modules import (
-    cache, cleangenre, cleantitle, client, control, metacache, playcount,
+    cache, cleangenre, cleantitle, client, control, log_utils, metacache, playcount,
     trakt, utils, views, workers)
 
 
@@ -61,7 +62,7 @@ class tvshows:
 
         self.search_link = 'https://api.trakt.tv/search/show?limit=20&page=1&query='
         self.tvmaze_info_link = 'http://api.tvmaze.com/shows/%s'
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/%s.xml' % (
+        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/%s.zip.xml' % (
             self.tvdb_key, '%s', self.lang)
         self.fanart_tv_art_link = 'http://webservice.fanart.tv/v3/tv/%s'
         self.fanart_tv_level_link = 'http://webservice.fanart.tv/v3/level'
