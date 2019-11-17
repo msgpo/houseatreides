@@ -1,3 +1,8 @@
+[COLOR limegreen]Atredies Script Module v1.5.1f[/COLOR]
+    - Added Apple TV+ to Networks
+    - Added Disney+ to Networks
+    - Upgraded TVDB links to secure
+
 [COLOR limegreen]Atredies Script Module v1.5.1e[/COLOR]
     - TVDB Update - Clear All Cache under Tools menu
 

@@ -19,6 +19,7 @@ import os
 import re
 import StringIO
 import sys
+import traceback
 import urllib
 import urllib2
 import urlparse
@@ -44,12 +45,12 @@ class seasons:
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.tvdb_key = control.setting('tvdb.user')
 
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
             self.tvdb_key, '%s', '%s')
-        self.tvdb_by_imdb = 'http://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
-        self.tvdb_by_query = 'http://thetvdb.com/api/GetSeries.php?seriesname=%s'
-        self.tvdb_image = 'http://thetvdb.com/banners/'
-        self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
+        self.tvdb_by_imdb = 'https://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
+        self.tvdb_by_query = 'https://thetvdb.com/api/GetSeries.php?seriesname=%s'
+        self.tvdb_image = 'https://thetvdb.com/banners/'
+        self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
     def getUnairedColor(self, n):
         if n == '0':
@@ -693,10 +694,10 @@ class episodes:
             self.unairedcolor = 'red'
         self.unairedcolor = self.getUnairedColor(self.unairedcolor)
 
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
             self.tvdb_key, '%s', '%s')
-        self.tvdb_image = 'http://thetvdb.com/banners/'
-        self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
+        self.tvdb_image = 'https://thetvdb.com/banners/'
+        self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
         self.added_link = 'http://api.tvmaze.com/schedule'
         # https://api.trakt.tv/calendars/all/shows/date[30]/31 #use this for new episodes?
@@ -793,17 +794,22 @@ class episodes:
             pass
 
     def widget(self):
-        if trakt.getTraktIndicatorsInfo() is True:
-            setting = control.setting('tv.widget.alt')
-        else:
-            setting = control.setting('tv.widget')
+        try:
+            if trakt.getTraktIndicatorsInfo() is True:
+                setting = control.setting('tv.widget.alt')
+            else:
+                setting = control.setting('tv.widget')
 
-        if setting == '2':
-            self.calendar(self.progress_link)
-        elif setting == '3':
-            self.calendar(self.mycalendar_link)
-        else:
-            self.calendar(self.added_link)
+            if setting == '2':
+                self.calendar(self.progress_link)
+            elif setting == '3':
+                self.calendar(self.mycalendar_link)
+            else:
+                self.calendar(self.added_link)
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('TV Widget - Exception: \n' + str(failure))
+            return
 
     def calendars(self, idx=True):
         m = control.lang(32060).encode('utf-8').split('|')

@@ -118,7 +118,7 @@ class tvMaze:
 
     def episodeAbsoluteNumber(self, thetvdb, season, episode):
         try:
-            url = 'http://thetvdb.com/api/%s/series/%s/default/%01d/%01d' % (
+            url = 'https://thetvdb.com/api/%s/series/%s/default/%01d/%01d' % (
                 self.tvdb_key, thetvdb, int(season), int(episode))
             return int(client.parseDOM(client.request(url), 'absolute_number')[0])
         except Exception:
@@ -128,7 +128,7 @@ class tvMaze:
 
     def getTVShowTranslation(self, thetvdb, lang):
         try:
-            url = 'http://thetvdb.com/api/%s/series/%s/%s.xml' % (
+            url = 'https://thetvdb.com/api/%s/series/%s/%s.xml' % (
                 self.tvdb_key, thetvdb, lang)
             r = client.request(url)
             title = client.parseDOM(r, 'SeriesName')[0]

@@ -51,11 +51,11 @@ class seasons:
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.tvdb_key = control.setting('tvdb.key')
 
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key, '%s', '%s')
-        self.tvdb_by_imdb = 'http://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
-        self.tvdb_by_query = 'http://thetvdb.com/api/GetSeries.php?seriesname=%s'
-        self.tvdb_image = 'http://thetvdb.com/banners/'
-        self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key, '%s', '%s')
+        self.tvdb_by_imdb = 'https://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
+        self.tvdb_by_query = 'https://thetvdb.com/api/GetSeries.php?seriesname=%s'
+        self.tvdb_image = 'https://thetvdb.com/banners/'
+        self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
 
     def get(self, tvshowtitle, year, imdb, tvdb, idx=True, create_directory=True):
@@ -554,9 +554,9 @@ class episodes:
         self.lang = control.apiLanguage()['tvdb']
         self.showunaired = control.setting('showunaired') or 'true'
 
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key, '%s', '%s')
-        self.tvdb_image = 'http://thetvdb.com/banners/'
-        self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key, '%s', '%s')
+        self.tvdb_image = 'https://thetvdb.com/banners/'
+        self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
         self.added_link = 'http://api.tvmaze.com/schedule'
         #https://api.trakt.tv/calendars/all/shows/date[30]/31 #use this for new episodes?

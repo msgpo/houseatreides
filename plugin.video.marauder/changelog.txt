@@ -1,3 +1,8 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.3c[/COLOR][/B]
+- Added Apple TV+ to Networks
+- Added Disney+ to Networks
+- Upgraded TVDB links to secure
+
 [B][COLOR gold]Marauder Video Plugin v2.0.3b[/COLOR][/B]
 - TVDB adustment for artwork. May require clear cache
 
