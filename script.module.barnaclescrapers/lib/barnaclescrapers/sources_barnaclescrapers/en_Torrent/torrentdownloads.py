@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#  ..#######.########.#######.##....#..######..######.########....###...########.#######.########..######.
-#  .##.....#.##.....#.##......###...#.##....#.##....#.##.....#...##.##..##.....#.##......##.....#.##....##
-#  .##.....#.##.....#.##......####..#.##......##......##.....#..##...##.##.....#.##......##.....#.##......
-#  .##.....#.########.######..##.##.#..######.##......########.##.....#.########.######..########..######.
-#  .##.....#.##.......##......##..###.......#.##......##...##..########.##.......##......##...##........##
-#  .##.....#.##.......##......##...##.##....#.##....#.##....##.##.....#.##.......##......##....##.##....##
-#  ..#######.##.......#######.##....#..######..######.##.....#.##.....#.##.......#######.##.....#..######.
-
 '''
-    OpenScrapers Project
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -37,9 +28,9 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['torrentdownloads.me', 'torrentsdl1.unblocked.lol']
-        self.base_link = 'https://torrentsdl1.unblocked.lol/'
-        self.search = 'https://torrentsdl1.unblocked.lol/rss.xml?new=1&type=search&cid={0}&search={1}'
+        self.domains = ['torrentdownloads.me']
+        self.base_link = 'https://www.torrentdownloads.me'
+        self.search = 'https://www.torrentdownloads.me/rss.xml?new=1&type=search&cid={0}&search={1}'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -123,7 +114,7 @@ class source:
             try:
                 div = 1000 ** 3
                 size = float(size) / div
-                size = '[B]%.2f GB[/B]' % size
+                size = '%.2f GB' % size
             except BaseException:
                 size = '0'
 
@@ -131,9 +122,10 @@ class source:
             info.append(size)
             info = ' | '.join(info)
 
-            if cleantitle.get(re.sub('(|)', '', t)) == cleantitle.get(self.title):
-                if y == self.hdlr:
-                    self._sources.append({'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
+            if not seeders == '0':
+                if cleantitle.get(re.sub('(|)', '', t)) == cleantitle.get(self.title):
+                    if y == self.hdlr:
+                        self._sources.append({'source': 'torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
 
         except BaseException:
             pass

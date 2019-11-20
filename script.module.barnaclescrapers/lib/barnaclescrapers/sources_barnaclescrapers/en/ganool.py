@@ -1,97 +1,74 @@
 # -*- coding: utf-8 -*-
-#######################################################################
-# ----------------------------------------------------------------------------
-# "THE BEER-WARE LICENSE" (Revision 42):
-# As long as you retain this notice you can do whatever you want with
-# this stuff. If we meet some day, and you think this stuff is worth it,
-# you can buy me a beer in return. - Muad'Dib
-# ----------------------------------------------------------------------------
-#######################################################################
 
+'''
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-import re
-import urllib
-import urlparse
-import requests
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-from resources.lib.modules import  source_utils
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+'''
+
+import re, urllib, urlparse
+from resources.lib.modules import cleantitle
+from resources.lib.modules import source_utils
+from resources.lib.modules import debrid
+from resources.lib.modules import cfscrape
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['ganool.bz', 'ganool.ws', 'ganol.si', 'ganool123.com']
-        self.base_link = 'https://ww1.ganool.ws'
+        self.domains = ['ganool.ws', 'ganol.si', 'ganool123.com']
+        self.base_link = 'https://123movie.nu'
         self.search_link = '/search/?q=%s'
-        self.download_links = '/loadmoviedownloadsection.php'
+        self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except Exception:
+        except BaseException:
             return
 
     def sources(self, url, hostDict, hostprDict):
         sources = []
-        hostDict = hostprDict + hostDict
         try:
             if url is None:
-                return
-            urldata = urlparse.parse_qs(url)
-            urldata = dict((i, urldata[i][0]) for i in urldata)
-            title = urldata['title']
-            year = urldata['year']
-
-            search = title.lower()
-            url = urlparse.urljoin(self.base_link, self.search_link % (search.replace(' ', '+')))
-            shell = requests.Session()
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'}
-            Digital = shell.get(url, headers=headers).content
-
-            BlackFlag = re.compile(
-                'data-movie-id="" class="ml-item".+?href="(.+?)" class="ml-mask jt".+?<div class="moviename">(.+?)</div>',
-                re.DOTALL).findall(Digital)
-            for Digibox, Powder in BlackFlag:
-                if title.lower() in Powder.lower():
-                    if year in str(Powder):
-                        r = shell.get(Digibox, headers=headers).content
-                        quality_bitches = re.compile(
-                            '<strong>Quality:</strong>\s+<a href=.+?>(.+?)</a>', re.DOTALL).findall(r)
-
-                        for url in quality_bitches:
-                            if '1080' in url:
-                                quality = '1080p'
-                            elif '720' in url:
-                                quality = '720p'
-                            elif 'cam' in url:
-                                quality = 'SD'
-                            else:
-                                quality = 'SD'
-
-                        key = re.compile("var randomKeyNo = '(.+?)'", re.DOTALL).findall(r)
-                        post_link = urlparse.urljoin(self.base_link, self.download_links)
-                        payload = {'key': key}
-                        suck_it = shell.post(post_link, headers=headers, data=payload)
-                        response = suck_it.content
-
-                        grab = re.compile('<a rel="\w+" href="(.+?)">\w{5}\s\w+\s\w+\s\w+\s\w{5}<\/a>', re.DOTALL).findall(response)
-                        for links in grab:
-                            r = shell.get(links, headers=headers).content
-                            links = re.compile('<a rel="\w+" href="(.+?)" target="\w+">', re.DOTALL).findall(r)
-
-                        for link in links:
-                            valid, host = source_utils.is_host_valid(link, hostDict)
-                            # openload links seem to be .rar files. the following is needed so they wont be included
-                            if 'rar' in link:
-                                continue
-                            sources.append({'source': host, 'quality': quality, 'language': 'en',
-                                            'url': link, 'direct': False, 'debridonly': False})
+                return sources
+            if debrid.status() is False:
+                raise Exception()
+            data = urlparse.parse_qs(url)
+            data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
+            q = '%s' % cleantitle.get_gan_url(data['title'])
+            url = self.base_link + self.search_link % q
+            r = self.scraper.get(url).content
+            v = re.compile('<a href="(.+?)" class="ml-mask jt" title="(.+?)">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span class=".+?">(.+?)</span>').findall(r)
+            for url, check, quality in v:
+                t = '%s (%s)' % (data['title'], data['year'])
+                if t not in check:
+                    raise Exception()
+                key = url.split('-hd')[1]
+                r = self.scraper.get('https://123movie.nu/moviedownload.php?q=' + key).content
+                r = re.compile('<a rel=".+?" href="(.+?)" target=".+?">').findall(r)
+                for url in r:
+                    if any(x in url for x in ['.rar']):
+                        continue
+                    quality = source_utils.check_url(quality)
+                    valid, host = source_utils.is_host_valid(url, hostDict)
+                    if not valid:
+                        continue
+                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'direct': False, 'debridonly': True})
             return sources
-        except Exception:
+        except:
             return sources
 
     def resolve(self, url):

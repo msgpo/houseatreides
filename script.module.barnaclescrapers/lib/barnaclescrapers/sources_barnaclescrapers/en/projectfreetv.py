@@ -15,32 +15,34 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import re,base64
-from resources.lib.modules import cleantitle,source_utils,cfscrape
+import re,urllib,urlparse
+
+from resources.lib.modules import cleantitle
+from resources.lib.modules import client
+from resources.lib.modules import proxy
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['watchseries.unblocker.cc']
-        self.base_link = 'https://watchseries.unblocker.cc'
-        self.search_link = 'https://watchseries.unblocker.cc/episode/%s_s%s_e%s.html'
-        self.scraper = cfscrape.create_scraper()
+        self.domains = ['my-project-free.tv']
+        self.base_link = 'https://www8.project-free-tv.ag/'
+        self.search_link = '/episode/%s-season-%s-episode-%s'
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
-            url = cleantitle.geturl(tvshowtitle)
-            url = url.replace('-', '_')
+            clean_title = cleantitle.geturl(tvshowtitle)
+            url = clean_title
             return url
         except:
             return
-
+ 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            if url is None:
-                return
-            url = self.search_link % (url,season,episode)
+            if not url: return
+            tvshowtitle = url
+            url = self.base_link + self.search_link % (tvshowtitle, int(season), int(episode))
             return url
         except:
             return
@@ -48,19 +50,25 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            if url is None:
-                return sources
-            r = self.scraper.get(url).content
-            match = re.compile('cale\.html\?r=(.+?)" class="watchlink" title="(.+?)"').findall(r)
-            for url, host in match:
-                url = base64.b64decode(url)
-                quality, info = source_utils.get_release_quality(url, url)
-                valid, host = source_utils.is_host_valid(host, hostDict)
-                if valid:
-                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'info': info, 'url': url, 'direct': False, 'debridonly': False}) 
+            r = client.request(url)
+            try:
+                data = re.compile("callvalue\('.+?','.+?','(.+?)://(.+?)/(.+?)'\)",re.DOTALL).findall(r)
+                for http,host,url in data:
+                    url = '%s://%s/%s' % (http,host,url)
+                    sources.append({
+                        'source': host,
+                        'quality': 'SD',
+                        'language': 'en',
+                        'url': url,
+                        'direct': False,
+                        'debridonly': False
+                    })
+            except:
+                pass
+            return sources
         except Exception:
             return
-        return sources
+
 
     def resolve(self, url):
         return url

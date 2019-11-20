@@ -22,6 +22,7 @@ from resources.lib.modules import client
 from resources.lib.modules import dom_parser2
 from resources.lib.modules import workers
 from resources.lib.modules import source_utils
+from resources.lib.modules import debrid
 
 
 class source:
@@ -64,6 +65,7 @@ class source:
         try:
             self._sources = []
             if url is None: return self._sources
+            if debrid.status() is False: raise Exception()
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
@@ -130,7 +132,7 @@ class source:
 
                 self._sources.append(
                     {'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False,
-                     'debridonly': False})
+                     'debridonly': True})
         except Exception:
             pass
 
