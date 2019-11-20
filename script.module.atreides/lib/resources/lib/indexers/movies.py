@@ -306,7 +306,7 @@ class movies:
                 'action': 'movies'
             })
 
-        self.addDirectory(self.list)
+        self.addDirectory(self.list, category='Genres')
         return self.list
 
     def languages(self):
@@ -348,7 +348,7 @@ class movies:
         for i in languages:
             self.list.append({'name': str(i[0]), 'url': self.language_link % i[1],
                               'image': 'languages.png', 'action': 'movies'})
-        self.addDirectory(self.list)
+        self.addDirectory(self.list, category='Languages')
         return self.list
 
     def certifications(self):
@@ -356,7 +356,7 @@ class movies:
 
         for i in certificates:
             self.list.append({'name': str(i), 'url': self.certification_link % str(i), 'image': 'certificates.png', 'action': 'movies'})
-        self.addDirectory(self.list)
+        self.addDirectory(self.list, category='Certificates')
         return self.list
 
     def years(self):
@@ -365,7 +365,7 @@ class movies:
         for i in range(int(year) - 0, 1900, -1):
             self.list.append({'name': str(i), 'url': self.year_link % (
                 str(i), str(i), "1"), 'image': 'years.png', 'action': 'movies'})
-        self.addDirectory(self.list)
+        self.addDirectory(self.list, category='Year')
         return self.list
 
     def persons(self, url):
@@ -376,7 +376,7 @@ class movies:
 
         for i in range(0, len(self.list)):
             self.list[i].update({'action': 'movies'})
-        self.addDirectory(self.list)
+        self.addDirectory(self.list, category='People')
         return self.list
 
     def userlists(self):

@@ -119,7 +119,7 @@
         <setting id="tm.user" type="text" option="hidden" label="32309" default="5f4ba6df4db23739632640be569fc3fa" />
         <setting type="sep" />
         <setting type="lsep" label="TVDB" />
-        <setting id="tvdb.user" type="text" option="hidden" label="32309" default="179C6568E7389A7E" />
+        <setting id="tvdb.user" type="text" option="hidden" label="32309" default="71BB99369424F167" />
         <setting type="sep" />
         <setting type="lsep" label="Trakt" />
         <setting id="trakt.auth.a.bitch" type="action" label="32306" option="close" action="RunPlugin(plugin://plugin.video.atreides/?action=authTrakt)" />

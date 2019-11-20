@@ -235,6 +235,11 @@ class navigator:
                 except Exception:
                     pass
 
+                try:
+                    link = '%s&menu_title=%s' % (link, title)
+                except Exception:
+                    pass
+
                 self.addDirectoryItem(title, link, icon, icon)
             except Exception:
                 pass

@@ -25,7 +25,7 @@ import urllib2
 import urlparse
 import zipfile
 
-from resources.lib.modules import cache, cleangenre, cleantitle, client, control, playcount, trakt, utils, views, workers
+from resources.lib.modules import cache, cleangenre, cleantitle, client, control, log_utils, playcount, trakt, utils, views, workers
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?', ''))) if len(sys.argv) > 1 else dict()
 action = params.get('action')
@@ -361,7 +361,6 @@ class seasons:
                     premiered = '0'
                 premiered = client.replaceHTMLCodes(premiered)
                 premiered = premiered.encode('utf-8')
-
                 if status == 'Ended':
                     pass
                 elif premiered == '0':

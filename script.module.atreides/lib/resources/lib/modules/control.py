@@ -216,32 +216,6 @@ def get_plugin_url(queries):
     return addon_id + '?' + query
 
 
-def skinTheme():
-    theme = appearance()
-    if theme in ['-', '']:
-        return
-    elif condVisibility('System.HasAddon(script.atreides.artwork)'):
-        return theme
-
-
-def skinModule():
-    theme = appearance()
-    if theme in ['-', '']:
-        return
-    elif condVisibility('System.HasAddon(script.atreides.artwork)'):
-        aModule = xbmcaddon.Addon('script.atreides.artwork').getSetting('artwork_module')
-        return os.path.join(xbmcaddon.Addon(aModule).getAddonInfo('path'))
-
-
-def skinSubPath():
-    theme = appearance()
-    if theme in ['-', '']:
-        return
-    elif condVisibility('System.HasAddon(script.atreides.artwork)'):
-        aModule = xbmcaddon.Addon('script.atreides.artwork').getSetting('artwork_module')
-        return os.path.join(xbmcaddon.Addon(aModule).getAddonInfo('path'), 'resources', 'skins', theme)
-
-
 def artPath():
     theme = appearance()
     if theme in ['-', '']:

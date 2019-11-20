@@ -1,3 +1,8 @@
+[COLOR limegreen]Atredies Script Module v1.5.2[/COLOR]
+    - Skin code cleanup
+    - Notification for the common "Temporary"
+      Trakt errors
+
 [COLOR limegreen]Atredies Script Module v1.5.1f[/COLOR]
     - Added Apple TV+ to Networks
     - Added Disney+ to Networks

@@ -51,6 +51,6 @@ def OK_Dialog(title, msg):
             if action == themecontrol.ACTION_PREVIOUS_MENU or action == themecontrol.ACTION_NAV_BACK:
                 self.close()
 
-    ok = OK_Box('Dialog_OK.xml', control.skinModule(), control.skinTheme(), '1080i', title=title, msg=msg)
+    ok = OK_Box('Dialog_OK.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i', title=title, msg=msg)
     ok.doModal()
     del ok

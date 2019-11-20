@@ -19,12 +19,7 @@ import time
 import urllib
 import urlparse
 
-from resources.lib.modules import cache
-from resources.lib.modules import cleandate
-from resources.lib.modules import client
-from resources.lib.modules import control
-from resources.lib.modules import log_utils
-from resources.lib.modules import utils
+from resources.lib.modules import cache, cleandate, client, control, log_utils, utils
 
 BASE_URL = 'https://api.trakt.tv'
 V2_API_KEY = '7a422607d83d5efb71f30b1f8a2be8ed730795cd337ec1177891ca4085d007d2'
@@ -49,6 +44,7 @@ def __getTrakt(url, post=None):
 
         if resp_code in ['500', '502', '503', '504', '520', '521', '522', '524']:
             log_utils.log('Temporary Trakt Error: %s' % resp_code, log_utils.LOGWARNING)
+            control.infoDialog('Temporary Trakt Error: ' + str(resp_code), sound=True, icon='WARNING')
             return
         elif resp_code in ['404']:
             log_utils.log('Object Not Found : %s' % resp_code, log_utils.LOGWARNING)

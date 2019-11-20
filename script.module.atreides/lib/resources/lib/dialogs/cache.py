@@ -120,6 +120,6 @@ def Cache_Dialog():
                     pass
 
 
-    cwindow = Cache_Window('Cache_Tool.xml', control.skinModule(), control.skinTheme(), '1080i')
+    cwindow = Cache_Window('Cache_Tool.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i')
     cwindow.doModal()
     del cwindow

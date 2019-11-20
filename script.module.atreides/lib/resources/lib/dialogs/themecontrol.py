@@ -37,7 +37,6 @@ ACTION_MOUSE_LONG_CLICK = 108
 MENU_ACTIONS = [ACTION_MOVE_UP, ACTION_MOVE_DOWN, ACTION_MOUSE_WHEEL_UP, ACTION_MOUSE_WHEEL_DOWN, ACTION_MOVE_MOUSE]
 
 artPath = control.artPath()
-skinSubPath = control.skinSubPath()
 _addon = xbmcaddon.Addon(id='plugin.video.atreides')
 addonname = _addon.getAddonInfo('name')
 
@@ -55,7 +54,7 @@ class ThemeColors():
         self.colors()
 
     def colors(self):
-        tree = ET.parse(os.path.join(skinSubPath, 'colors', 'colors.xml'))
+        tree = ET.parse(os.path.join(skinSubPath(), 'colors', 'colors.xml'))
         root = tree.getroot()
         for item in root.findall('color'):
             self.dh_color = item.find('dialogheader').text
@@ -74,9 +73,33 @@ def getDialogText(url):
         if message is None:
             return 'Nothing today! Blame CNN'
         if '[link]' in message:
-            tcolor = '[COLOR %s]' % (self.colors.link_color)
+            tcolor = '[COLOR %s]' % (ThemeColors().link_color)
             message = message.replace('[link]', tcolor).replace('[/link]', '[/COLOR]')
         return message
     except Exception:
         return 'Nothing today! Blame CNN'
 
+def skinTheme():
+    theme = control.appearance()
+    if theme in ['-', '']:
+        return
+    elif control.condVisibility('System.HasAddon(script.atreides.artwork)'):
+        return theme
+
+
+def skinModule():
+    theme = control.appearance()
+    if theme in ['-', '']:
+        return
+    elif control.condVisibility('System.HasAddon(script.atreides.artwork)'):
+        aModule = xbmcaddon.Addon('script.atreides.artwork').getSetting('artwork_module')
+        return os.path.join(xbmcaddon.Addon(aModule).getAddonInfo('path'))
+
+
+def skinSubPath():
+    theme = control.appearance()
+    if theme in ['-', '']:
+        return
+    elif control.condVisibility('System.HasAddon(script.atreides.artwork)'):
+        aModule = xbmcaddon.Addon('script.atreides.artwork').getSetting('artwork_module')
+        return os.path.join(xbmcaddon.Addon(aModule).getAddonInfo('path'), 'resources', 'skins', theme)

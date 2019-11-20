@@ -105,6 +105,6 @@ def LogViewer(logfile=None):
                 self.close()
 
 
-    viewer = LogViewver_Window('LogViewer.xml', control.skinModule(), control.skinTheme(), '1080i', logfile=logfile)
+    viewer = LogViewver_Window('LogViewer.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i', logfile=logfile)
     viewer.doModal()
     del viewer

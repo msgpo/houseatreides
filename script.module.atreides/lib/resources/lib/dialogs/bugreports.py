@@ -72,6 +72,6 @@ def BugReporter(open_bugs=None):
                 self.close()
 
     open_bugs=webform.webform().get_bugs()
-    viewer = BugReporter_Window('BugReporter.xml', control.skinModule(), control.skinTheme(), '1080i', open_bugs=open_bugs)
+    viewer = BugReporter_Window('BugReporter.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i', open_bugs=open_bugs)
     viewer.doModal()
     del viewer

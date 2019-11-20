@@ -56,7 +56,7 @@ def YN_Dialog(title, msg, yestext='Yes', notext='No'):
             if action == themecontrol.ACTION_PREVIOUS_MENU or action == themecontrol.ACTION_NAV_BACK:
                 self.close()
 
-    yn = YN_Box('Dialog_YesNo.xml', control.skinModule(), control.skinTheme(), '1080i', title=title, msg=msg, yestext=yestext, notext=notext)
+    yn = YN_Box('Dialog_YesNo.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i', title=title, msg=msg, yestext=yestext, notext=notext)
     yn.doModal()
     ret = yn.getProperty('btnret')
     del yn
