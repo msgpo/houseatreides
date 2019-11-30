@@ -15,7 +15,6 @@ import xbmc
 import xbmcgui
 import xbmcaddon
 
-from resources.lib.dialogs import notification
 from resources.lib.dialogs import themecontrol
 from resources.lib.modules import control, log_utils
 
