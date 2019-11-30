@@ -510,6 +510,7 @@ elif action == 'random':
     import json
     try:
         from resources.lib.modules import control
+        from resources.lib.dialogs import notification
         rand = randint(1, len(rlist))-1
         for p in ['title', 'year', 'imdb', 'tvdb', 'season', 'episode', 'tvshowtitle', 'premiered', 'select']:
             if rtype == "show" and p == "tvshowtitle":
@@ -528,21 +529,21 @@ elif action == 'random':
             r += '&meta='+urllib.quote_plus("{}")
         if rtype == "movie":
             try:
-                control.infoDialog(rlist[rand]['title'], control.lang(32536).encode('utf-8'), time=30000)
+                notification.infoDialog(title=rlist[rand]['title'], msg=control.lang(32536).encode('utf-8'), timer=30000)
             except:
                 pass
         elif rtype == "episode":
             try:
-                control.infoDialog(
-                    rlist[rand]['tvshowtitle'] + " - Season " + rlist[rand]['season'] + " - " + rlist[rand]['title'],
-                    control.lang(32536).encode('utf-8'),
-                    time=30000)
+                notification.infoDialog(
+                    title=rlist[rand]['tvshowtitle'] + " - Season " + rlist[rand]['season'] + " - " + rlist[rand]['title'],
+                    msg=control.lang(32536).encode('utf-8'),
+                    timer=30000)
             except:
                 pass
         control.execute('RunPlugin(%s)' % r)
     except:
-        from resources.lib.modules import control
-        control.infoDialog(control.lang(32537).encode('utf-8'), time=8000)
+        from resources.lib.dialogs import notification
+        notification.infoDialog(msg=control.lang(32537).encode('utf-8'), timer=8000)
 
 elif action == 'movieToLibrary':
     from resources.lib.modules import libtools
@@ -591,3 +592,7 @@ elif action == 'pairTools':
 elif action == 'logViewer':
     from resources.lib.dialogs import logviewer
     logviewer.LogViewer(logfile='kodi.log')
+
+elif action == 'testIt':
+    from resources.lib.dialogs import notification
+    notification.infoDialog(title='Marauder', msg='Test This Shizzle! Test This Shizzle!Test This Shizzle!Test This Shizzle!Test This Shizzle!Test This Shizzle!Test', style='WARNING', timer=4000)

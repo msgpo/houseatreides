@@ -153,7 +153,7 @@ class seasons:
             data = urllib2.urlopen(url, timeout=30).read()
 
             zip = zipfile.ZipFile(StringIO.StringIO(data))
-            result = zip.read('%s.zip.xml' % 'en')
+            result = zip.read('%s.xml' % 'en')
             artwork = zip.read('banners.xml')
             zip.close()
 
@@ -167,7 +167,7 @@ class seasons:
                 data = urllib2.urlopen(url, timeout=30).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.zip.xml' % 'en')
+                result = zip.read('%s.xml' % 'en')
                 artwork = zip.read('banners.xml')
                 zip.close()
 
@@ -176,7 +176,7 @@ class seasons:
                 data = urllib2.urlopen(url, timeout=30).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result2 = zip.read('%s.zip.xml' % lang)
+                result2 = zip.read('%s.xml' % lang)
                 zip.close()
             else:
                 result2 = result
@@ -680,7 +680,7 @@ class episodes:
         self.list = []
 
         self.trakt_link = 'https://api.trakt.tv'
-        self.tvmaze_link = 'http://api.tvmaze.com'
+        self.tvmaze_link = 'https://api.tvmaze.com'
         self.tvdb_key = control.setting('tvdb.user')
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours=5))
         self.systime = (self.datetime).strftime('%Y%m%d%H%M%S%f')
@@ -698,7 +698,7 @@ class episodes:
         self.tvdb_image = 'https://thetvdb.com/banners/'
         self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
-        self.added_link = 'http://api.tvmaze.com/schedule'
+        self.added_link = 'https://api.tvmaze.com/schedule'
         # https://api.trakt.tv/calendars/all/shows/date[30]/31 #use this for new episodes?
         # self.mycalendar_link = 'https://api.trakt.tv/calendars/my/shows/date[29]/60/'
         # go back 30 and show all shows aired until tomorrow
@@ -706,7 +706,7 @@ class episodes:
         self.trakthistory_link = 'https://api.trakt.tv/users/me/history/shows?limit=300'
         self.progress_link = 'https://api.trakt.tv/users/me/watched/shows'
         self.hiddenprogress_link = 'https://api.trakt.tv/users/hidden/progress_watched?limit=1000&type=show'
-        self.calendar_link = 'http://api.tvmaze.com/schedule?date=%s'
+        self.calendar_link = 'https://api.tvmaze.com/schedule?date=%s'
 
         self.traktlists_link = 'https://api.trakt.tv/users/me/lists'
         self.traktlikedlists_link = 'https://api.trakt.tv/users/likes/lists?limit=1000000'
@@ -1090,7 +1090,7 @@ class episodes:
                 data = urllib2.urlopen(url, timeout=10).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.zip.xml' % lang)
+                result = zip.read('%s.xml' % lang)
                 zip.close()
 
                 result = result.split('<Episode>')
@@ -1366,7 +1366,7 @@ class episodes:
                 data = urllib2.urlopen(url, timeout=10).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.zip.xml' % lang)
+                result = zip.read('%s.xml' % lang)
                 zip.close()
 
                 result = result.split('<Episode>')

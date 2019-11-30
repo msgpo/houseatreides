@@ -18,8 +18,9 @@
 '''
 
 '''
-10.20.2019: Updated TVDB Key to pull from Settings for central management
+2019.10.20: Updated TVDB Key to pull from Settings for central management
             Updated Fanart.TV API Key to pull from Settings for central management
+2019.11.29: Secure Protocol Updates
 '''
 
 
@@ -50,7 +51,7 @@ class tvshows:
 
         self.imdb_link = 'https://www.imdb.com'
         self.trakt_link = 'https://api.trakt.tv'
-        self.tvmaze_link = 'http://www.tvmaze.com'
+        self.tvmaze_link = 'https://www.tvmaze.com'
         self.logo_link = 'https://i.imgur.com/'
         self.tvdb_key = control.setting('tvdb.key')
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours=5))
@@ -61,8 +62,8 @@ class tvshows:
         self.lang = control.apiLanguage()['tvdb']
 
         self.search_link = 'https://api.trakt.tv/search/show?limit=20&page=1&query='
-        self.tvmaze_info_link = 'http://api.tvmaze.com/shows/%s'
-        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/%s.zip.xml' % (
+        self.tvmaze_info_link = 'https://api.tvmaze.com/shows/%s'
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/%s.xml' % (
             self.tvdb_key, '%s', self.lang)
         self.fanart_tv_art_link = 'http://webservice.fanart.tv/v3/tv/%s'
         self.fanart_tv_level_link = 'http://webservice.fanart.tv/v3/level'

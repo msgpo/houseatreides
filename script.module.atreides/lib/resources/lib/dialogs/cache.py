@@ -85,7 +85,7 @@ def Cache_Dialog():
                 if func is not None:
                     xbmc.executebuiltin(func)
 
-                control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
+                notification.infoDialog(msg=control.lang(32057).encode('utf-8'), style='INFO')
 
         def onAction(self, action):
             if action == themecontrol.ACTION_PREVIOUS_MENU or action == themecontrol.ACTION_NAV_BACK:

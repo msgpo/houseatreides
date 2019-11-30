@@ -32,6 +32,7 @@ import urllib
 import xmlrpclib
 
 import xbmc
+from resources.lib.dialogs import notification
 from resources.lib.modules import cleantitle, control, playcount, trakt
 
 try:
@@ -346,13 +347,13 @@ class player(xbmc.Player):
                         self.imdb, percent) if self.content == 'movie' else trakt.scrobbleEpisode(
                         self.tvdb, self.season, self.episode, percent)
                     if control.setting('trakt.scrobble.notify') == 'true':
-                        control.infoDialog('Trakt: Scrobbled')
+                        notification.infoDialog(msg='Trakt: Scrobbled')
             except:
                 import traceback
                 from resources.lib.modules import log_utils
                 failure = traceback.format_exc()
                 log_utils.log('Scrobble - Exception: ' + str(failure))
-                control.infoDialog('Scrobble Failed')
+                notification.infoDialog(msg='Scrobble Failed')
 
         try:
             if (self.currentTime / self.totalTime) >= .90:

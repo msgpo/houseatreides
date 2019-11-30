@@ -66,6 +66,29 @@ class ThemeColors():
             self.btn_focus = item.find('focusbutton').text
 
 
+class ThemeSounds():
+    def __init__(self):
+        self.sounds()
+
+    def sounds(self):
+        tree = ET.parse(os.path.join(skinAudioPath(), 'sounds.xml'))
+        root = tree.getroot()
+        if control.setting('notifyvoice') == 'true':
+            sound_root = 'voice_'
+        else:
+            sound_root = 'system_'
+
+        for item in root.findall(sound_root + 'actions'):
+            self.select = os.path.join(skinAudioPath(), item.find('select').text)
+            self.parentdir = os.path.join(skinAudioPath(), item.find('parentdir').text)
+            self.previusmenu = os.path.join(skinAudioPath(), item.find('previusmenu').text)
+            self.screenshot = os.path.join(skinAudioPath(), item.find('screenshot').text)
+        for item in root.findall(sound_root + 'windows'):
+            self.notifyerror = os.path.join(skinAudioPath(), item.find('notifyerror').text)
+            self.notifyinfo = os.path.join(skinAudioPath(), item.find('notifyinfo').text)
+            self.notifywarning = os.path.join(skinAudioPath(), item.find('notifywarning').text)
+
+
 def getDialogText(url):
     try:
         message = requests.get(url).content
@@ -78,6 +101,7 @@ def getDialogText(url):
         return message
     except Exception:
         return 'Nothing today! Blame CNN'
+
 
 def skinTheme():
     theme = control.appearance()
@@ -103,3 +127,11 @@ def skinSubPath():
     elif control.condVisibility('System.HasAddon(script.atreides.artwork)'):
         aModule = xbmcaddon.Addon('script.atreides.artwork').getSetting('artwork_module')
         return os.path.join(xbmcaddon.Addon(aModule).getAddonInfo('path'), 'resources', 'skins', theme)
+
+
+def skinAudioPath():
+    theme = control.appearance()
+    if theme in ['-', '']:
+        return
+    elif control.condVisibility('System.HasAddon(script.marauder.artwork)'):
+        return os.path.join(xbmcaddon.Addon('script.marauder.artwork').getAddonInfo('path'), 'resources', 'skins', theme, 'sounds')

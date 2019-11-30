@@ -19,6 +19,7 @@ import time
 import urllib
 import urlparse
 
+from resources.lib.dialogs import notification
 from resources.lib.modules import cache, cleandate, client, control, log_utils, utils
 
 BASE_URL = 'https://api.trakt.tv'
@@ -44,7 +45,7 @@ def __getTrakt(url, post=None):
 
         if resp_code in ['500', '502', '503', '504', '520', '521', '522', '524']:
             log_utils.log('Temporary Trakt Error: %s' % resp_code, log_utils.LOGWARNING)
-            control.infoDialog('Temporary Trakt Error: ' + str(resp_code), sound=True, icon='WARNING')
+            notification.infoDialog(title='Temporary Trakt Error', msg=str(resp_code), style='WARNING')
             return
         elif resp_code in ['404']:
             log_utils.log('Object Not Found : %s' % resp_code, log_utils.LOGWARNING)
@@ -238,17 +239,17 @@ def manager(name, imdb, tvdb, content):
             try:
                 slug = utils.json_loads_as_str(result)['ids']['slug']
             except Exception:
-                return control.infoDialog(
-                    control.lang(32515).encode('utf-8'),
-                    heading=str(name),
-                    sound=True, icon='ERROR')
+                return notification.infoDialog(
+                    msg=control.lang(32515).encode('utf-8'),
+                    title=str(name),
+                    style='ERROR')
             result = __getTrakt(items[select][1] % slug, post=post)[0]
         else:
             result = __getTrakt(items[select][1], post=post)[0]
 
         icon = control.infoLabel('ListItem.Icon') if result is not None else 'ERROR'
 
-        control.infoDialog(control.lang(32515).encode('utf-8'), heading=str(name), sound=True, icon=icon)
+        notification.infoDialog(msg=control.lang(32515).encode('utf-8'), title=str(name), style=icon)
     except Exception:
         return
 

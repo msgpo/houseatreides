@@ -24,6 +24,7 @@ import time
 import urllib
 import urlparse
 
+from resources.lib.dialogs import notification
 from resources.lib.modules import (cache, cleandate, client, control,
                                    log_utils, utils)
 
@@ -54,6 +55,7 @@ def __getTrakt(url, post=None):
 
         if resp_code in ['500', '502', '503', '504', '520', '521', '522', '524']:
             log_utils.log('Temporary Trakt Error: %s' % resp_code, log_utils.LOGWARNING)
+            notification.infoDialog(title='Temp Error', msg='Trakt Error: ' + str(resp_code), style='WARNING')
             return
         elif resp_code in ['404']:
             log_utils.log('Object Not Found : %s' % resp_code, log_utils.LOGWARNING)
@@ -251,17 +253,17 @@ def manager(name, imdb, tvdb, content):
             try:
                 slug = utils.json_loads_as_str(result)['ids']['slug']
             except:
-                return control.infoDialog(
-                    control.lang(32515).encode('utf-8'),
-                    heading=str(name),
-                    sound=True, icon='ERROR')
+                return notification.infoDialog(
+                    msg=control.lang(32515).encode('utf-8'),
+                    title=str(name),
+                    style='ERROR')
             result = __getTrakt(items[select][1] % slug, post=post)[0]
         else:
             result = __getTrakt(items[select][1], post=post)[0]
 
         icon = control.infoLabel('ListItem.Icon') if not result == None else 'ERROR'
 
-        control.infoDialog(control.lang(32515).encode('utf-8'), heading=str(name), sound=True, icon=icon)
+        notification.infoDialog(msg=control.lang(32515).encode('utf-8'), title=str(name))
     except:
         return
 
@@ -403,9 +405,9 @@ def syncTraktStatus():
     try:
         cachesyncMovies()
         cachesyncTVShows()
-        control.infoDialog(control.lang(32092).encode('utf-8'))
+        notification.infoDialog(msg=control.lang(32092).encode('utf-8'))
     except:
-        control.infoDialog('Trakt sync failed')
+        notification.infoDialog(msg='Trakt sync failed')
         pass
 
 

@@ -187,7 +187,7 @@ def Pair_Dialog():
             if func is not None:
                 xbmc.executebuiltin(func)
 
-    pair = Pair_Window('Pair_Tool.xml', control.skinModule(), control.skinTheme(), '1080i')
+    pair = Pair_Window('Pair_Tool.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i')
     pair.doModal()
     del pair
 

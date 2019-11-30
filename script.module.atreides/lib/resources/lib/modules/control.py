@@ -242,18 +242,6 @@ def chooseArtwork():
     artwork.load()
 
 
-def infoDialog(message, heading=addonInfo('name'), icon='', time=3000, sound=False):
-    if icon == '':
-        icon = addonIcon()
-    elif icon == 'INFO':
-        icon = xbmcgui.NOTIFICATION_INFO
-    elif icon == 'WARNING':
-        icon = xbmcgui.NOTIFICATION_WARNING
-    elif icon == 'ERROR':
-        icon = xbmcgui.NOTIFICATION_ERROR
-    dialog.notification(heading, message, icon, time, sound=sound)
-
-
 def yesnoDialog(line1, line2, line3, heading=addonInfo('name'), nolabel='', yeslabel=''):
     return dialog.yesno(heading, line1, line2, line3, nolabel, yeslabel)
 

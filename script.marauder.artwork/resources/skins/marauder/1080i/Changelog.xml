@@ -42,7 +42,12 @@
                 <height>700</height>
                 <align>left</align>
                 <aligny>top</aligny>
+                <pagecontrol>105</pagecontrol>
                 <label></label>
+                <onup>202</onup>
+                <ondown>202</ondown>
+                <onleft>105</onleft>
+                <onright>105</onright>
             </control>
             <control type="scrollbar" id="105">
                 <description>Scrollbar</description>
@@ -57,8 +62,8 @@
                 <texturesliderbarfocus>Buttons/scrollbar-v-focus.png</texturesliderbarfocus>
                 <orientation>vertical</orientation>
                 <showonepage>true</showonepage>
-                <onup>202</onup>
-                <ondown>202</ondown>
+                <onup>102</onup>
+                <ondown>102</ondown>
                 <onleft>202</onleft>
                 <onright>202</onright>
             </control>

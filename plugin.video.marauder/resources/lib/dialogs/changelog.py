@@ -49,6 +49,6 @@ def ChangelogViewer(cl_text=None):
     r = open(changelogfile)
     cl_text = r.read()
     r.close()
-    viewer = Changelog_Window('Changelog.xml', control.skinModule(), control.skinTheme(), '1080i', cl_text=cl_text)
+    viewer = Changelog_Window('Changelog.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i', cl_text=cl_text)
     viewer.doModal()
     del viewer

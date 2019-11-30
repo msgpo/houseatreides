@@ -26,6 +26,7 @@ import xbmcaddon
 import xbmcgui
 import xbmcplugin
 
+from resources.lib.dialogs import notification
 from resources.lib.modules import changelog, control, jsonmenu, log_utils, trakt
 
 sysaddon = sys.argv[0]
@@ -487,12 +488,12 @@ class navigator:
     def accountCheck(self):
         if traktCredentials is False and imdbCredentials is False:
             control.idle()
-            control.infoDialog(control.lang(32042).encode('utf-8'), sound=True, icon='WARNING')
+            notification.infoDialog(msg=control.lang(32042).encode('utf-8'), style='WARNING')
             sys.exit()
 
     def infoCheck(self, version):
         try:
-            control.infoDialog('', control.lang(32074).encode('utf-8'), time=5000, sound=False)
+            notification.infoDialog(msg=control.lang(32074).encode('utf-8'), timer=5000)
             return '1'
         except Exception:
             return '1'

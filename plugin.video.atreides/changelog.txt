@@ -1,3 +1,9 @@
+[COLOR limegreen]Atredies Script Module v1.5.3[/COLOR]
+[COLOR limegreen]Atredies Artwork Module v1.2.2[/COLOR]
+    - New custom notification dialog
+    - TVDB Updates
+    - Secure Protocol Updates
+
 [COLOR limegreen]Atredies Script Module v1.5.2[/COLOR]
     - Skin code cleanup
     - Notification for the common "Temporary"

@@ -35,13 +35,13 @@ class boxsets:
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours=5))
         self.systime = (self.datetime).strftime('%Y%m%d%H%M%S%f')
         self.tmdb_key = control.setting('tm.user')
-        self.tmdb_link = 'http://api.themoviedb.org/3/list/%s?api_key=%s' % ('%s', self.tmdb_key)
-        self.tmdb_c_link = 'http://api.themoviedb.org/3/collection/%s?api_key=%s' % ('%s', self.tmdb_key)
-        self.tmdb_info_link = 'http://api.themoviedb.org/3/movie/%s?api_key=%s&language=%s&append_to_response=credits,releases,external_ids' % ('%s', self.tmdb_key, 'en')
+        self.tmdb_link = 'https://api.themoviedb.org/3/list/%s?api_key=%s' % ('%s', self.tmdb_key)
+        self.tmdb_c_link = 'https://api.themoviedb.org/3/collection/%s?api_key=%s' % ('%s', self.tmdb_key)
+        self.tmdb_info_link = 'https://api.themoviedb.org/3/movie/%s?api_key=%s&language=%s&append_to_response=credits,releases,external_ids' % ('%s', self.tmdb_key, 'en')
         self.tmdb_image = 'http://image.tmdb.org/t/p/original'
         self.tmdb_poster = 'http://image.tmdb.org/t/p/w500'
         self.tm_img_link = 'https://image.tmdb.org/t/p/w%s%s'
-        self.tm_art_link = 'http://api.themoviedb.org/3/movie/%s/images?api_key=%s&language=en-US&include_image_language=en,%s,null' % (
+        self.tm_art_link = 'https://api.themoviedb.org/3/movie/%s/images?api_key=%s&language=en-US&include_image_language=en,%s,null' % (
             '%s', self.tmdb_key, 'en')
         self.fanart_tv_user = control.setting('fanart.tv.user')
         self.user = str(control.setting('fanart.tv.user')) + str(control.setting('tm.user'))

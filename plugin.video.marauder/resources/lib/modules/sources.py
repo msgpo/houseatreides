@@ -36,6 +36,7 @@ try:
 except:
     pass
 
+from resources.lib.dialogs import notification
 from resources.lib.modules import trakt
 from resources.lib.modules import tvmaze
 from resources.lib.modules import cache
@@ -1005,7 +1006,7 @@ class sources:
             dbcur.execute("VACUUM")
             dbcon.commit()
 
-            control.infoDialog(control.lang(32408).encode('utf-8'), sound=True, icon='INFO')
+            notification.infoDialog(msg=control.lang(32408).encode('utf-8'))
         except:
             pass
 
@@ -1073,14 +1074,14 @@ class sources:
                 stotal = len(self.sources)
                 self.sources = list(self.uniqueSourcesGen(self.sources))
                 dupes = int(stotal - len(self.sources))
-                control.infoDialog(control.lang(32089).encode('utf-8').format(dupes), sound=True, icon='INFO')
+                notification.infoDialog(msg=control.lang(32089).encode('utf-8').format(dupes))
             else:
                 self.sources
         except:
             import traceback
             failure = traceback.format_exc()
             log_utils.log('DUP - Exception: ' + str(failure))
-            control.infoDialog('Dupes filter failed', sound=True, icon='INFO')
+            notification.infoDialog(msg='Dupes filter failed', style='INFO')
             self.sources
         '''END'''
 
@@ -1458,7 +1459,7 @@ class sources:
         filter = [i for i in items if i['source'].lower() in self.hostcapDict and i['debrid'] == '']
         items = [i for i in items if not i in filter]
 
-        filter = [i for i in items if i['source'].lower() in self.hostblockDict and i['debrid'] == '']
+        filter = [i for i in items if i['source'].lower() in self.hostblockDict]# and i['debrid'] == '']
         items = [i for i in items if not i in filter]
 
         items = [i for i in items if ('autoplay' in i and i['autoplay'] == True) or not 'autoplay' in i]
@@ -1511,7 +1512,7 @@ class sources:
         return u
 
     def errorForSources(self):
-        control.infoDialog(control.lang(32401).encode('utf-8'), sound=False, icon='INFO')
+        notification.infoDialog(msg=control.lang(32401).encode('utf-8'), style='INFO')
 
     def getLanguage(self):
         langDict = {

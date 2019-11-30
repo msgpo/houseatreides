@@ -31,6 +31,7 @@ import xbmcgui
 import xbmcplugin
 import xbmcvfs
 
+from resources.lib.dialogs import ok
 
 def download(name, image, url):
 
@@ -127,7 +128,7 @@ def done(title, dest, downloaded):
     xbmcgui.Window(10000).setProperty('GEN-DOWNLOADED', text)
 
     if (not downloaded) or (not playing):
-        xbmcgui.Dialog().ok(title, text)
+        ok.OK_Dialog(title, text)
         xbmcgui.Window(10000).clearProperty('GEN-DOWNLOADED')
 
 
@@ -148,7 +149,8 @@ def doDownload(url, dest, title, image, headers):
     resp = getResponse(url, headers, 0)
 
     if not resp:
-        xbmcgui.Dialog().ok(title, dest, 'Download failed', 'No response from server')
+        respText = dest + '\nDownload Failed\nNo response from server'
+        ok.OK_Dialog(title, respText)
         return
 
     try:
@@ -167,7 +169,8 @@ def doDownload(url, dest, title, image, headers):
         print "Download is resumable"
 
     if content < 1:
-        xbmcgui.Dialog().ok(title, file, 'Unknown filesize', 'Unable to download')
+        respText = file + '\nUnknown filesize\nUnable to download'
+        ok.OK_Dialog(title, respText)
         return
 
     size = 1024 * 1024

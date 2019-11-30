@@ -138,7 +138,7 @@ def showResult(message, url=None):
         imagefile = os.path.join(xbmc.translatePath(PROFILE),'%s.png' % str(url.split('/')[-1]))
         qrIMG = pyqrcode.create(url)
         qrIMG.png(imagefile, scale=10)
-        qr = QRCode("LogViewer_QR.xml", control.skinModule(), control.skinTheme(), '1080i', image=imagefile, text=message)
+        qr = QRCode("LogViewer_QR.xml", themecontrol.skinModule(), themecontrol.skinTheme(), '1080i', image=imagefile, text=message)
         qr.doModal()
         del qr
         xbmcvfs.delete(imagefile)

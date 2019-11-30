@@ -17,6 +17,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+'''
+2019.11.29: Secure Protocol Updates
+'''
 
 import json
 import urllib
@@ -26,7 +29,7 @@ from resources.lib.modules import cache, client
 
 class tvMaze:
     def __init__(self, show_id=None):
-        self.api_url = 'http://api.tvmaze.com/%s%s'
+        self.api_url = 'https://api.tvmaze.com/%s%s'
         self.show_id = show_id
 
     def showID(self, show_id=None):

@@ -11,6 +11,7 @@
 
 '''
 2019/11/07: Fixed typo missed when importing from Atreides
+2019/11/21: Moved skin path calls to ThemeControl for centralization
 '''
 
 import os
@@ -38,7 +39,6 @@ ACTION_MOUSE_LONG_CLICK = 108
 MENU_ACTIONS = [ACTION_MOVE_UP, ACTION_MOVE_DOWN, ACTION_MOUSE_WHEEL_UP, ACTION_MOUSE_WHEEL_DOWN, ACTION_MOVE_MOUSE]
 
 artPath = control.artPath()
-skinSubPath = control.skinSubPath()
 _addon = xbmcaddon.Addon(id='plugin.video.marauder')
 addonname = _addon.getAddonInfo('name')
 
@@ -56,7 +56,7 @@ class ThemeColors():
         self.colors()
 
     def colors(self):
-        tree = ET.parse(os.path.join(skinSubPath, 'colors', 'colors.xml'))
+        tree = ET.parse(os.path.join(skinSubPath(), 'colors', 'colors.xml'))
         root = tree.getroot()
         for item in root.findall('color'):
             self.dh_color = item.find('dialogheader').text
@@ -68,6 +68,29 @@ class ThemeColors():
             self.btn_focus = item.find('focusbutton').text
 
 
+class ThemeSounds():
+    def __init__(self):
+        self.sounds()
+
+    def sounds(self):
+        tree = ET.parse(os.path.join(skinAudioPath(), 'sounds.xml'))
+        root = tree.getroot()
+        if control.setting('notifyvoice') == 'true':
+            sound_root = 'voice_'
+        else:
+            sound_root = 'system_'
+
+        for item in root.findall(sound_root + 'actions'):
+            self.select = os.path.join(skinAudioPath(), item.find('select').text)
+            self.parentdir = os.path.join(skinAudioPath(), item.find('parentdir').text)
+            self.previusmenu = os.path.join(skinAudioPath(), item.find('previusmenu').text)
+            self.screenshot = os.path.join(skinAudioPath(), item.find('screenshot').text)
+        for item in root.findall(sound_root + 'windows'):
+            self.notifyerror = os.path.join(skinAudioPath(), item.find('notifyerror').text)
+            self.notifyinfo = os.path.join(skinAudioPath(), item.find('notifyinfo').text)
+            self.notifywarning = os.path.join(skinAudioPath(), item.find('notifywarning').text)
+
+
 def getDialogText(url):
     try:
         message = requests.get(url).content
@@ -75,9 +98,40 @@ def getDialogText(url):
         if message is None:
             return 'Nothing today! Blame CNN'
         if '[link]' in message:
-            tcolor = '[COLOR %s]' % (self.colors.link_color)
+            tcolor = '[COLOR %s]' % (ThemeColors().link_color)
             message = message.replace('[link]', tcolor).replace('[/link]', '[/COLOR]')
         return message
     except Exception:
         return 'Nothing today! Blame CNN'
 
+
+def skinTheme():
+    theme = control.appearance()
+    if theme in ['-', '']:
+        return
+    elif control.condVisibility('System.HasAddon(script.marauder.artwork)'):
+        return theme
+
+
+def skinModule():
+    theme = control.appearance()
+    if theme in ['-', '']:
+        return
+    elif control.condVisibility('System.HasAddon(script.marauder.artwork)'):
+        return os.path.join(xbmcaddon.Addon('script.marauder.artwork').getAddonInfo('path'))
+
+
+def skinSubPath():
+    theme = control.appearance()
+    if theme in ['-', '']:
+        return
+    elif control.condVisibility('System.HasAddon(script.marauder.artwork)'):
+        return os.path.join(xbmcaddon.Addon('script.marauder.artwork').getAddonInfo('path'), 'resources', 'skins', theme)
+
+
+def skinAudioPath():
+    theme = control.appearance()
+    if theme in ['-', '']:
+        return
+    elif control.condVisibility('System.HasAddon(script.marauder.artwork)'):
+        return os.path.join(xbmcaddon.Addon('script.marauder.artwork').getAddonInfo('path'), 'resources', 'skins', theme, 'sounds')

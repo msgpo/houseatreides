@@ -16,6 +16,8 @@ import ast
 import hashlib
 import re
 import time
+
+from resources.lib.dialogs import notification
 from resources.lib.modules import control
 
 try:
@@ -245,7 +247,7 @@ def cache_version_check():
         cache_clear()
         cache_clear_meta()
         cache_clear_providers()
-        control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
+        notification.infoDialog(msg=control.lang(32057).encode('utf-8'))
 
 
 def _find_cache_version():

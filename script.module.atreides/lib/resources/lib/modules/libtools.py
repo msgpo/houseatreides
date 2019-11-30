@@ -27,6 +27,7 @@ import urllib
 import urlparse
 
 import xbmc
+from resources.lib.dialogs import notification
 from resources.lib.modules import cleantitle, control
 
 
@@ -70,7 +71,7 @@ class lib_tools:
     def nfo_url(media_string, ids):
         tvdb_url = 'https://thetvdb.com/?tab=series&id=%s'
         tmdb_url = 'https://www.themoviedb.org/%s/%s'
-        imdb_url = 'http://www.imdb.com/title/%s/'
+        imdb_url = 'https://www.imdb.com/title/%s/'
 
         if 'tvdb' in ids:
             return tvdb_url % (str(ids['tvdb']))
@@ -124,7 +125,7 @@ class libmovies:
 
     def add(self, name, title, year, imdb, tmdb, range=False):
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
-            control.infoDialog(control.lang(32552).encode('utf-8'), time=10000000)
+            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=10000000)
             self.infoDialog = True
 
         try:
@@ -163,7 +164,7 @@ class libmovies:
             return
 
         if self.infoDialog is True:
-            control.infoDialog(control.lang(32554).encode('utf-8'), time=1)
+            notification.infoDialog(msg=control.lang(32554).encode('utf-8'), timer=1)
 
         if self.library_setting == 'true' and not control.condVisibility('Library.IsScanningVideo') and files_added > 0:
             control.execute('UpdateLibrary(video)')
@@ -176,7 +177,7 @@ class libmovies:
             return
 
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
-            control.infoDialog(control.lang(32552).encode('utf-8'), time=10000000)
+            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=10000000)
             self.infoDialog = True
 
         from resources.lib.indexers import movies
@@ -193,7 +194,7 @@ class libmovies:
                 pass
 
         if self.infoDialog is True:
-            control.infoDialog(control.lang(32554).encode('utf-8'), time=1)
+            notification.infoDialog(msg=control.lang(32554).encode('utf-8'), timer=1)
 
         if self.library_setting == 'true' and not control.condVisibility('Library.IsScanningVideo'):
             control.execute('UpdateLibrary(video)')
@@ -237,7 +238,7 @@ class libtvshows:
 
     def add(self, tvshowtitle, year, imdb, tvdb, range=False):
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
-            control.infoDialog(control.lang(32552).encode('utf-8'), time=10000000)
+            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=10000000)
             self.infoDialog = True
 
         from resources.lib.indexers import episodes
@@ -321,7 +322,7 @@ class libtvshows:
             return
 
         if self.infoDialog is True:
-            control.infoDialog(control.lang(32554).encode('utf-8'), time=1)
+            notification.infoDialog(msg=control.lang(32554).encode('utf-8'), timer=1)
 
         if self.library_setting == 'true' and not control.condVisibility('Library.IsScanningVideo') and files_added > 0:
             control.execute('UpdateLibrary(video)')
@@ -334,7 +335,7 @@ class libtvshows:
             return
 
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
-            control.infoDialog(control.lang(32552).encode('utf-8'), time=10000000)
+            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=10000000)
             self.infoDialog = True
 
         from resources.lib.indexers import tvshows
@@ -351,7 +352,7 @@ class libtvshows:
                 pass
 
         if self.infoDialog is True:
-            control.infoDialog(control.lang(32554).encode('utf-8'), time=1)
+            notification.infoDialog(msg=control.lang(32554).encode('utf-8'), timer=1)
 
         if self.library_setting == 'true' and not control.condVisibility('Library.IsScanningVideo'):
             control.execute('UpdateLibrary(video)')
@@ -467,7 +468,7 @@ class libepisodes:
 
         if info == 'true' and not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility(
                 'Player.HasVideo'):
-            control.infoDialog(control.lang(32553).encode('utf-8'), time=10000000)
+            notification.infoDialog(msg=control.lang(32553).encode('utf-8'), timer=10000000)
             self.infoDialog = True
 
         try:
@@ -567,7 +568,7 @@ class libepisodes:
                     pass
 
         if self.infoDialog is True:
-            control.infoDialog(control.lang(32554).encode('utf-8'), time=1)
+            notification.infoDialog(msg=control.lang(32554).encode('utf-8'), timer=1)
 
         if self.library_setting == 'true' and not control.condVisibility('Library.IsScanningVideo') and files_added > 0:
             control.execute('UpdateLibrary(video)')

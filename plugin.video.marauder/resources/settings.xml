@@ -11,6 +11,7 @@
         <setting id="providers.lang" type="select" label="32360" values="English|French|French+English|German|German+English|Greek|Greek+English|Korean|Korean+English|Polish|Polish+English|Russian|Russian+English|Spanish|Spanish+English" default="English" />
         <setting id="fanart" type="bool" label="32318" default="false" />
         <setting id="hidecinema" type="bool" label="32571" default="false" />
+        <setting id="notifyvoice" type="bool" label="Voice Notifications" default="false" />
         <setting type="lsep" label="32319" />
         <setting id="movie.widget" type="enum" label="32320" lvalues="32302|32321|32322|32323|32324|32580" default="1" />
         <setting id="lists.widget" type="enum" label="32329" lvalues="32302|32301" default="1" />
@@ -30,6 +31,7 @@
         <setting id="navi.hack" type="bool" label="Hack the Planet" default="true" />
         <setting id="navi.boxsets" type="bool" label="Boxsets" default="true" />
         <setting id="navi.channels" type="bool" label="Channels" default="true" />
+        <setting id="navi.testshit" type="bool" label="My Test Crap" default="false" />
         <setting type="lsep" label="Movies" />
         <setting id="navi.moviegenre" type="bool" label="Genres" default="true" />
         <setting id="navi.movieyears" type="bool" label="Year" default="true" />
@@ -132,7 +134,7 @@
         <setting type="lsep" label="32627" />
         <setting id="imdb.user" type="text" label="32303" default="" />
         <setting type="lsep" label="TVDB" />
-        <setting id="tvdb.key" type="text" option="hidden" label="TVDB Key" default="7B9C81F5D92D79B3" />
+        <setting id="tvdb.key" type="text" option="hidden" label="TVDB Key" default="363c1fbd0c2149580331ba4f8e9400ec" />
         <setting type="lsep" label="32539" />
         <setting id="open_smu_settings" type="action" label="32540" enable="true" option="close" action="RunPlugin(plugin://plugin.video.marauder/?action=smuSettings)" />
         <setting type="lsep" label="Ororo.tv" />

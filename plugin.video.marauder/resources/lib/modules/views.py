@@ -23,6 +23,7 @@ try:
 except:
     from pysqlite2 import dbapi2 as database
 
+from resources.lib.dialogs import notification
 from resources.lib.modules import control
 
 
@@ -48,7 +49,7 @@ def addView(content):
         skinName = control.addon(skin).getAddonInfo('name')
         skinIcon = control.addon(skin).getAddonInfo('icon')
 
-        control.infoDialog(viewName, heading=skinName, sound=True, icon=skinIcon)
+        notification.infoDialog(msg=viewName, title=skinName)
     except:
         return
 

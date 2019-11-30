@@ -1,3 +1,16 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.5[/COLOR][/B]
+[B][COLOR gold]Marauder Artwork v2.0.4[/COLOR][/B]
+- Changelog Window Scroll Fix (I'm dumb)
+- New custom Notification window
+- New setting for Voice Sounds
+- Default sound is System
+- Skin code cleanup and organization
+- Notification for the common "Temporary"
+  Trakt errors
+
+[B][COLOR gold]Marauder Video Plugin v2.0.4[/COLOR][/B]
+- TVDB Updates
+
 [B][COLOR gold]Marauder Video Plugin v2.0.3c[/COLOR][/B]
 - Added Apple TV+ to Networks
 - Added Disney+ to Networks

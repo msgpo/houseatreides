@@ -64,7 +64,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="plugin.video.marauder" name="[COLORorange]Marauder[/COLOR]" provider-name="" version="2.0.3c">
+<addon id="plugin.video.marauder" name="[COLORorange]Marauder[/COLOR]" provider-name="" version="2.0.5">
     <requires>
         <import addon="xbmc.python" version="2.20.0" />
         <import addon="script.marauder.artwork" />
@@ -174,7 +174,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
-<addon id="script.atreides.artwork" version="1.2.1" name="Atreides Artwork" provider-name="Paul Atreides">
+<addon id="script.atreides.artwork" version="1.2.2" name="Atreides Artwork" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>
@@ -225,7 +225,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.marauder.artwork" version="2.0.2" name="Marauder Artwork" provider-name="">
+<addon id="script.marauder.artwork" version="2.0.4" name="Marauder Artwork" provider-name="">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>
@@ -249,7 +249,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.atreides" name="Atreides Module" version="1.5.2" provider-name="Paul Atreides">
+<addon id="script.module.atreides" name="Atreides Module" version="1.5.3" provider-name="Paul Atreides">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.pyxbmct" version="1.1.4" />

@@ -218,30 +218,6 @@ def get_plugin_url(queries):
     return addon_id + '?' + query
 
 
-def skinTheme():
-    theme = appearance()
-    if theme in ['-', '']:
-        return
-    elif condVisibility('System.HasAddon(script.marauder.artwork)'):
-        return theme
-
-
-def skinModule():
-    theme = appearance()
-    if theme in ['-', '']:
-        return
-    elif condVisibility('System.HasAddon(script.marauder.artwork)'):
-        return os.path.join(xbmcaddon.Addon('script.marauder.artwork').getAddonInfo('path'))
-
-
-def skinSubPath():
-    theme = appearance()
-    if theme in ['-', '']:
-        return
-    elif condVisibility('System.HasAddon(script.marauder.artwork)'):
-        return os.path.join(xbmcaddon.Addon('script.marauder.artwork').getAddonInfo('path'), 'resources', 'skins', theme)
-
-
 def artPath():
     theme = appearance()
     if theme in ['-', '']:
@@ -258,18 +234,6 @@ def appearance():
 
 def artwork():
     execute('RunPlugin(plugin://script.marauder.artwork)')
-
-
-def infoDialog(message, heading=addonInfo('name'), icon='', time=3000, sound=False):
-    if icon == '':
-        icon = addonIcon()
-    elif icon == 'INFO':
-        icon = xbmcgui.NOTIFICATION_INFO
-    elif icon == 'WARNING':
-        icon = xbmcgui.NOTIFICATION_WARNING
-    elif icon == 'ERROR':
-        icon = xbmcgui.NOTIFICATION_ERROR
-    dialog.notification(heading, message, icon, time, sound=sound)
 
 
 def yesnoDialog(line1, line2, line3, heading=addonInfo('name'), nolabel='', yeslabel=''):
@@ -435,11 +399,12 @@ def getKodiVersion():
 
 
 def installAddon(addonId):
+    from resources.lib.dialogs import notification
     addonPath = os.path.join(xbmc.translatePath('special://home/addons'), addonId)
     if not os.path.exists(addonPath) == True:
         xbmc.executebuiltin('InstallAddon(%s)' % (addonId))
     else:
-        infoDialog('{0} is already installed'.format(addonId), sound=True)
+        notification.infoDialog(msg='{0} is already installed'.format(addonId))
 
 class Remap(dict):
     def __init__(self, **kwargs):

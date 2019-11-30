@@ -32,6 +32,7 @@ import traceback
 import urllib
 import urlparse
 
+from resources.lib.dialogs import notification
 from resources.lib.modules import (cleantitle, client, control, debrid,
                                    log_utils, source_utils, trakt, tvmaze,
                                    workers)
@@ -63,7 +64,7 @@ class sources:
             url = source_utils.uResolve(url)
             if url is None:
                 log_utils.log('Play Direct: Unable to resolve url: ' + str(ourl))
-                control.infoDialog('Unable to play video', sound=True, icon='INFO')
+                notification.infoDialog(msg='Unable to play video')
                 return
 
             li = control.item(title, path=url)
@@ -983,7 +984,7 @@ class sources:
             dbcur.execute("VACUUM")
             dbcon.commit()
 
-            control.infoDialog(control.lang(32408).encode('utf-8'), sound=True, icon='INFO')
+            notification.infoDialog(msg=control.lang(32408).encode('utf-8'))
         except Exception:
             pass
 
@@ -1489,7 +1490,7 @@ class sources:
         return u
 
     def errorForSources(self):
-        control.infoDialog(control.lang(32401).encode('utf-8'), sound=False, icon='INFO')
+        notification.infoDialog(msg=control.lang(32401).encode('utf-8'))
 
     def getSourceTypes(self):
         sTypes = []

@@ -22,6 +22,7 @@ import os
 import sys
 import urlparse
 
+from resources.lib.dialogs import notification
 from resources.lib.modules import cache, control, trakt
 
 sysaddon = sys.argv[0]
@@ -78,6 +79,9 @@ class navigator:
             self.addDirectoryItem(32009, 'downloadNavigator', 'downloads.png', 'DefaultFolder.png')
 
         self.addDirectoryItem(32010, 'searchNavigator', 'search.png', 'DefaultFolder.png')
+
+        if self.getMenuEnabled('navi.testshit') is True:
+            self.addDirectoryItem('Test Shit', 'testIt', 'tools.png', 'DefaultFolder.png')
 
         self.endDirectory()
 
@@ -819,12 +823,12 @@ class navigator:
     def accountCheck(self):
         if traktCredentials == False and imdbCredentials == False:
             control.idle()
-            control.infoDialog(control.lang(32042).encode('utf-8'), sound=True, icon='WARNING')
+            notification.infoDialog(msg=control.lang(32042).encode('utf-8'), style='WARNING')
             sys.exit()
 
     def infoCheck(self, version):
         try:
-            control.infoDialog('', control.lang(32074).encode('utf-8'), time=5000, sound=False)
+            notification.infoDialog(msg=control.lang(32074).encode('utf-8'), timer=5000)
             return '1'
         except:
             return '1'
@@ -836,7 +840,7 @@ class navigator:
             return
         from resources.lib.modules import cache
         cache.cache_clear()
-        control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
+        notification.infoDialog(msg=control.lang(32057).encode('utf-8'), style='INFO')
 
     def clearCacheMeta(self):
         control.idle()
@@ -845,7 +849,7 @@ class navigator:
             return
         from resources.lib.modules import cache
         cache.cache_clear_meta()
-        control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
+        notification.infoDialog(msg=control.lang(32057).encode('utf-8'), style='INFO')
 
     def clearCacheProviders(self):
         control.idle()
@@ -853,7 +857,7 @@ class navigator:
 #        if not yes: return
         from resources.lib.modules import cache
         cache.cache_clear_providers()
-        control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
+        notification.infoDialog(msg=control.lang(32057).encode('utf-8'), style='INFO')
 
     def clearCacheSearch(self):
         control.idle()
@@ -862,7 +866,7 @@ class navigator:
             return
         from resources.lib.modules import cache
         cache.cache_clear_search()
-        control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
+        notification.infoDialog(msg=control.lang(32057).encode('utf-8'), style='INFO')
 
     def clearCacheAll(self):
         control.idle()
@@ -871,7 +875,7 @@ class navigator:
             return
         from resources.lib.modules import cache
         cache.cache_clear_all()
-        control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
+        notification.infoDialog(msg=control.lang(32057).encode('utf-8'), style='INFO')
 
     def addDirectoryItem(self, name, query, thumb, icon, context=None, queue=False, isAction=True, isFolder=True):
         try:

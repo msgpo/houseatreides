@@ -24,6 +24,7 @@ import xbmc
 import xbmcplugin
 
 from random import randint
+from resources.lib.dialogs import notification
 from resources.lib.modules import cache, client, control, jsonmenu, log_utils, source_utils, utils
 
 sysaddon = sys.argv[0]
@@ -197,7 +198,7 @@ class topdocs:
                 url = source_utils.uResolve(url)
                 if url is None:
                     log_utils.log('Top Documentary Films: Unable to resolve url: ' + str(url))
-                    control.infoDialog('Invalid Host - Report To Developer: ' + str(url), sound=True, icon='INFO')
+                    notification.infoDialog(msg='Invalid Host - Report To Developer: ' + str(url))
                     return
 
             li = control.item(docu_title, path=url)
@@ -463,7 +464,7 @@ class docuheaven:
                 url = source_utils.uResolve(url)
                 if url is None:
                     log_utils.log('Documentary Heaven: Unable to resolve url: ' + str(url))
-                    control.infoDialog('Invalid Host - Report To Developer: ' + str(url), sound=True, icon='INFO')
+                    notification.infoDialog(msg='Invalid Host - Report To Developer: ' + str(url))
                     return
 
             li = control.item(docu_title, path=url)
