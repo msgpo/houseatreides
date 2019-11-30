@@ -174,7 +174,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
-<addon id="script.atreides.artwork" version="1.2.2" name="Atreides Artwork" provider-name="Paul Atreides">
+<addon id="script.atreides.artwork" version="1.2.2a" name="Atreides Artwork" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>

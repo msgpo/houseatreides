@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.atreides.artwork" version="1.2.2" name="Atreides Artwork" provider-name="Paul Atreides">
+<addon id="script.atreides.artwork" version="1.2.2a" name="Atreides Artwork" provider-name="Paul Atreides">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>
