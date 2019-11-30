@@ -1,3 +1,6 @@
+[COLOR limegreen]Atredies Script Module v1.5.3a[/COLOR]
+    - I'm dumb
+
 [COLOR limegreen]Atredies Script Module v1.5.3[/COLOR]
 [COLOR limegreen]Atredies Artwork Module v1.2.2[/COLOR]
     - New custom notification dialog

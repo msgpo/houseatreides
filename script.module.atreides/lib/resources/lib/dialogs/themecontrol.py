@@ -133,5 +133,6 @@ def skinAudioPath():
     theme = control.appearance()
     if theme in ['-', '']:
         return
-    elif control.condVisibility('System.HasAddon(script.marauder.artwork)'):
-        return os.path.join(xbmcaddon.Addon('script.marauder.artwork').getAddonInfo('path'), 'resources', 'skins', theme, 'sounds')
+    elif control.condVisibility('System.HasAddon(script.atreides.artwork)'):
+        aModule = xbmcaddon.Addon('script.atreides.artwork').getSetting('artwork_module')
+        return os.path.join(xbmcaddon.Addon(aModule).getAddonInfo('path'), 'resources', 'skins', theme, 'sounds')
