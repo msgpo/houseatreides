@@ -19,6 +19,7 @@
 <!-- Providers/Hosters-1 -->
     <category label="Hosters">
         <setting id="provider.library" type="bool" label="LIBRARY" default="true" />
+        <setting id="provider.2ddl" type="bool" label="2DDL" default="true" />
         <setting id="provider.5movies" type="bool" label="5MOVIES" default="true" />
         <setting id="provider.123movieshubz" type="bool" label="123MOVIESHUBZ" default="true" />
         <setting id="provider.300mbdownload" type="bool" label="300MBDOWNLOAD" default="true" />
@@ -72,6 +73,7 @@
 <!-- Torrents-3 -->
     <category label="Torrent (cached)">
         <setting id="provider.1337x" type="bool" label="1337X" default="true" />
+        <setting id="provider.bitlord" type="bool" label="BITLORD" default="true" />
         <setting id="provider.btscene" type="bool" label="BTSCENE" default="true" />
         <setting id="provider.doublr" type="bool" label="DOUBLR" default="true" />
         <setting id="provider.eztv" type="bool" label="EZTV" default="true" />
@@ -81,8 +83,10 @@
         <setting id="provider.magnetdl" type="bool" label="MAGNETDL" default="true" />
         <setting id="provider.mkvcage" type="bool" label="MKVCAGE" default="true" />
         <setting id="provider.mkvhub" type="bool" label="MKVHUB" default="true" />
+        <setting id="provider.pirateiro" type="bool" label="PIRATEIRO" default="true" />
         <setting id="provider.torrentapi" type="bool" label="TORRENTAPI" default="true" />
         <setting id="provider.torrentdownloads" type="bool" label="TORRENTDOWNLOADS" default="true" />
+        <setting id="provider.torrentz" type="bool" label="TORRENTZ" default="true" />
         <setting id="provider.tpb" type="bool" label="TPB" default="true" />
         <setting id="provider.ytsam" type="bool" label="YTSAM" default="true" />
         <setting id="provider.zoogle" type="bool" label="ZOOGLE" default="true" />
