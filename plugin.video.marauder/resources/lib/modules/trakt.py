@@ -75,7 +75,6 @@ def __getTrakt(url, post=None):
         result = utils.json_loads_as_str(result)
 
         token, refresh = result['access_token'], result['refresh_token']
-        print('Info - ' + str(token))
         control.setSetting(id='trakt.token', value=token)
         control.setSetting(id='trakt.refresh', value=refresh)
 
@@ -116,6 +115,7 @@ def authTrakt():
         verification_url = (control.lang(32513) % result['verification_url']).encode('utf-8')
         user_code = (control.lang(32514) % result['user_code']).encode('utf-8')
         expires_in = int(result['expires_in'])
+        expires_in = int(str(expires_in)[:2]) * 2
         device_code = result['device_code']
         interval = result['interval']
 
@@ -124,6 +124,8 @@ def authTrakt():
 
         for i in range(0, expires_in):
             try:
+                percent = int(100 * float(i) / int(expires_in))
+                progressDialog.update(max(1, percent))
                 if progressDialog.iscanceled():
                     break
                 time.sleep(1)
