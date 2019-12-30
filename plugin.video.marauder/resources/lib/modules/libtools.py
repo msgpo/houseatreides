@@ -20,6 +20,7 @@
 '''
 2019.11.29: Notification Window upgrade
 2019.11.29: Secure Protocol Updates
+2019.12.29: Silent call and Trakt updates
 '''
 
 try:
@@ -182,11 +183,14 @@ class libmovies:
     def silent(self, url):
         control.idle()
 
+        '''
+        Commenting out to make it silent, always, regardless.
+
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
             notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=2000)
             self.infoDialog = True
             self.silentDialog = True
-
+        '''
         from resources.lib.indexers import movies
         items = movies.movies().get(url, idx=False)
         if items == None:
@@ -200,9 +204,13 @@ class libmovies:
             except:
                 pass
 
+        '''
+        Commenting out to make it silent, always, regardless.
+
         if self.infoDialog == True:
             self.silentDialog = False
-            notification.infoDialog(msg="Trakt Movies Sync Complete", time=1000)
+            notification.infoDialog(msg="Trakt Movies Sync Complete", timer=1000)
+        '''
 
     def range(self, url):
         control.idle()
@@ -374,10 +382,14 @@ class libtvshows:
     def silent(self, url):
         control.idle()
 
+        '''
+        Commenting out to make it silent, always, regardless.
+
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
             notification.infoDialog(msg=control.lang(32608).encode('utf-8'), timer=2000)
             self.infoDialog = True
             self.silentDialog = True
+        '''
 
         from resources.lib.indexers import tvshows
         items = tvshows.tvshows().get(url, idx=False)
@@ -392,9 +404,13 @@ class libtvshows:
             except:
                 pass
 
+        '''
+        Commenting out to make it silent, always, regardless.
+
         if self.infoDialog is True:
             self.silentDialog = False
             notification.infoDialog(msg="Trakt TV Show Sync Complete", timer=1)
+        '''
 
     def range(self, url):
         control.idle()

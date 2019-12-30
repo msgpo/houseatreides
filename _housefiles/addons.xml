@@ -64,7 +64,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="plugin.video.marauder" name="[COLORorange]Marauder[/COLOR]" provider-name="" version="2.0.6c">
+<addon id="plugin.video.marauder" name="[COLORorange]Marauder[/COLOR]" provider-name="" version="2.0.6d">
     <requires>
         <import addon="xbmc.python" version="2.20.0" />
         <import addon="script.marauder.artwork" />
@@ -102,33 +102,27 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
-<addon
-  id="plugin.video.SportsDevil"
-  version="2019.05.24"
-  name="SportsDevil"
-  provider-name="SportsDevil">
-  <requires>
-   <import addon="xbmc.python" version="2.14.0"/>
-   <import addon="script.module.dateutil" />
-   <import addon="script.module.simplejson" />
-   <import addon="script.module.six" />
-   <import addon="script.module.requests" />
-   <import addon="plugin.video.f4mTester" />
-   <import addon="script.module.slproxy" />
-  </requires>
-  <extension
-    point="xbmc.python.pluginsource"
-    library="default.py">
-   <provides>video</provides>
-  </extension>
-  <!-- <extension point="xbmc.service" library="service/streamlink_proxy.py" /> -->
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">SportsDevil</summary>
-    <description lang="en">[I]There can only be one.[/I][CR][CR]Unofficial Kodi Addon.</description>
-    <disclaimer lang="en">There can only be one.</disclaimer>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <platform>all</platform>
-  </extension>
+<addon id="plugin.video.SportsDevil" version="2019.12.29" name="SportsDevil" provider-name="SportsDevil">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+        <import addon="script.module.dateutil" />
+        <import addon="script.module.simplejson" />
+        <import addon="script.module.six" />
+        <import addon="script.module.requests" />
+        <import addon="plugin.video.f4mTester" />
+        <import addon="script.module.slproxy" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <!-- <extension point="xbmc.service" library="service/streamlink_proxy.py" /> -->
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">SportsDevil</summary>
+        <description lang="en">[I]There can only be one.[/I][CR][CR]Unofficial Kodi Addon.</description>
+        <disclaimer lang="en">There can only be one.</disclaimer>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.atreides" name="Atreides Repository" version="0.0.7" provider-name="House Atreides">
@@ -249,7 +243,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.atreides" name="Atreides Module" version="1.5.4" provider-name="Paul Atreides">
+<addon id="script.module.atreides" name="Atreides Module" version="1.5.5" provider-name="Paul Atreides">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.pyxbmct" version="1.1.4" />

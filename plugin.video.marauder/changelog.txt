@@ -1,3 +1,9 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.6d[/COLOR][/B]
+- Trakt silent call updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.6c[/COLOR][/B]
+- Trakt Sync updates
+
 [B][COLOR gold]Marauder Video Plugin v2.0.6b[/COLOR][/B]
 - Trakt API Update (Crew)
 - Scraper updates (Crew)

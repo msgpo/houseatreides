@@ -1,3 +1,6 @@
+[COLOR limegreen]Atredies Script Module v1.5.5[/COLOR]
+    - CFScrape Updates (Thx WH)
+
 [COLOR limegreen]Atredies Video Plugin v1.3.4[/COLOR]
 [COLOR limegreen]Atredies Script Module v1.5.4[/COLOR]
     - Removed channel stuff - No time to
