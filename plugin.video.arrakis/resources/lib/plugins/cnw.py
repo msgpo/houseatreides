@@ -4,7 +4,7 @@
 
     ----------------------------------------------------------------------------
     "THE BEER-WARE LICENSE" (Revision 42):
-    Welcome to House Atreides.  As long as you retain this notice you can do 
+    Welcome to House Atreides.  As long as you retain this notice you can do
     whatever you want with this stuff. Just Ask first when not released through
     the tools and parser GIT. If we meet some day, and you think this stuff is
     worth it, you can buy him a beer in return. - Muad'Dib
@@ -167,10 +167,10 @@ def category_cnw(url):
     if not xml:
         xml = ""
         try:
-            headers = {'User_Agent':User_Agent}
+            headers = {'User-Agent':User_Agent}
             html = requests.get(url,headers=headers).content
-            
-            cat_divs = dom_parser.parseDOM(html, 'ul', attrs={'class':'videos'})[0]
+
+            cat_divs = dom_parser.parseDOM(html, 'ul', attrs={'class':'videos videosl'})[0]
             vid_entries = dom_parser.parseDOM(cat_divs, 'li')
             for vid_section in vid_entries:
                 thumbnail = urlparse.urljoin('http://www.celebsnudeworld.com/', re.compile('src="(.+?)"',re.DOTALL).findall(str(vid_section))[0])
@@ -227,9 +227,9 @@ def pornstar_vids_cnw(url):
                    "    <link>file://adult/cnw/main.xml</link>"\
                    "</dir>"
 
-            headers = {'User_Agent':User_Agent}
+            headers = {'User-Agent':User_Agent}
             html = requests.get(url,headers=headers).content
-            
+
             cat_divs = dom_parser.parseDOM(html, 'ul', attrs={'class':'videos'})[0]
             vid_entries = dom_parser.parseDOM(cat_divs, 'li')
             for vid_section in vid_entries:
@@ -294,17 +294,18 @@ def pornstars_cnw(url):
         total = 0
 
         try:
-            search_url = 'http://www.celebsnudeworld.com/search/pornstar/?s=%s' % search.replace(' ', '+')
+            search_url = 'https://www.celebsnudeworld.com/search/video/?s=%s' % search.replace(' ', '+')
             html = requests.get(search_url).content
-            results = dom_parser.parseDOM(html, 'div', attrs={'class':'model'})
+            results = dom_parser.parseDOM(html, 'li', attrs={'class':'video'})
 
             if len(results) == 0:
                 dialog = xbmcgui.Dialog()
                 dialog.ok('Search Results', 'Search Results are empty')
                 return
             for star in results:
-                thumbnail = urlparse.urljoin('http://www.celebsnudeworld.com/', re.compile('src="(.+?)"',re.DOTALL).findall(str(star))[0])
-                vid_page_url, title = re.compile('href="(.+?)"\stitle="(.+?)"',re.DOTALL).findall(str(star))[0]
+                thumbnail = urlparse.urljoin('https://www.celebsnudeworld.com/', re.compile('src="(.+?)"',re.DOTALL).findall(str(star))[0])
+                vid_page_url = urlparse.urljoin('https://www.celebsnudeworld.com/', re.compile('href="(.+?)"',re.DOTALL).findall(str(star))[0])
+                title = re.compile('title="(.+?)"',re.DOTALL).findall(str(star))[0]
 
                 xml += "<item>"\
                        "    <title>%s</title>"\
@@ -328,15 +329,23 @@ def pornstars_cnw(url):
 @route(mode='PlayCNW', args=["url"])
 def play_cnw(url):
     try:
-        headers = {'User_Agent':User_Agent}
-        vid_html = requests.get(url,headers=headers).content
-        qualities = re.compile('label="(.+?)"',re.DOTALL).findall(str(vid_html))
+        headers = {'User-Agent':User_Agent}
+        vid_html = requests.get(url, headers=headers).content
+        vid_div = dom_parser.parseDOM(vid_html, 'div', attrs={'id':'content-tab-download'})[0]
+        links = re.compile('href="(.+?)"', re.DOTALL).findall(str(vid_div))
+        qualities = []
+        for link in links:
+            qualities.append(link.split('/')[-2])
 
         selected = xbmcgui.Dialog().select('Select Quality',qualities)
         if selected ==  -1:
-            return        
+            return
 
-        vid_url = re.compile('source src="(.+?)"\stype=".+?"\slabel="%s"' % (qualities[selected]),re.DOTALL).findall(str(vid_html))[0]
+        vid_url = links[selected]
+        if not vid_url.startswith('http'):
+            vid_url = urlparse.urljoin('https://www.celebsnudeworld.com/', vid_url)
+        vid_test = requests.get(vid_url).headers['Content-Disposition']
+        vid_url = urlparse.urljoin(vid_url, vid_test)
         xbmc.executebuiltin("PlayMedia(%s)" % vid_url)
     except:
         return

@@ -20,6 +20,7 @@
 '''
 2019.10.20: Updated TVDB Key to pull from Settings for central management
 2019.11.29: Secure Protocol Updates
+2019.12.25: TVDB Sort update
 '''
 
 import datetime
@@ -313,6 +314,7 @@ class seasons:
                 if thumb == '0': thumb = poster
 
                 self.list.append({'season': season, 'tvshowtitle': tvshowtitle, 'label': label, 'year': year, 'premiered': premiered, 'status': status, 'studio': studio, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'cast': cast, 'plot': plot, 'imdb': imdb, 'tvdb': tvdb, 'poster': poster, 'banner': banner, 'fanart': fanart, 'thumb': thumb, 'unaired': unaired})
+                self.list = sorted(self.list, key=lambda k: int(k['season']))
             except:
                 pass
 
@@ -397,6 +399,7 @@ class seasons:
                 except: pass
 
                 self.list.append({'title': title, 'label': label, 'season': season, 'episode': episode, 'tvshowtitle': tvshowtitle, 'year': year, 'premiered': premiered, 'status': status, 'studio': studio, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': episodeplot, 'imdb': imdb, 'tvdb': tvdb, 'poster': poster, 'banner': banner, 'fanart': fanart, 'thumb': thumb, 'unaired': unaired})
+                self.list = sorted(self.list, key=lambda k: (int(k['season']), int(k['episode'])))
             except:
                 pass
 
@@ -443,7 +446,7 @@ class seasons:
                 label = '%s %s' % (labelMenu, i['season'])
                 try:
                     if i['unaired'] == 'true':
-                        label = '[COLOR darkred][I]%s[/I][/COLOR]' % label
+                        label = '[COLOR crimson][I]%s[/I][/COLOR]' % label
                 except:
                     pass
                 systitle = sysname = urllib.quote_plus(i['tvshowtitle'])
@@ -1444,7 +1447,7 @@ class episodes:
 
                 try:
                     if i['unaired'] == 'true':
-                        label = '[COLOR darkred][I]%s[/I][/COLOR]' % label
+                        label = '[COLOR crimson][I]%s[/I][/COLOR]' % label
                 except:
                     pass
 

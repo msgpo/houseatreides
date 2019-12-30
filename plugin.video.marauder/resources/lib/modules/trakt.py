@@ -34,8 +34,8 @@ CLIENT_SECRET = control.setting('trakt.client_secret')
 REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 
 if V2_API_KEY == "" or CLIENT_SECRET == "":
-    V2_API_KEY = "7a940a578d53ebb93b1b86b607352fc82639e128bed8cfb14fa621b4f1f47ffa"
-    CLIENT_SECRET = "1df4848081644a8fad1034f04eed6dc03015d5965f0059e1c78de55b821bd360"
+    V2_API_KEY = "3f47aeb33a0da768fd9b10c52168ea37fce855f52f86a300b5ad3f0d78cc6f84"
+    CLIENT_SECRET = "64e00998a9b6852a57273dad4956d3d71416e1f267cb6ce9b8e6f9c8e7d9b4e8"
 
 
 def __getTrakt(url, post=None):

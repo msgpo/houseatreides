@@ -1,3 +1,17 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.6b[/COLOR][/B]
+- Trakt API Update (Crew)
+- Scraper updates (Crew)
+- CFScrape Update (Crew)
+- Library Updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.6[/COLOR][/B]
+- Special Episodes option added for Library
+- Code Cleanup
+- More TVDB sort work
+- Added IMDb watch and user lists sorting options
+- Added support for more content types for IMDb watch and user lists
+- Sources cleanup
+
 [B][COLOR gold]Marauder Video Plugin v2.0.5[/COLOR][/B]
 [B][COLOR gold]Marauder Artwork v2.0.4[/COLOR][/B]
 - Changelog Window Scroll Fix (I'm dumb)

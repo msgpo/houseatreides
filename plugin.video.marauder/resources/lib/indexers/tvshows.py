@@ -495,7 +495,8 @@ class tvshows:
 
         self.list = userlists
         for i in range(0, len(self.list)):
-            self.list[i].update({'image': 'userlists.png', 'action': 'tvshows'})
+            self.list[i].update({'action': 'tvshows'})
+        self.list = sorted(self.list, key=lambda k: (k['image'], k['name'].lower()))
         self.addDirectory(self.list)
         return self.list
 
@@ -652,7 +653,7 @@ class tvshows:
                 url = self.traktlist_link % url
                 url = url.encode('utf-8')
 
-                self.list.append({'name': name, 'url': url, 'context': url})
+                self.list.append({'name': name, 'url': url, 'context': url, 'image': 'trakt.png'})
             except:
                 pass
 
@@ -812,6 +813,11 @@ class tvshows:
         except:
             pass
 
+        if control.setting('imdb.sort.order') == '1':
+            list = self.imdblist2_link
+        else:
+            list = self.imdblist_link
+
         for item in items:
             try:
                 name = client.parseDOM(item, 'a')[0]
@@ -820,11 +826,11 @@ class tvshows:
 
                 url = client.parseDOM(item, 'a', ret='href')[0]
                 url = url = url.split('/list/', 1)[-1].strip('/')
-                url = self.imdblist_link % url
+                url = list % url
                 url = client.replaceHTMLCodes(url)
                 url = url.encode('utf-8')
 
-                self.list.append({'name': name, 'url': url, 'context': url})
+                self.list.append({'name': name, 'url': url, 'context': url, 'image': 'imdb.png'})
             except:
                 pass
 

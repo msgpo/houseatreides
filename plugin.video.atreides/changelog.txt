@@ -1,3 +1,10 @@
+[COLOR limegreen]Atredies Video Plugin v1.3.4[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.5.4[/COLOR]
+    - Removed channel stuff - No time to
+        keep it up
+    - Torrent scraper updated
+    - Trakt Status updates - Thx White Hat
+
 [COLOR limegreen]Atredies Script Module v1.5.3a[/COLOR]
     - I'm dumb
 

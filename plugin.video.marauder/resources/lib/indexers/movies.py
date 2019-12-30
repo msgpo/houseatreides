@@ -104,8 +104,8 @@ class movies:
         self.trakthistory_link = 'https://api.trakt.tv/users/me/history/movies?limit=40&page=1'
         self.onDeck_link = 'https://api.trakt.tv/sync/playback/movies?extended=full&limit=20'
         self.imdblists_link = 'https://www.imdb.com/user/ur%s/lists?tab=all&sort=modified&order=desc&filter=titles' % self.imdb_user
-        self.imdblist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=date_added,desc&title_type=movie,short,tvMovie&start=1'
-        self.imdblist2_link = 'https://www.imdb.com/list/%s/?view=detail&sort=alpha,asc&title_type=movie,short,tvMovie&start=1'
+        self.imdblist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=date_added,desc&title_type=movie,short,tvMovie,video&start=1'
+        self.imdblist2_link = 'https://www.imdb.com/list/%s/?view=detail&sort=alpha,asc&title_type=movie,short,tvMovie,video&start=1'
         self.imdbwatchlist_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=date_added,desc' % self.imdb_user
         self.imdbwatchlist2_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=alpha,asc' % self.imdb_user
 
@@ -815,7 +815,8 @@ class movies:
 
         self.list = userlists
         for i in range(0, len(self.list)):
-            self.list[i].update({'image': 'userlists.png', 'action': 'movies'})
+            self.list[i].update({'action': 'movies'})
+        self.list = sorted(self.list, key=lambda k: (k['image'], k['name'].lower()))
         self.addDirectory(self.list, queue=True)
         return self.list
 
@@ -964,7 +965,7 @@ class movies:
                 url = self.traktlist_link % url
                 url = url.encode('utf-8')
 
-                self.list.append({'name': name, 'url': url, 'context': url})
+                self.list.append({'name': name, 'url': url, 'context': url, 'image': 'trakt.png'})
             except:
                 pass
 
@@ -1182,6 +1183,11 @@ class movies:
         except:
             pass
 
+        if control.setting('imdb.sort.order') == '1':
+            list = self.imdblist2_link
+        else:
+            list = self.imdblist_link
+
         for item in items:
             try:
                 name = client.parseDOM(item, 'a')[0]
@@ -1190,15 +1196,15 @@ class movies:
 
                 url = client.parseDOM(item, 'a', ret='href')[0]
                 url = url.split('/list/', 1)[-1].strip('/')
+                url = list % url
                 url = self.imdblist_link % url
                 url = client.replaceHTMLCodes(url)
                 url = url.encode('utf-8')
 
-                self.list.append({'name': name, 'url': url, 'context': url})
+                self.list.append({'name': name, 'url': url, 'context': url, 'image': 'imdb.png'})
             except:
                 pass
 
-        self.list = sorted(self.list, key=lambda k: utils.title_key(k['name']))
         return self.list
 
     def worker(self, level=1):

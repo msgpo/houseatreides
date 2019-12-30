@@ -12,6 +12,9 @@
 # Addon id: plugin.video.atreides
 # Addon Provider: House Atreides
 
+'''
+2019/12/29: Trakt Sync Status Fix - White Hat
+'''
 
 import json
 import re
@@ -105,6 +108,7 @@ def authTrakt():
         verification_url = (control.lang(32513) % result['verification_url']).encode('utf-8')
         user_code = (control.lang(32514) % result['user_code']).encode('utf-8')
         expires_in = int(result['expires_in'])
+        expires_in = int(str(expires_in)[:2]) * 2
         device_code = result['device_code']
         interval = result['interval']
 
@@ -113,6 +117,8 @@ def authTrakt():
 
         for i in range(0, expires_in):
             try:
+                percent = int(100 * float(i) / int(expires_in))
+                progressDialog.update(max(1, percent))
                 if progressDialog.iscanceled():
                     break
                 time.sleep(1)

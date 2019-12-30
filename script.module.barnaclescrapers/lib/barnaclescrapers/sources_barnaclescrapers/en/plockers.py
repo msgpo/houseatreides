@@ -25,8 +25,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['www1.putlockers.gs']
-        self.base_link = 'http://www8.putlockers.fm/'
+        self.domains = ['www1.putlockers.fm']
+        self.base_link = 'http://www7.putlockers.fm/'
         self.search_link = 'search-movies/%s.html'
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -74,14 +74,16 @@ class source:
             url = urlparse.urljoin(self.base_link, self.search_link % query)
 
             self.s = cfscrape.create_scraper()
+
             self.ua = {'User-Agent': client.agent(),
                        'Referer': self.base_link}
             r = self.s.get(url, headers=self.ua).text
             posts = client.parseDOM(r, 'div', attrs={'class': 'item'})
             posts = [(client.parseDOM(i, 'a', ret='href')[1],
-                      client.parseDOM(i, 'a')[1],
-                      re.findall('Release:\s*(\d{4})</', i, re.I | re.DOTALL)[0]) for i in posts if i]
-            posts = [(i[0], client.parseDOM(i[1], 'i')[0], i[2]) for i in posts if i]
+                      client.parseDOM(i, 'a')[1]) for i in posts if i]
+
+            posts = [(i[0], client.parseDOM(i[1], 'i')[0]) for i in posts if i]
+
             if 'tvshowtitle' in data:
                 sep = 'season %d' % int(data['season'])
                 sepi = 'season-%1d/episode-%1d.html' % (int(data['season']), int(data['episode']))
@@ -90,7 +92,7 @@ class source:
                 link = client.parseDOM(data, 'a', ret='href')
                 link = [i for i in link if sepi in i][0]
             else:
-                link = [i[0] for i in posts if cleantitle.get(i[1]) == cleantitle.get(title) and hdlr in i[2]][0]
+                link = [i[0] for i in posts if cleantitle.get(i[1]) == cleantitle.get(title) and hdlr in i[1]][0]
 
             r = self.s.get(link, headers=self.ua).content
             try:
@@ -135,17 +137,18 @@ class source:
                     except:
                         pass
             return sources
-        except Exception:
+        except:
             return
 
     def resolve(self, url):
         if 'putlockers' in url:
-            r = self.s.get(url, headers=self.ua).text
             try:
+                r = self.s.get(url, headers=self.ua).text
                 v = re.findall('document.write\(Base64.decode\("(.+?)"\)', r)[0]
                 b64 = v.decode('base64')
                 url = client.parseDOM(b64, 'iframe', ret='src')[0]
-            except BaseException:
+            except:
+                r = self.s.get(url, headers=self.ua)
                 r = client.parseDOM(r, 'div', attrs={'class': 'player'})
                 url = client.parseDOM(r, 'a', ret='href')[0]
 

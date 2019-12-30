@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
+'''
     Marauder Add-on
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
+'''
 
 '''
 2019/11/10: Updated blocked and hq lists
@@ -30,15 +30,8 @@ import random
 import datetime
 import time
 
-import barnaclescrapers
-try:
-    import openscrapers
-except:
-    pass
-
 from resources.lib.dialogs import notification
-from resources.lib.modules import trakt
-from resources.lib.modules import tvmaze
+from resources.lib.modules import trakt, tvmaze
 from resources.lib.modules import cache
 from resources.lib.modules import control
 from resources.lib.modules import cleantitle
@@ -47,7 +40,6 @@ from resources.lib.modules import debrid
 from resources.lib.modules import workers
 from resources.lib.modules import source_utils
 from resources.lib.modules import log_utils
-from resources.lib.modules import thexem
 
 try:
     from sqlite3 import dbapi2 as database
@@ -121,8 +113,7 @@ class sources:
         def sourcesDirMeta(metadata):
             if metadata == None:
                 return metadata
-            allowed = ['poster', 'fanart', 'thumb', 'title', 'year', 'tvshowtitle',
-                       'season', 'episode', 'rating', 'plot', 'trailer', 'mediatype']
+            allowed = ['poster', 'poster3', 'fanart', 'fanart2', 'thumb', 'title', 'year', 'tvshowtitle', 'season', 'episode', 'rating', 'plot', 'trailer', 'mediatype']
             return {k: v for k, v in metadata.iteritems() if k in allowed}
 
         control.playlist.clear()
@@ -209,7 +200,7 @@ class sources:
                 item.addStreamInfo('video', video_streaminfo)
 
                 item.addContextMenuItems(cm)
-                item.setInfo(type='video', infoLabels=control.metadataClean(meta))
+                item.setInfo(type='video', infoLabels = sourcesDirMeta(meta))
 
                 control.addItem(handle=syshandle, url=sysurl, listitem=item, isFolder=False)
             except:
@@ -428,8 +419,6 @@ class sources:
             tvshowtitle = self.getTitle(tvshowtitle)
             localtvshowtitle = self.getLocalTitle(tvshowtitle, imdb, tvdb, content)
             aliases = self.getAliasTitles(imdb, localtvshowtitle, content)
-            # Disabled on 11/11/17 due to hang. Should be checked in the future and possible enabled again.
-            #season, episode = thexem.get_scene_episode_number(tvdb, season, episode)
             for i in sourceDict:
                 threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season,
                                               episode, tvshowtitle, localtvshowtitle, aliases, premiered, i[0], i[1]))

@@ -19,6 +19,7 @@
             the start of scrapers since ALL scrapers (regardless of settings), run and the init executes
             before filtering out www, magnet, etc. BAD DOG, BAD DOG. Dumbass
 2019/11/08: Moved base_link calls down to sources. Let's see how this goes, Mmmmkay?
+2019/12/28: Base updates - Thx to other scrapers. Too lazy to work on them lately.
 '''
 
 import re
@@ -35,9 +36,6 @@ class source:
         self.source = ['magnet']
         self.domains = ['1337x.to', 'x1337x.ws', '1337x.st', 'x1337x.eu', '1337x.is', '1337x.unblocked.win']
         self._base_link = None
-        self.scraper = cfscrape.create_scraper()
-        self.tvsearch = '%s/sort-category-search/%s/TV/seeders/desc/%s/'
-        self.moviesearch = '%s/sort-category-search/%s/Movies/size/desc/%s/'
 
     @property
     def base_link(self):
@@ -97,11 +95,18 @@ class source:
             if url is None:
                 return self._sources
 
+            if self._base_link is None:
+                self.base_link = cache.get(self.__get_base_url, 240, 'https://%s' % self.domains[0])
+
+            self.tvsearch = '%s/sort-category-search/%s/TV/seeders/desc/%s/' % (self.base_link, '%s', '%s')
+            self.moviesearch = '%s/sort-category-search/%s/Movies/size/desc/%s/' % (self.base_link, '%s', '%s')
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
             self.title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
-            self.hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
+            self.hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])
+                                        ) if 'tvshowtitle' in data else data['year']
 
             query = '%s S%02dE%02d' % (
                 data['tvshowtitle'],
@@ -112,12 +117,10 @@ class source:
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
             urls = []
             if 'tvshowtitle' in data:
-                self.tvsearch = self.tvsearch % (self.base_link, '%s', '%s')
                 urls.append(self.tvsearch % (urllib.quote(query), '1'))
                 urls.append(self.tvsearch % (urllib.quote(query), '2'))
                 urls.append(self.tvsearch % (urllib.quote(query), '3'))
             else:
-                self.moviesearch = self.moviesearch % (self.base_link, '%s', '%s')
                 urls.append(self.moviesearch % (urllib.quote(query), '1'))
                 urls.append(self.moviesearch % (urllib.quote(query), '2'))
                 urls.append(self.moviesearch % (urllib.quote(query), '3'))
@@ -130,6 +133,7 @@ class source:
             [i.start() for i in threads]
             [i.join() for i in threads]
 
+            self.hostDict = hostDict + hostprDict
             threads2 = []
             for i in self.items:
                 threads2.append(workers.Thread(self._get_sources, i, sc_timeout))
@@ -144,10 +148,8 @@ class source:
 
     def _get_items(self, url, sc_timeout):
         try:
-            r = self.scraper.get(url).content
-            if r is None:
-                log_utils.log('1337x - Website Timed Out')
-                return
+            scraper = cfscrape.create_scraper()
+            r = scraper.get(url).content
             posts = client.parseDOM(r, 'tbody')[0]
             posts = client.parseDOM(posts, 'tr')
             for post in posts:
@@ -175,8 +177,7 @@ class source:
                     size = re.findall('((?:\d+\,\d+\.\d+|\d+\.\d+|\d+\,\d+|\d+)\s*(?:GiB|MiB|GB|MB))', post)[0]
                     div = 1 if size.endswith('GB') else 1024
                     size = float(re.sub('[^0-9|/.|/,]', '', size.replace(',', '.'))) / div
-                    size = '%.2f GB' % size
-
+                    size = '[B]%.2f GB[/B]' % size
                 except Exception:
                     size = '0'
 
@@ -194,11 +195,12 @@ class source:
                 log_utils.log('1337x - Timeout Reached')
                 return
 
+            scraper = cfscrape.create_scraper()
             name = item[0]
             quality, info = source_utils.get_release_quality(item[1], name)
             info.append(item[2])
             info = ' | '.join(info)
-            data = self.scraper.get(item[1]).content
+            data = scraper.get(item[1]).content
             data = client.parseDOM(data, 'a', ret='href')
             url = [i for i in data if 'magnet:' in i][0]
             url = url.split('&tr')[0]

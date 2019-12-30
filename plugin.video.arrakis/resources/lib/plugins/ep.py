@@ -4,7 +4,7 @@
 
     ----------------------------------------------------------------------------
     "THE BEER-WARE LICENSE" (Revision 42):
-    Welcome to House Atreides.  As long as you retain this notice you can do 
+    Welcome to House Atreides.  As long as you retain this notice you can do
     whatever you want with this stuff. Just Ask first when not released through
     the tools and parser GIT. If we meet some day, and you think this stuff is
     worth it, you can buy him a beer in return. - Muad'Dib
@@ -38,7 +38,7 @@ addon_fanart = xbmcaddon.Addon().getAddonInfo('fanart')
 addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
 next_icon = os.path.join(xbmc.translatePath(xbmcaddon.Addon().getAddonInfo('path')), 'resources', 'media', 'next.png')
 
-User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36'
 
 class EPORNER(Plugin):
     name = "eporner"
@@ -63,7 +63,7 @@ class EPORNER(Plugin):
                     'context': get_context_items(item),
                     "summary": item.get("summary", None)
                 }
-            elif "category/" in item.get("eporner", ""):
+            elif "category/" in item.get("eporner", "") or "cat/" in item.get("eporner", ""):
                 result_item = {
                     'label': item["title"],
                     'icon': item.get("thumbnail", addon_icon),
@@ -165,6 +165,9 @@ class EPORNER(Plugin):
                     'context': get_context_items(item),
                     "summary": item.get("summary", None)
                 }
+            result_item["properties"] = {
+                'fanart_image': result_item["fanart"]
+            }
             result_item['fanart_small'] = result_item["fanart"]
             return result_item
 
@@ -181,9 +184,9 @@ def category_eporner(url):
     if not xml:
         xml = ""
         try:
-            headers = {'User_Agent':User_Agent}
+            headers = {'User-Agent':User_Agent}
             html = requests.get(url,headers=headers).content
-            
+
             hdy_vid_divs = dom_parser.parseDOM(html, 'div', attrs={'class':'mb hdy'})
             for vid_section in hdy_vid_divs:
                 thumbnail = re.compile('src="(.+?)"',re.DOTALL).findall(str(vid_section))[0]
@@ -229,15 +232,15 @@ def category_eporner(url):
 
 @route(mode='EPorner_Stars', args=["url"])
 def pornstars_eporner(url):
-    url = urlparse.urljoin('https://www.eporner.com/', url)
+    url = 'https://www.eporner.com/pornstar-list'
 
     xml = fetch_from_db(url)
     if not xml:
         xml = ""
         try:
-            headers = {'User_Agent':User_Agent}
+            headers = {'User-Agent':User_Agent}
             html = requests.get(url,headers=headers).content
-            
+
             profile_divs = dom_parser.parseDOM(html, 'div', attrs={'class':'mbprofile'})
             for profile in profile_divs:
                 thumbnail = re.compile('src="(.+?)"',re.DOTALL).findall(str(profile))[0]
@@ -348,7 +351,7 @@ def category_eporner(url):
 @route(mode='PlayEporner', args=["url"])
 def play_eporner(url):
     try:
-        headers = {'User_Agent':User_Agent}
+        headers = {'User-Agent':User_Agent}
         vid_html = requests.get(url,headers=headers).content
         download_div = dom_parser.parseDOM(vid_html, 'div', attrs={'id':'hd-porn-dload'})[0]
         sources = re.compile('href="(.+?)"',re.DOTALL).findall(str(download_div))
@@ -359,7 +362,7 @@ def play_eporner(url):
             names.append(quality)
         selected = xbmcgui.Dialog().select('Select Quality',names)
         if selected ==  -1:
-            return        
+            return
 
         vid_url = urlparse.urljoin('https://www.eporner.com/', sources[selected])
         xbmc.executebuiltin("PlayMedia(%s)" % str(vid_url))

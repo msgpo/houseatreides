@@ -1,3 +1,6 @@
+[COLOR lime]v1.0.5[/COLOR]
+    - Plugin Updates (progress made)
+
 [COLOR lime]v1.0.4[/COLOR]
     - Anime updates
 

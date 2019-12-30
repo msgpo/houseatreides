@@ -6,7 +6,7 @@
 
     ----------------------------------------------------------------------------
     "THE BEER-WARE LICENSE" (Revision 42):
-    Welcome to House Atreides.  As long as you retain this notice you can do 
+    Welcome to House Atreides.  As long as you retain this notice you can do
     whatever you want with this stuff. Just Ask first when not released through
     the tools and parser GIT. If we meet some day, and you think this stuff is
     worth it, you can buy him a beer in return. - Muad'Dib
@@ -49,7 +49,7 @@ addon_fanart = xbmcaddon.Addon().getAddonInfo('fanart')
 addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
 next_icon = os.path.join(xbmc.translatePath(xbmcaddon.Addon().getAddonInfo('path')), 'resources', 'media', 'next.png')
 
-User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36'
 
 class COBP(Plugin):
     name = "cobp"
@@ -139,34 +139,36 @@ class COBP(Plugin):
 
 @route(mode='COBP', args=["url"])
 def get_stream(url):
-    url = urlparse.urljoin('http://collectionofbestporn.com/', url)
-
+    url = urlparse.urljoin('https://collectionofbestporn.com/', url)
     xml = fetch_from_db(url)
     if not xml:
         xml = ""
         try:
-            headers = {'User_Agent':User_Agent}
-            html = requests.get(url,headers=headers).content
-            vid_divs = dom_parser.parseDOM(html, 'div', attrs={'class':'video-item col-sm-5 col-md-4 col-xs-10'})
+            headers = {'User-Agent': User_Agent, 'Referer':url, 'Host': 'collectionofbestporn.com'}
+            html = requests.get(url, headers=headers).content
+            vid_divs = dom_parser.parseDOM(html, 'div', attrs={'class': 'video-item col-sm-5 col-md-4 col-xs-10'})
             count = 0
             for vid_section in vid_divs:
-                thumb_div = dom_parser.parseDOM(vid_section, 'div', attrs={'class':'video-thumb'})[0]
-                thumbnail = re.compile('<img src="(.+?)"',re.DOTALL).findall(str(thumb_div))[0]
-                vid_page_url = re.compile('href="(.+?)"',re.DOTALL).findall(str(thumb_div))[0]
+                try:
+                    thumb_div = dom_parser.parseDOM(vid_section, 'div', attrs={'class':'video-thumb'})[0]
+                    thumbnail = re.compile('<img src="(.+?)"',re.DOTALL).findall(str(thumb_div))[0]
+                    vid_page_url = re.compile('href="(.+?)"',re.DOTALL).findall(str(thumb_div))[0]
 
-                title_div = dom_parser.parseDOM(vid_section, 'div', attrs={'class':'title'})[0]
-                title = remove_non_ascii(re.compile('title="(.+?)"',re.DOTALL).findall(str(title_div))[0])
-                count += 1
+                    title_div = dom_parser.parseDOM(vid_section, 'div', attrs={'class':'title'})[0]
+                    title = remove_non_ascii(re.compile('title="(.+?)"',re.DOTALL).findall(str(title_div))[0])
+                    count += 1
 
-                xml += "<item>"\
-                       "    <title>%s</title>"\
-                       "    <meta>"\
-                       "        <summary>%s</summary>"\
-                       "    </meta>"\
-                       "    <cobp>%s</cobp>"\
-                       "    <thumbnail>%s</thumbnail>"\
-                       "</item>" % (title,title,vid_page_url,thumbnail)
-
+                    xml += "<item>"\
+                        "    <title>%s</title>"\
+                        "    <meta>"\
+                        "        <summary>%s</summary>"\
+                        "    </meta>"\
+                        "    <cobp>%s</cobp>"\
+                        "    <thumbnail>%s</thumbnail>"\
+                        "</item>" % (title, title, vid_page_url, thumbnail)
+                except Exception:
+                    failure = traceback.format_exc()
+                    xbmcgui.Dialog().textviewer('ERROR WILL ROBINSON!', failure)
             try:
                 pagination = dom_parser.parseDOM(html, 'li', attrs={'class':'next'})[0]
                 next_page = dom_parser.parseDOM(pagination, 'a', ret='href')[0]
@@ -191,7 +193,7 @@ def get_stream(url):
 @route(mode='PlayVideo', args=["url"])
 def play_source(url):
     try:
-        headers = {'User_Agent':User_Agent}
+        headers = {'User-Agent':User_Agent}
         vid_html = requests.get(url,headers=headers).content
 
         sources = dom_parser.parseDOM(vid_html, 'source', ret='src')

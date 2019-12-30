@@ -138,30 +138,6 @@ elif action == 'downloadNavigator':
     from resources.lib.indexers import navigator
     navigator.navigator().downloads()
 
-elif action == 'swiftNavigator':
-    from resources.lib.indexers import swift
-    swift.swift().root()
-
-elif action == 'swiftCat':
-    from resources.lib.indexers import swift
-    swift.swift().swiftCategory(url)
-
-elif action == 'swiftPlay':
-    from resources.lib.indexers import swift
-    swift.swift().swiftPlay(url)
-
-elif action == 'tvtapNavigator':
-    from resources.lib.indexers import tvtap
-    tvtap.tvtap().root()
-
-elif action == 'tvtapCat':
-    from resources.lib.indexers import tvtap
-    tvtap.tvtap().tvtapCategory(url)
-
-elif action == 'tvtapPlay':
-    from resources.lib.indexers import tvtap
-    tvtap.tvtap().tvtapPlay(url)
-
 elif action == 'bmNavigator':
     from resources.lib.modules import jsonbm
     if url == 'channels':
@@ -455,10 +431,6 @@ elif action == 'download':
         downloader.download(name, image, sources.sources().sourcesResolve(json.loads(source)[0], True))
     except Exception:
         pass
-
-elif action == 'channelNavigator':
-    from resources.lib.indexers import channels
-    channels.channels().root()
 
 elif action == 'kidsBoxsetNavigator':
     from resources.lib.indexers import boxsets

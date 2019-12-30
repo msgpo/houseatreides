@@ -1,132 +1,115 @@
 # -*- coding: utf-8 -*-
-#######################################################################
-# ----------------------------------------------------------------------------
-# "THE BEER-WARE LICENSE" (Revision 42):
-#  As long as you retain this notice you
-# can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return. - Muad'Dib
-# ----------------------------------------------------------------------------
-#######################################################################
 
-import re
-import urllib
-import urlparse
+'''
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-from resources.lib.modules import cleantitle, client, dom_parser2, jsunpack
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+'''
+
+import urllib, urlparse, re
+
+from resources.lib.modules import cleantitle
+from resources.lib.modules import client
+from resources.lib.modules import source_utils
+from resources.lib.modules import cfscrape
+from resources.lib.modules import directstream
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['watch32hd.co']
-        self.base_link = 'https://watch32hd.co'
-        self.search_link = '/results?q=%s'
+        self.domains = ['watchhdmovie.net']
+        self.base_link = 'https://watch32hd.org/'
+        self.search_link = 'results?q=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except Exception:
+        except:
             return
 
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
 
-            if url is None:
-                return sources
+            if url is None: return sources
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
             title = data['title']
-
             hdlr = data['year']
+            query = '%s %s' % (title, hdlr)
+            query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
 
-            query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', title)
-
-            url = self.search_link % urllib.quote_plus(query)
-            url = urlparse.urljoin(self.base_link, url)
+            url = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(query))
             r = client.request(url)
+            items = client.parseDOM(r, 'div', attrs={'class': 'cell_container'})
 
-            posts = client.parseDOM(r, 'div', attrs={'class': 'video_title'})
-
-            items = []
-
-            for post in posts:
+            for item in items:
                 try:
-                    data = dom_parser2.parse_dom(post, 'a', req=['href', 'title'])[0]
-                    t = data.content
-                    y = re.findall('\((\d{4})\)', data.attrs['title'])[0]
-                    qual = data.attrs['title'].split('-')[1]
-                    link = data.attrs['href']
-
+                    name = client.parseDOM(item, 'a', ret='title')[0]
+                    name = client.replaceHTMLCodes(name)
+                    t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d+E\d+|S\d+|3D)(\.|\)|\]|\s|)(.+|)', '', name)
                     if not cleantitle.get(t) == cleantitle.get(title):
                         raise Exception()
+
+                    y = re.findall('[\.|\(|\[|\s](\d{4})[\.|\)|\]|\s]', name)[-1]
                     if not y == hdlr:
                         raise Exception()
 
-                    items += [(link, qual)]
-
-                except Exception:
-                    pass
-            for item in items:
+                    link = client.parseDOM(item, 'a', ret='href')[0]
+                    link = urlparse.urljoin(self.base_link, link) if link.startswith('/') else link
+                except:
+                    return sources
                 try:
-                    r = client.request(item[0]) if item[0].startswith('http') else client.request(urlparse.urljoin(self.base_link, item[0]))
-
-                    qual = client.parseDOM(r, 'h1')[0]
-                    # quality = source_utils.get_release_quality(item[1], qual)[0]
-
-                    url = re.findall('''frame_url\s*=\s*["']([^']+)['"]\;''', r, re.DOTALL)[0]
+                    r = client.request(link)
+                    url = re.findall('''frame_url\s*=\s*['"](.+?)['"]\;''', r, re.DOTALL)[0]
                     url = url if url.startswith('http') else urlparse.urljoin('https://', url)
 
-                    ua = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+                    if 'vidlink' in url:
+                        ua = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1'}
+                        html = client.request(url, headers=ua)
+                        postID = re.findall("postID\s*=\s*'([^']+)", html)[0]
+                        data = {'postID': postID}
 
-                    postID = url.split('/embed/')[1]
-                    post_link = 'https://vidlink.org/embed/update_views'
-                    payload = {'postID': postID}
-                    headers = ua
-                    headers['X-Requested-With'] = 'XMLHttpRequest'
-                    headers['Referer'] = url
+                        rid = client.request('https://vidlink.org/embed/update_views', post=data, headers=ua,
+                                             referer=url)
+                        from resources.lib.modules import jsunpack
+                        rid = jsunpack.unpack(rid)
+                        playlist = re.findall('''file1=['"](.+?)['"];''', rid)[0]
+                        links = client.request(playlist, headers=ua, referer=url)
 
-                    ihtml = client.request(post_link, post=payload, headers=headers)
-                    linkcode = jsunpack.unpack(ihtml).replace('\\', '')
-                    try:
-                        extra_link = re.findall(r'var oploadID="(.+?)"', linkcode)[0]
-                        oload = 'https://openload.co/embed/' + extra_link
-                        sources.append({'source': 'openload.co', 'quality': '1080p', 'language': 'en', 'url': oload, 'direct': False, 'debridonly': False})
+                        try:
+                            sub = re.findall('''URI="/sub/vtt/(\d+)/sub.m3u8",LANGUAGE="el"''', links)[0]
+                        except IndexError:
+                            sub = re.findall('''URI="/sub/vtt/(\d+)/sub.m3u8",LANGUAGE="en"''', links)[0]
+                        sub = 'https://opensubtitles.co/sub/{0}.vtt'.format(sub)
 
-                    except Exception:
-                        pass
+                        pattern = 'RESOLUTION=\d+x(\d{3,4}),SUBTITLES="subs"\s*(/drive.+?.m3u8)'
+                        links = re.findall(pattern, links)
+                        for quality, link in links:
+                            quality = source_utils.get_release_quality(quality, quality)[0]
+                            link = 'https://p2p.vidlink.org/' + link.replace('/drive//hls/', 'drive/hls/')
+                            sources.append({'source': 'GVIDEO', 'quality': quality, 'language': 'en', 'url': link,
+                                            'sub': sub, 'direct': True, 'debridonly': False})
 
-                    give_me = re.findall(r'var file1="(.+?)"', linkcode)[0]
-                    stream_link = give_me.split('/pl/')[0]
-                    headers = {'Referer': 'https://vidlink.org/', 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
-                    r = client.request(give_me, headers=headers)
-                    my_links = re.findall(r'[A-Z]{10}=\d+x(\d+)\W[A-Z]+=\"\w+\"\s+\/(.+?)\.', r)
-                    for quality_bitches, link in my_links:
-
-                        if '1080' in quality_bitches:
-                            quality = '1080p'
-                        elif '720' in quality_bitches:
-                            quality = '720p'
-                        elif '480' in quality_bitches:
-                            quality = 'SD'
-                        elif '360' in quality_bitches:
-                            quality = 'SD'
-                        else:
-                            quality = 'SD'
-
-                        final = stream_link + '/' + link + '.m3u8'
-                        sources.append({'source': 'GVIDEO', 'quality': quality, 'language': 'en', 'url': final, 'direct': True, 'debridonly': False})
-
-                except Exception:
+                except:
                     pass
 
             return sources
-        except Exception:
+        except:
             return sources
 
     def resolve(self, url):

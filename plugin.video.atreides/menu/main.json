@@ -2,8 +2,8 @@
     "menu_file": [
         {
             "title": "Main Menu File",
-            "version": "6",
-            "checked": "1",
+            "version": "7",
+            "checked": "0",
             "desc": "Menu File containing the main menu in Atreides"
         }
     ],
@@ -43,12 +43,6 @@
             "title": "32006",
             "action": "tvWidget",
             "thumbnail": "latest-episodes.png"
-        },
-        {
-            "title": "32007",
-            "action": "channelNavigator",
-            "toggle": "navi.channels",
-            "thumbnail": "channels.png"
         },
         {
             "title": "32632",

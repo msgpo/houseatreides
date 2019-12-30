@@ -135,7 +135,7 @@ class libmovies:
     def add(self, name, title, year, imdb, range=False):
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo')\
                 and self.silentDialog is False:
-            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=10000000)
+            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=2000)
             self.infoDialog = True
 
         try:
@@ -183,7 +183,7 @@ class libmovies:
         control.idle()
 
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
-            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=10000000)
+            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=2000)
             self.infoDialog = True
             self.silentDialog = True
 
@@ -212,7 +212,7 @@ class libmovies:
             return
 
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
-            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=10000000)
+            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=2000)
             self.infoDialog = True
 
         from resources.lib.indexers import movies
@@ -263,6 +263,7 @@ class libtvshows:
 
         self.check_setting = control.setting('library.check_episode') or 'false'
         self.include_unknown = control.setting('library.include_unknown') or 'true'
+        self.include_special = control.setting('library.include_special')
         self.library_setting = control.setting('library.update') or 'true'
         self.dupe_setting = control.setting('library.check') or 'true'
 
@@ -278,7 +279,7 @@ class libtvshows:
     def add(self, tvshowtitle, year, imdb, tvdb, range=False):
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo')\
                 and self.silentDialog is False:
-            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=10000000)
+            notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=2000)
             self.infoDialog = True
 
         from resources.lib.indexers import episodes
@@ -322,6 +323,9 @@ class libtvshows:
             lib = ['S%02dE%02d' % (int(i['season']), int(i['episode'])) for i in lib]
 
             items = [i for i in items if not 'S%02dE%02d' % (int(i['season']), int(i['episode'])) in lib]
+
+            if self.include_special == 'false':
+                items = [i for i in items if not str(i['season']) == '0']
         except:
             pass
 
@@ -371,7 +375,7 @@ class libtvshows:
         control.idle()
 
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
-            notification.infoDialog(msg=control.lang(32608).encode('utf-8'), timer=10000000)
+            notification.infoDialog(msg=control.lang(32608).encode('utf-8'), timer=2000)
             self.infoDialog = True
             self.silentDialog = True
 
@@ -400,7 +404,7 @@ class libtvshows:
             return
 
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo'):
-            notification.infoDialog(control.lang(32552).encode('utf-8'), timer=10000000)
+            notification.infoDialog(control.lang(32552).encode('utf-8'), timer=2000)
             self.infoDialog = True
 
         from resources.lib.indexers import tvshows
@@ -454,6 +458,7 @@ class libepisodes:
 
         self.library_setting = control.setting('library.update') or 'true'
         self.include_unknown = control.setting('library.include_unknown') or 'true'
+        self.include_special = control.setting('library.include_special')
         self.property = '%s_service_property' % control.addonInfo('name').lower()
 
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours=5))
@@ -536,7 +541,7 @@ class libepisodes:
 
         if info == 'true' and not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility(
                 'Player.HasVideo'):
-            notification.infoDialog(msg=control.lang(32553).encode('utf-8'), timer=10000000)
+            notification.infoDialog(msg=control.lang(32553).encode('utf-8'), timer=2000)
             self.infoDialog = True
 
         try:
@@ -631,6 +636,9 @@ class libepisodes:
 
                     premiered = i.get('premiered', '0')
                     if (premiered != '0' and int(re.sub('[^0-9]', '', str(premiered))) > int(self.date)) or (premiered == '0' and not self.include_unknown):
+                        continue
+
+                    if str(i.get('season')) == '0' and self.include_special == 'false':
                         continue
 
                     libtvshows().strmFile(i)
