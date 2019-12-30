@@ -135,7 +135,7 @@ class libmovies:
 
     def add(self, name, title, year, imdb, range=False):
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo')\
-                and self.silentDialog is False:
+                and self.silentDialog is False and range is False:
             notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=2000)
             self.infoDialog = True
 
@@ -286,7 +286,7 @@ class libtvshows:
 
     def add(self, tvshowtitle, year, imdb, tvdb, range=False):
         if not control.condVisibility('Window.IsVisible(infodialog)') and not control.condVisibility('Player.HasVideo')\
-                and self.silentDialog is False:
+                and self.silentDialog is False and range is False:
             notification.infoDialog(msg=control.lang(32552).encode('utf-8'), timer=2000)
             self.infoDialog = True
 

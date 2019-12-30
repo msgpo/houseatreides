@@ -1,3 +1,6 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.6e[/COLOR][/B]
+- Silent update for Trakt Sync
+
 [B][COLOR gold]Marauder Video Plugin v2.0.6d[/COLOR][/B]
 - Trakt silent call updates
 
