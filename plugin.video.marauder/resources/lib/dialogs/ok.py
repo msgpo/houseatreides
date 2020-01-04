@@ -8,6 +8,9 @@
 # ----------------------------------------------------------------------------
 #######################################################################
 
+'''
+2020/01/04: Switched from modal to show
+'''
 
 import traceback
 
@@ -49,5 +52,5 @@ def OK_Dialog(title, msg):
                 self.close()
 
     ok = OK_Box('Dialog_OK.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i', title=title, msg=msg)
-    ok.doModal()
+    ok.show()
     del ok
