@@ -68,6 +68,7 @@ class source:
                 data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
                 title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
+                season, episode = '', ''
                 if 'season' in data: season = data['season']
                 if 'episode' in data: episode = data['episode']
                 year = data['year']
@@ -80,9 +81,9 @@ class source:
                 r = client.request(query, headers=headers, XHR=True)
                 r = json.loads(r)['content']
                 r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a'))
-                
-                
-                if 'tvshowtitle' in data:                   
+
+
+                if 'tvshowtitle' in data:
                     cltitle = cleantitle.get(title+'season'+season)
                     cltitle2 = cleantitle.get(title+'season%02d'%int(season))
                     r = [i for i in r if cltitle == cleantitle.get(i[1]) or cltitle2 == cleantitle.get(i[1])]
@@ -93,17 +94,17 @@ class source:
                     cltitle2 = cleantitle.getsearch('%s (%s)'%(title,year))
                     r = [i for i in r if cltitle2 == cleantitle.getsearch(i[1]) or cltitle == cleantitle.getsearch(i[1])]
                     vurl = '%s%s-episode-0'%(self.base_link, str(r[0][0]).replace('/info',''))
-                    vurl2 = '%s%s-episode-1'%(self.base_link, str(r[0][0]).replace('/info',''))                
+                    vurl2 = '%s%s-episode-1'%(self.base_link, str(r[0][0]).replace('/info',''))
 
                 r = client.request(vurl, headers=headers)
                 headers['Referer'] = vurl
-                
+
                 slinks = client.parseDOM(r, 'div', attrs = {'class': 'anime_muti_link'})
                 slinks = client.parseDOM(slinks, 'li', ret='data-video')
                 if len(slinks) == 0 and not vurl2 == None:
                     r = client.request(vurl2, headers=headers)
                     headers['Referer'] = vurl2
-                    slinks = client.parseDOM(r, 'div', attrs = {'class': 'anime_muti_link'})                
+                    slinks = client.parseDOM(r, 'div', attrs = {'class': 'anime_muti_link'})
                     slinks = client.parseDOM(slinks, 'li', ret='data-video')
 
                 for slink in slinks:

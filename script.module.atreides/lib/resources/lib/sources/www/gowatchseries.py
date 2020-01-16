@@ -14,6 +14,7 @@
 
 '''
 2019/07/06: Domain and one host domain change
+2020/01/12: Update for node links, thx to shell
 '''
 
 import json
@@ -82,6 +83,7 @@ class source:
                 data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
                 title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
+                season, episode = '', ''
                 if 'season' in data:
                     season = data['season']
                 if 'episode' in data:
@@ -138,15 +140,26 @@ class source:
                         break
 
                     try:
-                        if 'vidcloud.icu/streaming.php' in slink:
-                            r = client.request('https:%s' % slink, headers=headers)
-                            clinks = re.findall(r'sources:\[(.*?)\]', r)[0]
-                            clinks = re.findall(r'file:\s*\'(http[^\']+)\',label:\s*\'(\d+)', clinks)
-                            for clink in clinks:
-                                q = source_utils.label_to_quality(clink[1])
-                                sources.append({'source': 'cdn', 'quality': q, 'language': 'en', 'url': clink[0], 'direct': True, 'debridonly': False})
+                        if 'vidnode.net/streaming.php' in slink:
+                            vc_headers = {
+                                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0',
+                                'Referer': 'https:{0}'.format(slink)
+                            }
+                            r = client.request('https:{0}'.format(slink), headers=vc_headers)
+                            clinks = re.compile('''window\.urlVideo = ['"](.+?)['"]''').findall(r)[0]
+                            r = client.request(clinks, headers=vc_headers)
+                            regex = re.compile('[A-Z]{10}=\d+x(\d+)\s+\/(.+?)\.', re.DOTALL).findall(r)
+                            for quality, links in regex:
+                                quality = source_utils.check_sd_url(quality)
+                                stream_link = clinks.split('hls/')[0]
+                                final = '{0}{1}.m3u8'.format(stream_link, links)
+                                sources.append({'source': 'cdn', 'quality': quality, 'language': 'en', 'url': final+'|Referer=https:{0}'.format(slink), 'direct': True, 'debridonly': False})
                         else:
+                            # if 'vidnode.net/load.php' in slink:
+                            #     continue
                             valid, hoster = source_utils.is_host_valid(slink, hostDict)
+                            if any(x in hoster for x in ['openload', 'streamango', 'streamcherry', 'rapidvideo', 'verystream', 'vidnode']):
+                                continue
                             if valid:
                                 sources.append({'source': hoster, 'quality': 'SD', 'language': 'en', 'url': slink, 'direct': False, 'debridonly': False})
                     except Exception:

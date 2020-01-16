@@ -1,3 +1,14 @@
+[COLOR limegreen]Atredies Video Plugin v1.3.5[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.5.7[/COLOR]
+    - Coverity Scan Updates
+
+[COLOR limegreen]Atredies Video Plugin v1.3.4a[/COLOR]
+[COLOR limegreen]Atredies Script Module v1.5.6[/COLOR]
+    - Added setting to enable/disable Temp Trakt
+        errors
+    - Adjustment to Notification Dialog so no
+        longer focused style
+
 [COLOR limegreen]Atredies Script Module v1.5.5[/COLOR]
     - CFScrape Updates (Thx WH)
 

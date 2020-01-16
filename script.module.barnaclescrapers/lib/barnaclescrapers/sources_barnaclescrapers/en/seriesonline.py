@@ -40,7 +40,7 @@ class source:
             url = urllib.urlencode(url)
             return url
         except:
-            return        
+            return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
@@ -116,7 +116,7 @@ class source:
                 url = '%s/film/%s-season-%01d/watching.html?ep=%s' % (self.base_link, cleantitle.geturl(data['tvshowtitle']), int(data['season']), ep)
                 r = client.request(url, timeout='10', output='geturl')
 
-                if url == None:
+                if r == None:
                     url = self.searchShow(data['tvshowtitle'], data['season'], aliases)
 
             else:

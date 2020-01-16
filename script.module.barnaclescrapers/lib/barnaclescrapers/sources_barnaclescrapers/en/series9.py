@@ -20,7 +20,7 @@ class source:
         self.domains = ['series9.io','series9.co','seriesonline.io','series9.io','gomovies.pet']
         self.base_link = 'https://series9.io'
         self.search_link = '/movie/search/%s'
-        
+
     def matchAlias(self, title, aliases):
         try:
             for alias in aliases:
@@ -38,7 +38,7 @@ class source:
         except:
             failure = traceback.format_exc()
             log_utils.log('Series9 - Exception: \n' + str(failure))
-            return  
+            return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
@@ -49,7 +49,7 @@ class source:
         except:
             failure = traceback.format_exc()
             log_utils.log('Series9 - Exception: \n' + str(failure))
-            return  
+            return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
@@ -62,7 +62,7 @@ class source:
         except:
             failure = traceback.format_exc()
             log_utils.log('Series9 - Exception: \n' + str(failure))
-            return  
+            return
 
     def searchShow(self, title, season, aliases, headers):
         try:
@@ -80,7 +80,7 @@ class source:
         except:
             failure = traceback.format_exc()
             log_utils.log('Series9 - Exception: \n' + str(failure))
-            return  
+            return
 
     def searchMovie(self, title, year, aliases, headers):
         try:
@@ -105,7 +105,7 @@ class source:
         except:
             failure = traceback.format_exc()
             log_utils.log('Series9 - Exception: \n' + str(failure))
-            return  
+            return
 
     def sources(self, url, hostDict, hostprDict):
         try:
@@ -123,7 +123,7 @@ class source:
                 url = '%s/film/%s-season-%01d/watching.html?ep=%s' % (self.base_link, cleantitle.geturl(data['tvshowtitle']), int(data['season']), ep)
                 r = client.request(url, headers=headers, timeout='10', output='geturl')
 
-                if url == None:
+                if r == None:
                     url = self.searchShow(data['tvshowtitle'], data['season'], aliases, headers)
 
             else:

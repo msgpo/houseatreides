@@ -125,6 +125,7 @@
         <setting id="trakt.user" type="text" label="Account" default="" visible="true" enable="false" />
         <setting id="trakt.token" type="text" visible="false" label="" default="" />
         <setting id="trakt.refresh" type="text" visible="false" label="" default="" />
+        <setting id="trakt.temp.errors" type="bool" label="Display Temp Trakt Errors" default="false" />
         <setting type="sep" />
         <setting type="lsep" label="IMDb" />
         <setting id="imdb.user" type="text" label="32303" default="" />

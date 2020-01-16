@@ -121,7 +121,7 @@ def authTrakt():
 
         progressDialog = control.progressDialog
         progressDialog.create('Trakt', verification_url, user_code)
-
+        r = []
         for i in range(0, expires_in):
             try:
                 percent = int(100 * float(i) / int(expires_in))

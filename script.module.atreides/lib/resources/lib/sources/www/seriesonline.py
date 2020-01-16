@@ -135,7 +135,7 @@ class source:
                     self.base_link, cleantitle.geturl(data['tvshowtitle']), int(data['season']), ep)
                 r = client.request(url, headers=headers, timeout='10', output='geturl')
 
-                if url is None:
+                if r is None:
                     url = self.searchShow(data['tvshowtitle'], data['season'], aliases, headers)
 
             else:

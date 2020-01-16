@@ -1,3 +1,13 @@
+[B][COLOR gold]Marauder Video Plugin v2.0.8a[/COLOR][/B]
+- Notification Adjustment
+- Release from Beta
+
+[B][COLOR gold]Marauder Video Plugin v2.0.8[/COLOR][/B]
+- Coverity Updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.7[/COLOR][/B]
+- TV fixes
+
 [B][COLOR gold]Marauder Video Plugin v2.0.6f[/COLOR][/B]
 - Adjustment to notification window
 

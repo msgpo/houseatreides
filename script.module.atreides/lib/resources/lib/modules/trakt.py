@@ -14,11 +14,13 @@
 
 '''
 2019/12/29: Trakt Sync Status Fix - White Hat
+2020/01/06: Added option for displaying temp trakt errors
 '''
 
 import json
 import re
 import time
+import traceback
 import urllib
 import urlparse
 
@@ -48,7 +50,8 @@ def __getTrakt(url, post=None):
 
         if resp_code in ['500', '502', '503', '504', '520', '521', '522', '524']:
             log_utils.log('Temporary Trakt Error: %s' % resp_code, log_utils.LOGWARNING)
-            notification.infoDialog(title='Temporary Trakt Error', msg=str(resp_code), style='WARNING')
+            if control.setting('trakt.temp.errors') == 'true':
+                notification.infoDialog(title='Temporary Trakt Error', msg=str(resp_code), style='WARNING')
             return
         elif resp_code in ['404']:
             log_utils.log('Object Not Found : %s' % resp_code, log_utils.LOGWARNING)
@@ -74,9 +77,11 @@ def __getTrakt(url, post=None):
 
         headers['Authorization'] = 'Bearer %s' % token
 
-        result = client.request(url, post=post, headers=headers, output='extended', error=True)
+        result = client.request(url, post=post, headers=headers, output='extended', timeout='25', error=True)
         return result[0], result[2]
     except Exception as e:
+        failure = traceback.format_exc()
+        log_utils.log('Trakt - Exception: \n' + str(failure))
         log_utils.log('Unknown Trakt Error: %s' % e, log_utils.LOGWARNING)
         pass
 
@@ -114,7 +119,7 @@ def authTrakt():
 
         progressDialog = control.progressDialog
         progressDialog.create('Trakt', verification_url, user_code)
-
+        r = []
         for i in range(0, expires_in):
             try:
                 percent = int(100 * float(i) / int(expires_in))

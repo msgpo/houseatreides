@@ -19,6 +19,7 @@
 
 '''
 2019.11.29: Secure Protocol Updates
+2020.01.11: Updates imdb votes and rating secondary block
 '''
 
 import datetime
@@ -1324,10 +1325,10 @@ class boxsets:
 
                     rating2 = str(item['imdbRating'])
                     if rating2 == '' or rating2 is None:
-                        rating = rating2
-                    rating = rating.encode('utf-8')
-                    if not rating == '0':
-                        self.boxset_list[i].update({'rating': rating})
+                        rating2 = '0'
+                    rating2 = rating2.encode('utf-8')
+                    if not rating2 == '0':
+                        self.boxset_list[i].update({'rating': rating2})
 
                     votes2 = str(item['imdbVotes'])
                     try:
@@ -1335,9 +1336,9 @@ class boxsets:
                     except Exception:
                         pass
                     if votes2 == '' or votes2 is None:
-                        votes = votes2
-                    votes = votes.encode('utf-8')
-                    if not votes == '0':
+                        votes2 = '0'
+                    votes2 = votes2.encode('utf-8')
+                    if not votes2 == '0':
                         self.boxset_list[i].update({'votes': votes2})
             except Exception:
                 pass

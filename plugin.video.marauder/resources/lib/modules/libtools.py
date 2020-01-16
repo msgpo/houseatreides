@@ -437,7 +437,7 @@ class libtvshows:
                 pass
 
         if self.infoDialog == True:
-            notifiation.infoDialog(msg=control.lang(32554).encode('utf-8'), timer=1)
+            notification.infoDialog(msg=control.lang(32554).encode('utf-8'), timer=1)
 
         if self.library_setting == 'true' and not control.condVisibility('Library.IsScanningVideo'):
             control.execute('UpdateLibrary(video)')

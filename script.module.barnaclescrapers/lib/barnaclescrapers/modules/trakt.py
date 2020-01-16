@@ -103,6 +103,7 @@ def authTrakt():
         interval = result['interval']
         progressDialog = control.progressDialog
         progressDialog.create('Trakt', verification_url, user_code)
+        r=[]
         for i in range(0, expires_in):
             try:
                 if progressDialog.iscanceled(): break

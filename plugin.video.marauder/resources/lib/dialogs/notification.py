@@ -42,6 +42,9 @@ def infoDialog(title="Marauder", msg='', style='INFO', timer=3000):
             self.getControl(self.msg).setLabel(msg)
             self.setProperty('dttext', self.colors.dt_color)
 
+            self.showdialog(notifyAudio)
+
+        def showdialog(self, notifyAudio):
             xbmc.playSFX(notifyAudio)
             xbmc.sleep(100)
             # this puts the focus on the top item of the container

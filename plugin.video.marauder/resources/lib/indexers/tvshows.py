@@ -38,6 +38,7 @@ from resources.lib.modules import (
     cache, cleangenre, cleantitle, client, control, log_utils, metacache, playcount,
     trakt, utils, views, workers)
 
+import requests
 
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?', ''))) if len(sys.argv) > 1 else dict()
@@ -1030,7 +1031,8 @@ class tvshows:
             if tvdb == '0' and not imdb == '0':
                 url = self.tvdb_by_imdb % imdb
 
-                result = client.request(url, timeout='10')
+                #result = client.request(url, timeout='10')
+                result = requests.get(url).content
 
                 try:
                     tvdb = client.parseDOM(result, 'seriesid')[0]
@@ -1053,7 +1055,8 @@ class tvshows:
 
                 years = [str(self.list[i]['year']), str(int(self.list[i]['year'])+1), str(int(self.list[i]['year'])-1)]
 
-                tvdb = client.request(url, timeout='10')
+                #tvdb = client.request(url, timeout='10')
+                tvdb = requests.get(url).content
                 tvdb = re.sub(r'[^\x00-\x7F]+', '', tvdb)
                 tvdb = client.replaceHTMLCodes(tvdb)
                 tvdb = client.parseDOM(tvdb, 'Series')
@@ -1067,7 +1070,8 @@ class tvshows:
                     tvdb = '0'
 
             url = self.tvdb_info_link % tvdb
-            item = client.request(url, timeout='10')
+            #item = client.request(url, timeout='10')
+            item = requests.get(url).content
             if item == None:
                 raise Exception()
 

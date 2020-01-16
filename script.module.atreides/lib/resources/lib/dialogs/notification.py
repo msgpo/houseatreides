@@ -8,6 +8,9 @@
 # ----------------------------------------------------------------------------
 #######################################################################
 
+'''
+2020/01/06: Adjustment so no longer focused style notification windows
+'''
 
 import traceback
 
@@ -42,6 +45,9 @@ def infoDialog(title="Atreides", msg='', style='INFO', timer=3000):
             self.getControl(self.msg).setLabel(msg)
             self.setProperty('dttext', self.colors.dt_color)
 
+            self.showdialog(notifyAudio)
+
+        def showdialog(self, notifyAudio):
             xbmc.playSFX(notifyAudio)
             xbmc.sleep(100)
             # this puts the focus on the top item of the container
@@ -57,5 +63,5 @@ def infoDialog(title="Atreides", msg='', style='INFO', timer=3000):
             pass
 
     ok = Notify_Box('Dialog_Notification.xml', themecontrol.skinModule(), themecontrol.skinTheme(), '1080i', title=title, msg=msg, style=style, timer=timer)
-    ok.doModal()
+    ok.show()
     del ok
