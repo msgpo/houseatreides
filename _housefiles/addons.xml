@@ -125,10 +125,11 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
-<addon id="repository.atreides" name="Atreides Repository" version="0.0.7" provider-name="House Atreides">
+<addon id="repository.atreides" name="Atreides Repository" version="0.0.8" provider-name="House Atreides">
     <requires>
         <import addon="xbmc.addon" version="12.0.0"/>
     </requires>
+    <extension point="xbmc.service" library="service.py" start="[login|startup]" />
     <extension point="xbmc.addon.repository" name="Atreides Repository">
         <info compressed="false">https://raw.githubusercontent.com/therealatreides/houseatreides/master/_housefiles/addons.xml</info>
         <checksum>https://raw.githubusercontent.com/therealatreides/houseatreides/master/_housefiles/addons.xml.md5</checksum>
